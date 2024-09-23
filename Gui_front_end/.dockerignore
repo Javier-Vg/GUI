@@ -1,0 +1,5 @@
+dockerignore
+node_modules
+**/node_modules
+README.md
+eslint.config.js
