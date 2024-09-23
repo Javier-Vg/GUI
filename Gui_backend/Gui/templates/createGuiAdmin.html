@@ -1,0 +1,9 @@
+{% extends "layout.html" %}
+{% block title %} Create Book {% endblock title %}
+{% block content %}
+<form method="post">
+  {% csrf_token %} {% comment %} Cross Site Request Forgery protection {% endcomment %}
+  {{ form }}
+  <input type="submit" value="Save book">
+</form>
+{% endblock content %}
