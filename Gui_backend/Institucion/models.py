@@ -12,6 +12,6 @@ class Institution(models.Model):  # Cambié el nombre de la clase a singular
     updated_date = models.DateTimeField(auto_now=True)  # Establecer la fecha de actualización automáticamente
     number_phone = models.CharField(max_length=15, blank=False, null=False)  # Cambié a CharField para permitir formatos de teléfono
     email = models.EmailField(validators=[validate_email], blank=False, null=True)
-    
+        
     def __str__(self):
         return self.name
