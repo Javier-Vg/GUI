@@ -1,19 +1,18 @@
-import React from 'react'
-import { BrowserRouter as Router,Routes,Route} from 'react-router-dom'
-import Login from '../page/LoginGui'
-
+import React from 'react';
+import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import Login from '../page/LoginGui';
+import HomeInstitutions from '../page/HomeInstitutions';
 
 function Routing() {
   return (
-    <div>
-        <Router>
-          <Routes>
-            <Route path="LoginGUI/" element={<Login />} />
-           
-          </Routes>
-        </Router>
-    </div>
-  )
+    <Router>
+      <Routes>
+        <Route path="/login_gui" element={<Login />} />
+        <Route path="/home-institutions" element={<HomeInstitutions />} />
+
+      </Routes>
+    </Router>
+  );
 }
 
-export default Routing
+export default Routing;
