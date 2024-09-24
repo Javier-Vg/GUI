@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 import { useNavigate, Link } from 'react-router-dom';
-import { getDatos } from '../../service/LoginGui'; // Importa la función que obtiene los datos desde tu API
+import { getDatos } from '../../service/LoginGui';
 
 function LoginFormGui() {
   const [nombre, setNombre] = useState('');
