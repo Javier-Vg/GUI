@@ -1,5 +1,10 @@
-from django.urls import path
-from .views import CreateAdminView
+from django.urls import path, include
+from rest_framework.routers import DefaultRouter
+from .views import AdminGuiViewSet
+
+router = DefaultRouter()
+router.register(r'admins', AdminGuiViewSet)
+
 urlpatterns = [
-    path('Create_admin_Gui/', CreateAdminView.as_view(), name='create_Gui_admin'),
+    path('', include(router.urls)),
 ]

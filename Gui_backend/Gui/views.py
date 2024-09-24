@@ -1,9 +1,7 @@
-from django.shortcuts import render
-from django.views.generic import CreateView
-from Gui.models import Admin_Gui
+from rest_framework import viewsets
+from .models import Admin_Gui
+from .serializers import AdminGuiSerializer
 
-# Create your views here.
-class CreateAdminView(CreateView):
-    model = Admin_Gui
-    fields = ["nombre","email","password","rol"]
-    template_name = "createGuiAdmin.html"
+class AdminGuiViewSet(viewsets.ModelViewSet):
+    queryset = Admin_Gui.objects.all()
+    serializer_class = AdminGuiSerializer
