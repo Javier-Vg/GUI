@@ -1,9 +1,9 @@
 from django.urls import path, include
 from rest_framework.routers import DefaultRouter
-from .views import AdminGuiViewSet
+from .views import InstitutionViewSet
 
 router = DefaultRouter()
-router.register(r'create_admin', AdminGuiViewSet)
+router.register(r'institution', InstitutionViewSet)
 
 urlpatterns = [
     path('', include(router.urls)),
