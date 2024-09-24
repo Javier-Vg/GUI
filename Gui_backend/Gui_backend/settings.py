@@ -45,6 +45,7 @@ INSTALLED_APPS = [
     'Api.apps.ApiConfig',
     'rest_framework',
     'corsheaders',
+    'Institucion'
 ]
 
 MIDDLEWARE = [

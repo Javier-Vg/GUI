@@ -49,7 +49,7 @@ function LoginFormGui() {
   // Hook para redirigir al usuario si se encuentra una coincidencia
   useEffect(() => {
     if (userFound) {
-      navigate('/home'); // Redirige a la página de inicio si el usuario es válido
+      navigate('/Gui'); // Redirige a la página de inicio si el usuario es válido
     }
   }, [userFound, navigate]);
 

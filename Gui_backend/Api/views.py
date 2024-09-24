@@ -7,6 +7,7 @@ from .serializers import PostSerializer
 from rest_framework.authentication import BasicAuthentication
 from rest_framework.permissions import IsAuthenticated
 from rest_framework.authentication import TokenAuthentication
+
 @api_view(['GET'])
 def helloworld(request):
     return Response({"message": "Hello, World!"})
@@ -14,5 +15,5 @@ def helloworld(request):
 class PostViewSet(ModelViewSet):
     queryset = Post.objects.all()
     serializer_class=PostSerializer
-    authentication_classes = [TokenAuthentication]
-    permission_classes = [IsAuthenticated]
+    # authentication_classes = [TokenAuthentication]
+    # permission_classes = [IsAuthenticated]
