@@ -9,3 +9,19 @@ export const getDatos = async () => {
       throw error;
     }
   };
+  export const PostData = async (nombre,contra, email,rol) => {
+    try {
+      const response = await axios.post("http://localhost:8000/api/gui/admins/", {
+          nombre: nombre,
+          email:email,
+          password: contra,
+          rol: rol,
+        
+      });
+      return response.data;
+    } catch (error) {
+      console.error("Error haciendo la solicitud:", error);
+      throw error;
+    }
+  };
+  
