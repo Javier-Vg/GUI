@@ -1,27 +1,66 @@
 import React, { useState } from 'react';
 import CreateStaff from './CreateStaff';
+import CreateStudent from './createStudent';
+import ListTeacher from './ListTeacher';
+import ListStudent from './listStudent';
 
-function Home_institutions_form() {
+function HomeInstitutionsForm() {
     const [changeComponent, setChangeComponent] = useState('');
-    console.log(changeComponent)
+    console.log(changeComponent);
+
     return (
         <div>
             <h1>Nombre de la institución</h1>
             <p>Correo de la institución</p>
-            <button value="crear personal" onClick={() => setChangeComponent("crear personal")}>Crear Personal</button>
-            <button>Crear estudiante</button>
-            <button>Profesor</button>
-            <button>Estudiantes</button>
-            <button>Grupos</button>
-            <button>Gastos</button>
-            <button>Soporte de sistema</button>
-            <button>Cerrar sesión</button>
+            <input 
+                type="button" 
+                value="Crear Personal" 
+                onClick={() => setChangeComponent("crear personal")} 
+            />
+            <input 
+                type="button" 
+                value="Crear Estudiante" 
+                onClick={() => setChangeComponent("crear estudiante")} 
+            />
+            <input 
+                type="button" 
+                value="Profesor" 
+                onClick={() => setChangeComponent("profesor")} 
+            />
+            <input 
+                type="button" 
+                value="Estudiantes" 
+                onClick={() => setChangeComponent("estudiantes")} 
+            />
+            <input 
+                type="button" 
+                value="Grupos" 
+                onClick={() => setChangeComponent("grupos")} 
+            />
+            <input 
+                type="button" 
+                value="Gastos" 
+                onClick={() => setChangeComponent("gastos")} 
+            />
+            <input 
+                type="button" 
+                value="Soporte de Sistema" 
+                onClick={() => setChangeComponent("soporte de sistema")} 
+            />
+            <input 
+                type="button" 
+                value="Cerrar Sesión" 
+                onClick={() => setChangeComponent("cerrar sesión")} 
+            />
 
             <div>
                 {changeComponent === "crear personal" && <CreateStaff />}
+                {changeComponent === "crear estudiante" && <CreateStudent />}
+                {changeComponent === "profesor" && < ListTeacher/>}
+                {changeComponent === "estudiante" && < ListStudent/>}
             </div>
         </div>
     );
 }
 
-export default Home_institutions_form;
+export default HomeInstitutionsForm;
