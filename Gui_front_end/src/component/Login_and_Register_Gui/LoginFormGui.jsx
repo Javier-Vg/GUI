@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import { useNavigate, Link } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import { getDatos } from '../../service/LoginGui';
 import '../../css/loginGui.css'
 
@@ -30,7 +30,6 @@ function LoginFormGui() {
           if (user.nombre === nombre && user.email === email && user.password === contra) {
             setUserFound(true); // Si coincide, cambia el estado de `userFound`
             console.log("todo bien");
-            
           }
         });
 
@@ -55,36 +54,42 @@ function LoginFormGui() {
   }, [userFound, navigate]);
 
   return (
-    <div className="body">
-      <div className="container-Principal">
-        <h4>LOGIN</h4>
-        <form onSubmit={handleLogin}>
-          <label htmlFor="nombre">Nombre</label>
+    <div className="login-body">
+      <div className="login-container">
+        <div className="container-letters-login" >
+          <h4 className="login-title">INICIAR SESIÓN</h4>
+          </div>
+        
+        <form className="login-form" onSubmit={handleLogin}>
+          <label htmlFor="nombre" className="login-label">Nombre</label>
           <input
             type="text"
             id="nombre"
             name="nombre"
+            className="login-input"
             value={nombre}
             onChange={(e) => setNombre(e.target.value)}
           />
-          <label htmlFor="email">Correo</label>
+          <label htmlFor="email" className="login-label">Correo</label>
           <input
             type="email"
             id="email"
             name="email"
+            className="login-input"
             value={email}
             onChange={(e) => setEmail(e.target.value)}
           />
-          <label htmlFor="contra">Contraseña</label>
+          <label htmlFor="contra" className="login-label">Contraseña</label>
           <input
             type="password"
             id="contra"
             name="contra"
+            className="login-input"
             value={contra}
             onChange={(e) => setContra(e.target.value)}
           />
-          <h6>{texto}</h6>
-          <button type="submit">Iniciar</button>
+          <h6 className="login-error-text">{texto}</h6>
+          <button type="submit" className="login-button">Iniciar</button>
         </form>
       </div>
     </div>
