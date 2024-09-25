@@ -1,34 +1,54 @@
-import React from 'react'
-import { useEffect, useState } from 'react';
-import { getInstitutions } from '../../service/LoginGui'
-function List_institutions() { 
+import React, { useEffect, useState } from 'react';
+import { getInstitutions } from '../../service/LoginGui';
+import "../../css/Gui_list_institutions.css"
+function ListInstitutions() { 
     const [instituciones, setInstituciones] = useState([]);
-
+    const [seeMore, setSeeMore] = useState(false);
+    const [selectedInstitution, setSelectedInstitution] = useState(null);
+    
     useEffect(() => {
-        get_Institutions();// el useeffect actualiza el getInstitutions cada que hay un cambio
-    }, []);                 // o se crea una nueva institucion
+        getInstitutionsData(); 
+    }, []);
 
-    const get_Institutions = async () => {
+    const getInstitutionsData = async () => {
         try {
             const institutions = await getInstitutions();
             setInstituciones(institutions);
         } catch (error) {
-            console.error("Error fetching institutions:", error);//maneja el flujo de errores
+            console.error("Error fetching institutions:", error);
         }
     };
+
+    const openModal = (institution) => {
+        setSelectedInstitution(institution);
+        setSeeMore(true);
+    };
+
+    const closeModal = () => {
+        setSeeMore(false);
+        setSelectedInstitution(null);
+    };
+
     return (
         <div>
+            <h1>Instituciones</h1>
             {instituciones.map((item) => (
                 <div key={item.id}>
-                    <h2>{item.name}</h2>
-                    <p>Direccion: {item.direction}</p>
-                    <p>Correo electronico: {item.email}</p>
-                    <p>Numero Telefonico: {item.number_phone}</p>
+                    <h3>{item.name}</h3>
+                    <p>{item.subscription_date}</p>
+                    <input onClick={() => openModal(item)} type="button" value="Ver más" />
                     <hr />
                 </div>
             ))}
+            {seeMore && selectedInstitution && (
+                <div>
+                    <h2>Información de la Institución</h2>
+                    <p>{selectedInstitution.name}</p>
+                    <input onClick={closeModal} type="button" value="x" />
+                </div>
+            )}
         </div>
     );
 }
 
-export default List_institutions
+export default ListInstitutions;
