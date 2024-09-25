@@ -6,5 +6,7 @@ from .router import router_post
 urlpatterns = [
     path('post/', include(router_post.urls)),
     path('gui/', include("Gui.urls")),
-    path('institutions/', include('Institucion.urls')) #Institucion.urls es e nombre del app
+    path('institutions/', include('Institucion.urls')), #Institucion.urls es e nombre del app
+    path('teachers/', include('teachers.urls')), #Institucion.urls es e nombre del app
+    path('administration/', include('administration.urls')) #Institucion.urls es e nombre del app
 ]
