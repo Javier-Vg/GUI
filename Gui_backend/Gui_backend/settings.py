@@ -50,8 +50,9 @@ INSTALLED_APPS = [
     'administration',
     'contracts',
     'students',
-    'groups'
-]
+    'groups',
+    'materias'
+] # nombre de las apps
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',

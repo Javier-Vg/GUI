@@ -11,5 +11,6 @@ urlpatterns = [
     path('administration/', include('administration.urls')), #Institucion.urls es e nombre del app
     path('contracts/', include('contracts.urls')),
     path('students/', include('students.urls')),
-    path('groups/', include('groups.urls'))
+    path('groups/', include('groups.urls')),
+    path('subjects/', include('materias.urls'))
 ]
