@@ -5,7 +5,7 @@ function LoginGui() {
   return (
     <div>
       <LoginFormGui />
-      <RegisterFormGui/>
+      
     </div>
   )
 }

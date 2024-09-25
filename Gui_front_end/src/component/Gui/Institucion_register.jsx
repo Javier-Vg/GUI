@@ -17,16 +17,10 @@ function Institucion_register() {
       console.error("Error al enviar los datos:", error); // maneja el flujo de errores
     }
   };
-
-  const handleSubmit = (e) => {
-    e.preventDefault(); // Evita que el formulario se recargue
-    send_data();
-  };
-
+  send_data();
   return (
     <div>
       <h2>Registro de Instituciones</h2>
-      <form onSubmit={handleSubmit}>
         <label htmlFor="name_institution">Nombre de la Institución:</label>
         <input
           type="text"
@@ -88,7 +82,6 @@ function Institucion_register() {
         />
 
         <input type="submit" value="Guardar" />
-      </form>
     </div>
   );
 }

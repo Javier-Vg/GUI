@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react";
 import { useNavigate, Link } from 'react-router-dom';
 import { getDatos } from '../../service/LoginGui';
+import '../../css/loginGui.css'
 
 function LoginFormGui() {
   const [nombre, setNombre] = useState('');
@@ -54,8 +55,8 @@ function LoginFormGui() {
   }, [userFound, navigate]);
 
   return (
-    <div>
-      <div>
+    <div className="body">
+      <div className="container-Principal">
         <h4>LOGIN</h4>
         <form onSubmit={handleLogin}>
           <label htmlFor="nombre">Nombre</label>
@@ -85,9 +86,6 @@ function LoginFormGui() {
           <h6>{texto}</h6>
           <button type="submit">Iniciar</button>
         </form>
-        <div className="boton-registro">
-          <Link to='/register'>Registrarme</Link>
-        </div>
       </div>
     </div>
   );
