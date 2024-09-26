@@ -13,7 +13,7 @@ class Institution(models.Model):  # Cambié el nombre de la clase a singular
     updated_date = models.DateTimeField(auto_now=True)  
     number_phone = models.CharField(max_length=15, blank=False, null=False)  # Cambié a CharField para permitir formatos de teléfono
     email = models.EmailField(validators=[validate_email], blank=False, null=True)
-    imagen = models.ImageField(upload_to='images/') #permite cargar una imagen y guardarla en la carpeta images/ dentro del directorio de medios.
+    image = models.ImageField(upload_to='images/') #permite cargar una imagen y guardarla en la carpeta images/ dentro del directorio de medios.
     imagen_url = models.URLField(blank=True, null=True)  #almacenará la URL de la imagen que se sube a Imgur. 
 
     def save(self, *args, **kwargs):
