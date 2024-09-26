@@ -12,7 +12,6 @@ function Routing() {
             <Route path="LoginGUI/" element={<Login />} />
             <Route path="Gui/" element={<Home_Gui />} />
             <Route path="/home-institutions" element={<HomeInstitutions />} />
-
           </Routes>
         </Router>
     </div>
