@@ -32,6 +32,7 @@ class staff(models.Model):
     email =  models.CharField(max_length=100, blank=False, null=False)
     employment_status =  models.CharField(max_length=100, blank=False, null=False, choices = STATUS)
     position = models.CharField(max_length=100, blank=False, null=False, choices = POSITION)
+    school_subjects = models.JSONField(default=list, null=True)
     salary = models.FloatField(null=True, blank=False)
     institution = models.ForeignKey(Institution, on_delete=models.CASCADE)
     #schedule = models.ForeignKey(Owner, on_delete=models.CASCADE)
