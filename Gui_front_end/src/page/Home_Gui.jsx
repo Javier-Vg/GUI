@@ -9,7 +9,6 @@ function Home_Gui() {
   return (
     <div className="Gui">
       <div className="Menu">
-
         <div className="Sidebar">
           <input
             type="button"
@@ -27,17 +26,13 @@ function Home_Gui() {
             onClick={() => setChangeComponent("Gestionar Instituciones")}
           />
         </div>
-        <div>
+        <div className="Menu2">
           <div className="Nav"></div>
           <div className="div-componentes">
             {/* // cambia los componentes dependiendo de el estado */}
             {changeComponent === "Registrar Admin" && <RegisterFormGui />}
-            {changeComponent === "Crear Instituciones" && (
-              <Institucion_register />
-            )}
-            {changeComponent === "Gestionar Instituciones" && (
-              <List_institutions />
-            )}
+            {changeComponent === "Crear Instituciones" && <Institucion_register />}
+            {changeComponent === "Gestionar Instituciones" && <List_institutions />}
           </div>
         </div>
         

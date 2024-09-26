@@ -31,14 +31,18 @@ function ListInstitutions() {
 
     return (
         <div className='container_list'>
-            {/* <h1>Instituciones</h1>
+            <h1>Instituciones</h1>
             <div className='institutions'>
                 {instituciones.map((item) => (
                 <div className='container_institutions_list' key={item.id}>
-                    <img className='Logo_Institution' src={item.imagen_url} alt="No found" />
-                    <h3>{item.name}</h3>
-                    <p>{item.subscription_date}</p>
-                    <input onClick={() => openModal(item)} type="button" value="Ver más" />
+                    <div className='div_img'>
+                        <img className='Logo_Institution' src={item.imagen_url} alt="No found" />
+                    </div>
+                    <div className='institution_inf'>
+                        <h2>{item.name}</h2>
+                        <h6>{item.name}</h6>
+                        <input onClick={() => openModal(item)} type="button" value="Ver más" />
+                    </div>   
                 </div>
             ))}
             </div>
@@ -57,7 +61,7 @@ function ListInstitutions() {
                     <h3>{selectedInstitution.subscription}</h3>
                     <input onClick={closeModal} type="button" value="x" />
                 </div>
-            )} */}
+            )}
         </div>
     );
 }

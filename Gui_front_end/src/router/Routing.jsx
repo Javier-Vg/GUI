@@ -5,8 +5,10 @@ import Home_Gui from '../page/Home_Gui'
 import HomeInstitutions from '../page/HomeInstitutions';
 
 function Routing() {
+
   return (
-    <div>
+    
+    <div id='root'>
         <Router>
           <Routes>
             <Route path="LoginGUI/" element={<Login />} />

@@ -44,7 +44,7 @@ export const postInstitutions = async (name, address, estado, subscriptionType, 
         number_phone: phoneNumber,
         email: email,
         subscription_date: date,
-        image:Image
+        imagen:Image
       });
       return response.data;
     } catch (error) {

@@ -8,7 +8,7 @@ function Institucion_register() {
   const [phoneNumber, setPhoneNumber] = useState("");
   const [email, setEmail] = useState("");
   const [date, setdate] = useState("");
-  const [Image, setfile] = useState("");
+  const [Image, setfile] = useState(null);
 
 
   // esos usestate guarda los estados de los inputs y los envia
@@ -123,8 +123,7 @@ function Institucion_register() {
             className="inpts"
             type="file"
             id="file"
-            value={Image}
-            onChange={(e) => setfile(e.target.value)}
+            onChange={(e) => setfile(e.target.files[0])}
             required
           />
         </div>
