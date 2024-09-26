@@ -4,7 +4,7 @@ from groups.models import group  # Importa el modelo de Institution
 
 # Create your models here.
 class subjects(models.Model):  # materia = subject
-    subject_name =  models.CharField(max_length=100, blank=False, null=False)
+    name =  models.CharField(max_length=100, blank=False, null=False)
     educational_level =  models.CharField(max_length=100, blank=False, null=False)
     institution = models.ForeignKey(Institution, on_delete=models.CASCADE)
     group = models.ForeignKey(group, on_delete=models.CASCADE)
