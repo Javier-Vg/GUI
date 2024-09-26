@@ -30,8 +30,6 @@ function RegisterFormGui() {
       // Asumiendo que tu API devuelve un objeto con una propiedad `success`
         setTexto("Registro exitoso!"); // Muestra mensaje de registro exitoso
      
-       
-    
     }
   };
 

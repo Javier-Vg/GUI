@@ -151,3 +151,13 @@ REST_FRAMEWORK = {
         "rest_framework.authentication.TokenAuthentication"
     ]
 }
+
+
+
+
+#-------------------------IMGUR
+IMGUR_CLIENT_ID = '2feafcbc2dd6246'
+IMGUR_CLIENT_SECRET = '992669ee21c587d0f704a82ffd1d5d447c65bdaf'
+
+MEDIA_URL = '/media/'
+MEDIA_ROOT = BASE_DIR / 'media' #Las imágenes cargadas se guardarán en media/images/.
