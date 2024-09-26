@@ -1,13 +1,9 @@
 from django.db import models
-from django.core.validators import validate_email
 from Institucion.models import Institution  # Importa el modelo de Institution
-from staff.models import staff  # Importa el modelo de Institution
 
-class groups(models.Model):  # Cambié el nombre de la clase a singular
+class group(models.Model):  # Cambié el nombre de la clase a singular
     group_name = models.CharField(max_length=100, blank=False, null=False)
     educational_level = models.CharField(max_length=100, blank=False, null=False)
     institution = models.ForeignKey(Institution, on_delete=models.CASCADE)
-    teacher = models.ForeignKey(staff, on_delete=models.CASCADE)
-    
     def __str__(self):
         return self.name

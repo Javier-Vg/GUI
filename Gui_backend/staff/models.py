@@ -1,5 +1,4 @@
 from django.db import models
-from django.core.validators import validate_email
 from Institucion.models import Institution  # Importa el modelo de Institution
 from contracts.models import contracts  # Importa el modelo de Institution
 from materias.models import subjects  # Importa el modelo de Institution
