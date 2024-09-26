@@ -30,23 +30,34 @@ function ListInstitutions() {
     };
 
     return (
-        <div>
-            <h1>Instituciones</h1>
-            {instituciones.map((item) => (
-                <div key={item.id}>
+        <div className='container_list'>
+            {/* <h1>Instituciones</h1>
+            <div className='institutions'>
+                {instituciones.map((item) => (
+                <div className='container_institutions_list' key={item.id}>
+                    <img className='Logo_Institution' src={item.imagen_url} alt="No found" />
                     <h3>{item.name}</h3>
                     <p>{item.subscription_date}</p>
                     <input onClick={() => openModal(item)} type="button" value="Ver más" />
-                    <hr />
                 </div>
             ))}
+            </div>
+            
             {seeMore && selectedInstitution && (
                 <div>
                     <h2>Información de la Institución</h2>
-                    <p>{selectedInstitution.name}</p>
+                    <h3>{selectedInstitution.id}</h3>
+                    <h3>{selectedInstitution.name}</h3>
+                    <h3>{selectedInstitution.direcciom}</h3>
+                    <h3>{selectedInstitution.payment_status}</h3>
+                    <h3>{selectedInstitution.suscription_type}</h3>
+                    <h3>{selectedInstitution.create_date}</h3>
+                    <h3>{selectedInstitution.number_phone}</h3>
+                    <h3>{selectedInstitution.email}</h3>
+                    <h3>{selectedInstitution.subscription}</h3>
                     <input onClick={closeModal} type="button" value="x" />
                 </div>
-            )}
+            )} */}
         </div>
     );
 }
