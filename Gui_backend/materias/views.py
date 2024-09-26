@@ -1,8 +1,8 @@
 from rest_framework import viewsets
-from .models import students
-from .serializers import Students_Serializer
+from .models import subjects
+from .serializers import Subjects_Serializer
 
 # Create your views here.
-class StudentsViewSet(viewsets.ModelViewSet):
-    queryset = students.objects.all()
-    serializer_class = Students_Serializer
+class SubjectsViewSet(viewsets.ModelViewSet):
+    queryset = subjects.objects.all()
+    serializer_class = Subjects_Serializer

@@ -1,24 +1,12 @@
 from django.db import models
 from Institucion.models import Institution  # Importa el modelo de Institution
+from teachers.models import teachers  # Importa el modelo de Institution
+from groups.models import groups  # Importa el modelo de Institution
 
 # Create your models here.
 class subjects(models.Model):  # materia = subject
-    
-    STATUS = [
-        ('Inactive', 'inactive'),
-        ('Active', 'active'),
-        ('Graduate', 'graduate'),
-    ]
-    
-    name =  models.CharField(max_length=100, blank=False, null=False)
-    last_name =  models.CharField(max_length=100, blank=False, null=False)
-    identification_number =  models.CharField(max_length=100, blank=False, null=False)
-    birthdate_date =   models.DateField(blank=False, null=False)
-    grade =  models.CharField(max_length=100, blank=False, choices= STATUS)
-    academcic_status =  models.CharField(max_length=100, blank=False, null=False)
-    #group =  models.ForeignKey(Institution, on_delete=models.CASCADE)
-    institution =  models.ForeignKey(Institution, on_delete=models.CASCADE)
-    allergy_information = models.CharField(max_length=100, blank=False, null=False)
-    contact_information = models.CharField(max_length=100, blank=False, null=False)
-    image = models.CharField(max_length=100, blank=False, null=True)
-    
+    subject_name =  models.CharField(max_length=100, blank=False, null=False)
+    educational_level =  models.CharField(max_length=100, blank=False, null=False)
+    teacher = models.ForeignKey(teachers, on_delete=models.CASCADE)
+    institution = models.ForeignKey(Institution, on_delete=models.CASCADE)
+    group = models.ForeignKey(groups, on_delete=models.CASCADE)
