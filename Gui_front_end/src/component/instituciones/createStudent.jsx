@@ -24,19 +24,17 @@ function CreateStudent() {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    
+    // Validación de campos obligatorios
+    for (const [key, value] of Object.entries(studentData)) {
+      if (!value) {
+        console.error(`El campo ${key} es obligatorio.`);
+        return; // Salir si algún campo está vacío
+      }
+    }
+
     try {
-      // Enviar datos del estudiante usando la función postStudents
-      const response = await postStudents(
-        studentData.nombre,
-        studentData.apellido,
-        studentData.identificacion,
-        studentData.fecha_nacimiento,
-        studentData.grado,
-        studentData.estado_academico,
-        studentData.telefono,
-        studentData.email,
-        studentData.contacto_emergencia
-      );
+      const response = await postStudents(studentData);
       console.log('Estudiante agregado exitosamente:', response);
     } catch (error) {
       console.error('Error al agregar estudiante:', error);
@@ -81,7 +79,7 @@ function CreateStudent() {
       <label>
         Fecha de Nacimiento:
         <input
-          type="text" // Asegúrate de usar este tipo para fechas
+          type="date" // Cambiado a tipo "date" para mejor manejo de fechas
           name="fecha_nacimiento"
           value={studentData.fecha_nacimiento}
           onChange={handleInputChange}
