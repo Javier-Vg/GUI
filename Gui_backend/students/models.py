@@ -25,7 +25,7 @@ class students(models.Model):
     identification_number =  models.CharField(max_length=100, blank=False, null=False)
     birthdate_date =   models.DateField(blank=False, null=False)
     grade =  models.CharField(max_length=100, blank=False, choices= GRADES)
-    academcic_status =  models.CharField(max_length=100, blank=False, null=False, choices= STATUS)
+    academic_status =  models.CharField(max_length=100, blank=False, null=False, choices= STATUS)
     allergy_information = models.CharField(max_length=100, blank=False, null=False)
     contact_information = models.CharField(max_length=100, blank=False, null=False)
     institution =  models.ForeignKey(Institution, on_delete=models.CASCADE)
