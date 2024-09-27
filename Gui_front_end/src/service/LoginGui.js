@@ -52,26 +52,43 @@ export const postInstitutions = async (name, address, estado, subscriptionType, 
       throw error;
     }
   };
-
- 
-
-  export const postStudents = async (studentData) => {
-    try {
-      const response = await axios.post('http://localhost:8000/api/students/students/', {
-        name: studentData.nombre,
-        last_name: studentData.apellido,
-        identification_number: studentData.identificacion,
-        birthdate_date: studentData.fecha_nacimiento,
-        grade: studentData.grado,
-        academic_status: studentData.estado_academico,
-        contact_information: studentData.telefono,
-        email: studentData.email,
-        emergency_contact: studentData.contacto_emergencia,
-      });
   
-      return response.data; 
+
+
+
+
+  export const getStaff = async () => {
+    try {
+      const response = await axios.get('http://localhost:8000/api/staff/staff/');
+      return response.data
     } catch (error) {
-      console.error('Error al agregar el estudiante', error.response?.data || error);
+      console.error('Error fetching user data:', error);
       throw error;
     }
   };
+  
+export const postStaff = async (name, address, estado, subscriptionType, phoneNumber, email,date,Image) => {
+    try {
+      const response = await axios.post("http://localhost:8000/api/staff/staff/", {
+        name: name,
+        last_name: address,
+        identification_number : estado,
+        birthdate_date: subscriptionType,
+        direction: phoneNumber,
+        phone_number: email,
+        email: date,
+        employment_status: date,
+        position: date,
+        salary: date,
+        imagen: date,
+        contract: date,
+        subjects: date,
+        school_subjects:Image
+      });
+      return response.data;
+    } catch (error) {
+      console.error("Error haciendo la solicitud:", error);
+      throw error;
+    }
+  };
+  
