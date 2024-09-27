@@ -7,7 +7,7 @@ class Institution(models.Model):  # Cambié el nombre de la clase a singular
     name = models.CharField(max_length=100, blank=False, null=False)
     direction = models.CharField(max_length=100, blank=False, null=False)
     payment_status = models.CharField(max_length=225, blank=False, null=False)
-    subscription_date = models.DateField(default=timezone.now, blank=False) 
+    subscription_date = models.DateField(auto_now_add=True, blank=False) 
     suscription_type = models.CharField(max_length=50, blank=False)
     create_date = models.DateTimeField(auto_now_add=True)  # Establecer la fecha de creación automáticamente
     updated_date = models.DateTimeField(auto_now=True)  
@@ -25,6 +25,6 @@ class Institution(models.Model):  # Cambié el nombre de la clase a singular
             imagen_url = upload_image_to_imgur(self.imagen.path)  #toma la ruta local de la imagen y la sube a Imgur, devolviendo la URL de la imagen.
             self.imagen_url = imagen_url #Asigna la URL obtenida al campo imagen_url del modelo.
             super().save(update_fields=['imagen_url'])
-    
+
     def __str__(self):
         return self.name

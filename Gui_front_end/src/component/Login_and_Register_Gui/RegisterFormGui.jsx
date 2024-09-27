@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { PostData, getDatos } from '../../service/LoginGui'; // Asegúrate de importar `getDatos`
-
+import '../../css/RegisterFormGui.css';
 function RegisterFormGui() {
   const [nombre, setNombre] = useState('');
   const [rol, setRol] = useState('');

@@ -34,7 +34,7 @@ export const getInstitutions = async () => {
     }
   };
   
-export const postInstitutions = async (name, address, estado, subscriptionType, phoneNumber, email,date,Image) => {
+export const postInstitutions = async (name, address, estado, subscriptionType, phoneNumber, email,image) => {
     try {
       const response = await axios.post("http://localhost:8000/api/institutions/institution/", {
         name: name,
@@ -43,8 +43,7 @@ export const postInstitutions = async (name, address, estado, subscriptionType, 
         suscription_type: subscriptionType,
         number_phone: phoneNumber,
         email: email,
-        subscription_date: date,
-        imagen:Image
+        imagen: image,
       });
       return response.data;
     } catch (error) {
