@@ -9,7 +9,6 @@ class students(models.Model):
         ('Active', 'active'),
         ('Graduate', 'graduate'),
     ]
-    
     name =  models.CharField(max_length=100, blank=False, null=False)
     last_name =  models.CharField(max_length=100, blank=False, null=False)
     identification_number =  models.CharField(max_length=100, blank=False, null=False)
