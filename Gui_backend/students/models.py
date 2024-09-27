@@ -20,6 +20,7 @@ class students(models.Model):
         ('Inactive', 'inactive')
     ]
     
+    id = models.AutoField(primary_key=True)
     name =  models.CharField(max_length=100, blank=False, null=False)
     last_name =  models.CharField(max_length=100, blank=False, null=False)
     identification_number =  models.CharField(max_length=100, blank=False, null=False)
