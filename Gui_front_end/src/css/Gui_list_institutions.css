@@ -1,25 +1,133 @@
-* {
-  margin: 0px;
+/* ////////////////////////////////// */
+
+/* .registration-form {
+    background-color: #4E284C;
+    border-radius: 10px;
+    width: 95;
+    height: 125%;
+    display: grid;
+    text-align: center;
 }
 
+.registration-form label {
+    display: block;
+    text-align: start;
+    color: white;
+}
+.img_circle{
+    width: 150px;
+    height: 150px;
+    border-radius: 50%;
+    background-color: #fefefe;
+    display: grid;
+    margin-top: 3%;
+    margin-left: 41%;
+}
+.inpts,select {
+    display: block;
+    cursor: pointer;
+    border-radius: none;
+    background-color: transparent !important;
+    color: white;
+    border: none;
+    border-bottom: 1px solid white;
+    width: 90%;
+    
+}
+.registration-form input:focus{
+   outline: none;
+}
+
+.container_inputs{
+    padding-top: 3%;
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    place-items: center;
+}
+.divsInputs{
+    padding: 4%;
+    width: 50%;
+    height: 100%;
+}
+/* 
+.institutions{
+    display: grid;
+    grid-template-columns: repeat(4,1fr);
+    place-items: center;
+    gap: 4%;
+    row-gap: 5%;
+}
+.container_institutions_list{
+    width: 100%;
+    height: 100%;
+    border: solid black 1px;
+}
+
+
+
+/* .registration-form input,
+.registration-form select {
+} */
+/* 
+.registration-form input[type="submit"] {
+    background-color: black;
+    color: white;
+    cursor: pointer;
+    border: none;
+} */
+/* 
+.registration-form input[type="submit"]:hover {
+    background-color: #333;
+} */
+/* 
+.form-row {
+    display: flex;
+    justify-content: space-between;
+} */
+
+/* .form-row input {
+    width: calc(48% - 10px);
+} */
+
+/* .profile-pic {
+    width: 80px;
+    height: 80px;
+    background-color: #ddd;
+    border-radius: 50%;
+    margin: 0 auto 20px auto;
+} */
+ /* //////////////////////////////////////////////////////////////// */
+*{
+    margin: 0;
+    padding: 0;
+    overflow: hidden;
+}
 .Nav{
     width: 100%;
-    height: 70px;
-    background-color: #FFFFFF;
+    height: 10%;
 }
 .Menu{
     display: grid;
-    grid-template-columns: 15% 85%; /* Dos columnas del 50% */
-    height: 45.9vw;
+    grid-template-columns: 15% 85%;
+    width: 100%;
+    height: 50.5vw; 
 }
-
+.Menu2{
+    width: 100%;
+    height: 100%;
+}
 .Sidebar {
-    height: 110%;
+    height: 100%;
     display: grid;
     place-content: center;
     background-color: #4E284C;
 }
-
+.div-componentes{
+    display: grid;
+    width: 100%;
+    height: 90%;
+}
+/* /////////////////////////////////////////////////////// */
 .Sidebar input[type="button"] {
     background-color: #007BFF; 
     color: white; 
@@ -35,9 +143,62 @@
     background-color: #0056b3;
     transform: scale(1.05); 
 }
+/* ///////////////////////////////////////////////////////////////// */
 
-.div-componentes{
-    display: grid;
-    padding: 1%;
-    grid-template-columns: auto;
+.container_list{
+    width: 100%;
 }
+/* .institutions{
+    display: grid;
+    grid-template-columns: repeat(4,1fr);
+    background-color: red;
+}
+.container_institutions_list{
+    overflow: hidden !important;
+    border: solid black 1px;
+} */
+
+/* ///////////////////////////////////////////////////////////////// */
+/* Container de List Institutions */
+.institutions{
+    display: grid;
+    grid-template-columns: repeat(4,1fr);
+    grid-template-rows: repeat(auto,1fr);
+    width: 100%;
+    /* max-height: 94.5%; */
+    height: 94.5%;
+    place-items: center;
+    overflow: auto;
+    background-color: red;
+    padding-top: 5%;
+}
+.container_institutions_list{
+    width: 90%;
+    height: 100%;
+    background-color: white !important;
+    border-radius: 10px;
+    box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+}
+
+/* ///////////////////////////////////////////////////////////////// */
+.div_img{
+    width: 100%;
+    height: 100%;
+    background-color: #434242;
+    object-fit: cover;
+}
+.institution_inf{
+    width: 100%;
+    height: 100%;
+}
+.Logo_Institution{
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+/* ///////////////////////////////////////////////////////////////// */
+

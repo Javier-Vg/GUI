@@ -7,8 +7,10 @@ import LoginRol from '../page/LoginRol';
 
 
 function Routing() {
+
   return (
-    <div>
+    
+    <div id='root'>
         <Router>
           <Routes>
             <Route path="/login-gui" element={<Login />} />
