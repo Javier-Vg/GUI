@@ -1,7 +1,7 @@
 
 import React, { useState } from "react";
 import { postInstitutions } from "../../service/LoginGui"; // Asegúrate de que esta función maneje la subida de la imagen
-
+import ImageUploader from "../upload";
 function Institucion_register() {
   const [name, setName] = useState("");
   const [address, setAddress] = useState("");
@@ -127,7 +127,9 @@ function Institucion_register() {
             
           </div>
           <input onClick={send_data} type="submit" value="Guardar" />
+          <ImageUploader />
         </div>
+  
       );
 }
 

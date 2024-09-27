@@ -30,7 +30,7 @@ function Home_Gui() {
           <div className="Nav"></div>
           <div className="div-componentes">
             {/* // cambia los componentes dependiendo de el estado */}
-            {changeComponent === "Registrar Admin" && <RegisterFormGui />}
+            {changeComponent === "Registrar Admin" && <RegisterFormGui/>}
             {changeComponent === "Crear Instituciones" && <Institucion_register />}
             {changeComponent === "Gestionar Instituciones" && <List_institutions />}
           </div>
