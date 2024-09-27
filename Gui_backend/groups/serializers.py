@@ -1,7 +1,7 @@
 from rest_framework import serializers
-from .models import groups
+from .models import group
 
 class Groups_Serializer(serializers.ModelSerializer):
     class Meta:
-        model = groups
-        fields = ['group_name', 'educational_level']
+        model = group
+        fields = ['name', 'educational_level', 'institution']

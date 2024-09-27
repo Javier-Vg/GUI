@@ -47,7 +47,7 @@ INSTALLED_APPS = [
     'rest_framework',
     'corsheaders',
     'Institucion',
-    'teachers',
+    'staff',
     'administration',
     'contracts',
     'students',

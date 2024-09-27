@@ -1,46 +1,111 @@
-import React from 'react';
+import React, { useState } from 'react';
+import { postStudents } from '../../service/LoginGui';
 
 function CreateStudent() {
+  const [studentData, setStudentData] = useState({
+    nombre: '',
+    apellido: '',
+    identificacion: '',
+    fecha_nacimiento: '',
+    grado: '',
+    estado_academico: '',
+    telefono: '',
+    email: '',
+    contacto_emergencia: '',
+  });
+
+  const handleInputChange = (e) => {
+    const { name, value } = e.target;
+    setStudentData({
+      ...studentData,
+      [name]: value,
+    });
+  };
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    
+    // Validación de campos obligatorios
+    for (const [key, value] of Object.entries(studentData)) {
+      if (!value) {
+        console.error(`El campo ${key} es obligatorio.`);
+        return; // Salir si algún campo está vacío
+      }
+    }
+
+    try {
+      const response = await postStudents(studentData);
+      console.log('Estudiante agregado exitosamente:', response);
+    } catch (error) {
+      console.error('Error al agregar estudiante:', error);
+    }
+  };
+
   return (
-    <div>
+    <form onSubmit={handleSubmit}>
       <label>
         Nombre:
-        <input type="text" placeholder='nombre' />
+        <input
+          type="text"
+          name="nombre"
+          placeholder="nombre"
+          value={studentData.nombre}
+          onChange={handleInputChange}
+        />
       </label>
       <br />
       <label>
         Apellido:
-        <input type="text" placeholder='apellido' />
+        <input
+          type="text"
+          name="apellido"
+          placeholder="apellido"
+          value={studentData.apellido}
+          onChange={handleInputChange}
+        />
       </label>
       <br />
       <label>
         Número de Identificación:
-        <input type="text" placeholder='número de identificación' />
+        <input
+          type="text"
+          name="identificacion"
+          placeholder="número de identificación"
+          value={studentData.identificacion}
+          onChange={handleInputChange}
+        />
       </label>
       <br />
       <label>
         Fecha de Nacimiento:
-        <input type="text" placeholder='fecha de nacimiento' />
-      </label>
-      <br />
-      <label>
-        Grado:
-        <input type="text" placeholder='grado' />
+        <input
+          type="date" // Cambiado a tipo "date" para mejor manejo de fechas
+          name="fecha_nacimiento"
+          value={studentData.fecha_nacimiento}
+          onChange={handleInputChange}
+        />
       </label>
       <br />
       <label>
         Selecciona un Grado:
-        <select>
+        <select
+          name="grado"
+          value={studentData.grado}
+          onChange={handleInputChange}
+        >
           <option value="">--selecciona un grado--</option>
-          <option value="grado">Grado 1</option>
-          <option value="grado">Grado 2</option>
-          {/* Agrega más opciones aquí según sea necesario */}
+          <option value="Grado 1">Grado 1</option>
+          <option value="Grado 2">Grado 2</option>
         </select>
       </label>
       <br />
       <label>
         Estado Académico:
-        <select>
+        <select
+          name="estado_academico"
+          value={studentData.estado_academico}
+          onChange={handleInputChange}
+        >
           <option value="">--estado académico--</option>
           <option value="activo">Activo</option>
           <option value="inactivo">Inactivo</option>
@@ -49,19 +114,39 @@ function CreateStudent() {
       <br />
       <label>
         Teléfono:
-        <input type="text" placeholder='teléfono' />
+        <input
+          type="text"
+          name="telefono"
+          placeholder="teléfono"
+          value={studentData.telefono}
+          onChange={handleInputChange}
+        />
       </label>
       <br />
       <label>
         Email:
-        <input type="text" placeholder='email' />
+        <input
+          type="email"
+          name="email"
+          placeholder="email"
+          value={studentData.email}
+          onChange={handleInputChange}
+        />
       </label>
       <br />
       <label>
         Contacto de Emergencia:
-        <input type="text" placeholder='contacto de emergencia' />
+        <input
+          type="text"
+          name="contacto_emergencia"
+          placeholder="contacto de emergencia"
+          value={studentData.contacto_emergencia}
+          onChange={handleInputChange}
+        />
       </label>
-    </div>
+      <br />
+      <button type="submit">Agregar Estudiante</button>
+    </form>
   );
 }
 

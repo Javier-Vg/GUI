@@ -5,9 +5,9 @@ from Institucion.models import Institution  # Importa el modelo de Institution
 class contracts(models.Model):
     
     ACADEMIC_STATUS = [
-        ('activo', 'Activo'),
-        ('retirado', 'Retirado'),
-        ('graduado', 'Graduado'),
+        ('Active', 'active'),
+        ('Inactive', 'inactive'),
+        ('Graduate', 'graduate'),
     ]
     
     contract_type =  models.CharField(max_length=100, blank=False, null=False)
@@ -16,8 +16,8 @@ class contracts(models.Model):
     birthdate_date =  models.DateField(blank=False, null=False)
     degree =   models.CharField(max_length=100, blank=False, null=False)
     academic_status =   models.CharField(max_length=100, blank=False, null=False, choices= ACADEMIC_STATUS)
-    Institution =  models.ForeignKey(Institution, on_delete=models.CASCADE)
     medic_information =   models.CharField(max_length=100, blank=False, null=False)
     contact_information =   models.CharField(max_length=100, blank=False, null=False)
+    institution =  models.ForeignKey(Institution, on_delete=models.CASCADE)
     #group =  models.ForeignKey(Owner, on_delete=models.CASCADE)
     

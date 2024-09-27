@@ -52,3 +52,74 @@ export const postInstitutions = async (name, address, estado, subscriptionType, 
     }
   };
   
+
+
+
+
+  export const getStaff = async () => {
+    try {
+      const response = await axios.get('http://localhost:8000/api/staff/staff/');
+      return response.data
+    } catch (error) {
+      console.error('Error fetching user data:', error);
+      throw error;
+    }
+  };
+  
+export const postStaff = async (name, address, estado, subscriptionType, phoneNumber, email,date,Image) => {
+    try {
+      const response = await axios.post("http://localhost:8000/api/staff/staff/", {
+        name: name,
+        last_name: address,
+        identification_number : estado,
+        birthdate_date: subscriptionType,
+        direction: phoneNumber,
+        phone_number: email,
+        email: date,
+        employment_status: date,
+        position: date,
+        salary: date,
+        imagen: date,
+        contract: date,
+        subjects: date,
+        school_subjects:Image
+      });
+      return response.data;
+    } catch (error) {
+      console.error("Error haciendo la solicitud:", error);
+      throw error;
+    }
+  };
+  
+ 
+
+  export const getStudents = async () => {
+    try {
+      const response = await axios.get('http://localhost:8000/api/students/students/');
+      return response.data; // Asumiendo que la API devuelve un array de estudiantes
+    } catch (error) {
+      console.error('Error al obtener estudiantes:', error.response?.data || error);
+      throw error; // Lanzar error para manejarlo en el componente
+    }
+  };
+
+export const postStudents = async (nombre, apellido, identificacion, fecha_nacimiento, grado, estado_academico, telefono, email, contacto_emergencia) => {
+  try {
+    const response = await axios.post('http://localhost:8000/api/students/students/', {
+      name: nombre,
+      last_name: apellido,
+      identification_number: identificacion,
+      birthdate_date: fecha_nacimiento,
+      grade: grado,
+      academic_status: estado_academico,
+      contact_information: telefono,
+      email: email,
+      emergency_contact: contacto_emergencia,
+    });
+
+    return response.data;
+  } catch (error) {
+    console.error('Error al agregar el estudiante', error);
+    throw error;
+  }
+};

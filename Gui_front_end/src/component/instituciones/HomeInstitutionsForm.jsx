@@ -30,7 +30,7 @@ function HomeInstitutionsForm() {
             <input 
                 type="button" 
                 value="Estudiantes" 
-                onClick={() => setChangeComponent("estudiantes")} 
+                onClick={() => setChangeComponent("estudiante")} 
             />
             <input 
                 type="button" 
