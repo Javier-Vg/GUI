@@ -30,6 +30,7 @@ function Institucion_register() {
       console.error("Error al enviar los datos:", error); // maneja el flujo de errores
     }
   };
+  
   return (
     <div class="registration-form">
       <div className="img_circle">

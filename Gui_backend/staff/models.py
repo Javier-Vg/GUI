@@ -2,7 +2,7 @@ from django.db import models
 from Institucion.models import Institution  # Importa el modelo de Institution
 from contracts.models import contracts  # Importa el modelo de Institution
 from materias.models import subjects  # Importa el modelo de Institution
-from .utils import upload_image_to_imgur 
+from .utils import upload_image_to_imgur
 #from schedule.models import schedule  # Importa el modelo de Institution
 
 # Create your models here.
@@ -32,12 +32,11 @@ class staff(models.Model):
     email =  models.CharField(max_length=100, blank=False, null=False)
     employment_status =  models.CharField(max_length=100, blank=False, null=False, choices = STATUS)
     position = models.CharField(max_length=100, blank=False, null=False, choices = POSITION)
-    school_subjects = models.JSONField(default=list, null=True)
     salary = models.FloatField(null=True, blank=False)
     institution = models.ForeignKey(Institution, on_delete=models.CASCADE)
     #schedule = models.ForeignKey(Owner, on_delete=models.CASCADE)
     contract = models.ForeignKey(contracts, on_delete=models.CASCADE)
-    subjects = models.ForeignKey(subjects, on_delete=models.CASCADE)
+    subjects = models.ForeignKey(subjects, on_delete=models.CASCADE, null=True) #En caso de queno sea profesor, se queda null
     imagen = models.ImageField(upload_to='images/', null=True) #permite cargar una imagen y guardarla en la carpeta images/ dentro del directorio de medios.
     imagen_url = models.URLField(blank=True, null=True)  #almacenará la URL de la imagen que se sube a Imgur. 
     
