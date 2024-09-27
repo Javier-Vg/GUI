@@ -34,7 +34,7 @@ export const getInstitutions = async () => {
     }
   };
   
-export const postInstitutions = async (name, address, estado, subscriptionType, phoneNumber, email,date,Image) => {
+export const postInstitutions = async (name, address, estado, subscriptionType, phoneNumber, email,image) => {
     try {
       const response = await axios.post("http://localhost:8000/api/institutions/institution/", {
         name: name,
@@ -43,8 +43,7 @@ export const postInstitutions = async (name, address, estado, subscriptionType, 
         suscription_type: subscriptionType,
         number_phone: phoneNumber,
         email: email,
-        subscription_date: date,
-        image:Image
+        imagen: image,
       });
       return response.data;
     } catch (error) {
@@ -78,3 +77,35 @@ export const postInstitutions = async (name, address, estado, subscriptionType, 
     }
   };
   
+ 
+
+  export const getStudents = async () => {
+    try {
+      const response = await axios.get('http://localhost:8000/api/students/students/');
+      return response.data; // Asumiendo que la API devuelve un array de estudiantes
+    } catch (error) {
+      console.error('Error al obtener estudiantes:', error.response?.data || error);
+      throw error; // Lanzar error para manejarlo en el componente
+    }
+  };
+
+export const postStudents = async (nombre, apellido, identificacion, fecha_nacimiento, grado, estado_academico, telefono, email, contacto_emergencia) => {
+  try {
+    const response = await axios.post('http://localhost:8000/api/students/students/', {
+      name: nombre,
+      last_name: apellido,
+      identification_number: identificacion,
+      birthdate_date: fecha_nacimiento,
+      grade: grado,
+      academic_status: estado_academico,
+      contact_information: telefono,
+      email: email,
+      emergency_contact: contacto_emergencia,
+    });
+
+    return response.data;
+  } catch (error) {
+    console.error('Error al agregar el estudiante', error);
+    throw error;
+  }
+};

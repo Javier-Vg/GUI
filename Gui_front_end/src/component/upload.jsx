@@ -1,59 +1,111 @@
-import React, { useState } from 'react';
-import axios from 'axios';
+// import React, { useState } from "react";
+// import axios from "axios"; // Asegurate de tener axios instalado
+// import {clientId} from '../keys/keys.js'
+// function ImageUploader() {
+//   const [file, setFile] = useState();
+//     const onFileChange = (event) => {
+//         // Updating the state
+//         setFile({ file: event.target.files[0] });
+//     };
+//     const onFileUpload = async () => {
+//         // Client ID
+//             const auth = "Client-ID " + clientId;
+ 
+//         // Creating an object of formData
+//         const formData = new FormData();
+ 
+//         // Adding our image to formData
+//         formData.append("file", file);
+//         const result =  await fetch("https://api.imgur.com/3/image/", {
+//           // API Endpoint
+//           method: "POST", // HTTP Method
+//           body: formData, // Data to be sent
+//           headers: {
+//               // Setting header
+//               Authorization: auth,
+//               Accept: "application/json",
+//           },
+//       }).then(
+//             (res) =>
+//               console.log(res.json())  
+//           )
+//           .catch(
+//               (err) => alert("Failed") && console.log(err)
+//           );
+//       const data = await result.json()
+//       console.log(data);
+//     };
+//     return (
+//         <>
+//             <input
+//                 name="file"
+//                 type="file"
+//                 onChange={onFileChange}
+//             />
+//             <button onClick={onFileUpload}>Upload</button>
+//         </>
+//     );
+// }
 
-const ImageUpload = () => {
-    const delay = (ms) => new Promise(resolve => setTimeout(resolve, ms));
-    const [image, setImage] = useState(null);
-    const [imageUrl, setImageUrl] = useState('');
+// export default ImageUploader;
+import React, { useState } from "react";
+import { clientId } from '../keys/keys.js';
 
-    const handleImageChange = (e) => {
-        setImage(e.target.files[0]);
-    };
+function ImageUploader() {
+  const [file, setFile] = useState(null);
+  const [responseJson, setResponseJson] = useState(null); // Para almacenar la respuesta
 
-    const handleUpload = async () => {
-        if (!image) {
-            alert('Por favor, selecciona una imagen primero.');
-            return;
-        }
-    
-        const formData = new FormData();
-        formData.append('image', image);
-    
-        for (let attempt = 1; attempt <= 5; attempt++) {
-            try {
-                const response = await axios.post('https://api.imgur.com/3/image', formData, {
-                    headers: {
-                        'Authorization': `Client-ID YOUR_CLIENT_ID`,
-                        'Content-Type': 'multipart/form-data',
-                    },
-                });
-                setImageUrl(response.data.data.link);
-                alert('Imagen subida exitosamente!');
-                return; // Salimos de la función si la carga fue exitosa
-            } catch (error) {
-                if (error.response && error.response.status === 429) {
-                    // Espera un tiempo antes de reintentar
-                    const waitTime = Math.pow(2, attempt) * 1000; // Aumenta el tiempo de espera
-                    console.log(`Esperando ${waitTime / 1000} segundos antes de reintentar...`);
-                    await delay(waitTime);
-                } else {
-                    console.error('Error al subir la imagen:', error.response?.data || error.message);
-                    alert(`Hubo un problema al subir la imagen: ${error.response?.data?.message || error.message}`);
-                    return; // Salimos de la función si hay otro error
-                }
-            }
-        }
-    
-        alert('Se superó el número máximo de intentos para subir la imagen.');
-    };
+  const onFileChange = (event) => {
+      setFile(event.target.files[0]);
+  };
 
-    return (
-        <div>
-            <input type="file" onChange={handleImageChange} />
-            <button onClick={handleUpload}>Subir Imagen</button>
-            {imageUrl && <img src={imageUrl} alt="Imagen subida" style={{ marginTop: '20px', maxWidth: '100%' }} />}
-        </div>
-    );
-};
+  const onFileUpload = async () => {
+      if (!file) {
+          alert("Please select a file first");
+          return;
+      }
 
-export default ImageUpload;
+      try {
+          const auth = "Client-ID " + clientId;
+          const formData = new FormData();
+          formData.append("image", file); // El campo correcto para la API de Imgur
+
+          const response = await fetch("https://api.imgur.com/3/image/", {
+              method: "POST",
+              body: formData,
+              headers: {
+                  Authorization: auth,
+                  Accept: "application/json",
+              },
+          });
+
+          const data = await response.json();
+          setResponseJson(data); // Almacena el JSON en el estado
+          console.log(data); // También lo muestra en la consola
+
+      } catch (err) {
+          alert("Failed to upload image");
+          console.log(err);
+      }
+  };
+
+  return (
+      <>
+          <input
+              name="file"
+              type="file"
+              onChange={onFileChange}
+          />
+          <button onClick={onFileUpload}>Upload</button>
+
+          {/* Mostrar el JSON de la respuesta si existe */}
+          {responseJson && (
+              <pre>
+                  {JSON.stringify(responseJson, null, 2)}
+              </pre>
+          )}
+      </>
+  );
+}
+
+export default ImageUploader;

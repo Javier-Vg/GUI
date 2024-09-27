@@ -1,49 +1,3 @@
-/* * {
-  margin: 0px;
-}
-
-.Nav{
-    width: 100%;
-    height: 70px;
-    background-color: #FFFFFF;
-}
-.Menu{
-    display: grid;
-    grid-template-columns: 15% 85%; /* Dos columnas del 50% */
-    /* height: 45.9vw; */ 
-/* }
-
-.Sidebar {
-    height: 110%;
-    display: grid;
-    place-content: center;
-    background-color: #4E284C;
-}
-
-.Sidebar input[type="button"] {
-    background-color: #007BFF; 
-    color: white; 
-    border: none; 
-    border-radius: 4px; 
-    padding: 12px; 
-    margin: 10px 0; 
-    cursor: pointer; 
-    transition: background-color 0.3s, transform 0.2s; 
-}
-
-.Sidebar input[type="button"]:hover {
-    background-color: #0056b3;
-    transform: scale(1.05); 
-}
-
-.div-componentes{
-    display: grid;
-    padding: 1%;
-    grid-template-columns: auto;
-    border: solid black 1px;
-    height: 100%;
-}
-
 /* ////////////////////////////////// */
 
 /* .registration-form {
@@ -95,13 +49,7 @@
     width: 50%;
     height: 100%;
 }
-
-.Logo_Institution{
-    border-radius: 50px;
-    width: 50px;
-    height: 50px;
-    object-fit: cover;
-}
+/* 
 .institutions{
     display: grid;
     grid-template-columns: repeat(4,1fr);
@@ -114,11 +62,7 @@
     height: 100%;
     border: solid black 1px;
 }
-.container_list{
-    border: solid black 1px;
-    width: 100%; */
-    /* height: ; */
-/* } */
+
 
 
 /* .registration-form input,
@@ -152,3 +96,93 @@
     border-radius: 50%;
     margin: 0 auto 20px auto;
 } */
+ /* //////////////////////////////////////////////////////////////// */
+*{
+    margin: 0;
+    padding: 0;
+    overflow: hidden;
+}
+.Nav{
+    width: 100%;
+    height: 10%;
+}
+.Menu{
+    display: grid;
+    grid-template-columns: 15% 85%;
+    width: 100%;
+    height: 50.5vw; 
+}
+.Menu2{
+    width: 100%;
+    height: 100%;
+}
+.Sidebar {
+    height: 100%;
+    display: grid;
+    place-content: center;
+    background-color: #4E284C;
+}
+.div-componentes{
+    display: grid;
+    width: 100%;
+    height: 90%;
+}
+/* /////////////////////////////////////////////////////// */
+.Sidebar input[type="button"] {
+    background-color: #007BFF; 
+    color: white; 
+    border: none; 
+    border-radius: 4px; 
+    padding: 12px; 
+    margin: 10px 0; 
+    cursor: pointer; 
+    transition: background-color 0.3s, transform 0.2s; 
+}
+
+.Sidebar input[type="button"]:hover {
+    background-color: #0056b3;
+    transform: scale(1.05); 
+}
+/* ///////////////////////////////////////////////////////////////// */
+
+.container_list{
+    width: 100%;
+}
+
+/* ///////////////////////////////////////////////////////////////// */
+/* Container de List Institutions */
+.institutions{
+    display: grid;
+    grid-template-columns: repeat(4,1fr);
+    width: 100%;
+    max-height: 94.5%;
+    place-items: center;
+    overflow: auto;
+    row-gap: 5em;
+}
+.container_institutions_list{
+    margin-top: 5em;
+    width: 90%;
+    height: 120%;
+    background-color: white !important;
+    border-radius: 10px;
+    box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+    display: grid;
+    grid-template-columns: repeat(1,1fr);
+}
+/* ///////////////////////////////////////////////////////////////// */
+.div_img{
+    width: 100%;
+    height: 80%;
+    background-color: #f2f2f2;
+}
+.Logo_Institution{
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+.institution_inf{
+    width: 100%;
+    height: 100%;
+}
+/* ///////////////////////////////////////////////////////////////// */
