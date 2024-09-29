@@ -54,8 +54,6 @@ export const postInstitutions = async (name, address, estado, subscriptionType, 
   
 
 
-
-
   export const getStaff = async () => {
     try {
       const response = await axios.get('http://localhost:8000/api/staff/staff/');
@@ -67,7 +65,7 @@ export const postInstitutions = async (name, address, estado, subscriptionType, 
   };
   
   
-  export const postStaff = async (staff) => { //Se le envia un objeto.
+  export const postStaff = async (staff) => {
     try {
       const response = await axios.post("http://localhost:8000/api/staff/staff/", staff);
       return response.data;

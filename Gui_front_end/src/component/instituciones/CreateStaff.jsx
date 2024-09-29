@@ -13,7 +13,7 @@ function CreateStaff() {
   const [changeEstadoTrabajador, setChangeEstadoTrabajador] = useState();
   const [changePuesto, setChangePuesto] = useState();
   const [changeSalarioMensual, setChangeSalarioMensual] = useState();
-  const [changeImagen, setChangeImagen] = useState();
+  //const [changeImagen, setChangeImagen] = useState();
   const [changeContratoId, setChangeContratoId] = useState();
   const [changeInstitucionId, setChangeInstitucionId] = useState();
   const [changeMateriaId, setChangeMateriaId] = useState();
@@ -22,8 +22,19 @@ function CreateStaff() {
   const handleChange = (e) => {
     setChangePuesto(e.target.value)
   }
+
+  const handleChangeStatus = (e) => {
+    setChangeEstadoTrabajador(e.target.value)
+  }
   
-  const handleSubmit = () => {
+  const handleSubmit = (e) => {
+    e.preventDefault()
+
+    // Expresión regular para validar el formato del correo electrónico
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    const dateRegex = /^\d{4}-(0[1-9]|1[0-2])-(0[1-9]|[12]\d|3[01])$/
+    let confimacion = true
+    
     let staff = {
       name: changeNombre,
       last_name: changeApellidos,
@@ -35,12 +46,50 @@ function CreateStaff() {
       employment_status: changeEstadoTrabajador,
       position: changePuesto,
       salary: changeSalarioMensual,
-      imagen: changeImagen,
+      //imagen: changeImagen,
       contract: changeContratoId,
       institution: changeInstitucionId,
       subjects: changeMateriaId
     }
-    postStaff(staff); //Envia los datos
+
+    //Validaciones
+    for (const [key, value] of Object.entries(staff)) {
+      if (key == "subjects"){
+        continue
+      }else{
+        if (!value) {
+          alert(`El campo ${key} es obligatorio.`);
+          console.error(`El campo ${key} es obligatorio.`);
+          confimacion = false
+          return; // Salir si algún campo está vacío
+        }
+      }
+      
+      // Validar el correo electrónico
+      if (key == "email"){
+        if (!emailRegex.test(changeCorreo)) {
+          alert('Por favor, ingrese un correo electrónico válido')
+          confimacion = false
+        } else {
+          console.log("correo validado correctamente");
+          
+        }
+      }
+      // Validar la fecha
+      if (key == "birthdate_date"){
+        if (!dateRegex.test(changeFechaNacimiento)) {
+          alert('Por favor, ingrese una fecha válida')
+          confimacion = false
+        } else {
+          console.log("fecha validado correctamente");
+          
+        }
+      }
+    }
+
+    if (confimacion){
+      postStaff(staff); //Envia los dat
+    }
   }
 
   return (
@@ -63,7 +112,7 @@ function CreateStaff() {
         <br />
         <label>
           Fecha de Nacimiento:
-          <input type="text" placeholder='fecha de nacimiento' onChange={(e) => setChangeFechaNacimiento(e.target.value)}/>
+          <input type="date" placeholder='fecha de nacimiento' onChange={(e) => setChangeFechaNacimiento(e.target.value)}/>
         </label>
         <br />
         <label>
@@ -73,7 +122,7 @@ function CreateStaff() {
         <br />
         <label>
           Teléfono:
-          <input type="text" placeholder='teléfono' onChange={(e) => setChangeTelefono(e.target.value)}/>
+          <input type="number" placeholder='teléfono' onChange={(e) => setChangeTelefono(e.target.value)}/>
         </label>
         <br />
         <label>
@@ -83,48 +132,52 @@ function CreateStaff() {
         <br />
         <label>
           Estado del trabajador:
-          <input type="text" placeholder='email' onChange={(e) => setChangeEstadoTrabajador(e.target.value)}/>
+          <select value={changeEstadoTrabajador} onChange={handleChangeStatus}  id="opciones">
+          <option >--Selecciona un puesto--</option>
+          <option value="Active" >Activo</option>
+          <option value="Inactive" >Inactivo</option>
+        </select>
         </label>
         <br />
 
         <label htmlFor="opciones">Selecciona un Puesto Creado Anteriormente:</label>
         <select value={changePuesto} onChange={handleChange}  id="opciones">
           <option >--Selecciona un puesto--</option>
-          <option value="director" >Director</option>
-          <option value="profesor" >Profesor</option>
-          <option value="secretaria" >Secretaria</option>
-          <option value="consejeras edutactivas" >Consejeras educativas</option>
-          <option value="personal de limpieza" >Personal de limpieza</option>
-          <option value="bibliotecarios" >Bibliotecarios</option>
-          <option value="personal de seguridad" >Personal de seguridad</option>
+          <option value="Directors" >Director</option>
+          <option value="Teacher" >Profesor</option>
+          <option value="Secretaries" >Secretaria</option>
+          <option value="Educational counselors" >Consejeras educativas</option>
+          <option value="Cleaning staff" >Personal de limpieza</option>
+          <option value="Librarians" >Bibliotecarios</option>
+          <option value="Security staff" >Personal de seguridad</option>
         </select>
 
         <br />
         <label>
           Salario Mensual:
-          <input type="text" placeholder='salario mensual' onChange={(e) => setChangeSalarioMensual(e.target.value)}/>
+          <input type="number" placeholder='salario mensual' onChange={(e) => setChangeSalarioMensual(e.target.value)}/>
         </label>
         <br />
-        <label>
+        {/* <label>
           Imagen del empleado:
           <input type="file" placeholder='imagen' onChange={(e) => setChangeImagen(e.target.value)}/>
-        </label>
+        </label> */}
         <br />
         <label>
           Id contrato:
-          <input type="text" placeholder='contrato_id' onChange={(e) => setChangeContratoId(e.target.value)} />
+          <input type="number" placeholder='contrato_id' onChange={(e) => setChangeContratoId(e.target.value)} />
         </label>
         <br />
         <label>
           Id Institucion:
-          <input type="text" placeholder='institucion_id' onChange={(e) => setChangeInstitucionId(e.target.value)} />
+          <input type="number" placeholder='institucion_id' onChange={(e) => setChangeInstitucionId(e.target.value)} />
         </label>
         <br />
 
-        {changePuesto == "profesor" ? (
+        {changePuesto == "Teacher" ? (
           <label>
             Id Materia:
-            <input type="text" placeholder='materia_id' onChange={(e) => setChangeMateriaId(e.target.value)}/>
+            <input type="number" placeholder='materia_id' onChange={(e) => setChangeMateriaId(e.target.value)}/>
           </label>
         ) : (
           <p style={{ display: "none" }}>oculto</p>

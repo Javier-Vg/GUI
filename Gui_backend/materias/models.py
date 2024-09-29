@@ -1,6 +1,7 @@
 from django.db import models
 from groups.models import group  # Importa el modelo de Institution
 # from staff.models import staff
+import json
 
 # Create your models here.
 class subjects(models.Model):  # materia = subject
@@ -8,3 +9,7 @@ class subjects(models.Model):  # materia = subject
     educational_level =  models.CharField(max_length=100, blank=False, null=False)
     group = models.ForeignKey(group, on_delete=models.CASCADE)
     #Notas - Foraneas
+    
+    def __str__(self):
+        # Convertir el JSON a una cadena legible
+        return json.dumps(self.subject_group)

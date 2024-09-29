@@ -6,7 +6,7 @@ class grades(models.Model):  # Cambié el nombre de la clase a singular
     grade = models.CharField(max_length=100, blank=False, null=False)
     period = models.CharField(max_length=100, blank=False, null=False)
     student = models.ForeignKey(students, on_delete=models.CASCADE)
-    subjects = models.ForeignKey(subjects, on_delete=models.CASCADE)
+    subject = models.ForeignKey(subjects, on_delete=models.CASCADE)
     
     def __str__(self):
         return self.name
