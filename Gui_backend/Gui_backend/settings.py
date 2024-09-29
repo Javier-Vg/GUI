@@ -53,7 +53,8 @@ INSTALLED_APPS = [
     'students',
     'groups',
     'materias',
-    'grades'
+    'grades',
+    'schedule'
 ] # nombre de las apps
 
 MIDDLEWARE = [

@@ -13,5 +13,6 @@ urlpatterns = [
     path('students/', include('students.urls')),
     path('groups/', include('groups.urls')),
     path('subjects/', include('materias.urls')),
-    path('grades/', include('grades.urls'))
+    path('grades/', include('grades.urls')),
+    path('schedule/', include('schedule.urls'))
 ]

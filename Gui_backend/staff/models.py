@@ -37,18 +37,18 @@ class staff(models.Model):
     #schedule = models.ForeignKey(Owner, on_delete=models.CASCADE)
     contract = models.ForeignKey(contracts, on_delete=models.CASCADE)
     subjects = models.ForeignKey(subjects, on_delete=models.CASCADE, null=True) #En caso de queno sea profesor, se queda null
-    imagen = models.ImageField(upload_to='images/', null=True) #permite cargar una imagen y guardarla en la carpeta images/ dentro del directorio de medios.
-    imagen_url = models.URLField(blank=True, null=True)  #almacenará la URL de la imagen que se sube a Imgur. 
+    # imagen = models.ImageField(upload_to='images/', null=True) #permite cargar una imagen y guardarla en la carpeta images/ dentro del directorio de medios.
+    # imagen_url = models.URLField(blank=True, null=True)  #almacenará la URL de la imagen que se sube a Imgur. 
     
-    def save(self, *args, **kwargs):
-        # Llamar al método save para guardar la instancia y acceder a la ruta de la imagen
-        super().save(*args, **kwargs)
+    # def save(self, *args, **kwargs):
+    #     # Llamar al método save para guardar la instancia y acceder a la ruta de la imagen
+    #     super().save(*args, **kwargs)
 
-        # Subir la imagen a Imgur y guardar la URL
-        if self.imagen and not self.imagen_url:   #Verifica si hay una imagen cargada y si el campo imagen_url está vacío.
-            imagen_url = upload_image_to_imgur(self.imagen.path)  #toma la ruta local de la imagen y la sube a Imgur, devolviendo la URL de la imagen.
-            self.imagen_url = imagen_url #Asigna la URL obtenida al campo imagen_url del modelo.
-            super().save(update_fields=['imagen_url'])
+    #     # Subir la imagen a Imgur y guardar la URL
+    #     if self.imagen and not self.imagen_url:   #Verifica si hay una imagen cargada y si el campo imagen_url está vacío.
+    #         imagen_url = upload_image_to_imgur(self.imagen.path)  #toma la ruta local de la imagen y la sube a Imgur, devolviendo la URL de la imagen.
+    #         self.imagen_url = imagen_url #Asigna la URL obtenida al campo imagen_url del modelo.
+    #         super().save(update_fields=['imagen_url'])
     
     def __str__(self):
         return self.name
