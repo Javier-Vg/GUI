@@ -5,7 +5,6 @@ import Home_Gui from '../page/Home_Gui'
 import HomeInstitutions from '../page/HomeInstitutions';
 import LoginRol from '../page/LoginRol';
 
-
 function Routing() {
 
   return (

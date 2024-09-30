@@ -21,3 +21,6 @@ class contracts(models.Model):
     institution =  models.ForeignKey(Institution, on_delete=models.CASCADE)
     #group =  models.ForeignKey(Owner, on_delete=models.CASCADE)
     
+
+    def __str__(self):
+        return f"{self.academic_status} - {self.contact_information}"

@@ -1,6 +1,8 @@
 from django.db import models
 from django.core.validators import validate_email
 from django.utils import timezone
+from django.dispatch import receiver
+from django.db.models.signals import pre_save
 
 class Institution(models.Model):  # Cambié el nombre de la clase a singular
     name = models.CharField(max_length=100, blank=False, null=False)
@@ -16,3 +18,9 @@ class Institution(models.Model):  # Cambié el nombre de la clase a singular
 
     def __str__(self):
         return self.name
+
+#Señal
+@receiver(pre_save, sender=Institution)
+def set_adoption_date(sender, instance, **kwargs):
+    print("I'm working")
+    instance.name = instance.name.upper()

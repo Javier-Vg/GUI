@@ -14,5 +14,9 @@ urlpatterns = [
     path('groups/', include('groups.urls')),
     path('subjects/', include('materias.urls')),
     path('grades/', include('grades.urls')),
-    path('schedule/', include('schedule.urls'))
+    path('schedule/', include('schedule.urls')),
+    path('teaching_assistance/', include('teaching_assistance.urls')),
+    path('student_assistance/', include('student_assistance.urls')),
+    path('parents/', include('parents.urls')),
+    path('message/', include('message.urls')),
 ]

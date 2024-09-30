@@ -54,7 +54,11 @@ INSTALLED_APPS = [
     'groups',
     'materias',
     'grades',
-    'schedule'
+    'schedule',
+    'teaching_assistance',
+    'student_assistance',
+    'parents',
+    'message'
 ] # nombre de las apps
 
 MIDDLEWARE = [
