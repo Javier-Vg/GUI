@@ -19,4 +19,7 @@ urlpatterns = [
     path('student_assistance/', include('student_assistance.urls')),
     path('parents/', include('parents.urls')),
     path('message/', include('message.urls')),
+    path('events/', include('events.urls')),
+    path('payments/', include('payments.urls')),
+    path('tasks/', include('tasks.urls')),
 ]
