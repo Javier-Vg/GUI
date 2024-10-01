@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { postStaff } from '../../service/LoginGui';
+import { postStaff, getInstitutions, getContracts, getSubjects } from '../../service/LoginGui';
 import '../../css/create_staff.css';
 
 function CreateStaff() {
@@ -19,10 +19,45 @@ function CreateStaff() {
   const [changeInstitucionId, setChangeInstitucionId] = useState();
   const [changeMateriaId, setChangeMateriaId] = useState();
 
+  //Almacena los get de tablas consultadas
+  const [contracts, setContracts] = useState();
+  const [institutions, setInstitution] = useState();
+  const [subjects, setSubjects] = useState();
+
   //Ocultar id profesor
   const handleChange = (e) => {
     setChangePuesto(e.target.value)
   }
+
+  useEffect(() => {
+      getData();
+  },[])
+
+  const getData = async () => {
+    try {
+      const institutionData = await getInstitutions();
+      setInstitution(institutionData);
+    } catch (error) {
+        console.error("Error fetching institution:", error);
+    }
+
+    try {
+        const contractsData = await getContracts();
+        setContracts(contractsData);
+        console.log(contractsData);
+        
+    } catch (error) {
+        console.error("Error fetching contract:", error);
+    }
+
+    try {
+        const subjectsData = await getSubjects();
+        setSubjects(subjectsData);
+    } catch (error) {
+        console.error("Error fetching subject:", error);
+    }
+  }
+
 
   const handleChangeStatus = (e) => {
     setChangeEstadoTrabajador(e.target.value)
@@ -92,6 +127,9 @@ function CreateStaff() {
       postStaff(staff); //Envia los dat
     }
   }
+
+  console.log(contracts);
+  
 
   return (
     <div className='div-core'>
@@ -165,6 +203,11 @@ function CreateStaff() {
         </label> */}
         <br />
         <label>
+          {/* {contracts.map( 
+            <div>
+              <p>{contracts.contract_type}</p>
+            </div>
+          )} */}
           Id contrato:
           <input type="number" placeholder='contrato_id' onChange={(e) => setChangeContratoId(e.target.value)} />
         </label>

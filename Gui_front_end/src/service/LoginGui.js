@@ -107,3 +107,24 @@ export const postStudents = async (nombre, apellido, identificacion, fecha_nacim
     throw error;
   }
 };
+
+
+export const getContracts = async () => {
+  try {
+    const response = await axios.get('http://localhost:8000/api/contrats/contracts/');
+    return response.data
+  } catch (error) {
+    console.error('Error fetching user data:', error);
+    throw error;
+  }
+};
+
+export const getSubjects = async () => {
+  try {
+    const response = await axios.get('http://localhost:8000/api/subjects/subjects/');
+    return response.data
+  } catch (error) {
+    console.error('Error fetching user data:', error);
+    throw error;
+  }
+};
