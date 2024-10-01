@@ -18,19 +18,20 @@ class students(models.Model):
         ('Active', 'active'),
         ('Inactive', 'inactive')
     ]
-    
-    id = models.AutoField(primary_key=True)
-    name =  models.CharField(max_length=100, blank=False, null=False)
-    last_name =  models.CharField(max_length=100, blank=False, null=False)
-    identification_number =  models.CharField(max_length=100, blank=False, null=False)
-    birthdate_date =   models.DateField(blank=False, null=False)
-    grade =  models.CharField(max_length=100, blank=False, choices= GRADES)
-    academic_status =  models.CharField(max_length=100, blank=False, null=False, choices= STATUS)
+    name = models.CharField(max_length=100, blank=False, null=False)
+    last_name = models.CharField(max_length=100, blank=False, null=False)
+    identification_number = models.CharField(max_length=100, blank=False, null=False)
+    birthdate_date = models.DateField(blank=False, null=False)
+    grade = models.CharField(max_length=100, blank=False, choices=GRADES)
+    academic_status = models.CharField(max_length=100, blank=False, null=False, choices=STATUS)
     allergy_information = models.CharField(max_length=100, blank=False, null=False)
     contact_information = models.CharField(max_length=100, blank=False, null=False)
-    institution =  models.ForeignKey(Institution, on_delete=models.CASCADE)
-    group =  models.ForeignKey(group, on_delete=models.CASCADE)
-    imagen_url = models.URLField(blank=True, null=True)  #almacenará la URL de la imagen que se sube a Imgur. 
+    email = models.EmailField(max_length=254, blank=False, null=False)
+    guardian_phone_number = models.CharField(max_length=15, blank=True, null=True)  # Nuevo campo opcional
+    name_guardian = models.CharField(max_length=100, blank=False, null=False)  # Nuevo campo para el nombre del encargado
+    institution = models.ForeignKey(Institution, on_delete=models.CASCADE, null=True, blank=True)
+    group = models.ForeignKey(group, on_delete=models.CASCADE, null=True, blank=True)   
+    imagen_url = models.URLField(blank=True, null=True)
     
     def __str__(self):
         return self.name

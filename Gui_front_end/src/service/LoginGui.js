@@ -86,26 +86,31 @@ export const postInstitutions = async (name, address, estado, subscriptionType, 
       throw error; // Lanzar error para manejarlo en el componente
     }
   };
-
-  export const postStudents = async (studentData) => {
+  export const postStudents = async (nombre, apellido, identificacion, fechaNacimiento, grado, estadoAcademico, telefono, email, imageUrl, alergias, guardianTelefono, nameGuardian) => {
     try {
-      const response = await axios.post('http://localhost:8000/api/students/students/', {
-        name: studentData.nombre,
-        last_name: studentData.apellido,
-        identification_number: studentData.identificacion,
-        birthdate_date: studentData.fecha_nacimiento,
-        grade: studentData.grado,
-        academic_status: studentData.estado_academico,
-        contact_information: studentData.telefono,
-        email: studentData.email,
-        emergency_contact: studentData.contacto_emergencia,
-        imagen : studentData.imagen
-      });
-  
-      return response.data;
+        const response = await axios.post('http://localhost:8000/api/students/students/', {
+            name: nombre,
+            last_name: apellido,
+            identification_number: identificacion,
+            birthdate_date: fechaNacimiento,
+            grade: grado,
+            academic_status: estadoAcademico,
+            contact_information: telefono,
+            email: email,
+            imagen_url: imageUrl,
+            allergy_information: alergias,
+            guardian_phone_number: guardianTelefono,
+            name_guardian: nameGuardian,
+        });
+        return response.data;
     } catch (error) {
-      console.error('Error al agregar el estudiante', error);
-      throw error;
+        if (error.response) {
+            console.error('Error en la respuesta del servidor:', error.response.data);
+        } else {
+            console.error('Error al agregar el estudiante:', error);
+        }
+        throw error;
     }
-  };
+};
 
+  
