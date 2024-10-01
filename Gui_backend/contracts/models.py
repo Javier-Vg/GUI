@@ -8,6 +8,12 @@ class contracts(models.Model):
         ('Inactive', 'inactive'),
         ('Graduate', 'graduate'),
     ]
+
+    CONTRACT_TYPE = [
+        ('Active', 'active'),
+        ('Inactive', 'inactive'),
+        ('Graduate', 'graduate'),
+    ]
     
     contract_type =  models.CharField(max_length=100, blank=False, null=False)
     start_date = models.DateField(blank=False, null=False)  # Cambié a DateField
