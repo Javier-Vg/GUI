@@ -54,8 +54,6 @@ export const postInstitutions = async (name, address, estado, subscriptionType, 
   
 
 
-
-
   export const getStaff = async () => {
     try {
       const response = await axios.get('http://localhost:8000/api/staff/staff/');
@@ -66,24 +64,10 @@ export const postInstitutions = async (name, address, estado, subscriptionType, 
     }
   };
   
-export const postStaff = async (name, address, estado, subscriptionType, phoneNumber, email,date,Image) => {
+  
+  export const postStaff = async (staff) => {
     try {
-      const response = await axios.post("http://localhost:8000/api/staff/staff/", {
-        name: name,
-        last_name: address,
-        identification_number : estado,
-        birthdate_date: subscriptionType,
-        direction: phoneNumber,
-        phone_number: email,
-        email: date,
-        employment_status: date,
-        position: date,
-        salary: date,
-        imagen: date,
-        contract: date,
-        subjects: date,
-        school_subjects:Image
-      });
+      const response = await axios.post("http://localhost:8000/api/staff/staff/", staff);
       return response.data;
     } catch (error) {
       console.error("Error haciendo la solicitud:", error);

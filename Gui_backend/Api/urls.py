@@ -13,5 +13,13 @@ urlpatterns = [
     path('students/', include('students.urls')),
     path('groups/', include('groups.urls')),
     path('subjects/', include('materias.urls')),
-    path('grades/', include('grades.urls'))
+    path('grades/', include('grades.urls')),
+    path('schedule/', include('schedule.urls')),
+    path('teaching_assistance/', include('teaching_assistance.urls')),
+    path('student_assistance/', include('student_assistance.urls')),
+    path('parents/', include('parents.urls')),
+    path('message/', include('message.urls')),
+    path('events/', include('events.urls')),
+    path('payments/', include('payments.urls')),
+    path('tasks/', include('tasks.urls')),
 ]

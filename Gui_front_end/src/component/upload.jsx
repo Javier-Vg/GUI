@@ -49,7 +49,7 @@
 
 // export default ImageUploader;
 import React, { useState } from "react";
-import { clientId } from '../keys/keys.js';
+//import { clientId } from '../keys/keys.js';
 
 function ImageUploader() {
   const [file, setFile] = useState(null);

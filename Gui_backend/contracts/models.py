@@ -1,10 +1,15 @@
 from django.db import models
-from Institucion.models import Institution  # Importa el modelo de Institution
 
 # Create your models here.
 class contracts(models.Model):
     
     ACADEMIC_STATUS = [
+        ('Active', 'active'),
+        ('Inactive', 'inactive'),
+        ('Graduate', 'graduate'),
+    ]
+
+    CONTRACT_TYPE = [
         ('Active', 'active'),
         ('Inactive', 'inactive'),
         ('Graduate', 'graduate'),
@@ -18,6 +23,7 @@ class contracts(models.Model):
     academic_status =   models.CharField(max_length=100, blank=False, null=False, choices= ACADEMIC_STATUS)
     medic_information =   models.CharField(max_length=100, blank=False, null=False)
     contact_information =   models.CharField(max_length=100, blank=False, null=False)
-    institution =  models.ForeignKey(Institution, on_delete=models.CASCADE)
-    #group =  models.ForeignKey(Owner, on_delete=models.CASCADE)
-    
+
+
+    def __str__(self):
+        return f"{self.academic_status} - {self.contact_information}"
