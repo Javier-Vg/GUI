@@ -5,7 +5,7 @@ function ListInstitutions() {
     const [instituciones, setInstituciones] = useState([]);
     const [seeMore, setSeeMore] = useState(false);
     const [selectedInstitution, setSelectedInstitution] = useState(null);
-    
+
     useEffect(() => {
         getInstitutionsData(); 
     }, []);
@@ -36,10 +36,9 @@ function ListInstitutions() {
                 {instituciones.map((item) => (
                 <div className='container_institutions_list' key={item.id}>
                     <div className='div_img'>
-                        <img className='Logo_Institution' src={item.imagen_url} alt="No found" />
+                    <img className='Logo_Institution' src={item.imagen_url} alt="No found" onError={() => console.log("Image failed to load:", item.imagen_url)} />
                     </div>
                     <div className='institution_inf'>
-                        <h2>{item.name}</h2>
                         <h6>{item.name}</h6>
                         <input onClick={() => openModal(item)} type="button" value="Ver más" />
                     </div>   
