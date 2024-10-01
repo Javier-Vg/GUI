@@ -87,24 +87,25 @@ export const postInstitutions = async (name, address, estado, subscriptionType, 
     }
   };
 
-export const postStudents = async (nombre, apellido, identificacion, fecha_nacimiento, grado, estado_academico, telefono, email, contacto_emergencia) => {
-  try {
-    const response = await axios.post('http://localhost:8000/api/students/students/', {
-      name: nombre,
-      last_name: apellido,
-      identification_number: identificacion,
-      birthdate_date: fecha_nacimiento,
-      grade: grado,
-      academic_status: estado_academico,
-      contact_information: telefono,
-      email: email,
-      emergency_contact: contacto_emergencia,
-    });
-
-    return response.data;
-  } catch (error) {
-    console.error('Error al agregar el estudiante', error);
-    throw error;
-  }
-};
+  export const postStudents = async (studentData) => {
+    try {
+      const response = await axios.post('http://localhost:8000/api/students/students/', {
+        name: studentData.nombre,
+        last_name: studentData.apellido,
+        identification_number: studentData.identificacion,
+        birthdate_date: studentData.fecha_nacimiento,
+        grade: studentData.grado,
+        academic_status: studentData.estado_academico,
+        contact_information: studentData.telefono,
+        email: studentData.email,
+        emergency_contact: studentData.contacto_emergencia,
+        imagen : studentData.imagen
+      });
+  
+      return response.data;
+    } catch (error) {
+      console.error('Error al agregar el estudiante', error);
+      throw error;
+    }
+  };
 
