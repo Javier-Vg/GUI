@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { postStaff } from '../../service/LoginGui';
+import '../../css/create_staff.css';
 
 function CreateStaff() {
 
@@ -93,8 +94,8 @@ function CreateStaff() {
   }
 
   return (
-    <div>
-      <form action="submit">
+    <div className='div-core'>
+      <form className='form-staff' action="submit">
         <label>
           Nombre:
           <input type="text" placeholder='nombre' onChange={(e) => setChangeNombre(e.target.value)}/>

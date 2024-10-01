@@ -1,0 +1,14 @@
+.form-staff{
+    display: grid;
+    grid-template-columns: 300px 300px 300px;
+    color: white;
+    margin: center;
+}
+input{
+    background: none;
+    border-top: none;
+    border-left: none;
+    border-right: none;
+    border-color: white;
+}
+
