@@ -4,6 +4,12 @@
     --border-color:#383838;
     --text-color:#e7e7e7;
 }
+/* :root{
+    --fondo-color:#ffffff;
+    --items-color:#ffffff;
+    --border-color:#ffffff;
+    --text-color:#e7e7e7;
+} */
 *{
     padding: 0;
     box-sizing: border-box;
@@ -97,7 +103,7 @@ button{
 .div-components{
     text-align: center;
     margin-top: 100px;
-    margin-left: 500px;
+    margin-left: 300px;
     padding: 10px;
 }
 

@@ -40,7 +40,7 @@ class staff(models.Model):
     contract = models.ForeignKey(contracts, on_delete=models.CASCADE, related_name='related_contracts')
     subjects = models.ForeignKey(subjects, on_delete=models.CASCADE, null=True) #En caso de queno sea profesor, se queda null
     #imagen = models.ImageField(upload_to='images/', null=True) #permite cargar una imagen y guardarla en la carpeta images/ dentro del directorio de medios.
-    #imagen_url = models.URLField(blank=True, null=True)  #almacenará la URL de la imagen que se sube a Imgur. 
+    imagen_url = models.URLField(blank=True, null=True)  #almacenará la URL de la imagen que se sube a Imgur. 
     
     # def save(self, *args, **kwargs):
     #     # Llamar al método save para guardar la instancia y acceder a la ruta de la imagen

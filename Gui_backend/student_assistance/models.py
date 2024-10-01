@@ -16,3 +16,4 @@ class student_assistance(models.Model):
     
     def __str__(self):
         return self.date
+    

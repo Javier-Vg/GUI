@@ -34,7 +34,7 @@ export const getInstitutions = async () => {
     }
   };
   
-export const postInstitutions = async (name, address, estado, subscriptionType, phoneNumber, email,image) => {
+export const postInstitutions = async (name, address, estado, subscriptionType, phoneNumber, email,imageUrl) => {
     try {
       const response = await axios.post("http://localhost:8000/api/institutions/institution/", {
         name: name,
@@ -43,7 +43,7 @@ export const postInstitutions = async (name, address, estado, subscriptionType, 
         suscription_type: subscriptionType,
         number_phone: phoneNumber,
         email: email,
-        imagen: image,
+        imagen_url: imageUrl
       });
       return response.data;
     } catch (error) {
@@ -111,7 +111,7 @@ export const postStudents = async (nombre, apellido, identificacion, fecha_nacim
 
 export const getContracts = async () => {
   try {
-    const response = await axios.get('http://localhost:8000/api/contrats/contracts/');
+    const response = await axios.get('http://localhost:8000/api/contracts/contracts/');
     return response.data
   } catch (error) {
     console.error('Error fetching user data:', error);
