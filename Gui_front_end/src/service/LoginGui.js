@@ -123,3 +123,4 @@ export const postStudents = async (nombre, apellido, identificacion, fecha_nacim
     throw error;
   }
 };
+
