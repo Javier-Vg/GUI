@@ -90,8 +90,7 @@ export const postInstitutions = async (name, address, estado, subscriptionType, 
       throw error; // Lanzar error para manejarlo en el componente
     }
   };
-  
-  export const postStudents = async (nombre, apellido, identificacion, fechaNacimiento, grado, estadoAcademico, telefono, email, imageUrl, alergias, guardianTelefono, nameGuardian) => {
+  export const postStudents = async (nombre, apellido, identificacion, fechaNacimiento, grado, estadoAcademico, telefono, email, imageUrl, alergias, guardianTelefono, nameGuardian,mensualidadDelEstudiante) => {
     try {
         const response = await axios.post(`http://${domain}:8000/api/students/students/`, {
             name: nombre,
@@ -106,6 +105,7 @@ export const postInstitutions = async (name, address, estado, subscriptionType, 
             allergy_information: alergias,
             guardian_phone_number: guardianTelefono,
             name_guardian: nameGuardian,
+            monthly_payent_students:mensualidadDelEstudiante
         });
         return response.data;
     } catch (error) {
