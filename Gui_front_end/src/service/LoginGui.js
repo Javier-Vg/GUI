@@ -13,6 +13,7 @@ export const getDatos = async () => {
   };
   export const PostData = async (nombre,contra, email,rol) => {
     try {
+      console.log(domain);
       const response = await axios.post(`http://${domain}:8000/api/gui/admins/`, {// hace post a el api de los admins
           nombre: nombre,
           email:email,
