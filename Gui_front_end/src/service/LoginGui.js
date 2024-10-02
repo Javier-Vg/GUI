@@ -1,17 +1,19 @@
-import axios from 'axios';
+import axios from "axios";
+const domain = window.location.hostname 
+console.log(domain);
 
 export const getDatos = async () => {
-    try {
-      const response = await axios.get('http://localhost:8000/api/gui/admins/');
+    try { 
+      const response = await axios.get(`http://${domain}:8000/api/gui/admins/`);
       return response.data // hace get de el api para validar logins
     } catch (error) {
-      console.error('Error fetching user data:', error);
+      console.error("Error fetching user data:", error);
       throw error;
     }
   };
   export const PostData = async (nombre,contra, email,rol) => {
     try {
-      const response = await axios.post("http://localhost:8000/api/gui/admins/", {// hace post a el api de los admins
+      const response = await axios.post(`http://${domain}:8000/api/gui/admins/`, {// hace post a el api de los admins
           nombre: nombre,
           email:email,
           password: contra,
@@ -26,17 +28,21 @@ export const getDatos = async () => {
   };
 export const getInstitutions = async () => {
     try {
-      const response = await axios.get('http://localhost:8000/api/institutions/institution/');
+      console.log(`http://${domain}:8000/api/institutions/institution/`);
+      
+      const response = await axios.get(`http://${domain}:8000/api/institutions/institution/`);
       return response.data
     } catch (error) {
-      console.error('Error fetching user data:', error);
+      console.error("Error fetching user data:", error);
       throw error;
     }
   };
   
 export const postInstitutions = async (name, address, estado, subscriptionType, phoneNumber, email,imageUrl) => {
     try {
-      const response = await axios.post("http://localhost:8000/api/institutions/institution/", {
+      console.log(`http://${domain}:8000/api/institutions/institution/`);
+
+      const response = await axios.post(`http://${domain}:8000/api/institutions/institution/`, {
         name: name,
         direction: address,
         payment_status : estado,
@@ -56,10 +62,10 @@ export const postInstitutions = async (name, address, estado, subscriptionType, 
 
   export const getStaff = async () => {
     try {
-      const response = await axios.get('http://localhost:8000/api/staff/staff/');
+      const response = await axios.get(`http://${domain}:8000/api/staff/staff/`);
       return response.data
     } catch (error) {
-      console.error('Error fetching user data:', error);
+      console.error("Error fetching user data:", error);
       throw error;
     }
   };
@@ -67,7 +73,7 @@ export const postInstitutions = async (name, address, estado, subscriptionType, 
   
   export const postStaff = async (staff) => {
     try {
-      const response = await axios.post("http://localhost:8000/api/staff/staff/", staff);
+      const response = await axios.post(`http://${domain}:8000/api/staff/staff/`, staff);
       return response.data;
     } catch (error) {
       console.error("Error haciendo la solicitud:", error);
@@ -79,16 +85,16 @@ export const postInstitutions = async (name, address, estado, subscriptionType, 
 
   export const getStudents = async () => {
     try {
-      const response = await axios.get('http://localhost:8000/api/students/students/');
+      const response = await axios.get(`http://${domain}:8000/api/students/students/`);
       return response.data; // Asumiendo que la API devuelve un array de estudiantes
     } catch (error) {
-      console.error('Error al obtener estudiantes:', error.response?.data || error);
+      console.error("Error al obtener estudiantes:", error.response?.data || error);
       throw error; // Lanzar error para manejarlo en el componente
     }
   };
   export const postStudents = async (nombre, apellido, identificacion, fechaNacimiento, grado, estadoAcademico, telefono, email, imageUrl, alergias, guardianTelefono, nameGuardian) => {
     try {
-        const response = await axios.post('http://localhost:8000/api/students/students/', {
+        const response = await axios.post(`http://${domain}:8000/api/students/students/`, {
             name: nombre,
             last_name: apellido,
             identification_number: identificacion,
@@ -105,9 +111,9 @@ export const postInstitutions = async (name, address, estado, subscriptionType, 
         return response.data;
     } catch (error) {
         if (error.response) {
-            console.error('Error en la respuesta del servidor:', error.response.data);
+            console.error("Error en la respuesta del servidor:", error.response.data);
         } else {
-            console.error('Error al agregar el estudiante:', error);
+            console.error("Error al agregar el estudiante:", error);
         }
         throw error;
     }
