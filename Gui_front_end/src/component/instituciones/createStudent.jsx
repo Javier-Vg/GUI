@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { postStudents } from '../../service/LoginGui';
-import { clientId } from "../../keys/key.js";
+import { clientId } from "../../keys/keys.js";
 
 function CreateStudent() {
   const [nombre, setNombre] = useState('');
