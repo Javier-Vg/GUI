@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { postStaff, getInstitutions, getContracts, getSubjects } from '../../service/LoginGui';
 import '../../css/create_staff.css';
-import { clientId } from '../../keys/keys';
 
 function CreateStaff() {
 

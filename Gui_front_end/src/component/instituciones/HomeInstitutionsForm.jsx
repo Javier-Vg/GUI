@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import CreateStaff from './CreateStaff';
 import CreateStudent from './createStudent';
-import ListTeacher from './ListTeacher';
+import ListStaff from './listStaff';
 import ListStudent from './listStudent';
 import '../../css/home_institution.css';
 
@@ -53,7 +53,7 @@ function HomeInstitutionsForm() {
                 <div>
                     <input 
                         type="button" 
-                        value="Profesor" 
+                        value="Personal" 
                         onClick={() => setChangeComponent("profesor")} 
                         className = "inputBoton"
                     />
@@ -132,7 +132,7 @@ function HomeInstitutionsForm() {
             <div className='div-components'>
                 {changeComponent === "crear personal" && <CreateStaff />}
                 {changeComponent === "crear estudiante" && <CreateStudent />}
-                {changeComponent === "profesor" && < ListTeacher/>}
+                {changeComponent === "profesor" && <ListStaff/>}
                 {changeComponent === "estudiante" && < ListStudent/>}
             </div>
         </div>
