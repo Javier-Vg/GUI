@@ -3,6 +3,7 @@ import CreateStaff from './CreateStaff';
 import CreateStudent from './createStudent';
 import ListStaff from './listStaff';
 import ListStudent from './listStudent';
+import Gastos from './Gastos';
 import '../../css/home_institution.css';
 
 function HomeInstitutionsForm() {
@@ -134,6 +135,7 @@ function HomeInstitutionsForm() {
                 {changeComponent === "crear estudiante" && <CreateStudent />}
                 {changeComponent === "profesor" && <ListStaff/>}
                 {changeComponent === "estudiante" && < ListStudent/>}
+                {changeComponent === "gastos" && < Gastos/>}
             </div>
         </div>
     );
