@@ -55,6 +55,26 @@ export const postInstitutions = async (name, address, estado, subscriptionType, 
     }
   };
   
+export const updateInstitutions = async (editingInstitution) => {
+    try {
+      const response = await axios.put(`http://${domain}:8000/api/institutions/institution/`, {
+        // create_date: create_date,
+        name: editingInstitution.name,
+        direction: editingInstitution.direction,
+        email: editingInstitution.email,
+        number_phone: editingInstitution.number_phone,
+        imagen_url: editingInstitution.imagen_url,
+        monthly_payent: editingInstitution.monthly_payent,
+        subscription_date: editingInstitution.subscription_date,
+        suscription_type: editingInstitution.suscription_type,
+        payment_status : editingInstitution.payment_status,
+      });
+      return response.data;
+    } catch (error) {
+      console.error("Error haciendo la solicitud:", error);
+      throw error;
+    }
+  };
 
 
   export const getStaff = async () => {
