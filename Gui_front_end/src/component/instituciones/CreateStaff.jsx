@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { postStaff, getInstitutions, getContracts, getSubjects } from '../../service/LoginGui';
 import '../../css/create_staff.css';
+import { clientId } from '../../keys/keys';
 
 function CreateStaff() {
 
@@ -13,11 +14,11 @@ function CreateStaff() {
   const [changeCorreo, setChangeCorreo] = useState();
   const [changeEstadoTrabajador, setChangeEstadoTrabajador] = useState();
   const [changePuesto, setChangePuesto] = useState();
-  const [changeSalarioMensual, setChangeSalarioMensual] = useState();
   const [changeImagen, setChangeImagen] = useState();
   const [changeContratoId, setChangeContratoId] = useState();
   const [changeInstitucionId, setChangeInstitucionId] = useState();
   const [changeMateriaId, setChangeMateriaId] = useState();
+  const [changeHorarioId, setChangeHorarioId] = useState();
 
   //Almacena los get de tablas consultadas
   const [contracts, setContracts] = useState();
@@ -74,7 +75,7 @@ function CreateStaff() {
       alert("Por favor selecciona una imagen.");
       return;
     }
-
+    
     try {
       // Subir la imagen a Imgur
       const auth = "Client-ID " + clientId;
@@ -109,11 +110,11 @@ function CreateStaff() {
         email: changeCorreo,
         employment_status: changeEstadoTrabajador,
         position: changePuesto,
-        salary: changeSalarioMensual,
         imagen_url: imageUrl,
         contract: changeContratoId,
         institution: changeInstitucionId,
-        subjects: changeMateriaId
+        subjects: changeMateriaId,
+        schedule: changeHorarioId
       }
 
       //Validaciones
@@ -150,7 +151,8 @@ function CreateStaff() {
           }
         }
       }
-
+      console.log(staff);
+      
       if (confimacion){
         postStaff(staff); //Envia los datos
       }
@@ -219,12 +221,6 @@ function CreateStaff() {
           <option value="Librarians" >Bibliotecarios</option>
           <option value="Security staff" >Personal de seguridad</option>
         </select>
-
-        <br />
-        <label>
-          Salario Mensual:
-          <input type="number" placeholder='salario mensual' onChange={(e) => setChangeSalarioMensual(e.target.value)}/>
-        </label>
         <br />
         <label>
           Imagen del empleado:
@@ -250,6 +246,11 @@ function CreateStaff() {
           <input type="number" placeholder='institucion_id' onChange={(e) => setChangeInstitucionId(e.target.value)} />
         </label>
         <br />
+        <label>
+          Id Horario:
+          <input type="number" placeholder='horario_id' onChange={(e) => setChangeHorarioId(e.target.value)} />
+        </label>
+        <br />
 
         {changePuesto == "Teacher" ? (
           <label>
@@ -262,6 +263,8 @@ function CreateStaff() {
         <br />
         <button onClick={handleSubmit}>ENVIAR</button>
       </form>
+
+
     </div>
   );
   

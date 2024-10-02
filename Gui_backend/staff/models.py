@@ -39,7 +39,5 @@ class staff(models.Model):
     subjects = models.ForeignKey(subjects, on_delete=models.CASCADE, null=True) #En caso de queno sea profesor, se queda null
     imagen_url = models.URLField(blank=True, null=True)  #almacenará la URL de la imagen que se sube a Imgur. 
 
-   
-    
     def __str__(self):
         return self.name

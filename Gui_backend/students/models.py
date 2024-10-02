@@ -18,6 +18,10 @@ class students(models.Model):
         ('Active', 'active'),
         ('Inactive', 'inactive')
     ]
+    TYPE=[
+        ('private student','private student'),
+        ('student care network','student care network')
+    ]
     name = models.CharField(max_length=100, blank=False, null=False)
     last_name = models.CharField(max_length=100, blank=False, null=False)
     identification_number = models.CharField(max_length=100, blank=False, null=False)
@@ -33,6 +37,9 @@ class students(models.Model):
     group = models.ForeignKey(group, on_delete=models.CASCADE, null=True, blank=True)   
     imagen_url = models.URLField(blank=True, null=True)
     monthly_payent_students = models.CharField(max_length=15, blank=True, null=True)
+    type_of_student = models.CharField(max_length=100, blank=False, choices=TYPE, default='private student')
+
+    
     
     def __str__(self):
         return self.name

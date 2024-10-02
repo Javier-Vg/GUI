@@ -14,7 +14,6 @@ function Institucion_register() {
   const [file, setFile] = useState(null); // Estado para la imagen
   const [monthly_payent, setMonthly_payent] = useState(""); // Estado para la imagen
 
-
   const send_data = async (e) => {
     e.preventDefault();
     
