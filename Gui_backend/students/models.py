@@ -32,6 +32,7 @@ class students(models.Model):
     institution = models.ForeignKey(Institution, on_delete=models.CASCADE, null=True, blank=True)
     group = models.ForeignKey(group, on_delete=models.CASCADE, null=True, blank=True)   
     imagen_url = models.URLField(blank=True, null=True)
+    monthly_payent_students = models.CharField(max_length=15, blank=True, null=True)
     
     def __str__(self):
         return self.name

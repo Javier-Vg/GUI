@@ -1,5 +1,7 @@
 import axios from "axios";
 const domain = window.location.hostname 
+console.log(domain);
+
 export const getDatos = async () => {
     try { 
       const response = await axios.get(`http://${domain}:8000/api/gui/admins/`);
@@ -38,6 +40,8 @@ export const getInstitutions = async () => {
   
 export const postInstitutions = async (name, address, estado, subscriptionType, phoneNumber, email,imageUrl) => {
     try {
+      console.log(`http://${domain}:8000/api/institutions/institution/`);
+
       const response = await axios.post(`http://${domain}:8000/api/institutions/institution/`, {
         name: name,
         direction: address,
@@ -113,6 +117,8 @@ export const postInstitutions = async (name, address, estado, subscriptionType, 
         throw error;
     }
 };
+
+
 
 export const getContracts = async () => {
   try {

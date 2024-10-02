@@ -53,6 +53,7 @@ function ListStaff() {
       )}
   
     </>
-  )}
+  )
+}
 
 export default ListStaff

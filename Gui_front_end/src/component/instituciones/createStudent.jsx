@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { postStudents } from '../../service/LoginGui';
-import { clientId } from '../../keys/keys';
+// import { clientId } from '../../keys/keys';
 
 function CreateStudent() {
   const [nombre, setNombre] = useState('');
@@ -119,8 +119,12 @@ function CreateStudent() {
         Selecciona un Grado:
         <select name="grado" value={grado} onChange={handleInputChange}>
           <option value="">--selecciona un grado--</option>
-          <option value="1st Grade">1st Grade</option>
-          <option value="Grado 2">Grado 2</option>
+          <option value="1st Grade">grado 1</option>
+          <option value="2st Grade">Grado 2</option>
+          <option value="3st Grade">Grado 3</option>
+          <option value="4st Grade">Grado 4</option>
+          <option value="5st Grade">Grado 5</option>
+          <option value="6st Grade">Grado 6</option>
         </select>
       </label>
       <br />
@@ -129,7 +133,7 @@ function CreateStudent() {
         <select name="estadoAcademico" value={estadoAcademico} onChange={handleInputChange}>
           <option value="">--estado académico--</option>
           <option value="Active">Active</option>
-          <option value="inactivo">Inactivo</option>
+          <option value="inactive">Inactivo</option>
         </select>
       </label>
       <br />

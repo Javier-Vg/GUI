@@ -1,6 +1,6 @@
 // export default Institucion_register;
 import React, { useState } from "react";
-//import { clientId } from '../../keys/keys.js'; // Asegúrate de tener el clientId configurado
+import { clientId } from '../../keys/key.js'; // Asegúrate de tener el clientId configurado
 import { postInstitutions } from "../../service/LoginGui"; // Asegúrate de que esta función maneje la subida de datos
 import '../../css/Register_institutions.css'
 
@@ -39,7 +39,6 @@ function Institucion_register() {
 
       const data = await response.json();
       const imageUrl = data.data.link; // URL de la imagen subida
-      console.log(data);
       
       // Luego de subir la imagen, envía los datos del formulario junto con la URL de la imagen
       await postInstitutions(name, address, estado, subscriptionType, phoneNumber, email, imageUrl);
