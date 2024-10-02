@@ -19,7 +19,6 @@ export const getDatos = async () => {
           email:email,
           password: contra,
           rol: rol,
-        
       });
       return response.data;
     } catch (error) {
@@ -40,9 +39,9 @@ export const getInstitutions = async () => {
   };
   
 export const postInstitutions = async (name, address, estado, subscriptionType, phoneNumber, email,imageUrl) => {
+  console.log(name, address, estado, subscriptionType, phoneNumber, email,imageUrl);
+  
     try {
-      console.log(`http://${domain}:8000/api/institutions/institution/`);
-
       const response = await axios.post(`http://${domain}:8000/api/institutions/institution/`, {
         name: name,
         direction: address,

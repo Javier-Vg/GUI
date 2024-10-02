@@ -57,4 +57,4 @@ function ListStaff() {
   )
 }
 
-export default listStaff
+export default ListStaff
