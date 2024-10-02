@@ -10,6 +10,9 @@
     --border-color:#ffffff;
     --text-color:#e7e7e7;
 } */
+label{
+    color: white !important;
+}
 *{
     padding: 0;
     box-sizing: border-box;
