@@ -14,12 +14,7 @@ class Institution(models.Model):  # Cambié el nombre de la clase a singular
     updated_date = models.DateTimeField(auto_now=True)  
     number_phone = models.CharField(max_length=15, blank=False, null=False)  # Cambié a CharField para permitir formatos de teléfono
     email = models.EmailField(validators=[validate_email], blank=False, null=True)
-<<<<<<< HEAD
     imagen_url = models.URLField(blank=True, null=True)  #almacenará la URL de la imagen que se sube a Imgur. 
-    
-=======
-    #imagen_url = models.URLField(blank=True, null=True)  #almacenará la URL de la imagen que se sube a Imgur. 
->>>>>>> 5f0a02b2be8752aedb9be033a3fe8a48adaa3c1e
 
     def __str__(self):
         return self.name

@@ -12,11 +12,13 @@ class Migration(migrations.Migration):
 
     operations = [
         migrations.CreateModel(
-            name='Post',
+            name='contracts',
             fields=[
                 ('id', models.BigAutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
-                ('title', models.CharField(max_length=255)),
-                ('content', models.TextField()),
+                ('contract_type', models.CharField(choices=[('Mensual', 'mensual'), ('Semanal', 'semanal'), ('Anual', 'anual')], max_length=100)),
+                ('start_date', models.DateField()),
+                ('end_date', models.DateField()),
+                ('salary', models.FloatField()),
             ],
         ),
     ]
