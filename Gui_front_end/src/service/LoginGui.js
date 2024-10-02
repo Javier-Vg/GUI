@@ -13,7 +13,6 @@ export const getDatos = async () => {
   };
   export const PostData = async (nombre,contra, email,rol) => {
     try {
-      console.log(domain);
       const response = await axios.post(`http://${domain}:8000/api/gui/admins/`, {// hace post a el api de los admins
           nombre: nombre,
           email:email,
@@ -27,9 +26,7 @@ export const getDatos = async () => {
     }
   };
 export const getInstitutions = async () => {
-    try {
-      console.log(`http://${domain}:8000/api/institutions/institution/`);
-      
+    try {    
       const response = await axios.get(`http://${domain}:8000/api/institutions/institution/`);
       return response.data
     } catch (error) {
@@ -38,8 +35,7 @@ export const getInstitutions = async () => {
     }
   };
   
-export const postInstitutions = async (name, address, estado, subscriptionType, phoneNumber, email,imageUrl) => {
-  console.log(name, address, estado, subscriptionType, phoneNumber, email,imageUrl);
+export const postInstitutions = async (name, address, estado, subscriptionType, phoneNumber, email,imageUrl,monthly_payent) => {
   
     try {
       const response = await axios.post(`http://${domain}:8000/api/institutions/institution/`, {
@@ -49,7 +45,8 @@ export const postInstitutions = async (name, address, estado, subscriptionType, 
         suscription_type: subscriptionType,
         number_phone: phoneNumber,
         email: email,
-        imagen_url: imageUrl
+        imagen_url: imageUrl,
+        monthly_payent: monthly_payent
       });
       return response.data;
     } catch (error) {
@@ -90,7 +87,7 @@ export const postInstitutions = async (name, address, estado, subscriptionType, 
       throw error; // Lanzar error para manejarlo en el componente
     }
   };
-  export const postStudents = async (nombre, apellido, identificacion, fechaNacimiento, grado, estadoAcademico, telefono, email, imageUrl, alergias, guardianTelefono, nameGuardian,mensualidadDelEstudiante) => {
+  export const postStudents = async (nombre, apellido, identificacion, fechaNacimiento, grado, estadoAcademico, telefono, email, imageUrl, alergias, guardianTelefono, nameGuardian, mensualidadDelEstudiante) => {
     try {
         const response = await axios.post(`http://${domain}:8000/api/students/students/`, {
             name: nombre,

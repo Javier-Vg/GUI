@@ -12,6 +12,8 @@ function Institucion_register() {
   const [email, setEmail] = useState("");
   const [date, setDate] = useState("");
   const [file, setFile] = useState(null); // Estado para la imagen
+  const [monthly_payent, setMonthly_payent] = useState(""); // Estado para la imagen
+
 
   const send_data = async (e) => {
     e.preventDefault();
@@ -41,7 +43,7 @@ function Institucion_register() {
       console.log(data);
       
       // Luego de subir la imagen, envía los datos del formulario junto con la URL de la imagen
-      await postInstitutions(name, address, estado, subscriptionType, phoneNumber, email, imageUrl);
+      await postInstitutions(name, address, estado, subscriptionType, phoneNumber, email, imageUrl,monthly_payent);
       console.log("Datos e imagen enviados correctamente");
     } catch (error) {
       console.error("Error al enviar los datos:", error);
@@ -121,6 +123,17 @@ function Institucion_register() {
             placeholder="Correo de la Institución"
             value={email}
             onChange={(e) => setEmail(e.target.value)}
+            required
+          />
+        </div>
+        <div className="divsInputs">
+          <input
+            className="inpts"
+            type="number"
+            id="monthly_payment"
+            placeholder="monthly_payment"
+            value={monthly_payent}
+            onChange={(e) => setMonthly_payent(e.target.value)}
             required
           />
         </div>
