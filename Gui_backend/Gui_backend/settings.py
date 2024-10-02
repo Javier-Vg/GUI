@@ -11,6 +11,7 @@ https://docs.djangoproject.com/en/5.1/ref/settings/
 """
 
 from pathlib import Path
+# import os
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -25,11 +26,14 @@ SECRET_KEY = 'django-insecure--)w=hwu666smegfn6!7*9v=phhg9c5^*go-i$7x2b56o^&!6xk
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['localhost', '127.0.0.1', 'Gui_front_end']
+ALLOWED_HOSTS = ['localhost', '127.0.0.1', 'Gui_front_end', '192.168.100.42', '192.168.100.44','192.168.100.47']
 CORS_ALLOWED_ORIGINS = [
     "http://localhost:5173",
     "http://127.0.0.1:5173",
     "http://Gui_front_end:5173",
+    "http://192.168.100.42:5173",
+    "http://192.168.100.44:5173",
+    "http://192.168.100.47:5173"
 ]
 
 # Application definition
@@ -41,9 +45,28 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    # 'rest_framework',
-    # 'corsheaders',
-]
+    'Gui',
+    'Api.apps.ApiConfig',
+    'rest_framework',
+    'corsheaders',
+    'Institucion',
+    'staff',
+    'administration',
+    'contracts',
+    'students',
+    'groups',
+    'materias',
+    'grades',
+    'schedule',
+    'teaching_assistance',
+    'student_assistance',
+    'parents',
+    'message',
+    'events',
+    'payments',
+    'tasks',
+    'Gastos'
+] # nombre de las apps
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
@@ -53,6 +76,8 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    'corsheaders.middleware.CorsMiddleware',
+    'django.middleware.common.CommonMiddleware'
 ]
 
 ROOT_URLCONF = 'Gui_backend.urls'
@@ -133,3 +158,17 @@ STATIC_URL = 'static/'
 # https://docs.djangoproject.com/en/5.1/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+REST_FRAMEWORK = {
+     "DEFAULT_AUTHENTICATION_CLASSES": [
+        "rest_framework.authentication.BasicAuthentication",
+        "rest_framework.authentication.TokenAuthentication"
+    ]
+}
+
+
+
+
+#-------------------------IMGUR
+MEDIA_URL = '/media/'
+MEDIA_ROOT = BASE_DIR / 'media' #Las imágenes cargadas se guardarán en media/images/.
+# MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
