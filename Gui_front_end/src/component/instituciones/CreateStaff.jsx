@@ -64,98 +64,101 @@ function CreateStaff() {
     }
   }
 
-
-
   const handleChangeStatus = (e) => {
     setChangeEstadoTrabajador(e.target.value)
   }
   
   const handleSubmit = async (e) => {
     e.preventDefault()
-    const auth = "Client-ID " + clientId;
-    const formData = new FormData();
-    formData.append("image", changeImagen);
-
-    const response = await fetch("https://api.imgur.com/3/image/", {
-      method: "POST",
-      body: formData,
-      headers: {
-        Authorization: auth,
-        Accept: "application/json",
-      },
-    });
-
-    const data = await response.json();
-    const imageUrl = data.data.link; // URL de la imagen subida
-    console.log(data);
-    
-    console.log(imageUrl);
-    
-    // Expresión regular para validar el formato del correo electrónico
-    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-    const dateRegex = /^\d{4}-(0[1-9]|1[0-2])-(0[1-9]|[12]\d|3[01])$/
-    let confimacion = true
-    
-    let staff = {
-      name: changeNombre,
-      last_name: changeApellidos,
-      identification_number: changeIdentificacion,
-      birthdate_date: changeFechaNacimiento,
-      direction: changeDireccion,
-      phone_number: changeTelefono,
-      email: changeCorreo,
-      employment_status: changeEstadoTrabajador,
-      position: changePuesto,
-      salary: changeSalarioMensual,
-      imagen: imageUrl,
-      contract: changeContratoId,
-      institution: changeInstitucionId,
-      subjects: changeMateriaId
+    if (!changeImagen) {
+      alert("Por favor selecciona una imagen.");
+      return;
     }
 
-    //Validaciones
-    for (const [key, value] of Object.entries(staff)) {
-      // if (key == "subjects"){
-      //   continue
-      // }else{
-      //   if (!value) {
-      //     alert(`El campo ${key} es obligatorio.`);
-      //     console.error(`El campo ${key} es obligatorio.`);
-      //     confimacion = false
-      //     return; // Salir si algún campo está vacío
-      //   }
-      // }
+    try {
+      // Subir la imagen a Imgur
+      const auth = "Client-ID " + clientId;
+      const formData = new FormData();
+      formData.append("image", changeImagen);
+
+      const response = await fetch("https://api.imgur.com/3/image/", {
+        method: "POST",
+        body: formData,
+        headers: {
+          Authorization: auth,
+          Accept: "application/json",
+        },
+      });
+
+      const data = await response.json();
+      const imageUrl = data.data.link; // URL de la imagen subida
+      console.log(data);
+    
+      // Expresión regular para validar el formato del correo electrónico
+      const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+      const dateRegex = /^\d{4}-(0[1-9]|1[0-2])-(0[1-9]|[12]\d|3[01])$/;
+      let confimacion = true
       
-      // Validar el correo electrónico
-      if (key == "email"){
-        if (!emailRegex.test(changeCorreo)) {
-          alert('Por favor, ingrese un correo electrónico válido')
-          confimacion = false
-        } else {
-          console.log("correo validado correctamente");
-          
+      let staff = {
+        name: changeNombre,
+        last_name: changeApellidos,
+        identification_number: changeIdentificacion,
+        birthdate_date: changeFechaNacimiento,
+        direction: changeDireccion,
+        phone_number: changeTelefono,
+        email: changeCorreo,
+        employment_status: changeEstadoTrabajador,
+        position: changePuesto,
+        salary: changeSalarioMensual,
+        imagen_url: imageUrl,
+        contract: changeContratoId,
+        institution: changeInstitucionId,
+        subjects: changeMateriaId
+      }
+
+      //Validaciones
+      for (const [key, value] of Object.entries(staff)) {
+
+        // if (key == "subjects"){
+        //   continue
+        // }else{
+        //   if (!value) {
+        //     alert(`El campo ${key} es obligatorio.`);
+        //     console.error(`El campo ${key} es obligatorio.`);
+        //     confimacion = false
+        //     return; // Salir si algún campo está vacío
+        //   }
+        // }
+        
+        // Validar el correo electrónico
+        if (key == "email"){
+          if (!emailRegex.test(changeCorreo)) {
+            alert('Por favor, ingrese un correo electrónico válido')
+            confimacion = false
+          } else {
+            console.log("correo validado correctamente");
+            
+          }
+        }
+        // Validar la fecha
+        if (key == "birthdate_date"){
+          if (!dateRegex.test(changeFechaNacimiento)) {
+            alert('Por favor, ingrese una fecha válida')
+            confimacion = false
+          } else {
+            console.log("fecha validado correctamente");
+          }
         }
       }
-      // Validar la fecha
-      if (key == "birthdate_date"){
-        if (!dateRegex.test(changeFechaNacimiento)) {
-          alert('Por favor, ingrese una fecha válida')
-          confimacion = false
-        } else {
-          console.log("fecha validado correctamente");
-          
-        }
+
+      if (confimacion){
+        postStaff(staff); //Envia los datos
       }
     }
-
-    if (confimacion){
-      postStaff(staff); //Envia los dat
+    catch (error) {
+      console.error("Error al enviar los datos:", error);
     }
   }
-
-  console.log(contracts);
-  console.log(institutions);
-  
 
   return (
     <div className='div-core'>
