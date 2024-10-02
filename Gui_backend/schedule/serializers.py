@@ -4,4 +4,4 @@ from .models import schedule
 class Schedule_Serializer(serializers.ModelSerializer):
     class Meta:
         model = schedule
-        fields = ['start_time', 'end_time', 'subject' ,'staff']
+        fields = ['start_time', 'end_time', 'group', 'days' ]

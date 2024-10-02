@@ -119,4 +119,27 @@ export const postInstitutions = async (name, address, estado, subscriptionType, 
     }
 };
 
+<<<<<<< HEAD
   
+=======
+
+export const getContracts = async () => {
+  try {
+    const response = await axios.get('http://localhost:8000/api/contracts/contracts/');
+    return response.data
+  } catch (error) {
+    console.error('Error fetching user data:', error);
+    throw error;
+  }
+};
+
+export const getSubjects = async () => {
+  try {
+    const response = await axios.get('http://localhost:8000/api/subjects/subjects/');
+    return response.data
+  } catch (error) {
+    console.error('Error fetching user data:', error);
+    throw error;
+  }
+};
+>>>>>>> 5f0a02b2be8752aedb9be033a3fe8a48adaa3c1e
