@@ -76,8 +76,6 @@ export const postInstitutions = async (name, address, estado, subscriptionType, 
       throw error;
     }
   };
-  
- 
 
   export const getStudents = async () => {
     try {
@@ -88,6 +86,7 @@ export const postInstitutions = async (name, address, estado, subscriptionType, 
       throw error; // Lanzar error para manejarlo en el componente
     }
   };
+  
   export const postStudents = async (nombre, apellido, identificacion, fechaNacimiento, grado, estadoAcademico, telefono, email, imageUrl, alergias, guardianTelefono, nameGuardian) => {
     try {
         const response = await axios.post(`http://${domain}:8000/api/students/students/`, {
@@ -113,4 +112,24 @@ export const postInstitutions = async (name, address, estado, subscriptionType, 
         }
         throw error;
     }
+};
+
+export const getContracts = async () => {
+  try {
+    const response = await axios.get(`http://${domain}:8000/api/contracts/contracts/`);
+    return response.data
+  } catch (error) {
+    console.error('Error fetching user data:', error);
+    throw error;
+  }
+};
+
+export const getSubjects = async () => {
+  try {
+    const response = await axios.get(`http://${domain}:8000/api/subjects/subjects`);
+    return response.data
+  } catch (error) {
+    console.error('Error fetching user data:', error);
+    throw error;
+  }
 };
