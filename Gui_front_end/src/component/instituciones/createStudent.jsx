@@ -99,7 +99,7 @@ function CreateStudent() {
   return (
     <div>
       <label>
-        Nombre:
+        Nombre estudiante:
         <input type="text" name="nombre" placeholder="nombre" value={nombre} onChange={handleInputChange} />
       </label>
       <br />
