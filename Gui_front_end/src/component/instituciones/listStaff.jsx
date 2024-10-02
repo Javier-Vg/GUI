@@ -1,4 +1,34 @@
 <<<<<<< HEAD
+import React from 'react'
+import { getStaff } from '../../service/LoginGui'
+function listStaff() {
+    const [staff, setStaff] = useState([]);
+    const [seeMore, setSeeMore] = useState(false);
+    const [selectedStudent, setSelectedStaff] = useState(null);
+ 
+    useEffect(() => {
+        getStaffData(); 
+    }, []);
+
+    const getStaffData = async () => {
+        const response = await getStaff();
+        setStaff(response);
+    };
+
+    const openModal = () => {
+        setSelectedStaff(staff);
+        setSeeMore(true);
+    };
+    const closeModal = () => {
+      setSelectedStaff(null);
+        setSeeMore(false);
+    };
+  return (
+    <div>
+
+
+    </div>
+=======
 import React, { useEffect, useState } from 'react'
 import { getStaff } from '../../service/LoginGui';
 function ListStaff() {
@@ -53,37 +83,7 @@ function ListStaff() {
       )}
   
     </>
-=========
-import React from 'react'
-import { getStaff } from '../../service/LoginGui'
-function listStaff() {
-    const [staff, setStaff] = useState([]);
-    const [seeMore, setSeeMore] = useState(false);
-    const [selectedStudent, setSelectedStaff] = useState(null);
- 
-    useEffect(() => {
-        getStaffData(); 
-    }, []);
-
-    const getStaffData = async () => {
-        const response = await getStaff();
-        setStaff(response);
-    };
-
-    const openModal = () => {
-        setSelectedStaff(staff);
-        setSeeMore(true);
-    };
-    const closeModal = () => {
-      setSelectedStaff(null);
-        setSeeMore(false);
-    };
-  return (
-    <div>
-
-
-    </div>
->>>>>>>>> Temporary merge branch 2
+>>>>>>> 5f0a02b2be8752aedb9be033a3fe8a48adaa3c1e
   )
 }
 
