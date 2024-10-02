@@ -119,9 +119,7 @@ export const postInstitutions = async (name, address, estado, subscriptionType, 
     }
 };
 
-<<<<<<< HEAD
-  
-=======
+
 
 export const getContracts = async () => {
   try {
@@ -142,4 +140,4 @@ export const getSubjects = async () => {
     throw error;
   }
 };
->>>>>>> 5f0a02b2be8752aedb9be033a3fe8a48adaa3c1e
+

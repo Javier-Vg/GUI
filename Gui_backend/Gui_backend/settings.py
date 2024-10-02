@@ -33,7 +33,7 @@ CORS_ALLOWED_ORIGINS = [
     "http://Gui_front_end:5173",
     "http://192.168.100.42:5173",
     "http://172.23.96.1:5173",
-    
+    "http://172.23.96.1:8000",
     
 ]
 
