@@ -114,5 +114,3 @@ export const postInstitutions = async (name, address, estado, subscriptionType, 
         throw error;
     }
 };
-
-  
