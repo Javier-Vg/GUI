@@ -1,6 +1,6 @@
 // export default Institucion_register;
 import React, { useState } from "react";
-//import { clientId } from '../../keys/keys.js'; // Asegúrate de tener el clientId configurado
+import { clientId } from '../../keys/keys.js'; // Asegúrate de tener el clientId configurado
 import { postInstitutions } from "../../service/LoginGui"; // Asegúrate de que esta función maneje la subida de datos
 import '../../css/Register_institutions.css'
 

@@ -15,6 +15,7 @@ function CreateStudent() {
   const [nameGuardian, setNameGuardian] = useState('');
   const [imagen, setImagen] = useState(null);
   const [alergias, setAlergias] = useState('');
+  const [mensualidadDelEstudiante, setMensualidadDelEstudiante] = useState('');
 
   const handleInputChange = (e) => {
     const { name, value } = e.target;
@@ -30,6 +31,7 @@ function CreateStudent() {
       case 'guardianTelefono': setGuardianTelefono(value); break;
       case 'nameGuardian': setNameGuardian(value); break;
       case 'alergias': setAlergias(value); break;
+      case 'mensualidadDelEstudiante': setMensualidadDelEstudiante(value); break;
       default: break;
     }
   };
@@ -42,7 +44,7 @@ function CreateStudent() {
   };
 
   const handleSubmit = async () => {
-    if (!nombre || !apellido || !identificacion || !fechaNacimiento || !grado || !estadoAcademico || !telefono || !email || !nameGuardian) {
+    if (!nombre || !apellido || !identificacion || !fechaNacimiento || !grado || !estadoAcademico || !telefono || !email || !nameGuardian || !mensualidadDelEstudiante) {
       alert("Por favor, completa todos los campos obligatorios.");
       return;
     }
@@ -71,7 +73,7 @@ function CreateStudent() {
       }
       const imageUrl = data.data.link;
 
-      await postStudents(nombre, apellido, identificacion, fechaNacimiento, grado, estadoAcademico, telefono, email, imageUrl, alergias, guardianTelefono, nameGuardian);
+      await postStudents(nombre, apellido, identificacion, fechaNacimiento, grado, estadoAcademico, telefono, email, imageUrl, alergias, guardianTelefono, nameGuardian, mensualidadDelEstudiante);
       console.log('Estudiante agregado exitosamente');
 
       // Restablecer campos
@@ -87,6 +89,7 @@ function CreateStudent() {
       setNameGuardian('');
       setImagen(null);
       setAlergias('');
+      setMensualidadDelEstudiante('');
     } catch (error) {
       console.error('Error al agregar estudiante:', error);
       alert('Ocurrió un error al agregar el estudiante.');
@@ -120,11 +123,11 @@ function CreateStudent() {
         <select name="grado" value={grado} onChange={handleInputChange}>
           <option value="">--selecciona un grado--</option>
           <option value="1st Grade">grado 1</option>
-          <option value="2st Grade">Grado 2</option>
-          <option value="3st Grade">Grado 3</option>
-          <option value="4st Grade">Grado 4</option>
-          <option value="5st Grade">Grado 5</option>
-          <option value="6st Grade">Grado 6</option>
+          <option value="2nd Grade">Grado 2</option>
+          <option value="3rd Grade">Grado 3</option>
+          <option value="4th Grade">Grado 4</option>
+          <option value="5th Grade">Grado 5</option>
+          <option value="6th Grade">Grado 6</option>
         </select>
       </label>
       <br />
@@ -132,8 +135,8 @@ function CreateStudent() {
         Estado Académico:
         <select name="estadoAcademico" value={estadoAcademico} onChange={handleInputChange}>
           <option value="">--estado académico--</option>
-          <option value="Active">Active</option>
-          <option value="inactive">Inactivo</option>
+          <option value="Active">Activo</option>
+          <option value="Inactive">Inactivo</option>
         </select>
       </label>
       <br />
@@ -165,6 +168,12 @@ function CreateStudent() {
       <label>
         Imagen:
         <input type="file" accept="image/*" onChange={handleFileChange} />
+      </label>
+      <br />
+      <br />
+      <label>
+        Mensualidad del Estudiante:
+        <input type="text" name="mensualidadDelEstudiante" placeholder="Mensualidad del estudiante" value={mensualidadDelEstudiante} onChange={handleInputChange} />
       </label>
       <br />
       <button type="button" onClick={handleSubmit}>Agregar Estudiante</button>
