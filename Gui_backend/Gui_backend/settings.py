@@ -61,7 +61,8 @@ INSTALLED_APPS = [
     'message',
     'events',
     'payments',
-    'tasks'
+    'tasks',
+    'Gastos'
 ] # nombre de las apps
 
 MIDDLEWARE = [
