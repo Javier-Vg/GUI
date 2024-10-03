@@ -4,6 +4,7 @@ import { postInstitutions } from "../../service/LoginGui"; // Asegúrate de que 
 import '../../css/Register_institutions.css'
 
 function Institucion_register() {
+  
   const [name, setName] = useState("");
   const [address, setAddress] = useState("");
   const [estado, setEstado] = useState("");
@@ -162,5 +163,4 @@ function Institucion_register() {
     </div>
   );
 }
-
 export default Institucion_register;

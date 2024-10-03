@@ -1,6 +1,6 @@
-
-import React, { useEffect, useState } from 'react'
+import React, { useEffect, useState } from 'react';
 import { getStaff } from '../../service/LoginGui';
+
 function ListStaff() {
 
   const [Staff, setStaff] = useState();
@@ -24,22 +24,24 @@ function ListStaff() {
     setModal(!Modal)
   }
 
-
   return (
     <>
     <h2 style={{textAlign: "left"}}>Personal Registrado:</h2>
-     {Staff && (
+      <div style={{overflow: scroll}}>
+        {Staff && (
         Staff.map((i, index) => (
           <div key={index} 
+          className='div-vista'
           style={{
             border: "2px solid #ccc",
             borderRadius: "5px",
-            backgroundColor: "white",
+            color: 'black',
             padding: "10px",
             marginBottom: "10px", // Añadir espacio entre los divs
             width: "500px",
-            textAlign: "center"
-        }}>
+            textAlign: "center",
+
+          }}>
             <h3>{i.name}</h3>
             <h3>{i.last_name}</h3>
             <button onClick={(() => setModal(!Modal))}>Mostrar mas...</button>
@@ -94,8 +96,8 @@ function ListStaff() {
             </dialog>
           ))
         )}
+      </div>
     </>
-
   )
 }
 
