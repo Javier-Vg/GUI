@@ -18,6 +18,6 @@ class teachers(models.Model):
     phone_number =  models.CharField(max_length=100, blank=False, null=False)
     email =  models.CharField(max_length=100, blank=False, null=False)
     employment_status =  models.CharField(max_length=100, blank=False, null=False, choices = STATUS)
-    institution = models.ForeignKey(Institution, on_delete=models.CASCADE)
+    institution = models.ForeignKey(Institution, on_delete=models.CASCADE, null=True, blank=True)
     # schedule = models.ForeignKey(Owner, on_delete=models.CASCADE)
     # contract = models.ForeignKey(Owner, on_delete=models.CASCADE)

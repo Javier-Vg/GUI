@@ -6,7 +6,7 @@
 }
 
 label {
-    color: #2d464c !important; /* Cambiar el color de los labels a #2d464c */
+    color: #00ccff !important; /* Cambiar el color de los labels a #2d464c */
 }
 
 
@@ -53,7 +53,7 @@ aside {
     background-color: var(--items-color);
     width: 260px;
     position: absolute;
-    top: 0;
+    top: 1.3rem;
     left: 0;
     bottom: 0;
     overflow-y: hidden;

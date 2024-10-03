@@ -1,4 +1,5 @@
 from django.db import models
+from Institucion.models import Institution  # Importa el modelo de Institution
 
 class Gasto(models.Model):
     # ID personalizado (opcional)
@@ -18,6 +19,7 @@ class Gasto(models.Model):
     mensualidad_ninos_privados = models.DecimalField(max_digits=10, decimal_places=2)
     mensualidad_ninos_red_cuido = models.DecimalField(max_digits=10, decimal_places=2)
     balance = models.DecimalField(max_digits=10, decimal_places=2, null=True, blank=True)  # Campo para el balance
+    institution = models.ForeignKey(Institution, on_delete=models.CASCADE, null=True, blank=True)
 
     def __str__(self):
         return f"Gasto: {self.luz}, {self.agua}, ... "  # Personaliza como necesites
