@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { postStaff, getInstitutions, getContracts, getSubjects } from '../../service/LoginGui';
+import { postStaff, getInstitutions, getContracts, getSubjects, getSchedule} from '../../service/LoginGui';
 import '../../css/create_staff.css';
 import { clientId } from '../../keys/keys';
 
@@ -24,16 +24,33 @@ function CreateStaff() {
   const [contracts, setContracts] = useState();
   const [institutions, setInstitution] = useState();
   const [subjects, setSubjects] = useState();
+  const [schedule, setSchedule] = useState();
 
   //Ocultar id profesor
-  const handleChange = (e) => {
+  const handleChangePuesto = (e) => {
     setChangePuesto(e.target.value)
+  }
+
+  const handleChangeInstitucion = (e) => {
+    setChangeInstitucionId(e.target.value)
+  }
+  const handleChangeMateria = (e) => {
+    setChangeMateriaId(e.target.value)
+  }
+  const handleChangeHorario = (e) => {
+    setChangeHorarioId(e.target.value)
+  }
+  const handleChangeContrato = (e) => {
+    console.log(e.target.value);
+    
+    setChangeContratoId(e.target.value)
   }
 
   useEffect(() => {
       getDataSubject();
       getDataInsititution();
       getDataContract();
+      getDataSchedule();
   },[])
 
   const getDataInsititution = async () => {
@@ -49,7 +66,6 @@ function CreateStaff() {
     try {
         const contractsData = await getContracts();
         setContracts(contractsData);
-        console.log(contractsData);
 
     } catch (error) {
         console.error("Error fetching contract:", error);
@@ -60,6 +76,15 @@ function CreateStaff() {
     try {
         const subjectsData = await getSubjects();
         setSubjects(subjectsData);
+    } catch (error) {
+        console.error("Error fetching subject:", error);
+    }
+  }
+
+  const getDataSchedule = async () => {
+    try {
+        const subjectsData = await getSchedule();
+        setSchedule(subjectsData);
     } catch (error) {
         console.error("Error fetching subject:", error);
     }
@@ -93,7 +118,6 @@ function CreateStaff() {
 
       const data = await response.json();
       const imageUrl = data.data.link; // URL de la imagen subida
-      console.log(data);
     
       // Expresión regular para validar el formato del correo electrónico
       const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
@@ -199,7 +223,7 @@ function CreateStaff() {
         <br />
 
         <label htmlFor="opciones">Selecciona un Puesto Creado Anteriormente:</label>
-        <select value={changePuesto} onChange={handleChange}  id="opciones">
+        <select value={changePuesto} onChange={handleChangePuesto}  id="opciones">
           <option >--Selecciona un puesto--</option>
           <option value="Directors" >Director</option>
           <option value="Teacher" >Profesor</option>
@@ -209,45 +233,82 @@ function CreateStaff() {
           <option value="Librarians" >Bibliotecarios</option>
           <option value="Security staff" >Personal de seguridad</option>
         </select>
+
         <br />
+
         <label>
           Imagen del empleado:
           <input type="file" placeholder='imagen' onChange={(e) => setChangeImagen(e.target.value)}/>
         </label>
-        <br />
-        <label>
 
-         {contracts && (
-            contracts.map((contract, index) => (
-              <div key={index}>
-                <p>{contract.contract_type}</p>
-              </div>
-            ))
-          )}
+        <br />
+        
+        <label>
+          Seleccione su contrato:
+        {contracts && (
+          <select value={changeContratoId} onChange={handleChangeContrato} id="opciones">
+            <option value="">--Seleccionar--</option>
+            {contracts.map((contract, index) => (
+              <option key={index} value={contract.id}>
+                {contract.id}
+              </option>
+            ))}
+          </select>
+        )}
+        </label>
 
-          Id contrato:
-          <input type="number" placeholder='contrato_id' onChange={(e) => setChangeContratoId(e.target.value)} />
-        </label>
         <br />
+
         <label>
-          Id Institucion:
-          <input type="number" placeholder='institucion_id' onChange={(e) => setChangeInstitucionId(e.target.value)} />
+          Seleccione la institucion:
+        {institutions && (
+          <select value={changeInstitucionId} onChange={handleChangeInstitucion} id="opciones">
+            <option value="">--Seleccionar--</option>
+            {institutions.map((instucion, index) => (
+              <option key={index} value={instucion.id}>
+                {instucion.name}
+              </option>
+            ))}
+          </select>
+        )}
         </label>
+
         <br />
+
         <label>
-          Id Horario:
-          <input type="number" placeholder='horario_id' onChange={(e) => setChangeHorarioId(e.target.value)} />
+          Seleccione el horario:
+        {schedule && (
+          <select value={changeHorarioId} onChange={handleChangeHorario} id="opciones">
+            <option value="">--Seleccionar--</option>
+            {schedule.map((horario, index) => (
+              <option key={index} value={horario.id}>
+                {horario.days}
+              </option>
+            ))}
+          </select>
+        )}
         </label>
+
         <br />
 
         {changePuesto == "Teacher" ? (
-          <label>
-            Id Materia:
-            <input type="number" placeholder='materia_id' onChange={(e) => setChangeMateriaId(e.target.value)}/>
+         <label>
+          Seleccione las materias que impartira:
+          {subjects && (
+            <select value={changeMateriaId} onChange={handleChangeMateria} id="opciones">
+              <option value="">--Seleccionar--</option>
+                  {subjects.map((materia, index) => (
+                    <option key={index} value={materia.id}>
+                  {materia.subject_group}
+                </option>
+              ))}
+            </select>
+            )}
           </label>
         ) : (
           <p style={{ display: "none" }}>oculto</p>
         )}
+
         <br />
         <button onClick={handleSubmit}>ENVIAR</button>
       </form>

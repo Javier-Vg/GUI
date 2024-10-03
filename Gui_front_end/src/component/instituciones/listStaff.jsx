@@ -94,13 +94,6 @@ function ListStaff() {
                 <h3>{Id.institution_id}</h3>
                 <h3>{Id.subjects_id}</h3>
                 <h3>{Id.schedule_id}</h3>
-
-                {/* Condición para verificar si la posición es igual a 6 */}
-                {Id.position === 6 ? (
-                  <h4 style={{ color: 'red' }}>Este miembro tiene posición 6</h4>
-                ) : (
-                  <h4>Posición diferente a 6</h4>
-                )}
               </div>
             </div>
 
