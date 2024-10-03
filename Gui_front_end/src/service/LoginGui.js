@@ -79,7 +79,7 @@ export const updateInstitutions = async (editingInstitution) => {
     }
 };
 /////////////////////////////////////////////////////////////////
-  export const getStaff = async () => {
+export const getStaff = async () => {
     try {
       const response = await axios.get(`http://${domain}:8000/api/staff/staff/`);
       return response.data
@@ -87,7 +87,7 @@ export const updateInstitutions = async (editingInstitution) => {
       console.error("Error fetching user data:", error);
       throw error;
     }
-  };
+};
   
   
   export const postStaff = async (staff) => {

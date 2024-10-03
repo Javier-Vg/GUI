@@ -1,14 +1,24 @@
 import React, { useState } from 'react';
-// Asegúrate de que estos componentes estén importados correctamente
+import { useSelector } from 'react-redux';
 import LoginProfesor from './LoginProfesor';
 import LoginInstitucion from './LoginInstitucion';
 import LoginPadres from './LoginPadres';
+import { getStaff } from '../../service/LoginGui';
 
 function ElecionLogin() {
     const [changeComponent, setChangeComponent] = useState('Institución'); // Estado para manejar el rol seleccionado
+    const username = useSelector((state) => state.login.username);
+    const password = useSelector((state) => state.login.password); // Solo con fines de demostración (no recomendable mostrar contraseñas).
 
-
-    
+    const handleSubmit = async (e) => {
+        e.preventDefault();
+        const data = await getStaff()
+        // Aquí podrías enviar los datos al backend para iniciar sesión
+        // Esta línea solo simula el envío de datos
+        console.log('enviando datos...', username, password, data);
+        // Aquí podrías manejar el resultado del envío
+    }
+            
     return (
         <div>
             <form >
@@ -32,6 +42,7 @@ function ElecionLogin() {
                 {changeComponent === "Institución" && <LoginInstitucion />}
                 {changeComponent === "Padre" && <LoginPadres />} 
             </div>
+            <button onClick={handleSubmit} type="submit">Iniciar Sesión</button>
         </div>
     );
 }
