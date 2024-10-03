@@ -25,6 +25,8 @@ export const getDatos = async () => {
       throw error;
     }
   };
+
+/////////////////////////////////////////////////////////////////
 export const getInstitutions = async () => {
     try {    
       const response = await axios.get(`http://${domain}:8000/api/institutions/institution/`);
@@ -55,8 +57,28 @@ export const postInstitutions = async (name, address, estado, subscriptionType, 
     }
   };
   
-
-
+export const updateInstitutions = async (editingInstitution) => {
+    try {
+      const response = await axios.put(`http://${domain}:8000/api/institutions/institution/${editingInstitution.id}/`, {
+        // create_date: create_date,
+        direction: editingInstitution.direction,
+        email: editingInstitution.email,
+        imagen_url: editingInstitution.imagen_url,
+        monthly_payent: editingInstitution.monthly_payent,
+        name: editingInstitution.name,
+        number_phone: editingInstitution.number_phone,
+        payment_status : editingInstitution.payment_status,       
+        subscription_date: editingInstitution.subscription_date,
+        suscription_type: editingInstitution.suscription_type,
+        
+      });
+      return response.data;
+    } catch (error) {
+      console.error("Error haciendo la solicitud:", error);
+      throw error;
+    }
+};
+/////////////////////////////////////////////////////////////////
   export const getStaff = async () => {
     try {
       const response = await axios.get(`http://${domain}:8000/api/staff/staff/`);

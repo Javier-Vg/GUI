@@ -119,17 +119,6 @@ function CreateStaff() {
 
       //Validaciones
       for (const [key, value] of Object.entries(staff)) {
-
-        // if (key == "subjects"){
-        //   continue
-        // }else{
-        //   if (!value) {
-        //     alert(`El campo ${key} es obligatorio.`);
-        //     console.error(`El campo ${key} es obligatorio.`);
-        //     confimacion = false
-        //     return; // Salir si algún campo está vacío
-        //   }
-        // }
         
         // Validar el correo electrónico
         if (key == "email"){
