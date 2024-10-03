@@ -215,10 +215,10 @@ function CreateStaff() {
         <label>
           Estado del trabajador:
           <select value={changeEstadoTrabajador} onChange={handleChangeStatus}  id="opciones">
-          <option >--Selecciona un puesto--</option>
-          <option value="Active" >Activo</option>
-          <option value="Inactive" >Inactivo</option>
-        </select>
+            <option >--Selecciona un puesto--</option>
+            <option value="Active" >Activo</option>
+            <option value="Inactive" >Inactivo</option>
+          </select>
         </label>
         <br />
 
@@ -250,7 +250,7 @@ function CreateStaff() {
             <option value="">--Seleccionar--</option>
             {contracts.map((contract, index) => (
               <option key={index} value={contract.id}>
-                {contract.id}
+                {contract.contract_type}
               </option>
             ))}
           </select>
