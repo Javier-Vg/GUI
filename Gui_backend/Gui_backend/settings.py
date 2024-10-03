@@ -51,7 +51,6 @@ INSTALLED_APPS = [
     'corsheaders',
     'Institucion',
     'staff',
-    'administration',
     'contracts',
     'students',
     'groups',
