@@ -312,8 +312,6 @@ function CreateStaff() {
         <br />
         <button onClick={handleSubmit}>ENVIAR</button>
       </form>
-
-
     </div>
   );
   

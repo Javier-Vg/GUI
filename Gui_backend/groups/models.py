@@ -5,6 +5,7 @@ class group(models.Model):  # Cambié el nombre de la clase a singular
     educational_level = models.CharField(max_length=100, blank=False, null=False)
     capacity = models.IntegerField(blank=False, null=False) #new
     classroom = models.CharField(max_length=100, blank=False, null=False) #new
+    subject_group = models.JSONField(blank=False)
     institution = models.ForeignKey(Institution, on_delete=models.CASCADE, null=True, blank=True)
     def __str__(self):
         return self.group_name

@@ -12,11 +12,10 @@ function Routing() {
     <div id='root'>
         <Router>
           <Routes>
-            <Route path="/login-gui" element={<Login />} />
-            <Route path="/Gui" element={<Home_Gui />} />
-            <Route path="/home-institutions" element={<HomeInstitutions />} />
-            <Route path="/login-rol" element={<LoginRol />} />
-
+            <Route path="/Gui" element={<Login />} />
+            <Route path="/Gui_home" element={<Home_Gui />} />
+            <Route path="/Institutions" element={<HomeInstitutions />} />
+            <Route path="/Login" element={<LoginRol />} />
           </Routes>
         </Router>
     </div>
