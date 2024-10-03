@@ -33,8 +33,7 @@ function Institucion_register() {
         method: "POST",
         body: formData,
         headers: {
-          Authorization: auth,
-          Accept: "application/json",
+          Authorization: auth
         },
       });
 
