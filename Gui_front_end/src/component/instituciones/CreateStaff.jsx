@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { postStaff, getInstitutions, getContracts, getSubjects, getSchedule} from '../../service/LoginGui';
+import { postStaff, getInstitutions, getContracts, getSchedule} from '../../service/LoginGui';
 import '../../css/create_staff.css';
 import { clientId } from '../../keys/keys';
 
@@ -41,7 +41,6 @@ function CreateStaff() {
   }
 
   useEffect(() => {
-      getDataSubject();
       getDataInsititution();
       getDataContract();
       getDataSchedule();
@@ -63,15 +62,6 @@ function CreateStaff() {
 
     } catch (error) {
         console.error("Error fetching contract:", error);
-    }
-  }
-
-  const getDataSubject = async () => {
-    try {
-        const subjectsData = await getSubjects();
-        setSubjects(subjectsData);
-    } catch (error) {
-        console.error("Error fetching subject:", error);
     }
   }
 
@@ -105,9 +95,7 @@ function CreateStaff() {
         method: "POST",
         body: formData,
         headers: {
-          Authorization: auth,
-          Accept: "application/json",
-        },
+          Authorization: auth        },
       });
 
       const data = await response.json();
