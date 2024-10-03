@@ -18,4 +18,5 @@ class GastosSerializer(serializers.ModelSerializer):
      'alquiler_local' ,
      'mensualidad_ninos_privados' ,
      'mensualidad_ninos_red_cuido' ,
+     'balance'
         ]

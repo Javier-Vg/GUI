@@ -14,6 +14,6 @@ class Gasto(models.Model):
     alquiler_local = models.DecimalField(max_digits=10, decimal_places=2)
     mensualidad_ninos_privados = models.DecimalField(max_digits=10, decimal_places=2)
     mensualidad_ninos_red_cuido = models.DecimalField(max_digits=10, decimal_places=2)
-
+    balance = models.DecimalField(max_digits=10, decimal_places=2, null=True, blank=True)  # Campo para el balance
     def __str__(self):
         return f"Gasto: {self.luz}, {self.agua}, ... "  # Personaliza como necesites
