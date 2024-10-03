@@ -20,6 +20,11 @@ function HomeInstitutionsForm() {
     return (
 
         <div>
+            <h1>"¡Bienvenido a GUI, [Nombre del Usuario]!
+
+Nos alegra tenerte aquí. Tu experiencia es nuestra prioridad y estamos comprometidos a ofrecerte las mejores herramientas y recursos para que logres tus objetivos.
+
+Explora nuestras funciones, personaliza tu perfil y no dudes en contactarnos si necesitas ayuda. ¡Disfruta de tu viaje con nosotros!"</h1>
             <head>
                 <link href="https://unpkg.com/boxicons@2.0.7/css/boxicons.min.css" rel="stylesheet"/>
             </head>

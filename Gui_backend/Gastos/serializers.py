@@ -5,9 +5,10 @@ class GastosSerializer(serializers.ModelSerializer):
     class Meta:
         model = Gasto
         fields = [
+        'id',
        'luz',
-      'agua' ,
-      'internet' ,
+       'agua' ,
+       'internet' ,
        'comida' ,
       'material_didactico' ,
        'patentes' ,
