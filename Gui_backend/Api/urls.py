@@ -8,7 +8,6 @@ urlpatterns = [
     path('gui/', include("Gui.urls")),
     path('institutions/', include('Institucion.urls')), #Institucion.urls es el nombre del app
     path('staff/', include('staff.urls')), 
-    path('administration/', include('administration.urls')), 
     path('contracts/', include('contracts.urls')),
     path('students/', include('students.urls')),
     path('groups/', include('groups.urls')),

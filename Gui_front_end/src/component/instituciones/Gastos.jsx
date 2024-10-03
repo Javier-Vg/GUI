@@ -83,7 +83,7 @@ function GastosGanancias() {
       {['luz', 'agua', 'internet', 'comida', 'materialDidactico', 'patentes', 'deduccionCaja', 'polizas', 'uniformesCompradosCantidad', 'uniformeCostoInstitucion', 'uniformesRegalados'].map((item) => (
         <label key={item}>
           {item.charAt(0).toUpperCase() + item.slice(1)}:
-          <input
+          <input className='Forms-clients'
             type="number"
             name={item}
             value={estado[item]}

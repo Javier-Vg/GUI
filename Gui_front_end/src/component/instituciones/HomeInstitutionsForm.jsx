@@ -20,6 +20,7 @@ function HomeInstitutionsForm() {
     return (
 
         <div>
+           
             <head>
                 <link href="https://unpkg.com/boxicons@2.0.7/css/boxicons.min.css" rel="stylesheet"/>
             </head>
@@ -30,6 +31,7 @@ function HomeInstitutionsForm() {
             </button>
             <img src="https://static.vecteezy.com/system/resources/previews/009/126/808/non_2x/gui-logo-gui-letter-gui-letter-logo-design-initials-gui-logo-linked-with-circle-and-uppercase-monogram-logo-gui-typography-for-technology-business-and-real-estate-brand-vector.jpg" alt="" />
             <h2>Nombre de la institucion</h2>
+            
         
         </nav>
         <aside id="aside" className={isDeployed ? 'desplegar' : ''}>
@@ -131,6 +133,7 @@ function HomeInstitutionsForm() {
             
 
             <div className='div-components'>
+                
                 {changeComponent === "crear personal" && <CreateStaff />}
                 {changeComponent === "crear estudiante" && <CreateStudent />}
                 {changeComponent === "profesor" && <ListStaff/>}

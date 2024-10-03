@@ -37,7 +37,7 @@ function ListStaff() {
     <h2 style={{textAlign: "left"}}>Personal Registrado:</h2>
 
       <div style={{
-        overflow: scroll,
+        
         display: "grid",
         gridTemplateColumns: "400px 400px 400px"
         }}>

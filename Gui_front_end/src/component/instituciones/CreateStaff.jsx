@@ -127,7 +127,6 @@ function CreateStaff() {
             confimacion = false
           } else {
             console.log("correo validado correctamente");
-            
           }
         }
         // Validar la fecha
