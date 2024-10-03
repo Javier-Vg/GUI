@@ -4,4 +4,4 @@ from .models import parents
 class Parents_Serializer(serializers.ModelSerializer):
     class Meta:
         model = parents
-        fields = ['start_time', 'end_time', 'subject' ,'staff']
+        fields = ['name', 'email', 'student_association' ,'student']
