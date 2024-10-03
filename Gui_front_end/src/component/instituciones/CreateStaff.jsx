@@ -17,13 +17,11 @@ function CreateStaff() {
   const [changeImagen, setChangeImagen] = useState();
   const [changeContratoId, setChangeContratoId] = useState();
   const [changeInstitucionId, setChangeInstitucionId] = useState();
-  const [changeMateriaId, setChangeMateriaId] = useState();
   const [changeHorarioId, setChangeHorarioId] = useState();
 
   //Almacena los get de tablas consultadas
   const [contracts, setContracts] = useState();
   const [institutions, setInstitution] = useState();
-  const [subjects, setSubjects] = useState();
   const [schedule, setSchedule] = useState();
 
   //Ocultar id profesor
@@ -34,15 +32,11 @@ function CreateStaff() {
   const handleChangeInstitucion = (e) => {
     setChangeInstitucionId(e.target.value)
   }
-  const handleChangeMateria = (e) => {
-    setChangeMateriaId(e.target.value)
-  }
   const handleChangeHorario = (e) => {
     setChangeHorarioId(e.target.value)
   }
   const handleChangeContrato = (e) => {
-    console.log(e.target.value);
-    
+    console.log(e.target.value)
     setChangeContratoId(e.target.value)
   }
 
@@ -137,7 +131,6 @@ function CreateStaff() {
         imagen_url: imageUrl,
         contract: changeContratoId,
         institution: changeInstitucionId,
-        subjects: changeMateriaId,
         schedule: changeHorarioId
       }
 
@@ -290,24 +283,6 @@ function CreateStaff() {
         </label>
 
         <br />
-
-        {changePuesto == "Teacher" ? (
-         <label>
-          Seleccione las materias que impartira:
-          {subjects && (
-            <select value={changeMateriaId} onChange={handleChangeMateria} id="opciones">
-              <option value="">--Seleccionar--</option>
-                  {subjects.map((materia, index) => (
-                    <option key={index} value={materia.id}>
-                  {materia.subject_group}
-                </option>
-              ))}
-            </select>
-            )}
-          </label>
-        ) : (
-          <p style={{ display: "none" }}>oculto</p>
-        )}
 
         <br />
         <button onClick={handleSubmit}>ENVIAR</button>
