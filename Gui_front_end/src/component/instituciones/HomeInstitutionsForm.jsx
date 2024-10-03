@@ -4,6 +4,10 @@ import CreateStudent from './createStudent';
 import ListStaff from './listStaff';
 import ListStudent from './listStudent';
 import Gastos from './Gastos';
+import CreateGroup from './CreateGroup'; // Ajusta la ruta según sea necesario
+
+import ManageSubjects from './manageSubjects'; // Ajusta la ruta según sea necesario
+
 import '../../css/home_institution.css';
 
 function HomeInstitutionsForm() {
@@ -54,6 +58,23 @@ function HomeInstitutionsForm() {
                 />
                 </div>
                 <div>
+                <input 
+                    type="button" 
+                    value="Crear Grupo" 
+                    onClick={() => setChangeComponent("Crear Grupo")} 
+                    className = "inputBoton"
+                />
+                </div>
+                <div>
+                    <input 
+                        type="button" 
+                        value="Crear Materias" 
+                        onClick={() => setChangeComponent("materias")} 
+                        className="inputBoton"
+                    />
+                </div>
+
+                <div>
                     <input 
                         type="button" 
                         value="Personal" 
@@ -103,29 +124,9 @@ function HomeInstitutionsForm() {
                         className = "inputBoton"
                     />
                 </div>
+
                 <div>
                 
-                </div>
-            </div>
-            <div className="container-svg">
-                <h2>etc</h2>
-                <div>
-                    
-                    <span>YouTube Premium</span>
-                </div>
-                <div>
-                    
-                    <span>Videojuegos</span>
-                </div>
-                <div>
-                    
-                    <span>Directo</span>
-                </div>
-                <div>
-                    <span>Aprendizaje</span>
-                </div>
-                <div>
-                    <span>Deportes</span>
                 </div>
             </div>
         </aside>
@@ -134,11 +135,16 @@ function HomeInstitutionsForm() {
 
             <div className='div-components'>
                 
+            <div className='div-components'>
                 {changeComponent === "crear personal" && <CreateStaff />}
                 {changeComponent === "crear estudiante" && <CreateStudent />}
-                {changeComponent === "profesor" && <ListStaff/>}
-                {changeComponent === "estudiante" && < ListStudent/>}
-                {changeComponent === "gastos" && < Gastos/>}
+                {changeComponent === "profesor" && <ListStaff />}
+                {changeComponent === "estudiante" && <ListStudent />}
+                {changeComponent === "gastos" && <Gastos />}
+                {changeComponent === "materias" && <ManageSubjects />}
+                {changeComponent === "Crear Grupo" && <CreateGroup />} 
+            </div>
+
             </div>
         </div>
     );
