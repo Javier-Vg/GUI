@@ -4,6 +4,7 @@ import { postInstitutions } from "../../service/LoginGui"; // Asegúrate de que 
 import '../../css/Register_institutions.css'
 
 function Institucion_register() {
+  
   const [name, setName] = useState("");
   const [address, setAddress] = useState("");
   const [estado, setEstado] = useState("");
@@ -13,7 +14,6 @@ function Institucion_register() {
   const [date, setDate] = useState("");
   const [file, setFile] = useState(null); // Estado para la imagen
   const [monthly_payent, setMonthly_payent] = useState(""); // Estado para la imagen
-
 
   const send_data = async (e) => {
     e.preventDefault();
@@ -33,8 +33,7 @@ function Institucion_register() {
         method: "POST",
         body: formData,
         headers: {
-          Authorization: auth,
-          Accept: "application/json",
+          Authorization: auth
         },
       });
 
@@ -163,5 +162,4 @@ function Institucion_register() {
     </div>
   );
 }
-
 export default Institucion_register;

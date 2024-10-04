@@ -4,6 +4,7 @@
     color: white;
     margin: center;
 }
+
 input{
     background: none;
     border-top: none;
@@ -12,3 +13,7 @@ input{
     border-color: white;
 }
 
+/* .div-core{
+    margin-right: 500px;
+    position: relative;
+} */

@@ -16,7 +16,6 @@ class Institution(models.Model):  # Cambié el nombre de la clase a singular
     email = models.EmailField(validators=[validate_email], blank=False, null=True)
     imagen_url = models.URLField(blank=True, null=True)  #almacenará la URL de la imagen que se sube a Imgur. 
     monthly_payent = models.FloatField(null=False)
-
     def __str__(self):
         return self.name
 

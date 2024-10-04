@@ -4,8 +4,6 @@ from contracts.models import contracts
 from materias.models import subjects 
 from schedule.models import schedule
 from django.core.validators import validate_email
-
-from .utils import upload_image_to_imgur
 #from schedule.models import schedule  
 
 # Create your models here.
@@ -38,8 +36,7 @@ class staff(models.Model):
     institution = models.ForeignKey(Institution, on_delete=models.CASCADE, null=False)
     schedule = models.ForeignKey(schedule, on_delete=models.CASCADE, null=False)
     contract = models.ForeignKey(contracts, on_delete=models.CASCADE, related_name='related_contracts')
-    subjects = models.ForeignKey(subjects, on_delete=models.CASCADE, null=True) #En caso de queno sea profesor, se queda null
-   
-    
+    imagen_url = models.URLField(blank=True, null=True)  #almacenará la URL de la imagen que se sube a Imgur. 
+
     def __str__(self):
         return self.name
