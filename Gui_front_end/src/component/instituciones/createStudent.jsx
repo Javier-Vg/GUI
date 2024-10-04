@@ -1,6 +1,6 @@
-// Componente CreateStudent
+// Componente CreateStudent.jsx
 import React, { useState } from 'react';
-import { useSelector } from 'react-redux'; // Importa useSelector
+import { useSelector } from 'react-redux';
 import { postStudents } from '../../service/LoginGui';
 import { clientId } from "../../keys/keys.js";
 
@@ -20,7 +20,7 @@ function CreateStudent() {
   const [mensualidadDelEstudiante, setMensualidadDelEstudiante] = useState('');
   const [password, setPassword] = useState('');
 
-  const institutionId = useSelector((state) => state.input.institutionId); // Obtén el ID de la institución
+  const institutionId = useSelector((state) => state.input.institutionId);
 
   const handleInputChange = (e) => {
     const { name, value } = e.target;
@@ -63,7 +63,7 @@ function CreateStudent() {
         break;
       case 'password':
         setPassword(value);
-        break; // Manejar cambio de contraseña
+        break;
       default:
         break;
     }
@@ -106,8 +106,7 @@ function CreateStudent() {
       }
       const imageUrl = data.data.link;
 
-      // Aquí agregamos el institutionId al postStudents
-      await postStudents(nombre, apellido, identificacion, fechaNacimiento, grado, estadoAcademico, telefono, email, imageUrl, alergias, guardianTelefono, nameGuardian, mensualidadDelEstudiante, password, institutionId); // Añadir institutionId
+      await postStudents(nombre, apellido, identificacion, fechaNacimiento, grado, estadoAcademico, telefono, email, imageUrl, alergias, guardianTelefono, nameGuardian, mensualidadDelEstudiante, password, institutionId);
       console.log('Estudiante agregado exitosamente');
 
       // Restablecer campos
@@ -135,17 +134,17 @@ function CreateStudent() {
     <div>
       <label>
         Nombre estudiante:
-        <input type="text" name="nombre" value={nombre} onChange={handleInputChange} />
+        <input type="text" name="nombre" placeholder="nombre" value={nombre} onChange={handleInputChange} />
       </label>
       <br />
       <label>
         Apellido:
-        <input type="text" name="apellido" value={apellido} onChange={handleInputChange} />
+        <input type="text" name="apellido" placeholder="apellido" value={apellido} onChange={handleInputChange} />
       </label>
       <br />
       <label>
         Número de Identificación:
-        <input type="text" name="identificacion" value={identificacion} onChange={handleInputChange} />
+        <input type="text" name="identificacion" placeholder="identificación" value={identificacion} onChange={handleInputChange} />
       </label>
       <br />
       <label>
@@ -177,32 +176,32 @@ function CreateStudent() {
       <br />
       <label>
         Teléfono:
-        <input type="text" name="telefono" value={telefono} onChange={handleInputChange} />
+        <input type="text" name="telefono" placeholder="teléfono" value={telefono} onChange={handleInputChange} />
       </label>
       <br />
       <label>
         Email:
-        <input type="email" name="email" value={email} onChange={handleInputChange} />
+        <input type="email" name="email" placeholder="email" value={email} onChange={handleInputChange} />
       </label>
       <br />
       <label>
         Contraseña:
-        <input type="password" name="password" value={password} onChange={handleInputChange} />
+        <input type="password" name="password" placeholder="contraseña" value={password} onChange={handleInputChange} />
       </label>
       <br />
       <label>
         Nombre del Encargado:
-        <input type="text" name="nameGuardian" value={nameGuardian} onChange={handleInputChange} />
+        <input type="text" name="nameGuardian" placeholder="nombre del encargado" value={nameGuardian} onChange={handleInputChange} />
       </label>
       <br />
       <label>
         Teléfono del Encargado (opcional):
-        <input type="text" name="guardianTelefono" value={guardianTelefono} onChange={handleInputChange} />
+        <input type="text" name="guardianTelefono" placeholder="teléfono del encargado" value={guardianTelefono} onChange={handleInputChange} />
       </label>
       <br />
       <label>
         Alergias:
-        <input type="text" name="alergias" value={alergias} onChange={handleInputChange} />
+        <input type="text" name="alergias" placeholder="alergias" value={alergias} onChange={handleInputChange} />
       </label>
       <br />
       <label>
@@ -213,7 +212,7 @@ function CreateStudent() {
       <br />
       <label>
         Mensualidad del Estudiante:
-        <input type="text" name="mensualidadDelEstudiante" value={mensualidadDelEstudiante} onChange={handleInputChange} />
+        <input type="text" name="mensualidadDelEstudiante" placeholder="mensualidad" value={mensualidadDelEstudiante} onChange={handleInputChange} />
       </label>
       <br />
       <button type="button" onClick={handleSubmit}>Agregar Estudiante</button>
