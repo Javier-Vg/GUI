@@ -1,6 +1,5 @@
 import axios from "axios";
 const domain = window.location.hostname 
-console.log(domain);
 
 export const getDatos = async () => {
     try { 
@@ -37,7 +36,7 @@ export const getInstitutions = async () => {
     }
   };
   
-export const postInstitutions = async (name, address, estado, subscriptionType, phoneNumber, email,imageUrl,monthly_payent) => {
+export const postInstitutions = async (name, address, estado, subscriptionType, phoneNumber, email,imageUrl,monthly_payent,password) => {
   
     try {
       const response = await axios.post(`http://${domain}:8000/api/institutions/institution/`, {
@@ -48,7 +47,8 @@ export const postInstitutions = async (name, address, estado, subscriptionType, 
         number_phone: phoneNumber,
         email: email,
         imagen_url: imageUrl,
-        monthly_payent: monthly_payent
+        monthly_payent: monthly_payent,
+        password:password
       });
       return response.data;
     } catch (error) {

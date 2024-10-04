@@ -11,16 +11,15 @@ function ElecionLogin() {
     const password = useSelector((state) => state.login.password); // Solo con fines de demostración (no recomendable mostrar contraseñas).
 
     const handleSubmit = async () => {
-        const data = await getStaff()
-        // const data2 = await getStudents()
-        // const data3 = await getInstitutions()
-        console.log(data);
+        // const data = await getStaff()
+        const data = await getStudents()
+        // const data = await getInstitutions()
         // console.log(data2);
         // console.log(data3);
         
         // Aquí podrías enviar los datos al backend para iniciar sesión
         // Esta línea solo simula el envío de datos
-        console.log('enviando datos...', username, password);
+        console.log('enviando datos...', username, password,data);
         // Aquí podrías manejar el resultado del envío
     }
             
