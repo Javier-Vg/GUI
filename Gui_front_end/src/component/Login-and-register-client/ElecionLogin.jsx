@@ -16,44 +16,27 @@ function ElecionLogin() {
 
   const handleSubmit = async () => {
     try {
-      // Obtener los datos de cada función
       const staffData = await getStaff();
       const studentData = await getStudents();
       const institutionData = await getInstitutions();
         
-      // Validar en Staff
       const staffMatch = staffData.find(user => user.name === username && user.password === password);
-      // Validar en Students
       const studentMatch = studentData.find(user => user.name === username && user.password === password);
-      // Validar en Institutions
       const institutionMatch = institutionData.find(user => user.name === username && user.password === password);
 
-      // Comprobar si se encontró una coincidencia en cualquiera de los datos
       if (staffMatch) {
-        console.log('Login exitoso como Staff');
-        
-        // Almacena el institutionId del profesor en el store Redux
         dispatch(setInstitutionId(staffMatch.id
         )); // Asegúrate de que el id de la institución esté disponible en staffMatch
-        
         navigate('/institutions');
+
       } else if (studentMatch) {
-        console.log('Login exitoso como Estudiante');
-        
-        // Almacena el institutionId del estudiante en el store Redux
         dispatch(setInstitutionId(studentMatch.id
         )); // Asegúrate de que el id de la institución esté disponible en studentMatch
-        
         navigate('/home_padres');
-      } else if (institutionMatch) {
 
-        console.log('Login exitoso como Institución');
-        console.log(institutionMatch.id);
-        // Almacena institutionId en el store Redux
+      } else if (institutionMatch) {
         dispatch(setInstitutionId(institutionMatch.id
-        )); // Asegúrate de que el id esté disponible en institutionMatch
-        
-        // Navega a la interfaz de institución
+        )); 
         navigate('/Institutions');
       } else {
         console.log('Credenciales inválidas');
