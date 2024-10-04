@@ -4,24 +4,48 @@ import LoginProfesor from './LoginProfesor';
 import LoginInstitucion from './LoginInstitucion';
 import LoginPadres from './LoginPadres';
 import { getStaff,getStudents,getInstitutions } from '../../service/LoginGui';
+import { useNavigate } from 'react-router-dom';
+
 
 function ElecionLogin() {
     const [changeComponent, setChangeComponent] = useState('Institución'); // Estado para manejar el rol seleccionado
     const username = useSelector((state) => state.login.username);
-    const password = useSelector((state) => state.login.password); // Solo con fines de demostración (no recomendable mostrar contraseñas).
+    const password = useSelector((state) => state.login.password); // No recomendable mostrar contraseñas directamente
+    const navigate = useNavigate();
 
-    const handleSubmit = async () => {
-        // const data = await getStaff()
-        const data = await getStudents()
-        // const data = await getInstitutions()
-        // console.log(data2);
-        // console.log(data3);
+
+  const handleSubmit = async () => {
+    try {
+      // Obtener los datos de cada función
+      const staffData = await getStaff();
+      const studentData = await getStudents();
+      const institutionData = await getInstitutions();
+        console.log(studentData);
         
-        // Aquí podrías enviar los datos al backend para iniciar sesión
-        // Esta línea solo simula el envío de datos
-        console.log('enviando datos...', username, password,data);
-        // Aquí podrías manejar el resultado del envío
+      // Validar en Staff
+      const staffMatch = staffData.find(user => user.name === username && user.password === password);
+      // Validar en Students
+      const studentMatch = studentData.find(user => user.name === username && user.password === password);
+      // Validar en Institutions
+      const institutionMatch = institutionData.find(user => user.name === username && user.password === password);
+
+      // Comprobar si se encontró una coincidencia en cualquiera de los datos
+      if (staffMatch) {
+        console.log('Login exitoso como Staff');
+        navigate('/institutions');
+      } else if (studentMatch) {
+        console.log('Login exitoso como Estudiante');
+        navigate('/home_padres');
+      } else if (institutionMatch) {
+        console.log('Login exitoso como Institución');
+        navigate('/Ginstitutionsui');
+      } else {
+        console.log('Credenciales inválidas');
+      }
+    } catch (error) {
+      console.error('Error al obtener los datos:', error);
     }
+  };
             
     return (
         <div>

@@ -127,7 +127,7 @@ function CreateStudent() {
       setPassword('');
     } catch (error) {
       console.error('Error al agregar estudiante:', error);
-      alert('Ocurrió un error al agregar el estudiante.');
+      alert('Ocurrió un error al  agregar el estudiante.');
     }
   };
 
@@ -137,11 +137,11 @@ function CreateStudent() {
         Nombre estudiante:
         <input type="text" name="nombre" value={nombre} onChange={handleInputChange} />
       </label>
-      <br />
+      {/* <br />
       <label>
         Apellido:
         <input type="text" name="apellido" value={apellido} onChange={handleInputChange} />
-      </label>
+      </label> */}
       <br />
       <label>
         Número de Identificación:
