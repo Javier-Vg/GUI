@@ -16,6 +16,7 @@ function CreateStudent() {
   const [imagen, setImagen] = useState(null);
   const [alergias, setAlergias] = useState('');
   const [mensualidadDelEstudiante, setMensualidadDelEstudiante] = useState('');
+  const [password, setPassword] = useState(''); // Added state for password
 
   const handleInputChange = (e) => {
     const { name, value } = e.target;
@@ -32,6 +33,7 @@ function CreateStudent() {
       case 'nameGuardian': setNameGuardian(value); break;
       case 'alergias': setAlergias(value); break;
       case 'mensualidadDelEstudiante': setMensualidadDelEstudiante(value); break;
+      case 'password': setPassword(value); break; // Handle password change
       default: break;
     }
   };
@@ -44,7 +46,7 @@ function CreateStudent() {
   };
 
   const handleSubmit = async () => {
-    if (!nombre || !apellido || !identificacion || !fechaNacimiento || !grado || !estadoAcademico || !telefono || !email || !nameGuardian || !mensualidadDelEstudiante) {
+    if (!nombre || !apellido || !identificacion || !fechaNacimiento || !grado || !estadoAcademico || !telefono || !email || !nameGuardian || !mensualidadDelEstudiante || !password) {
       alert("Por favor, completa todos los campos obligatorios.");
       return;
     }
@@ -73,7 +75,7 @@ function CreateStudent() {
       }
       const imageUrl = data.data.link;
 
-      await postStudents(nombre, apellido, identificacion, fechaNacimiento, grado, estadoAcademico, telefono, email, imageUrl, alergias, guardianTelefono, nameGuardian, mensualidadDelEstudiante);
+      await postStudents(nombre, apellido, identificacion, fechaNacimiento, grado, estadoAcademico, telefono, email, imageUrl, alergias, guardianTelefono, nameGuardian, mensualidadDelEstudiante, password); // Include password
       console.log('Estudiante agregado exitosamente');
 
       // Restablecer campos
@@ -90,6 +92,7 @@ function CreateStudent() {
       setImagen(null);
       setAlergias('');
       setMensualidadDelEstudiante('');
+      setPassword(''); // Reset password
     } catch (error) {
       console.error('Error al agregar estudiante:', error);
       alert('Ocurrió un error al agregar el estudiante.');
@@ -148,6 +151,11 @@ function CreateStudent() {
       <label>
         Email:
         <input type="email" name="email" placeholder="email" value={email} onChange={handleInputChange} />
+      </label>
+      <br />
+      <label>
+        Contraseña: {/* Password input */}
+        <input type="password" name="password" placeholder="password" value={password} onChange={handleInputChange} />
       </label>
       <br />
       <label>
