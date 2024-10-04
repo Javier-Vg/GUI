@@ -1,33 +1,25 @@
-// Componente LoginInstitucion
 import React, { useState, useEffect } from 'react';
 import { useDispatch } from 'react-redux';
-import { setUsername, setPassword, setInstitutionId } from '../../store/CreateStudent';
-import { getDatos } from '../../service/LoginGui'; // Asegúrate de importar tu función
+import { setUsername, setPassword } from '../../store/inputSlice';
 
 function LoginInstitucion() {
   const [username, setUsernameInput] = useState('');
   const [password, setPasswordInput] = useState('');
   const dispatch = useDispatch();
 
-  const handleLogin = async () => {
-    try {
-      const data = await getDatos(); // Obtén los datos
-      const institution = data.find(inst => inst.email === username && inst.password === password); // Ejemplo de verificación
+  // Despacha el username cuando cambia
+  useEffect(() => {
+    dispatch(setUsername(username));
+  }, [username, dispatch]); // Se ejecuta cuando username cambia
 
-      if (institution) {
-        dispatch(setInstitutionId(institution.id)); // Guarda el ID de la institución
-        // Realiza más acciones después de iniciar sesión
-      } else {
-        alert('Credenciales incorrectas');
-      }
-    } catch (error) {
-      console.error('Error en el inicio de sesión', error);
-    }
-  };
+  // Despacha el password cuando cambia
+  useEffect(() => {
+    dispatch(setPassword(password));
+  }, [password, dispatch]); // Se ejecuta cuando password cambia
 
   return (
     <div>
-      <form onSubmit={handleLogin}>
+      <form>
         <div>
           <label htmlFor="username">Nombre de la institucion:</label>
           <input
@@ -47,10 +39,9 @@ function LoginInstitucion() {
             onChange={(e) => setPasswordInput(e.target.value)}
           />
         </div>
-        <button type="button" onClick={handleLogin}>Iniciar Sesión</button>
       </form>
     </div>
   );
 }
 
-export default LoginInstitucion;
+export default LoginInstitucion

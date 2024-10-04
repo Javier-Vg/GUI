@@ -1,10 +1,12 @@
 // src/store/store.js
 import { configureStore } from '@reduxjs/toolkit';
-import loginSlice from './inputSlice';
+import loginReducer from './inputSlice';
+import institutionSlice from './institutionSlice';
 
 const store = configureStore({
   reducer: {
-    login: loginSlice
+    login: loginReducer,
+    institution: institutionSlice, // Reducer para el institutionId
   }
 });
 
