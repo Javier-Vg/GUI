@@ -58,6 +58,7 @@ function CreateStudent() {
       const auth = "Client-ID " + clientId;
       const formData = new FormData();
       formData.append("image", imagen);
+      
       const response = await fetch("https://api.imgur.com/3/image/", {
         method: "POST",
         body: formData,
