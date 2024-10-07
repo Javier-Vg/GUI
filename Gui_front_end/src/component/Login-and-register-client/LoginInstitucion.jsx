@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { useDispatch } from 'react-redux';
 import { setUsername, setPassword } from '../../store/inputSlice';
+import "../../css/Eleccion_login.css";
 
 function LoginInstitucion() {
   const [username, setUsernameInput] = useState('');
@@ -18,9 +19,9 @@ function LoginInstitucion() {
   }, [password, dispatch]); // Se ejecuta cuando password cambia
 
   return (
-    <div>
+    <div className='container-login'>
       <form>
-        <div>
+        <div className='div-1'>
           <label htmlFor="username">Nombre de la institucion:</label>
           <input
             type="text"
@@ -30,7 +31,7 @@ function LoginInstitucion() {
           />
         </div>
 
-        <div>
+        <div className='div-2'>
           <label htmlFor="password">Contraseña:</label>
           <input
             type="password"
