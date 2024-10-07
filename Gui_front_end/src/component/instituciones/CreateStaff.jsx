@@ -256,16 +256,20 @@ function CreateStaff() {
 
         <label>
           Seleccione la institucion:
-        {institutions && (
-          <select value={changeInstitucionId} onChange={handleChangeInstitucion} id="opciones">
+          {institutions && (
+          <select
+            value={institutionsId}
+            onChange={handleChangeInstitucion}
+            id="opciones"
+          >
             <option value="">--Seleccionar--</option>
-            {institutions.map((instucion, index) => (
+            {institutions.filter(inst => inst.id == localStorage.getItem("institution_id")).map((instucion, index) => (
               <option key={index} value={instucion.id}>
                 {instucion.name}
               </option>
             ))}
           </select>
-        )}
+          )}
         </label>
 
         <br />

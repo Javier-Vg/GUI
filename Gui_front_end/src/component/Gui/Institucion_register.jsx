@@ -12,6 +12,7 @@ function Institucion_register() {
   const [phoneNumber, setPhoneNumber] = useState("");
   const [email, setEmail] = useState("");
   const [date, setDate] = useState("");
+  const [password, setPassword] = useState("");
   const [file, setFile] = useState(null); // Estado para la imagen
   const [monthly_payent, setMonthly_payent] = useState(""); // Estado para la imagen
 
@@ -43,7 +44,7 @@ function Institucion_register() {
       console.log(data);
       
       // Luego de subir la imagen, envía los datos del formulario junto con la URL de la imagen
-      await postInstitutions(name, address, estado, subscriptionType, phoneNumber, email, imageUrl,monthly_payent);
+      await postInstitutions(name, address, estado, subscriptionType, phoneNumber, email, imageUrl,monthly_payent,password);
       console.log("Datos e imagen enviados correctamente");
     } catch (error) {
       console.error("Error al enviar los datos:", error);
@@ -147,6 +148,9 @@ function Institucion_register() {
             onChange={(e) => setDate(e.target.value)}
             required
           />
+        </div>
+        <div className="divsInputs">
+          <input placeholder="Contraseña" type="password"value={password} name="" id="" onChange={(e) => setPassword(e.target.value)}/>
         </div>
         <div className="divsInputs">
           <input

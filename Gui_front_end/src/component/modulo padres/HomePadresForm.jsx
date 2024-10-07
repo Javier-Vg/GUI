@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import ExpedienteAlumno from './ExpedienteAlumno';
 import Chat from './Chat';
-
+import Notas from './Notas';
 import '../../css/home_institution.css';
 
 function HomePadresForm() {
@@ -79,7 +79,7 @@ function HomePadresForm() {
                 {changeComponent === " Expediente de Alumno" && <ExpedienteAlumno />}
                 {changeComponent === "Comunicacion" && < Chat />}
                 {changeComponent === "Estado de Cuenta" && <ExpedienteAlumno />}
-                {changeComponent === "Calificacion del Estudiante" && <ExpedienteAlumno />}
+                {changeComponent === "Calificacion del Estudiante" && < Notas />}
             </div>
 
             </div>
