@@ -19,7 +19,7 @@ function CreateStudent() {
   const [alergias, setAlergias] = useState('');
   const [mensualidadDelEstudiante, setMensualidadDelEstudiante] = useState('');
   const [password, setPassword] = useState('');
-  const institutionId = useSelector((state) => state.institution.institutionId); // Obtén el ID de la institución
+  const institution_id = useSelector((state) => state.institution.institutionId); // Obtén el ID de la institución
   
   const handleInputChange = (e) => {
     const { name, value } = e.target;
@@ -105,10 +105,10 @@ function CreateStudent() {
         throw new Error('Error al subir la imagen');
       }
       const imageUrl = data.data.link;
-      console.log(institutionId);
+      console.log(institution_id);
       
       // Aquí agregamos el institutionId al postStudents
-      await postStudents(nombre, apellido, identificacion, fechaNacimiento, grado, estadoAcademico, telefono, email, imageUrl, alergias, guardianTelefono, nameGuardian, mensualidadDelEstudiante, password, institutionId); // Añadir institutionId
+      await postStudents(nombre, apellido, identificacion, fechaNacimiento, grado, estadoAcademico, telefono, email, imageUrl, alergias, guardianTelefono, nameGuardian, mensualidadDelEstudiante, password, institution_id); // Añadir institutionId
       console.log('Estudiante agregado exitosamente');
 
       // Restablecer campos

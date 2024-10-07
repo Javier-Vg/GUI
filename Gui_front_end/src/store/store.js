@@ -7,6 +7,7 @@ const store = configureStore({
   reducer: {
     login: loginReducer,
     institution: institutionSlice, // Reducer para el institutionId
+    
   }
 });
 

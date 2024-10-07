@@ -9,57 +9,61 @@ import { setInstitutionId } from '../../store/institutionSlice'; // Acción para
 
 function ElecionLogin() {
   const [changeComponent, setChangeComponent] = useState('Institución'); // Estado para manejar el rol seleccionado
+  const [message, setMessage] = useState(''); // Estado para los mensajes de éxito o error
   const username = useSelector((state) => state.login.username);
   const password = useSelector((state) => state.login.password); // No recomendable mostrar contraseñas directamente
   const navigate = useNavigate();
   const dispatch = useDispatch(); // Para actualizar el Redux store
 
   const handleSubmit = async () => {
+    // Validaciones de campos vacíos
+    if (!username || !password) {
+      setMessage('El nombre de usuario y la contraseña no pueden estar vacíos');
+      // Eliminar el mensaje después de 5 segundos
+      setTimeout(() => setMessage(''), 5000);
+      return;
+    }
+
     try {
-      // Obtener los datos de cada función
       const staffData = await getStaff();
       const studentData = await getStudents();
       const institutionData = await getInstitutions();
         
-      // Validar en Staff
       const staffMatch = staffData.find(user => user.name === username && user.password === password);
-      // Validar en Students
       const studentMatch = studentData.find(user => user.name === username && user.password === password);
-      // Validar en Institutions
       const institutionMatch = institutionData.find(user => user.name === username && user.password === password);
 
-      // Comprobar si se encontró una coincidencia en cualquiera de los datos
       if (staffMatch) {
-        console.log('Login exitoso como Staff');
-        
-        // Almacena el institutionId del profesor en el store Redux
-        dispatch(setInstitutionId(staffMatch.id
-        )); // Asegúrate de que el id de la institución esté disponible en staffMatch
-        
-        navigate('/institutions');
-      } else if (studentMatch) {
-        console.log('Login exitoso como Estudiante');
-        
-        // Almacena el institutionId del estudiante en el store Redux
-        dispatch(setInstitutionId(studentMatch.id
-        )); // Asegúrate de que el id de la institución esté disponible en studentMatch
-        
-        navigate('/home_padres');
-      } else if (institutionMatch) {
+        dispatch(setInstitutionId(staffMatch.id)); // Asegúrate de que el id de la institución esté disponible en staffMatch
+        setMessage('Inicio de sesión exitoso como Profesor');
 
-        console.log('Login exitoso como Institución');
-        console.log(institutionMatch.id);
-        // Almacena institutionId en el store Redux
-        dispatch(setInstitutionId(institutionMatch.id
-        )); // Asegúrate de que el id esté disponible en institutionMatch
-        
-        // Navega a la interfaz de institución
+        localStorage.setItem('InstitutionID', staffMatch.Institution);
+        navigate('/institutions');
+
+      } else if (studentMatch) {
+        dispatch(setInstitutionId(studentMatch.id)); // Asegúrate de que el id de la institución esté disponible en studentMatch
+        setMessage('Inicio de sesión exitoso como Padre');
+
+        localStorage.setItem('InstitutionID', studentMatch.institution);
+        navigate('/home_padres');
+
+      } else if (institutionMatch) {
+        dispatch(setInstitutionId(institutionMatch.id)); 
+        setMessage('Inicio de sesión exitoso como Institución');
+
+        localStorage.setItem('InstitutionID', institutionMatch.id);
         navigate('/Institutions');
+
       } else {
-        console.log('Credenciales inválidas');
+        setMessage('Credenciales inválidas o no existentes');
+        setTimeout(() => setMessage(''), 5000);
+        
       }
     } catch (error) {
       console.error('Error al obtener los datos:', error);
+      setMessage('Ocurrió un error durante el inicio de sesión, por favor intenta nuevamente.');
+      // Eliminar el mensaje de error después de 5 segundos
+      setTimeout(() => setMessage(''), 5000);
     }
   };
 
@@ -87,8 +91,12 @@ function ElecionLogin() {
       </div>
 
       <button onClick={handleSubmit} type="submit">Iniciar Sesión</button>
+
+      {/* Mostrar el mensaje de éxito o error */}
+      {message && <p>{message}</p>}
     </div>
   );
 }
 
 export default ElecionLogin;
+

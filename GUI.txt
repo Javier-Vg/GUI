@@ -3,6 +3,9 @@ npm install redux react-redux @reduxjs/toolkit
 npm install cors
 npm install axios 
 npm i react-router-dom
-npm install redux-persist
+npm install jsonwebtoken bcryptjs express
+
 pip install django-cors-headers
 pip install djangorestframework
+pip install djangorestframework-simplejwt
+python manage.py createsuperuser
