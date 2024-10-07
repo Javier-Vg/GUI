@@ -1,12 +1,12 @@
 import React, { useEffect, useState } from 'react';
-import { getStudents } from '../../service/LoginGui'; 
-
+import { useSelector } from 'react-redux'; // Importa useSelector
+import { getStudents } from '../../service/LoginGui';
 
 function ListStudents() {
-    
     const [students, setStudents] = useState([]);
     const [seeMore, setSeeMore] = useState(false);
     const [selectedStudent, setSelectedStudent] = useState(null);
+    const institutionId = useSelector((state) => state.institution.institutionId); // Obtén el ID de la institución
 
     useEffect(() => {
         getStudentsData(); 
@@ -14,8 +14,9 @@ function ListStudents() {
 
     const getStudentsData = async () => {
         try {
-            const studentsData = await getStudents();
-            setStudents(studentsData);
+            const allStudents = await getStudents(); // Obtener todos los estudiantes
+            const filteredStudents = allStudents.filter(student => student.institution_id === institutionId); // Filtrar por institutionId
+            setStudents(filteredStudents); // Actualizar el estado con estudiantes filtrados
         } catch (error) {
             console.error("Error fetching students:", error);
         }
