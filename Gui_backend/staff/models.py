@@ -36,7 +36,9 @@ class staff(models.Model):
     institution = models.ForeignKey(Institution, on_delete=models.CASCADE, null=False)
     schedule = models.ForeignKey(schedule, on_delete=models.CASCADE, null=False)
     contract = models.ForeignKey(contracts, on_delete=models.CASCADE, related_name='related_contracts')
-    imagen_url = models.URLField(blank=True, null=True)  #almacenará la URL de la imagen que se sube a Imgur. 
+    imagen_url = models.URLField()  #almacenará la URL de la imagen que se sube a Imgur. 
 
     def __str__(self):
         return self.name
+
+
