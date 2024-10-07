@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
-import { postStaff, getInstitutions, getContracts, getSubjects, getSchedule} from '../../service/LoginGui';
+import { postStaff, getInstitutions, getContracts, getSchedule} from '../../service/LoginGui';
 import '../../css/create_staff.css';
-import { clientId } from '../../keys/keys';
+import { clientId } from '../../keys/keys.js';
 
 function CreateStaff() {
 
@@ -24,6 +24,15 @@ function CreateStaff() {
   const [institutions, setInstitution] = useState();
   const [schedule, setSchedule] = useState();
 
+  const handleFileChange = (e) => {
+    const file = e.target.files[0];
+    if (file) {
+      setChangeImagen(file);
+      console.log(file);
+      
+    }
+  };
+
   //Ocultar id profesor
   const handleChangePuesto = (e) => {
     setChangePuesto(e.target.value)
@@ -41,7 +50,6 @@ function CreateStaff() {
   }
 
   useEffect(() => {
-      getDataSubject();
       getDataInsititution();
       getDataContract();
       getDataSchedule();
@@ -63,15 +71,6 @@ function CreateStaff() {
 
     } catch (error) {
         console.error("Error fetching contract:", error);
-    }
-  }
-
-  const getDataSubject = async () => {
-    try {
-        const subjectsData = await getSubjects();
-        setSubjects(subjectsData);
-    } catch (error) {
-        console.error("Error fetching subject:", error);
     }
   }
 
@@ -111,7 +110,10 @@ function CreateStaff() {
       });
 
       const data = await response.json();
-      const imageUrl = data.data.link; // URL de la imagen subida
+      if (!data.data.link) {
+        throw new Error('Error al subir la imagen');
+      }
+      const imageUrl = data.data.link; // URL de la imagen subida      
     
       // Expresión regular para validar el formato del correo electrónico
       const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
@@ -231,7 +233,7 @@ function CreateStaff() {
 
         <label>
           Imagen del empleado:
-          <input type="file" placeholder='imagen' onChange={(e) => setChangeImagen(e.target.value)}/>
+          <input type="file" accept="image/*" onChange={handleFileChange} />
         </label>
 
         <br />

@@ -146,6 +146,18 @@ export const getContracts = async () => {
   }
 };
 
+
+export const postSubjects = async (subjects) => {
+  try {
+    const response = await axios.post(`http://${domain}:8000/api/subjects/subjects/`, subjects);
+    return response.data;
+  } catch (error) {
+    console.error("Error haciendo la solicitud:", error);
+    throw error;
+  }
+};
+
+
 export const getSubjects = async () => {
   try {
     const response = await axios.get(`http://${domain}:8000/api/subjects/subjects`);
@@ -162,6 +174,17 @@ export const getSchedule = async () => {
     return response.data
   } catch (error) {
     console.error('Error fetching user data:', error);
+    throw error;
+  }
+};
+
+
+export const postGroups = async (group) => {
+  try {
+    const response = await axios.post(`http://${domain}:8000/api/groups/groups/`, group);
+    return response.data;
+  } catch (error) {
+    console.error("Error haciendo la solicitud:", error);
     throw error;
   }
 };

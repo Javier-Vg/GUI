@@ -25,16 +25,18 @@ SECRET_KEY = 'django-insecure--)w=hwu666smegfn6!7*9v=phhg9c5^*go-i$7x2b56o^&!6xk
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['localhost', '127.0.0.1', 'Gui_front_end', '192.168.100.42', '192.168.100.44','192.168.100.47']
+ALLOWED_HOSTS = ['localhost', '127.0.0.1', 'Gui_front_end', '192.168.100.42', '192.168.100.44','192.168.100.47', '192.168.100.13']
 CORS_ALLOWED_ORIGINS = [
     "http://localhost:5173",
     "http://127.0.0.1:5173",
     "http://Gui_front_end:5173",
     "http://192.168.100.42:5173",
     "http://192.168.100.44:5173",
-    "http://192.168.100.47:5173"
+    "http://192.168.100.47:5173",
+    "http://192.168.100.13:5173",
 ]
 
+#La que termina en 13 es la de la otra compu 
 # Application definition
 
 INSTALLED_APPS = [

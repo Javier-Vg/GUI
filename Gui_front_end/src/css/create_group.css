@@ -1,0 +1,49 @@
+
+
+.modal1{
+    margin-left: 500px;
+    padding: 20px;
+    border-radius: 10px;
+    z-index: 1;
+    position: fixed;
+    transform: translate(-50%, -50%);
+    margin-left: 50%;
+}
+
+.boton1{
+    margin-right: 100%;
+    margin-bottom: 15px;
+}
+
+.div-1{
+    display: grid;
+    grid-template-columns: repeat(2,250px);
+}
+
+.div-radios{
+    text-align: left;
+    color: aqua;
+    padding: 3px;
+}
+
+.a-asign{
+    padding: 5px;
+    color: #48e;
+    border-radius: 5px;
+    font-size: 15px;
+    cursor:default;
+}
+    
+
+.a-asign:hover{
+    color: black;
+}
+
+.btn-save{
+    border-radius: 7px;
+    width: 200px;
+    color: white;
+    font-size: 15px;
+    background-color: coral;
+    padding: 3px;
+}
