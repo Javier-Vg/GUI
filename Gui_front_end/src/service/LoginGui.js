@@ -184,7 +184,11 @@ export const getSchedule = async () => {
 
 export const postGroups = async (group) => {
   try {
-    const response = await axios.post(`http://${domain}:8000/api/groups/groups/`, group);
+    const response = await axios.post(`http://${domain}:8000/api/groups/groups/`, group,{
+      headers: {
+        'Content-Type': 'application/json',
+      },
+    });
     return response.data;
   } catch (error) {
     console.error("Error haciendo la solicitud:", error);
