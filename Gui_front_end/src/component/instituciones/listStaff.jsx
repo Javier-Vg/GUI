@@ -112,6 +112,8 @@
 // export default ListStaff
 import React, { useEffect, useState } from 'react';
 import { getStaff } from '../../service/LoginGui';
+import { fetchStaff } from '../../Redux/Slices/SliceStaff';
+import { useDispatch, useSelector } from 'react-redux';
 
 function ListStaff() {
 
@@ -120,21 +122,29 @@ function ListStaff() {
   const [selectedStaff, setSelectedStaff] = useState(null);
   const institution_id = localStorage.getItem('InstitutionID');  // Obtener el institution_id del localStorage
 
+  const dispatch = useDispatch();
+  const { items, loading, error } = useSelector(state => state.institution);  
+  
   // Llama a método que hace la solicitud HTTP al API
-  useEffect(()=> {
-    getData();
-  },[]);
+  // useEffect(()=> {
+  //   getData();
+  // },[]);
 
-  const getData = async () => {
-    try {
-      const data = await getStaff();
-      // Filtrar el personal por institution_id
-      const filteredStaff = data.filter(staffMember => staffMember.institution === parseInt(institution_id, 10));
-      setStaff(filteredStaff);
-    } catch (error) {
-        console.error("Error fetching staff:", error);
-    }
-  }
+  useEffect(() => {
+    dispatch(fetchStaff()); // Llama a la acción para obtener productos al cargar el componente
+    const filteredStaff = items.filter(staffMember => staffMember.institution === parseInt(institution_id, 10));
+    // Filtrar el personal por institution_id
+    setStaff(filteredStaff);
+  }, [dispatch]);
+
+  // const getData = async () => {
+  //   try {
+  //     const data = await getStaff();
+      
+  //   } catch (error) {
+  //       console.error("Error fetching staff:", error);
+  //   }
+  // }
 
   const openModal = (staffMember) => {
     setSelectedStaff(staffMember);
@@ -144,6 +154,14 @@ function ListStaff() {
   const closeModal = () => {
     setSelectedStaff(null);
     setModal(false);
+  }
+
+  if (loading) {
+    return <div>Cargando...</div>; // Muestra un mensaje de carga
+  }
+
+  if (error) {
+    return <div>Error: {error}</div>; // Muestra el error si ocurre
   }
 
   return (

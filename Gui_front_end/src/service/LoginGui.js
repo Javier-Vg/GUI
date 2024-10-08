@@ -38,7 +38,6 @@ export const getDatos = async () => {
 };
     
 
-
 /////////////////////////////////////////////////////////////////
 export const getInstitutions = async () => {
     try {    
