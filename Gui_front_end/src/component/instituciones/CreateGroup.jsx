@@ -3,9 +3,6 @@ import { postGroups, getInstitutions, getSubjects, getStaff, getSchedule,} from 
 import "../../css/create_group.css";
 
 function CreateGroup() {
-  //Local storage 
-  localStorage.setItem("institution_id", 2);
-
   //Alamacena las respuestas del api
   const [institutions, setInstitution] = useState();
   const [subjects, setSubjects] = useState();
@@ -190,7 +187,7 @@ const Post = async () => {
             id="opciones"
           >
             <option value="">--Seleccionar--</option>
-            {institutions.filter(inst => inst.id == localStorage.getItem("institution_id")).map((instucion, index) => (
+            {institutions.filter(inst => inst.id == localStorage.getItem("InstitutionID")).map((instucion, index) => (
               <option key={index} value={instucion.id}>
                 {instucion.name}
               </option>

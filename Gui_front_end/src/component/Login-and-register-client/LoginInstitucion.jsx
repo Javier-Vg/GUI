@@ -20,10 +20,11 @@ function LoginInstitucion() {
 
   return (
     <div className='container-login'>
-      <form>
         <div className='div-1'>
           <label htmlFor="username">Nombre de la institucion:</label>
           <input
+            autocomplete="off"
+           className='inp-username'
             type="text"
             id="username"
             value={username}
@@ -34,13 +35,14 @@ function LoginInstitucion() {
         <div className='div-2'>
           <label htmlFor="password">Contraseña:</label>
           <input
+           autocomplete="off"
+            className='inp-password'
             type="password"
             id="password"
             value={password}
             onChange={(e) => setPasswordInput(e.target.value)}
           />
         </div>
-      </form>
     </div>
   );
 }

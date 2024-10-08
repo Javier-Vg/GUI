@@ -10,7 +10,7 @@ import "../../css/Eleccion_login.css";
 
 function ElecionLogin() {
   const [changeComponent, setChangeComponent] = useState("Institución"); // Estado para manejar el rol seleccionado
-  const [message, setMessage] = useState(""); // Estado para los mensajes de éxito o error
+  const [message, setMessage] = useState("ㅤㅤㅤㅤㅤㅤ"); // Estado para los mensajes de éxito o error
   const username = useSelector((state) => state.login.username);
   const password = useSelector((state) => state.login.password); // No recomendable mostrar contraseñas directamente
   const navigate = useNavigate();
@@ -76,7 +76,9 @@ function ElecionLogin() {
     <div className="container">
       <div className="grid">
         <div className="flex-options">
-          <div onClick={() => setChangeComponent("Institución")}>Institución</div>
+          <div onClick={() => setChangeComponent("Institución")}>
+            Institución
+          </div>
           <div onClick={() => setChangeComponent("Profesor")}>Profesor</div>
           <div onClick={() => setChangeComponent("Padre")}>Padre</div>
         </div>
@@ -86,14 +88,15 @@ function ElecionLogin() {
           {changeComponent === "Institución" && <LoginInstitucion />}
           {changeComponent === "Padre" && <LoginPadres />}
           {/* Mostrar el mensaje de éxito o error */}
-          {message && <p>{message}</p>}
         </div>
-
-        <button onClick={handleSubmit} type="submit">
-          Iniciar Sesión
-        </button>
-
-        
+        <div className="input-msg">
+          <div className="div-inp-1">{message && <p>{message}</p>}</div>
+          <div  className="div-inp-2">
+            <button onClick={handleSubmit} className="btn-login" type="submit">
+              Iniciar Sesión
+            </button>
+          </div>
+        </div>
       </div>
     </div>
   );
