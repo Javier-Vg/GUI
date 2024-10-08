@@ -10,6 +10,41 @@ export const getDatos = async () => {
       throw error;
     }
   };
+
+  
+  import { adminToken } from '../keys/keys'; // Asegúrate de que la ruta sea correcta
+  
+  export const loginAdmin = async (nombre, contra) => {
+      try {
+          const response = await axios.post(
+              `http://${domain}:8000/api/gui/admins/login/`,
+              {
+                  username: nombre,
+                  password: contra,
+              },
+              {
+                  headers: {
+                      "Content-Type": "application/json", // Agregando el Content-Type
+                      "Authorization": `Token ${adminToken}` // Usando el token de autorización
+                  }
+              }
+          );
+          return response.data; // Devuelve la respuesta
+      } catch (error) {
+          if (error.response) {
+              console.error("Error en el login:", error.response.data);
+              throw new Error(error.response.data.error || "Error en la autenticación");
+          } else if (error.request) {
+              console.error("No se recibió respuesta del servidor:", error.request);
+              throw new Error("No se recibió respuesta del servidor");
+          } else {
+              console.error("Error al configurar la solicitud:", error.message);
+              throw new Error("Error al configurar la solicitud");
+          }
+      }
+  };
+  
+  
   export const PostData = async (nombre, contra, email, rol, token) => {
     try {
       const response = await axios.post(`http://${domain}:8000/api/gui/admins/`, {
