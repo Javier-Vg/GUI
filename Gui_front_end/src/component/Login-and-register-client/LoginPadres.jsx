@@ -18,11 +18,12 @@ function LoginPadres() {
   }, [password, dispatch]); // Se ejecuta cuando password cambia
 
   return (
-    <div>
-      <form>
-        <div>
+    <div className='container-login'>
+        <div className='div-1'>
           <label htmlFor="username">Nombre de su hijo:</label>
           <input
+            autocomplete="off"
+           className='inp-username'
             type="text"
             id="username"
             value={username}
@@ -30,16 +31,17 @@ function LoginPadres() {
           />
         </div>
 
-        <div>
+        <div className='div-2'>
           <label htmlFor="password">Contraseña:</label>
           <input
+            autocomplete="off"
+            className='inp-password'
             type="password"
             id="password"
             value={password}
             onChange={(e) => setPasswordInput(e.target.value)}
           />
         </div>
-      </form>
     </div>
   );
 }

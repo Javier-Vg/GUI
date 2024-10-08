@@ -4,35 +4,37 @@ import '../../css/RegisterFormGui.css';
 function RegisterFormGui() {
   const [nombre, setNombre] = useState('');
   const [rol, setRol] = useState('');
-  const [email, setEmail] = useState(''); // Estado para el correo
+  const [email, setEmail] = useState(''); 
   const [contra, setContra] = useState('');
   const [texto, setTexto] = useState('');
+  const [token, setToken] = useState('');
 
-  // Función que se encarga de validar el registro
   const cargarDatos = async () => {
-    // Valida que los espacios estén llenos
     if (nombre.trim() === '' || email.trim() === '' || contra.trim() === '') {
       setTexto("Por favor llene todos los campos");
       return;
     }
-
-    // Llama a la función get del API
-    const datos = await getDatos();
-    // Verifica si ya existe un usuario con el mismo nombre
-    const usuarioExistente = datos.some(elem => elem.nombre === nombre);
-
-    // Si ya existe, muestra un mensaje
-    if (usuarioExistente) {
-      setTexto("Este usuario ya está registrado");
-    } else {
-      // Si no está registrado, guarda lo que está en el input
-      PostData(nombre, contra, email,rol); // Asegúrate de que esta función esté definida para manejar el registro
-      // Asumiendo que tu API devuelve un objeto con una propiedad `success`
-        setTexto("Registro exitoso!"); // Muestra mensaje de registro exitoso
-     
+    try {
+      const datos = await getDatos();
+      const usuarioExistente = datos.some(elem => elem.nombre === nombre);
+  
+      if (usuarioExistente) {
+        setTexto("Este usuario ya está registrado");
+      } else {
+        const response = await PostData(nombre, contra, email, rol,);
+  
+        if (response.success) {
+          setTexto("Registro exitoso!");
+          setToken(response.token);
+        } else {
+          setTexto("Error en el registro");
+        }
+      }
+    } catch (error) {
+      console.error("Error en el proceso de registro:", error);
+      setTexto("Error al procesar la solicitud");
     }
   };
-
   return (
     <div>
       <h4>REGISTER</h4>
@@ -49,7 +51,7 @@ function RegisterFormGui() {
       <div>
         <label htmlFor="email">Correo:</label>
         <input
-          type="email" // Cambiar a tipo email para validación automática
+          type="email"
           id="email"
           name="email"
           value={email}
@@ -60,7 +62,7 @@ function RegisterFormGui() {
         <label htmlFor="contra">Contraseña:</label>
         <input
           type="password"
-          id="contra" // Cambiar a 'contra' para que coincida
+          id="contra" 
           name="contra"
           value={contra}
           onChange={(e) => setContra(e.target.value)}
