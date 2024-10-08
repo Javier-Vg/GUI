@@ -1,12 +1,11 @@
 import React, { useEffect, useState } from 'react';
-import { useSelector } from 'react-redux'; // Importa useSelector
-import { getStudents } from '../../service/LoginGui';
+import { getStudents } from '../../service/LoginGui'; 
 
 function ListStudents() {
     const [students, setStudents] = useState([]);
     const [seeMore, setSeeMore] = useState(false);
     const [selectedStudent, setSelectedStudent] = useState(null);
-    const institutionId = useSelector((state) => state.institution.institutionId); // Obtén el ID de la institución
+    const institution_id = localStorage.getItem('InstitutionID');  // ID de la institución almacenado en localStorage
 
     useEffect(() => {
         getStudentsData(); 
@@ -14,9 +13,10 @@ function ListStudents() {
 
     const getStudentsData = async () => {
         try {
-            const allStudents = await getStudents(); // Obtener todos los estudiantes
-            const filteredStudents = allStudents.filter(student => student.institution_id === institutionId); // Filtrar por institutionId
-            setStudents(filteredStudents); // Actualizar el estado con estudiantes filtrados
+            const studentsData = await getStudents();
+            // Filtrar estudiantes cuyo institution_id coincida con el del localStorage
+            const filteredStudents = studentsData.filter(student => student.institution === parseInt(institution_id, 10));
+            setStudents(filteredStudents);
         } catch (error) {
             console.error("Error fetching students:", error);
         }
@@ -36,22 +36,26 @@ function ListStudents() {
         <div className='container_list'>
             <h1>Estudiantes</h1>
             <div className='students'>
-                {students.map((student) => (
-                    <div className='container_students_list' key={student.identification_number}>
-                        <div className='div_img'>
-                            {student.imagen_url ? (
-                                <img className='Student_Image' src={student.imagen_url} alt="No found" />
-                            ) : (
-                                <div className='No_Image'>Sin Imagen</div>
-                            )}
+                {students.length > 0 ? (
+                    students.map((student) => (
+                        <div className='container_students_list' key={student.identification_number}>
+                            <div className='div_img'>
+                                {student.imagen_url ? (
+                                    <img className='Student_Image' src={student.imagen_url} alt="No found" />
+                                ) : (
+                                    <div className='No_Image'>Sin Imagen</div>
+                                )}
+                            </div>
+                            <div className='student_inf'>
+                                <h2>{student.name} {student.last_name}</h2>
+                                <h6>{student.grade}</h6>
+                                <input onClick={() => openModal(student)} type="button" value="Ver más" />
+                            </div>   
                         </div>
-                        <div className='student_inf'>
-                            <h2>{student.name} {student.last_name}</h2>
-                            <h6>{student.grade}</h6>
-                            <input onClick={() => openModal(student)} type="button" value="Ver más" />
-                        </div>   
-                    </div>
-                ))}
+                    ))
+                ) : (
+                    <p>No hay estudiantes en esta institución.</p>
+                )}
             </div>
             
             {seeMore && selectedStudent && (

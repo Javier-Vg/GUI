@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { postGroups, getInstitutions, getSubjects, getStaff, getSchedule,} from "../../service/LoginGui";
 import "../../css/create_group.css";
-import MiComponente from "./jijijaja";
 
 function CreateGroup() {
   //Alamacena las respuestas del api
@@ -27,7 +26,7 @@ function CreateGroup() {
   const [objctChosen, setObjctChosen] = useState([]);
 
   //Crea el objeto con la vinculacion de docente y asignaturas:
-  const [objctFinish, setObjctFinish] = useState([]);
+  const [objectStudentsSubjects, setObjectStudentsSubjects] = useState([]);
 
   useEffect(() => {
     getDataInsititution();
@@ -58,21 +57,21 @@ function CreateGroup() {
     setObjctChosen([...objctChosen, e.target.value]);
   };
 
+const Post = async () => {
 
-  const Post = () => {
-    
-   const group = {
+  const group = [{
     group_name: Name,
     educational_level: educationLevel,
     capacity: capacity,
     classroom: classroom,
     institution: institutionsId,
-    communication_of_subjects_and_teacher: objctFinish,
+    communication_of_subjects_and_teacher: objectStudentsSubjects,
     current_students: 0
-   }
+  }];
 
-   postGroups(group); //Realiza el post.
+    postGroups(group);
   };
+  
 
   const getDataInsititution = async () => {
     try {
@@ -108,7 +107,7 @@ function CreateGroup() {
     setSubjectsFiltred(""); //Setea cada que cierre el modal
     setTeachersFiltred("");
     setObjctChosen([]);
-    setObjctFinish([]);
+    setObjectStudentsSubjects([]);
   };
 
   //empieza a crear el objeto final del objeto
@@ -117,14 +116,13 @@ function CreateGroup() {
 
     objctChosen.forEach((i) => {
       // Usar la versión anterior del estado con el callback
-      setObjctFinish((prevState) => ({
+      setObjectStudentsSubjects((prevState) => ({
         ...prevState, // Mantener el estado previo
         [i]: "", // Agregar o modificar la nueva clave y valor
       }));
     });
 
-    // El segundo `console.log` probablemente no mostrará el estado actualizado
-    // correctamente porque `setObjctFinish` es asincrónico.
+    // `setObjctFinish` es asincrónico.
   };
 
   // Manejar cambios en los selects
@@ -132,7 +130,7 @@ function CreateGroup() {
     const value = e.target.value;
 
     // Actualiza el objeto en el estado con la clave y valor correspondiente
-    setObjctFinish((prevState) => ({
+    setObjectStudentsSubjects((prevState) => ({
       ...prevState, // Mantén el estado previo
       [materiaKey]: value, // Actualiza el valor de la clave correspondiente
     }));
@@ -182,19 +180,19 @@ function CreateGroup() {
 
         <label>
           Seleccione la institucion:
-          {institutions && (
-            <select
-              value={institutionsId}
-              onChange={handleChangeInstitucion}
-              id="opciones"
-            >
-              <option value="">--Seleccionar--</option>
-              {institutions.map((instucion, index) => (
-                <option key={index} value={instucion.id}>
-                  {instucion.name}
-                </option>
-              ))}
-            </select>
+         {institutions && (
+          <select
+            value={institutionsId}
+            onChange={handleChangeInstitucion}
+            id="opciones"
+          >
+            <option value="">--Seleccionar--</option>
+            {institutions.filter(inst => inst.id == localStorage.getItem("InstitutionID")).map((instucion, index) => (
+              <option key={index} value={instucion.id}>
+                {instucion.name}
+              </option>
+            ))}
+          </select>
           )}
         </label>
 
@@ -245,15 +243,15 @@ function CreateGroup() {
                 )}
               </div>
 
-              {objctFinish.length != [] && (
+              {objectStudentsSubjects.length != [] && (
                 <div>
                 <p>Asignacion de materias a docentes</p>
                     {/* Mapeo de lista para generar los selects */}
-                    {Object.keys(objctFinish).map((materiaKey, index) => (
+                    {Object.keys(objectStudentsSubjects).map((materiaKey, index) => (
                       <div key={index}>
                         <label>{materiaKey}</label>
                         <select
-                          value={objctFinish[materiaKey]} // Valor actual del select
+                          value={objectStudentsSubjects[materiaKey]} // Valor actual del select
                           onChange={(e) => handleSelectChange(e, materiaKey)} // Maneja el cambio
                         >
                           <option value="">-Seleccione docente-</option>
@@ -266,7 +264,9 @@ function CreateGroup() {
                       </div>
                     ))}
                     <br />
-                    <button onClick={() => Post()} className="btn-save">Guardar Grupo</button>
+                    <form action="">
+                      <button onClick={() => Post()} className="btn-save">Guardar Grupo</button>
+                    </form>
               </div>
               )}
               
@@ -276,10 +276,6 @@ function CreateGroup() {
         )}
         <br />
       </form>
-      <br />
-      <br />
-      <br />
-      {/* <MiComponente/> */}
     </div>
   );
 }

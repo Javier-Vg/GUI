@@ -16,20 +16,17 @@ function CreateStaff() {
   const [changePuesto, setChangePuesto] = useState();
   const [changeImagen, setChangeImagen] = useState();
   const [changeContratoId, setChangeContratoId] = useState();
-  const [changeInstitucionId, setChangeInstitucionId] = useState();
   const [changeHorarioId, setChangeHorarioId] = useState();
 
   //Almacena los get de tablas consultadas
   const [contracts, setContracts] = useState();
-  const [institutions, setInstitution] = useState();
   const [schedule, setSchedule] = useState();
+  const institution_id = localStorage.getItem('InstitutionID')
 
   const handleFileChange = (e) => {
     const file = e.target.files[0];
     if (file) {
       setChangeImagen(file);
-      console.log(file);
-      
     }
   };
 
@@ -45,7 +42,6 @@ function CreateStaff() {
     setChangeHorarioId(e.target.value)
   }
   const handleChangeContrato = (e) => {
-    console.log(e.target.value)
     setChangeContratoId(e.target.value)
   }
 
@@ -132,7 +128,7 @@ function CreateStaff() {
         position: changePuesto,
         imagen_url: imageUrl,
         contract: changeContratoId,
-        institution: changeInstitucionId,
+        institution: institution_id,
         schedule: changeHorarioId
       }
 
@@ -158,8 +154,7 @@ function CreateStaff() {
           }
         }
       }
-      console.log(staff);
-      
+    
       if (confimacion){
         postStaff(staff); //Envia los datos
       }
@@ -246,22 +241,6 @@ function CreateStaff() {
             {contracts.map((contract, index) => (
               <option key={index} value={contract.id}>
                 {contract.contract_type}
-              </option>
-            ))}
-          </select>
-        )}
-        </label>
-
-        <br />
-
-        <label>
-          Seleccione la institucion:
-        {institutions && (
-          <select value={changeInstitucionId} onChange={handleChangeInstitucion} id="opciones">
-            <option value="">--Seleccionar--</option>
-            {institutions.map((instucion, index) => (
-              <option key={index} value={instucion.id}>
-                {instucion.name}
               </option>
             ))}
           </select>

@@ -40,6 +40,8 @@ function Institucion_register() {
       });
 
       const data = await response.json();
+      console.log(data.data.link);
+      
       const imageUrl = data.data.link; // URL de la imagen subida
       console.log(data);
       
