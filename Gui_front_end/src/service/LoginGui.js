@@ -10,20 +10,34 @@ export const getDatos = async () => {
       throw error;
     }
   };
-  export const PostData = async (nombre,contra, email,rol) => {
+  export const PostData = async (nombre, contra, email, rol, token) => {
     try {
-      const response = await axios.post(`http://${domain}:8000/api/gui/admins/`, {// hace post a el api de los admins
-          nombre: nombre,
-          email:email,
-          password: contra,
-          rol: rol,
+      const response = await axios.post(`http://${domain}:8000/api/gui/admins/`, {
+        nombre: nombre,
+        email: email,
+        password: contra,
+        rol: rol,
+      }, {
+        headers: {
+          Authorization: `Token ${token}`, 
+          "Content-Type": "application/json"
+        }
       });
-      return response.data;
+      return {
+        success: true,
+        token: response.data.token,
+        data: response.data
+      };
     } catch (error) {
       console.error("Error haciendo la solicitud:", error);
-      throw error;
+      return {
+        success: false,
+        error: error.message
+      };
     }
-  };
+};
+    
+
 
 /////////////////////////////////////////////////////////////////
 export const getInstitutions = async () => {

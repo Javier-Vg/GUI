@@ -6,6 +6,7 @@ class Admin_Gui(models.Model):
     password = models.CharField(max_length=128)  # Almacenar en forma de hash
     rol = models.CharField(max_length=50)
     fecha_creacion = models.DateTimeField(auto_now_add=True)
+    
 
     class Meta:
         verbose_name = 'Usuario'

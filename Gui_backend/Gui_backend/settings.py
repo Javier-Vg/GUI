@@ -65,7 +65,9 @@ INSTALLED_APPS = [
     'events',
     'payments',
     'tasks',
-    'Gastos'
+    'Gastos',
+    
+    'rest_framework.authtoken',
 ] # nombre de las apps
 
 MIDDLEWARE = [
@@ -162,8 +164,13 @@ REST_FRAMEWORK = {
      "DEFAULT_AUTHENTICATION_CLASSES": [
         "rest_framework.authentication.BasicAuthentication",
         "rest_framework.authentication.TokenAuthentication"
+    ],
+     "DEFAULT_PERMISSION_CLASSES": [
+        "rest_framework.permissions.IsAuthenticated",
     ]
 }
+
+
 
 
 
