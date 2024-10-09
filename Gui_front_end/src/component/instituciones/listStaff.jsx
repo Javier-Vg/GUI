@@ -123,7 +123,11 @@ function ListStaff() {
   const institution_id = localStorage.getItem('InstitutionID');  // Obtener el institution_id del localStorage
 
   const dispatch = useDispatch();
-  const { items, loading, error } = useSelector(state => state.institution);  
+  //const { items, loading, error } = useSelector(state => state.institutions);  
+  
+  const items = useSelector(state => state.staff.items);
+  const loading = useSelector(state => state.staff.loading);
+  const error = useSelector(state => state.staff.error);
   
   // Llama a método que hace la solicitud HTTP al API
   // useEffect(()=> {
@@ -137,6 +141,10 @@ function ListStaff() {
     setStaff(filteredStaff);
   }, [dispatch]);
 
+  useEffect(() => {
+    console.log("Items actualizados:", items);
+  }, [items]);
+ 
   // const getData = async () => {
   //   try {
   //     const data = await getStaff();
@@ -196,6 +204,17 @@ function ListStaff() {
         ))
       ) : (
         <p>No hay personal registrado en esta institución.</p>
+      )}
+
+      {staff.length > 0 ? (
+        staff.map((staffMember, index) => (
+          <div key={index}>
+            <h3>{staffMember.name}</h3>
+            <p>{staffMember.position}</p>
+          </div>
+        ))
+      ) : (
+        <p>No hay personal disponible</p>
       )}
 
       {modal && selectedStaff && (

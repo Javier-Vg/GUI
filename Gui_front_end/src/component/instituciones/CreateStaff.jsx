@@ -46,19 +46,9 @@ function CreateStaff() {
   }
 
   useEffect(() => {
-      getDataInsititution();
       getDataContract();
       getDataSchedule();
   },[])
-
-  const getDataInsititution = async () => {
-    try {
-      const institutionData = await getInstitutions();
-      setInstitution(institutionData);
-    } catch (error) {
-        console.error("Error fetching institution:", error);
-    }
-  }
 
   const getDataContract = async () => {
     try {

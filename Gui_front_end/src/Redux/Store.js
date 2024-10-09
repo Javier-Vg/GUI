@@ -8,7 +8,7 @@ import groupReducer from '../Redux/Slices/SliceGroup';
 
 const Store = configureStore({
   reducer: {
-    institution: institutionReducer,
+    institutions: institutionReducer,
     staff: staffReducer,
     group: groupReducer,
   },
