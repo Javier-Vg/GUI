@@ -1,0 +1,15 @@
+body{
+    color: rgb(0, 12, 8);
+    background-color: aqua;
+    
+}
+
+.div1{
+    
+    display: grid;
+    grid-template-columns: 400px 400px 400px;
+    overflow: scroll;
+    overflow-x: hidden;
+    max-height: 450px;
+
+}

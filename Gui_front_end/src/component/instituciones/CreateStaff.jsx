@@ -107,7 +107,7 @@ function CreateStaff() {
       let confimacion = true
       
       let staff = {
-        username: changeNombre,
+        name: changeNombre,
         last_name: changeApellidos,
         identification_number: changeIdentificacion,
         birthdate_date: changeFechaNacimiento,

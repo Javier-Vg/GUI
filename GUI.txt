@@ -9,3 +9,6 @@ pip install django-cors-headers
 pip install djangorestframework
 pip install djangorestframework-simplejwt
 python manage.py createsuperuser
+
+Redux dependecias:
+npm i redux-thunk
