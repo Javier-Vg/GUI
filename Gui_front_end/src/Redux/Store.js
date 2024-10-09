@@ -5,12 +5,19 @@ import logger from 'redux-logger'; // Asegúrate de tener esto
 import institutionReducer from '../Redux/Slices/SliceInstitution'; //Se importan con un nombre cualquiera, no esta definido en el archico.
 import staffReducer from '../Redux/Slices/SliceStaff';
 import groupReducer from '../Redux/Slices/SliceGroup';
+import studentReducer from '../Redux/Slices/SliceStudent';
+import subjectReducer from '../Redux/Slices/SliceSubjects';
+import scheduleReducer from '../Redux/Slices/SliceSchedule';
 
 const Store = configureStore({
   reducer: {
     institutions: institutionReducer,
     staff: staffReducer,
     group: groupReducer,
+    student: studentReducer,
+    subject: subjectReducer,
+    schedule: scheduleReducer
+
   },
   middleware: (getDefaultMiddleware) => getDefaultMiddleware().concat(thunk, logger),//Se usa solo en desarrollo.
 });

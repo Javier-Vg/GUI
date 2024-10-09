@@ -1,26 +1,36 @@
 import React, { useEffect, useState } from 'react';
-import { getStudents } from '../../service/LoginGui'; 
+import { getStudents } from '../../service/LoginGui';
+import { fetchStudent } from '../../Redux/Slices/SliceStudent';
+import { useDispatch, useSelector } from 'react-redux';
 
 function ListStudents() {
     const [students, setStudents] = useState([]);
     const [seeMore, setSeeMore] = useState(false);
     const [selectedStudent, setSelectedStudent] = useState(null);
-    const institution_id = localStorage.getItem('InstitutionID');  // ID de la institución almacenado en localStorage
+    const institution_id = localStorage.getItem('institution_id');  // ID de la institución almacenado en localStorage
+
+    const dispatch = useDispatch();
+
+    //Estados de Staff:
+    const items= useSelector(state => state.student.items);  
+    const loading = useSelector(state => state.student.loading);  
+    const error = useSelector(state => state.student.error); 
 
     useEffect(() => {
-        getStudentsData(); 
-    }, []);
+        dispatch(fetchStudent()); // Llama a la acción para obtener productos al cargar el componente
+    }, [dispatch]);
 
-    const getStudentsData = async () => {
-        try {
-            const studentsData = await getStudents();
-            // Filtrar estudiantes cuyo institution_id coincida con el del localStorage
-            const filteredStudents = studentsData.filter(student => student.institution === parseInt(institution_id, 10));
-            setStudents(filteredStudents);
-        } catch (error) {
-            console.error("Error fetching students:", error);
+    useEffect(() => {
+        for (let i = 0; i < items.length; i++) {
+            if (items[i].institution === parseInt(institution_id, 10)) {
+              // Actualiza el valor de la clave correspondiente
+              setStudents((prevFiltred) => [...prevFiltred, items[i]]);
+            };
         }
-    };
+        console.log(items);
+        
+
+    }, [items]);
 
     const openModal = (student) => {
         setSelectedStudent(student);
@@ -31,6 +41,14 @@ function ListStudents() {
         setSeeMore(false);
         setSelectedStudent(null);
     };
+
+    if (loading) {
+        return <div>Cargando...</div>; // Muestra un mensaje de carga
+      }
+    
+      if (error) {
+        return <div>Error: {error}</div>; // Muestra el error si ocurre
+      }
 
     return (
         <div className='container_list'>

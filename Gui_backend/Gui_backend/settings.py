@@ -66,8 +66,8 @@ INSTALLED_APPS = [
     'payments',
     'tasks',
     'Gastos',
-    
     'rest_framework.authtoken',
+    
 ] # nombre de las apps
 
 MIDDLEWARE = [
