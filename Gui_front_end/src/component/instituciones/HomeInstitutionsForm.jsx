@@ -5,6 +5,7 @@ import ListStaff from './listStaff';
 import ListStudent from './listStudent';
 import Gastos from './Gastos';
 import CreateGroup from './CreateGroup'; // Ajusta la ruta según sea necesario
+import ListGroups from './listGroups';
 
 import ManageSubjects from './manageSubjects'; // Ajusta la ruta según sea necesario
 
@@ -143,6 +144,7 @@ function HomeInstitutionsForm() {
                 {changeComponent === "gastos" && <Gastos />}
                 {changeComponent === "materias" && <ManageSubjects />}
                 {changeComponent === "Crear Grupo" && <CreateGroup />} 
+                {changeComponent === "grupos" && <ListGroups />} 
             </div>
 
             </div>

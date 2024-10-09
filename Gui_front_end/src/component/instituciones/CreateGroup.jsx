@@ -85,8 +85,6 @@ const Post = async () => {
   const getDataSubjects = async () => {
     try {
       const subjectsData = await getSubjects();
-      console.log(subjectsData);
-
       setSubjects(subjectsData);
     } catch (error) {
       console.error("Error fetching institution:", error);

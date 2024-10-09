@@ -68,6 +68,7 @@ INSTALLED_APPS = [
     'Gastos',
     'rest_framework.authtoken',
     'rest_framework_simplejwt',
+    
 ] # nombre de las apps
 
 MIDDLEWARE = [
@@ -118,8 +119,6 @@ DATABASES = { #Se tiene ue crear una db con el nombre de 'default' antes de hace
     }
 }
 
-
-
 # Password validation
 # https://docs.djangoproject.com/en/5.1/ref/settings/#auth-password-validators
 
@@ -166,7 +165,11 @@ REST_FRAMEWORK = {
         "rest_framework.authentication.TokenAuthentication",
         'rest_framework.authentication.SessionAuthentication',
         'rest_framework_simplejwt.authentication.JWTAuthentication',
+        #"rest_framework.authentication.TokenAuthentication"
     ],
+    #  "DEFAULT_PERMISSION_CLASSES": [
+    #     "rest_framework.permissions.IsAuthenticated",
+    # ]
     #  "DEFAULT_PERMISSION_CLASSES": [
     #     "rest_framework.permissions.IsAuthenticated",
     # ]

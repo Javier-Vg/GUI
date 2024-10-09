@@ -36,6 +36,9 @@ const manageSubjects = () => {
     // const handleChangeInstitucion = (e) => {
     //     setInstitutionId(e.target.value)
     //   }
+    const handleChangeInstitucion = (e) => {
+        setInstitutionId(e.target.value)
+    }
 
     return (
         <div className='subject-form'>
