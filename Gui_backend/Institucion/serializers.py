@@ -4,4 +4,4 @@ from .models import Institution
 class Institutions_Serializer(serializers.ModelSerializer):
     class Meta:
         model = Institution
-        fields = ['id','monthly_payent', 'name', 'direction', 'payment_status' , 'suscription_type', 'subscription_date','number_phone', 'email', 'imagen_url','password']
+        fields = ['id','monthly_payent', 'username', 'direction', 'payment_status' , 'suscription_type', 'subscription_date','number_phone', 'email', 'imagen_url','password']

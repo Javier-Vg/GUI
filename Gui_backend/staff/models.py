@@ -24,7 +24,7 @@ class staff(models.Model):
         ('Security staff', 'security staff')
     ]
     
-    name =  models.CharField(max_length=100, blank=False, null=False)
+    username =  models.CharField(max_length=100, blank=False, null=False)
     last_name =  models.CharField(max_length=100, blank=False, null=False)
     identification_number =  models.CharField(max_length=100, blank=False, null=False)
     birthdate_date =  models.DateField(blank=False, null=False)
@@ -37,6 +37,7 @@ class staff(models.Model):
     schedule = models.ForeignKey(schedule, on_delete=models.CASCADE, null=False)
     contract = models.ForeignKey(contracts, on_delete=models.CASCADE, related_name='related_contracts')
     imagen_url = models.URLField()  #almacenará la URL de la imagen que se sube a Imgur. 
+    password = models.CharField(max_length=200, blank=False, null=True) 
 
     def __str__(self):
         return self.name

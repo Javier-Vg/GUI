@@ -5,7 +5,7 @@ import '../../css/Register_institutions.css'
 
 function Institucion_register() {
   
-  const [name, setName] = useState("");
+  const [username, setName] = useState("");
   const [address, setAddress] = useState("");
   const [estado, setEstado] = useState("");
   const [subscriptionType, setSubscriptionType] = useState("");
@@ -40,13 +40,11 @@ function Institucion_register() {
       });
 
       const data = await response.json();
-      console.log(data.data.link);
-      
       const imageUrl = data.data.link; // URL de la imagen subida
       console.log(data);
       
       // Luego de subir la imagen, envía los datos del formulario junto con la URL de la imagen
-      await postInstitutions(name, address, estado, subscriptionType, phoneNumber, email, imageUrl,monthly_payent,password);
+      await postInstitutions(username, address, estado, subscriptionType, phoneNumber, email, imageUrl,monthly_payent,password);
       console.log("Datos e imagen enviados correctamente");
     } catch (error) {
       console.error("Error al enviar los datos:", error);
@@ -65,7 +63,7 @@ function Institucion_register() {
             className="inpts"
             type="text"
             id="name_institution"
-            value={name}
+            value={username}
             onChange={(e) => setName(e.target.value)}
             required
           />

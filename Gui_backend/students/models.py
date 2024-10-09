@@ -1,7 +1,7 @@
 from django.db import models
 from Institucion.models import Institution  # Importa el modelo de Institution
 from groups.models import group  # Importa el modelo de Institution
-
+from django.contrib.auth.hashers import make_password
 # Create your models here.
 class students(models.Model):
     
@@ -22,7 +22,7 @@ class students(models.Model):
         ('private student','private student'),
         ('student care network','student care network')
     ]
-    name = models.CharField(max_length=100, blank=False, null=False)
+    username = models.CharField(max_length=100, blank=False, null=False)
     last_name = models.CharField(max_length=100, blank=False, null=False)
     identification_number = models.CharField(max_length=100, blank=False, null=False)
     birthdate_date = models.DateField(blank=False, null=False)
@@ -38,10 +38,14 @@ class students(models.Model):
     imagen_url = models.URLField(blank=True, null=True)
     monthly_payent_students = models.CharField(max_length=15, blank=True, null=True)
     type_of_student = models.CharField(max_length=100, blank=False, choices=TYPE, default='private student')
-    password = models.CharField(max_length=15, blank=False, null=True) 
+    password = models.CharField(max_length=128, blank=False, null=True) 
 
     
-    
+    def save(self, *args, **kwargs):
+        # Solo hacer hash si la contraseña ha sido modificada
+        if self.pk is None or not self.password.startswith('pbkdf2_'):
+            self.password = make_password(self.password)
+        super(students, self).save(*args, **kwargs)
     def __str__(self):
         return self.name
     

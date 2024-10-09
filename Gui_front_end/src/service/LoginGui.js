@@ -50,11 +50,11 @@ export const getInstitutions = async () => {
     }
   };
   
-export const postInstitutions = async (name, address, estado, subscriptionType, phoneNumber, email,imageUrl,monthly_payent,password) => {
+export const postInstitutions = async (username, address, estado, subscriptionType, phoneNumber, email,imageUrl,monthly_payent,password) => {
   
     try {
       const response = await axios.post(`http://${domain}:8000/api/institutions/institution/`, {
-        name: name,
+        username: username,
         direction: address,
         payment_status : estado,
         suscription_type: subscriptionType,
@@ -125,11 +125,11 @@ export const getStaff = async () => {
   };
   // service/LoginGui.js
 export const postStudents = async (nombre, apellido, identificacion, fechaNacimiento, grado, estadoAcademico, telefono, email, imageUrl, alergias, guardianTelefono, nameGuardian, mensualidadDelEstudiante, password, institution_id) => {
-    console.log(institution_id);
+    console.log(nombre, apellido, identificacion, fechaNacimiento, grado, estadoAcademico, telefono, email, imageUrl, alergias, guardianTelefono, nameGuardian, mensualidadDelEstudiante, password, institution_id);
     
   try {
     const response = await axios.post(`http://${domain}:8000/api/students/students/`, {
-      name: nombre,
+      username: nombre,
       last_name: apellido,
       identification_number: identificacion,
       birthdate_date: fechaNacimiento,

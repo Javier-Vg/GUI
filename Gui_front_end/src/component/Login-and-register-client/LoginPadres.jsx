@@ -22,7 +22,7 @@ function LoginPadres() {
         <div className='div-1'>
           <label htmlFor="username">Nombre de su hijo:</label>
           <input
-            autocomplete="off"
+            autoComplete="off"
            className='inp-username'
             type="text"
             id="username"
@@ -34,7 +34,7 @@ function LoginPadres() {
         <div className='div-2'>
           <label htmlFor="password">Contraseña:</label>
           <input
-            autocomplete="off"
+            autoComplete="off"
             className='inp-password'
             type="password"
             id="password"

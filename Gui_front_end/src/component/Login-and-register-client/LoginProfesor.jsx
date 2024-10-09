@@ -23,7 +23,7 @@ function LoginProfesor() {
         <div className='div-1'>
           <label htmlFor="username">Nombre del profesor:</label>
           <input
-            autocomplete="off"
+            autoComplete="off"
             className='inp-username'
             type="text"
             id="username"
@@ -35,7 +35,7 @@ function LoginProfesor() {
         <div className='div-2'>
           <label htmlFor="password">Contraseña:</label>
           <input
-            autocomplete="off"
+            autoComplete="off"
             className='inp-password'
             type="password"
             id="password"

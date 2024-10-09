@@ -11,7 +11,7 @@ https://docs.djangoproject.com/en/5.1/ref/settings/
 """
 
 from pathlib import Path
-# import os
+# import timedelta
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -66,8 +66,8 @@ INSTALLED_APPS = [
     'payments',
     'tasks',
     'Gastos',
-    
     'rest_framework.authtoken',
+    'rest_framework_simplejwt',
 ] # nombre de las apps
 
 MIDDLEWARE = [
@@ -163,16 +163,18 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 REST_FRAMEWORK = {
      "DEFAULT_AUTHENTICATION_CLASSES": [
         "rest_framework.authentication.BasicAuthentication",
-        "rest_framework.authentication.TokenAuthentication"
+        "rest_framework.authentication.TokenAuthentication",
+        'rest_framework.authentication.SessionAuthentication',
+        'rest_framework_simplejwt.authentication.JWTAuthentication',
     ],
-     "DEFAULT_PERMISSION_CLASSES": [
-        "rest_framework.permissions.IsAuthenticated",
-    ]
+    #  "DEFAULT_PERMISSION_CLASSES": [
+    #     "rest_framework.permissions.IsAuthenticated",
+    # ]
 }
 
-
-
-
+AUTHENTICATION_BACKENDS = [
+    'django.contrib.auth.backends.ModelBackend',  # Mantén el backend por defecto para compatibilidad
+]
 
 
 #-------------------------IMGUR
