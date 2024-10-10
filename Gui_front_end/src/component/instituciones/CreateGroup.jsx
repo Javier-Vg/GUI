@@ -1,8 +1,33 @@
 import React, { useEffect, useState } from "react";
 import { postGroups, getInstitutions, getSubjects, getStaff, getSchedule,} from "../../service/LoginGui";
 import "../../css/create_group.css";
+import { useDispatch, useSelector } from 'react-redux';
+import { fetchSubjects } from '../../Redux/Slices/SliceSubjects';
+import { fetchInstitution } from '../../Redux/Slices/SliceInstitution';
+import { fetchStaff } from '../../Redux/Slices/SliceStaff';
 
 function CreateGroup() {
+ //Redux
+  // const itemsInstitution = useSelector(state => state.institution.items);  
+  const itemsStaff = useSelector(state => state.staff.items);  
+  // const itemsSubjects = useSelector(state => state.subjects.items);
+  const dispatch = useDispatch();
+
+
+  useEffect(() => {
+        
+    dispatch(fetchSubjects());
+    dispatch(fetchInstitution());
+    dispatch(fetchStaff());
+
+  }, [dispatch]);
+
+
+
+
+
+  //Local Storage institucion id
+  const institutionId = localStorage.getItem("InstitutionID");
   //Alamacena las respuestas del api
   const [institutions, setInstitution] = useState();
   const [subjects, setSubjects] = useState();
@@ -13,10 +38,6 @@ function CreateGroup() {
   const [educationLevel, setEducationLevel] = useState();
   const [capacity, setCapacity] = useState();
   const [classroom, setClassroom] = useState();
-  const [institutionsId, setInstitutionId] = useState();
-
-  //Modal
-  const [modal, setModal] = useState(false);
 
   //Almacena los datos del api segun el id de institucion
   const [subjectsFiltred, setSubjectsFiltred] = useState("");
@@ -34,25 +55,6 @@ function CreateGroup() {
     getDataSubjects();
   }, []);
 
-  const handleChangeInstitucion = (e) => {
-    const idChoose = e.target.value;
-    setInstitutionId(e.target.value);
-    setModal(true);
-
-    //Condicion para luego mostrar las materia y profesores segun el id de institucions
-    subjects.forEach((i) => {
-      if (idChoose == i.institution) {
-        setSubjectsFiltred((prevSubjectsFiltred) => [...prevSubjectsFiltred,i,]);
-      }
-    });
-
-    staff.forEach((i) => {
-      if (i.position == "Teacher" && idChoose == i.institution) { //MOSTRAR MENSAJE EN CASO DE QUE NO EXISTA PROFESOR DE ESA INSTITUCION. 
-        setTeachersFiltred((prevTeachersFiltred) => [...prevTeachersFiltred,i,]);
-      }
-    });
-  };
-
   const changeCommunication_of_subjects_and_teacher = (e) => {
     setObjctChosen([...objctChosen, e.target.value]);
   };
@@ -64,7 +66,7 @@ const Post = async () => {
     educational_level: educationLevel,
     capacity: capacity,
     classroom: classroom,
-    institution: institutionsId,
+    institution: institutionId,
     communication_of_subjects_and_teacher: objectStudentsSubjects,
     current_students: 0
   }];
@@ -89,6 +91,14 @@ const Post = async () => {
     } catch (error) {
       console.error("Error fetching institution:", error);
     }
+
+    //Condicion para luego mostrar las materia y profesores segun el id de institucions
+    subjects.forEach((i) => {
+      if (institutionId == i.institution) {
+        setSubjectsFiltred((prevSubjectsFiltred) => [...prevSubjectsFiltred,i,]);
+      }
+    });
+    
   };
 
   const getDataStaff = async () => {
@@ -98,15 +108,23 @@ const Post = async () => {
     } catch (error) {
       console.error("Error fetching institution:", error);
     }
+
+    //Filtra lios estudiantes:
+    staff.forEach((i) => {
+      if (i.position == "Teacher" && institutionId == i.institution) { //MOSTRAR MENSAJE EN CASO DE QUE NO EXISTA PROFESOR DE ESA INSTITUCION. 
+        setTeachersFiltred((prevTeachersFiltred) => [...prevTeachersFiltred,i,]);
+      }
+    });    
+
   };
 
-  const closeModal = () => {
-    setModal(false);
-    setSubjectsFiltred(""); //Setea cada que cierre el modal
-    setTeachersFiltred("");
-    setObjctChosen([]);
-    setObjectStudentsSubjects([]);
-  };
+  // const closeModal = () => {
+  //   setModal(false);
+  //   setSubjectsFiltred(""); //Setea cada que cierre el modal
+  //   setTeachersFiltred("");
+  //   setObjctChosen([]);
+  //   setObjectStudentsSubjects([]);
+  // };
 
   //empieza a crear el objeto final del objeto
   const asingTeachers = () => {
@@ -176,33 +194,7 @@ const Post = async () => {
         </label>
         <br />
 
-        <label>
-          Seleccione la institucion:
-         {institutions && (
-          <select
-            value={institutionsId}
-            onChange={handleChangeInstitucion}
-            id="opciones"
-          >
-            <option value="">--Seleccionar--</option>
-            {institutions.filter(inst => inst.id == localStorage.getItem("InstitutionID")).map((instucion, index) => (
-              <option key={index} value={instucion.id}>
-                {instucion.name}
-              </option>
-            ))}
-          </select>
-          )}
-        </label>
-
-        <br />
-
-        {/* Muestra las materias y profesores disponibles para asignar al grupo */}
-        {modal && (
-          <dialog open className="modal1">
-            <button className= "boton1" onClick={() => closeModal()}>
-              ❌
-            </button>
-            <div className="div-1">
+        <div className="div-1">
               <div>
 
                 {/* Mensaje si no se ha seleccionado ninguna materia válida */}
@@ -270,9 +262,6 @@ const Post = async () => {
               
             </div>
 
-          </dialog>
-        )}
-        <br />
       </form>
     </div>
   );
