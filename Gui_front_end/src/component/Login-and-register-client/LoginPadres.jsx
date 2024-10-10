@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { useDispatch } from 'react-redux';
-import { setUsername, setPassword } from '../../store/inputSlice';
+import { setUsername, setPassword } from '../../Redux/Slices/SliceLogin';
 
 function LoginPadres() {
   const [username, setUsernameInput] = useState('');
@@ -22,7 +22,7 @@ function LoginPadres() {
         <div className='div-1'>
           <label htmlFor="username">Nombre de su hijo:</label>
           <input
-            autocomplete="off"
+            autoComplete="off"
            className='inp-username'
             type="text"
             id="username"
@@ -34,7 +34,7 @@ function LoginPadres() {
         <div className='div-2'>
           <label htmlFor="password">Contraseña:</label>
           <input
-            autocomplete="off"
+            autoComplete="off"
             className='inp-password'
             type="password"
             id="password"

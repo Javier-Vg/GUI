@@ -4,7 +4,9 @@ from .models import Admin_Gui
 class AdminGuiSerializer(serializers.ModelSerializer):
     class Meta:
         model = Admin_Gui
-        fields = ['id', 'nombre', 'email', 'password', 'rol', 'fecha_creacion']
+        fields = ['id', 'username', 'email', 'password', 'rol', 'fecha_creacion']
+        
+        
 
     # def create(self, validated_data):
     #     # Aquí puedes agregar el hash de la contraseña

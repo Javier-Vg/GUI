@@ -1,33 +1,36 @@
 import React, { useState } from 'react';
-import { PostData, getDatos } from '../../service/LoginGui'; // Asegúrate de importar `getDatos`
+import { PostData, getDatos } from '../../service/LoginGui';
 import '../../css/RegisterFormGui.css';
+
 function RegisterFormGui() {
   const [nombre, setNombre] = useState('');
   const [rol, setRol] = useState('');
   const [email, setEmail] = useState(''); 
   const [contra, setContra] = useState('');
   const [texto, setTexto] = useState('');
-  const [token, setToken] = useState('');
+  // const [token, setToken] = useState('');
 
   const cargarDatos = async () => {
-    if (nombre.trim() === '' || email.trim() === '' || contra.trim() === '') {
+    if (nombre.trim() === '' || email.trim() === '' || contra.trim() === '' || rol.trim() === '') {
       setTexto("Por favor llene todos los campos");
       return;
     }
+    
     try {
-      const datos = await getDatos();
-      const usuarioExistente = datos.some(elem => elem.nombre === nombre);
+      const datos = await getDatos(); // Obtén los datos existentes
+      const usuarioExistente = datos.some(elem => elem.email === email);
   
       if (usuarioExistente) {
-        setTexto("Este usuario ya está registrado");
+        setTexto("Este correo ya está registrado");
       } else {
-        const response = await PostData(nombre, contra, email, rol,);
+        const response = await PostData(nombre, contra, email, rol); // Enviar los datos en un objeto
   
         if (response.success) {
           setTexto("Registro exitoso!");
-          setToken(response.token);
+          // setToken(response.token); // Guarda el token si es necesario
+          // Aquí puedes redirigir al usuario o limpiar el formulario
         } else {
-          setTexto("Error en el registro");
+          setTexto("Error en el registro: " + (response.error || "Ocurrió un error inesperado"));
         }
       }
     } catch (error) {
@@ -35,6 +38,7 @@ function RegisterFormGui() {
       setTexto("Error al procesar la solicitud");
     }
   };
+
   return (
     <div>
       <h4>REGISTER</h4>
@@ -70,10 +74,18 @@ function RegisterFormGui() {
           title="La contraseña debe tener entre 3 y 8 caracteres alfanuméricos"
           required
         />
-        <label htmlFor="rol">rol</label>
-        <input onChange={(e) => setRol(e.target.value)} type="text" />
-        <h6>{texto}</h6> {/* Mostrar mensaje aquí */}
       </div>
+      <div>
+        <label htmlFor="rol">Rol:</label>
+        <input
+          type="text"
+          id="rol"
+          name="rol"
+          value={rol}
+          onChange={(e) => setRol(e.target.value)}
+        />
+      </div>
+      <h6>{texto}</h6> {/* Mostrar mensaje aquí */}
       <div>
         <button onClick={cargarDatos}>Registrar</button>
       </div>

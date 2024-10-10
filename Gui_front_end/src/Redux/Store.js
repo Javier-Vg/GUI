@@ -1,3 +1,18 @@
+// // quede aca (●'◡'●)cons
+// import { configureStore, combineReducers } from "@reduxjs/toolkit";
+// import {thunk} from 'redux-thunk';
+// import logger from "redux-logger";
+// import { Reducer } from "./Reducer";
+
+// const rootreducer = combineReducers(
+//   { user: Reducer 
+//     //Aca añadirias otro reducer, 
+//   });
+
+// const Store = configureStore({
+//   reducer: rootreducer,
+//   middleware: (getDefaultMiddleware) => getDefaultMiddleware().concat(thunk, logger),
+// });
 // //quede aca (●'◡'●)cons
 import { configureStore } from '@reduxjs/toolkit';
 import {thunk} from 'redux-thunk'; // Asegúrate de tener esto
@@ -9,10 +24,7 @@ import studentReducer from '../Redux/Slices/SliceStudent';
 import subjectReducer from '../Redux/Slices/SliceSubjects';
 import scheduleReducer from '../Redux/Slices/SliceSchedule';
 import taskReducer from '../Redux/Slices/SliceTask';
-
-//Prueba:
-import datazo from '../Redux/Slices/estado_any';
-
+import loginReducer from '../Redux/Slices/SliceLogin';
 const isDev = process.env.NODE_ENV === 'development';
 
 const Store = configureStore({
@@ -24,7 +36,7 @@ const Store = configureStore({
     subject: subjectReducer,
     schedule: scheduleReducer,
     task: taskReducer,
-    dato: datazo
+    login: loginReducer
 
   },
   middleware: (getDefaultMiddleware) => {

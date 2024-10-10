@@ -11,7 +11,7 @@ https://docs.djangoproject.com/en/5.1/ref/settings/
 """
 
 from pathlib import Path
-# import os
+# import timedelta
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -21,11 +21,13 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 
 # SECURITY WARNING: keep the secret key used in production secret!
 SECRET_KEY = 'django-insecure--)w=hwu666smegfn6!7*9v=phhg9c5^*go-i$7x2b56o^&!6xk'
+# settings.py
+
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['localhost', '127.0.0.1', 'Gui_front_end', '192.168.100.42', '192.168.100.44','192.168.100.47', '192.168.100.13']
+ALLOWED_HOSTS = ['localhost', '127.0.0.1', 'Gui_front_end', '192.168.100.42', '192.168.100.44','192.168.100.47', '192.168.100.13',"192.168.0.10"]
 CORS_ALLOWED_ORIGINS = [
     "http://localhost:5173",
     "http://127.0.0.1:5173",
@@ -34,6 +36,7 @@ CORS_ALLOWED_ORIGINS = [
     "http://192.168.100.44:5173",
     "http://192.168.100.47:5173",
     "http://192.168.100.13:5173",
+    "http://192.168.0.10:5173"
 ]
 
 #La que termina en 13 es la de la otra compu 
@@ -67,6 +70,7 @@ INSTALLED_APPS = [
     'tasks',
     'Gastos',
     'rest_framework.authtoken',
+    'rest_framework_simplejwt',
     
 ] # nombre de las apps
 
@@ -79,7 +83,7 @@ MIDDLEWARE = [
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
     'corsheaders.middleware.CorsMiddleware',
-    'django.middleware.common.CommonMiddleware'
+    
 ]
 
 ROOT_URLCONF = 'Gui_backend.urls'
@@ -161,16 +165,22 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 REST_FRAMEWORK = {
      "DEFAULT_AUTHENTICATION_CLASSES": [
         "rest_framework.authentication.BasicAuthentication",
+
+        # "rest_framework.authentication.TokenAuthentication"
+
+        "rest_framework.authentication.TokenAuthentication",
+        'rest_framework.authentication.SessionAuthentication',
+        'rest_framework_simplejwt.authentication.JWTAuthentication',
         #"rest_framework.authentication.TokenAuthentication"
+
     ],
-    #  "DEFAULT_PERMISSION_CLASSES": [
-    #     "rest_framework.permissions.IsAuthenticated",
-    # ]
+  
+
 }
 
-
-
-
+AUTHENTICATION_BACKENDS = [
+    'django.contrib.auth.backends.ModelBackend',  # Mantén el backend por defecto para compatibilidad
+]
 
 
 #-------------------------IMGUR
