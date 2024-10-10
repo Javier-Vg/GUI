@@ -32,7 +32,7 @@ export const getDatos = async () => {
   export const PostData = async (nombre, contra, email, rol) => {
     try {
       const response = await axios.post(`http://${domain}:8000/api/gui/admins/`, {
-        nombre: nombre,
+        username: nombre,
         email: email,
         password: contra,
         rol: rol,
@@ -40,12 +40,8 @@ export const getDatos = async () => {
         headers: {
           "Content-Type": "application/json"
         }
-      });
-      return {
-        success: true,
-        token: response.data.token,
-        data: response.data
-      };
+      }); 
+      return response
     } catch (error) {
       console.error("Error haciendo la solicitud:", error);
       return {
