@@ -12,26 +12,33 @@ class StaffViewSet(viewsets.ModelViewSet):
     queryset = staff.objects.all()
     serializer_class = Staff_Serializer
 
+
 @api_view(['POST'])
 def LoginView(request):
     username = request.data.get('username')
     password = request.data.get('password')
-    
+
     try:
-        Staff = staff.objects.get(username=username)
-        
-        if check_password(password, Staff.password):
+        # Buscar la institución por el username
+        staff_member = staff.objects.get(username=username)  # Asegúrate de usar el nombre correcto del modelo
+
+        # Verificar la contraseña hasheada
+        if check_password(password, staff_member.password):
+            # Generar el payload para el JWT
             payload = {
-                'idInst': Staff.institution,
-                'username': Staff.username,
-                'email': Staff.email,
-                'role': Staff.position,
-                'exp' : datetime.utcnow() + timedelta(hours=24),
-                'ait': datetime.utcnow(),              
+                'exp': datetime.utcnow() + timedelta(hours=24),  # Expira en 24 horas
+                'iat': datetime.utcnow(),  # Hora de creación del token
+                'username': staff_member.username,
+                'institution_id': staff_member.institution.id,  # Incluye el ID de la institución
             }
-            encode = jwt.encode(payload, 'asd', algorithm='HS256')
-            return Response({f"token": encode, "institution": Staff.institution})
-        else: 
-            return Response({"error": "Credencials Invalidas"})
+
+            # # Generar el JWT usando PyJWT
+            encoded = jwt.encode(payload, "asd", algorithm='HS256')
+
+            # # Retornar el token y el ID de la institución
+            return Response({'token': encoded, 'institution': staff_member.institution.id})
+        else:
+            return Response({'error': 'Credenciales inválidas'}, status=400)
     except staff.DoesNotExist:
-        return Response({"error": "Credenciales Invalidas"})
+        return Response({'error': 'Credenciales inválidas'}, status=400)
+    

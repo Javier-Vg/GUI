@@ -1,7 +1,7 @@
 // src/components/LoginProfesor.js
 import React, { useState, useEffect } from 'react';
 import { useDispatch } from 'react-redux';
-import { setUsername, setPassword } from '../../store/inputSlice';
+import { setUsername, setPassword } from '../../Redux/Slices/SliceLogin';
 
 function LoginProfesor() {
   const [username, setUsernameInput] = useState('');

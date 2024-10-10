@@ -11,7 +11,8 @@ import "../../css/Eleccion_login.css";
 import axios from "axios";
 
 function ElecionLogin() {
-  const [changeComponent, setChangeComponent] = useState("Institución");
+
+  const [changeComponent, setChangeComponent] = useState("institution");
   const [message, setMessage] = useState("ㅤㅤㅤㅤㅤㅤ"); 
 
   const username = useSelector((state) => state.login.username);
@@ -39,15 +40,15 @@ function ElecionLogin() {
     let redirectRoute;
     let apiEndpoint;
     switch (changeComponent) {
-      case "Institución":
+      case "institution":
         apiEndpoint = `http://${domain}:8000/api/institutions/login/`;
         redirectRoute = "/institutions"; 
         break;
-      case "Profesor":
-        apiEndpoint = `http://${domain}:8000/api/staff/login`; // Cambia este endpoint según tu backend
+      case "teacher":
+        apiEndpoint = `http://${domain}:8000/api/staff/login/`; // Cambia este endpoint según tu backend
         redirectRoute = "/institutions"; // Redirigir a la página de profesores
         break;
-      case "Padre":
+      case "parents":
         apiEndpoint = `http://${domain}:8000/api/students/login/`; // Cambia este endpoint según tu backend
         redirectRoute = "/home_padres"; // Redirigir a la página de padres
         break;
@@ -68,8 +69,12 @@ function ElecionLogin() {
       );
   
       if (response.data.token) {
+        console.log(response);
+        
         // Almacenar el token y el id de la institución en localStorage
         localStorage.setItem("InstitutionID", response.data.institution);
+        localStorage.setItem("token", response.data.token);
+
         dispatch({ type: "LOGIN_SUCCESS", payload: response.data.token });
         setMessage("Login exitoso");
         // Redirigir según el rol seleccionado
@@ -88,15 +93,15 @@ function ElecionLogin() {
     <div className="container">
       <div className="grid">
         <div className="flex-options">
-          <div onClick={() => setChangeComponent("Institución")}>Institución</div>
-          <div onClick={() => setChangeComponent("Profesor")}>Profesor</div>
-          <div onClick={() => setChangeComponent("Padre")}>Padre</div>
+          <div onClick={() => setChangeComponent("institution")}>Institución</div>
+          <div onClick={() => setChangeComponent("teacher")}>Profesor</div>
+          <div onClick={() => setChangeComponent("parents")}>Padre</div>
         </div>
 
         <div className="grid-login">
-          {changeComponent === "Profesor" && <LoginProfesor />}
-          {changeComponent === "Institución" && <LoginInstitucion />}
-          {changeComponent === "Padre" && <LoginPadres />}
+          {changeComponent === "teacher" && <LoginProfesor />}
+          {changeComponent === "institution" && <LoginInstitucion />}
+          {changeComponent === "parents" && <LoginPadres />}
         </div>
         <div className="input-msg">
           <div className="div-inp-1">{message && <p>{message}</p>}</div>

@@ -23,6 +23,7 @@ import groupReducer from '../Redux/Slices/SliceGroup';
 import studentReducer from '../Redux/Slices/SliceStudent';
 import subjectReducer from '../Redux/Slices/SliceSubjects';
 import scheduleReducer from '../Redux/Slices/SliceSchedule';
+import loginReducer from './Slices/SliceLogin'
 
 const Store = configureStore({
   reducer: {
@@ -31,8 +32,10 @@ const Store = configureStore({
     group: groupReducer,
     student: studentReducer,
     subject: subjectReducer,
-    schedule: scheduleReducer
-
+    schedule: scheduleReducer,
+    login: loginReducer,
+      // institution: institutionSlice, // Reducer para el institutionId
+      
   },
   middleware: (getDefaultMiddleware) => getDefaultMiddleware().concat(thunk, logger),//Se usa solo en desarrollo.
 });

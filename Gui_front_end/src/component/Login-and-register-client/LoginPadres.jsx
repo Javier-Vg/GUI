@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { useDispatch } from 'react-redux';
-import { setUsername, setPassword } from '../../store/inputSlice';
+import { setUsername, setPassword } from '../../Redux/Slices/SliceLogin';
 
 function LoginPadres() {
   const [username, setUsernameInput] = useState('');

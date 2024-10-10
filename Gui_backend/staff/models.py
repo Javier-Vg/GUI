@@ -4,6 +4,7 @@ from contracts.models import contracts
 from materias.models import subjects 
 from schedule.models import schedule
 from django.core.validators import validate_email
+from django.contrib.auth.hashers import make_password
 #from schedule.models import schedule  
 
 # Create your models here.
@@ -37,7 +38,12 @@ class staff(models.Model):
     schedule = models.ForeignKey(schedule, on_delete=models.CASCADE, null=False)
     contract = models.ForeignKey(contracts, on_delete=models.CASCADE, related_name='related_contracts')
     imagen_url = models.URLField()  #almacenará la URL de la imagen que se sube a Imgur. 
-    password = models.CharField(max_length=200, blank=False, null=True) 
+    password = models.CharField(max_length=128, blank=False, null=True)
+    
+    def save(self, *args, **kwargs):
+        if self.pk is None or not self.password.startswith('pbkdf2_'):
+            self.password = make_password(self.password)
+        super(staff, self).save(*args, **kwargs)
 
     def __str__(self):
         return self.name
