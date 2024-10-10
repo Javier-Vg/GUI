@@ -4,10 +4,11 @@ import { fetchStudent } from '../../Redux/Slices/SliceStudent';
 import { useDispatch, useSelector } from 'react-redux';
 
 function ListStudents() {
+
     const [students, setStudents] = useState([]);
     const [seeMore, setSeeMore] = useState(false);
     const [selectedStudent, setSelectedStudent] = useState(null);
-    const institution_id = localStorage.getItem('institution_id');  // ID de la institución almacenado en localStorage
+    const institution_id = localStorage.getItem('institution_id');  // ID de la institución almacenado en localStoragez
 
     const dispatch = useDispatch();
 
@@ -17,8 +18,18 @@ function ListStudents() {
     const error = useSelector(state => state.student.error); 
 
     useEffect(() => {
-        dispatch(fetchStudent()); // Llama a la acción para obtener productos al cargar el componente
+        
+        // dispatch(fetchStudent());
+
+
+        
+        return () => {
+            // Código que se ejecuta al desmontar el componente
+            dispatch(fetchStudent()); // Despacha la acción para limpiar datos
+        };
+
     }, [dispatch]);
+    
 
     useEffect(() => {
         for (let i = 0; i < items.length; i++) {
@@ -27,8 +38,6 @@ function ListStudents() {
               setStudents((prevFiltred) => [...prevFiltred, items[i]]);
             };
         }
-        console.log(items);
-        
 
     }, [items]);
 

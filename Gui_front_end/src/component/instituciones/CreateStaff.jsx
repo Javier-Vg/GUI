@@ -17,6 +17,7 @@ function CreateStaff() {
   const [changeImagen, setChangeImagen] = useState();
   const [changeContratoId, setChangeContratoId] = useState();
   const [changeHorarioId, setChangeHorarioId] = useState();
+  const [changePassword, setChangePassword] = useState();
 
   //Almacena los get de tablas consultadas
   const [contracts, setContracts] = useState();
@@ -119,7 +120,8 @@ function CreateStaff() {
         imagen_url: imageUrl,
         contract: changeContratoId,
         institution: institution_id,
-        schedule: changeHorarioId
+        schedule: changeHorarioId,
+        password: changePassword
       }
 
       //Validaciones
@@ -219,6 +221,11 @@ function CreateStaff() {
         <label>
           Imagen del empleado:
           <input type="file" accept="image/*" onChange={handleFileChange} />
+        </label>
+        <br />
+        <label>
+          Cree una contraseña:
+          <input type="password" onChange={((e) => setChangePassword(e.target.value))} />
         </label>
 
         <br />

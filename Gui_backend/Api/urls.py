@@ -1,9 +1,10 @@
 from django.urls import path, include
 from . import views
 from .router import router_post
-# from .views import helloworld
+from .views import upload_image
 
 urlpatterns = [
+    path('urlResponse/',upload_image, name='upload_image'),
     path('post/', include(router_post.urls)),
     path('gui/', include("Gui.urls")),
     path('institutions/', include('Institucion.urls')), #Institucion.urls es el nombre del app

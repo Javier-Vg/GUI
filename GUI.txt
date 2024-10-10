@@ -23,3 +23,6 @@ pip install --force PyJWT
 
 python manage.py drf_create_token root
 python manage.py createsuperuser
+
+Redux dependecias:
+npm i redux-thunk

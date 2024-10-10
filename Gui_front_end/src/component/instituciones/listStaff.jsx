@@ -57,10 +57,7 @@ function ListStaff() {
     
     <h2 style={{textAlign: "left"}}>Personal Registrado:</h2>
 
-      <div style={{
-        display: "grid",
-        gridTemplateColumns: "400px 400px 400px"
-        }}>
+      <div className="div1" >
         {staff.length > 0 ? (
         staff.map((staffMember, index) => (
           <div key={index} 
