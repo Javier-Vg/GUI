@@ -24,7 +24,7 @@ function RegisterFormGui() {
         setTexto("Este correo ya está registrado");
       } else {
         const response = await PostData(nombre, contra, email, rol); // Enviar los datos en un objeto
-  
+        
         if (response.success) {
           setTexto("Registro exitoso!");
           // setToken(response.token); // Guarda el token si es necesario
