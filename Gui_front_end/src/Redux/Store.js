@@ -16,7 +16,7 @@
 // //quede aca (●'◡'●)cons
 import { configureStore } from '@reduxjs/toolkit';
 import {thunk} from 'redux-thunk'; // Asegúrate de tener esto
-import logger from 'redux-logger'; // Asegúrate de tener esto
+// import logger from 'redux-logger'; // Asegúrate de tener esto
 import institutionReducer from '../Redux/Slices/SliceInstitution'; //Se importan con un nombre cualquiera, no esta definido en el archico.
 import staffReducer from '../Redux/Slices/SliceStaff';
 import groupReducer from '../Redux/Slices/SliceGroup';
@@ -42,9 +42,9 @@ const Store = configureStore({
   middleware: (getDefaultMiddleware) => {
     const middlewares = getDefaultMiddleware().concat(thunk);
 
-    if (isDev) {
-      middlewares.push(logger); // Solo agregar logger en desarrollo
-    }
+    // if (isDev) {
+    //   middlewares.push(logger); // Solo agregar logger en desarrollo
+    // }
 
     return middlewares;
   },

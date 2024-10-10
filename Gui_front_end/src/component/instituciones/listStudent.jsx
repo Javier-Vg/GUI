@@ -19,14 +19,17 @@ function ListStudents() {
 
     useEffect(() => {
         
-        dispatch(fetchStudent());
+        // dispatch(fetchStudent());
+
+
         
-        // return () => {
-        //     // Código que se ejecuta al desmontar el componente
-        //     dispatch(fetchStudent()); // Despacha la acción para limpiar datos
-        // };
+        return () => {
+            // Código que se ejecuta al desmontar el componente
+            dispatch(fetchStudent()); // Despacha la acción para limpiar datos
+        };
 
     }, [dispatch]);
+    
 
     useEffect(() => {
         for (let i = 0; i < items.length; i++) {
