@@ -1,74 +1,91 @@
 import React, { useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
+
+import { useNavigate } from "react-router-dom";
 import LoginProfesor from "./LoginProfesor";
+
 import LoginInstitucion from "./LoginInstitucion";
 import LoginPadres from "./LoginPadres";
-import { getStaff, getStudents, getInstitutions } from "../../service/LoginGui";
-import { useNavigate } from "react-router-dom";
-import { setInstitutionId } from "../../store/institutionSlice"; // Acción para almacenar el institutionId
+
 import "../../css/Eleccion_login.css";
+import axios from "axios";
 
 function ElecionLogin() {
-  const [changeComponent, setChangeComponent] = useState("Institución"); // Estado para manejar el rol seleccionado
-  const [message, setMessage] = useState("ㅤㅤㅤㅤㅤㅤ"); // Estado para los mensajes de éxito o error
+
+  const [changeComponent, setChangeComponent] = useState("institution");
+  const [message, setMessage] = useState("ㅤㅤㅤㅤㅤㅤ"); 
+
   const username = useSelector((state) => state.login.username);
-  const password = useSelector((state) => state.login.password); // No recomendable mostrar contraseñas directamente
+  const password = useSelector((state) => state.login.password); 
+
+  const dispatch = useDispatch();
   const navigate = useNavigate();
-  const dispatch = useDispatch(); // Para actualizar el Redux store
 
-  const handleSubmit = async () => {
-    // Validaciones de campos vacíos
-    if (!username || !password) {
-      setMessage("El nombre de usuario y la contraseña no pueden estar vacíos");
-      // Eliminar el mensaje después de 5 segundos
-      setTimeout(() => setMessage(""), 5000);
-      return;
+  const domain = window.location.hostname;
+
+  // Validación de los campos
+  const validateInputs = () => {
+    if (!username.trim() || !password.trim()) {
+      setMessage("Todos los campos son obligatorios");
+      return false;
     }
+    return true;
+  };
 
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    if (!validateInputs()) return;
+  
+    // Definir la URL en función del componente seleccionado
+    let redirectRoute;
+    let apiEndpoint;
+    switch (changeComponent) {
+      case "institution":
+        apiEndpoint = `http://${domain}:8000/api/institutions/login/`;
+        redirectRoute = "/institutions"; 
+        break;
+      case "teacher":
+        apiEndpoint = `http://${domain}:8000/api/staff/login/`; // Cambia este endpoint según tu backend
+        redirectRoute = "/institutions"; // Redirigir a la página de profesores
+        break;
+      case "parents":
+        apiEndpoint = `http://${domain}:8000/api/students/login/`; // Cambia este endpoint según tu backend
+        redirectRoute = "/home_padres"; // Redirigir a la página de padres
+        break;
+      default:
+        setMessage("Rol no válido");
+        return;
+    }
+  
     try {
-      const staffData = await getStaff();
-      const studentData = await getStudents();
-      const institutionData = await getInstitutions();
-
-      const staffMatch = staffData.find(
-        (user) => user.name === username && user.password === password
+      const response = await axios.post(
+        apiEndpoint,
+        { username, password },
+        {
+          headers: {
+            "Content-Type": "application/json",
+          },
+        }
       );
-      const studentMatch = studentData.find(
-        (user) => user.name === username && user.password === password
-      );
-      const institutionMatch = institutionData.find(
-        (user) => user.name === username && user.password === password
-      );
+  
+      if (response.data.token) {
+        console.log(response);
+        
+        // Almacenar el token y el id de la institución en localStorage
+        localStorage.setItem("InstitutionID", response.data.institution);
+        localStorage.setItem("token", response.data.token);
 
-      if (staffMatch) {
-        dispatch(setInstitutionId(staffMatch.id)); // Asegúrate de que el id de la institución esté disponible en staffMatch
-        setMessage("Inicio de sesión exitoso como Profesor");
-
-        localStorage.setItem("InstitutionID", staffMatch.Institution);
-        navigate("/institutions");
-      } else if (studentMatch) {
-        dispatch(setInstitutionId(studentMatch.id)); // Asegúrate de que el id de la institución esté disponible en studentMatch
-        setMessage("Inicio de sesión exitoso como Padre");
-
-        localStorage.setItem("InstitutionID", studentMatch.institution);
-        navigate("/home_padres");
-      } else if (institutionMatch) {
-        dispatch(setInstitutionId(institutionMatch.id));
-        setMessage("Inicio de sesión exitoso como Institución");
-
-        localStorage.setItem("InstitutionID", institutionMatch.id);
-        navigate("/Institutions");
-      } else {
-        setMessage("Credenciales inválidas o no existentes");
-        setTimeout(() => setMessage(""), 5000);
+        dispatch({ type: "LOGIN_SUCCESS", payload: response.data.token });
+        setMessage("Login exitoso");
+        // Redirigir según el rol seleccionado
+        setTimeout(() => {
+          navigate(redirectRoute);
+        }, 1000);
       }
     } catch (error) {
-      console.error("Error al obtener los datos:", error);
-      setMessage(
-        "Ocurrió un error durante el inicio de sesión, por favor intenta nuevamente."
-      );
-      // Eliminar el mensaje de error después de 5 segundos
+      setMessage("Credenciales inválidas");
       setTimeout(() => setMessage(""), 5000);
+      dispatch({ type: "LOGIN_FAILURE" });
     }
   };
 
@@ -76,22 +93,19 @@ function ElecionLogin() {
     <div className="container">
       <div className="grid">
         <div className="flex-options">
-          <div onClick={() => setChangeComponent("Institución")}>
-            Institución
-          </div>
-          <div onClick={() => setChangeComponent("Profesor")}>Profesor</div>
-          <div onClick={() => setChangeComponent("Padre")}>Padre</div>
+          <div onClick={() => setChangeComponent("institution")}>Institución</div>
+          <div onClick={() => setChangeComponent("teacher")}>Profesor</div>
+          <div onClick={() => setChangeComponent("parents")}>Padre</div>
         </div>
 
         <div className="grid-login">
-          {changeComponent === "Profesor" && <LoginProfesor />}
-          {changeComponent === "Institución" && <LoginInstitucion />}
-          {changeComponent === "Padre" && <LoginPadres />}
-          {/* Mostrar el mensaje de éxito o error */}
+          {changeComponent === "teacher" && <LoginProfesor />}
+          {changeComponent === "institution" && <LoginInstitucion />}
+          {changeComponent === "parents" && <LoginPadres />}
         </div>
         <div className="input-msg">
           <div className="div-inp-1">{message && <p>{message}</p>}</div>
-          <div  className="div-inp-2">
+          <div className="div-inp-2">
             <button onClick={handleSubmit} className="btn-login" type="submit">
               Iniciar Sesión
             </button>
@@ -103,3 +117,4 @@ function ElecionLogin() {
 }
 
 export default ElecionLogin;
+

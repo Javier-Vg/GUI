@@ -4,19 +4,21 @@ import { postSubjects, getInstitutions} from '../../service/LoginGui';
 const manageSubjects = () => {
     const [subjectName, setSubjectName] = useState('');
     const [Institution, setInstitution] = useState('');
-    const [InstitutionId, setInstitutionId] = useState('');
-
+    // const [InstitutionId, setInstitutionId] = useState('');
+    
 
     useEffect(() => {
         getDataInsititution();
     },[])
 
-
+    const InstitutionID = localStorage.getItem('InstitutionID')
+    
     const saveSubject = () => {
         console.log('Nombre de la materia:', subjectName);
+       
         const subject = {
             name: subjectName,
-            institution: InstitutionId
+            institution: InstitutionID
         }
         postSubjects(subject);
         // Aquí puedes agregar la lógica para guardar la materia, por ejemplo enviarla a un API.
@@ -31,9 +33,12 @@ const manageSubjects = () => {
         }
     }
 
+    // const handleChangeInstitucion = (e) => {
+    //     setInstitutionId(e.target.value)
+    //   }
     const handleChangeInstitucion = (e) => {
         setInstitutionId(e.target.value)
-      }
+    }
 
     return (
         <div className='subject-form'>
@@ -49,7 +54,7 @@ const manageSubjects = () => {
 
             <label htmlFor="sujectInstitution">Seleccione la institucion
             {Institution && (
-            <select value={InstitutionId} onChange={handleChangeInstitucion} id="opciones">
+            <select value={InstitutionID} onChange={handleChangeInstitucion} id="opciones">
                 <option value="">--Seleccionar--</option>
                     {Institution.map((institution, index) => (
                     <option key={index} value={institution.id}>

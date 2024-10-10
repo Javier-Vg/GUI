@@ -53,7 +53,8 @@ export const getDatos = async () => {
         error: error.message
       };
     }
-  };
+    };
+
 /////////////////////////////////////////////////////////////////
 export const getInstitutions = async () => {
     try {    
@@ -64,10 +65,16 @@ export const getInstitutions = async () => {
       throw error;
     }
   };
-export const postInstitutions = async (name, address, estado, subscriptionType, phoneNumber, email,imageUrl,monthly_payent,password) => {  
+
+
+
+  
+export const postInstitutions = async (username, address, estado, subscriptionType, phoneNumber, email,imageUrl,monthly_payent,password) => {
+  
+
     try {
       const response = await axios.post(`http://${domain}:8000/api/institutions/institution/`, {
-        name: name,
+        username: username,
         direction: address,
         payment_status : estado,
         suscription_type: subscriptionType,
@@ -83,28 +90,10 @@ export const postInstitutions = async (name, address, estado, subscriptionType, 
       throw error;
     }
   };
-export const updateInstitutions = async (editingInstitution) => {
-    try {
-      const response = await axios.put(`http://${domain}:8000/api/institutions/institution/${editingInstitution.id}/`, {
-        // create_date: create_date,
-        direction: editingInstitution.direction,
-        email: editingInstitution.email,
-        imagen_url: editingInstitution.imagen_url,
-        monthly_payent: editingInstitution.monthly_payent,
-        name: editingInstitution.name,
-        number_phone: editingInstitution.number_phone,
-        payment_status : editingInstitution.payment_status,       
-        subscription_date: editingInstitution.subscription_date,
-        suscription_type: editingInstitution.suscription_type, 
-      });
-      return response.data;
-    } catch (error) {
-      console.error("Error haciendo la solicitud:", error);
-      throw error;
-    }
-};
+
 /////////////////////////////////////////////////////////////////
 export const getStaff = async () => {
+
     try {
       const response = await axios.get(`http://${domain}:8000/api/staff/staff/`);
       return response.data
@@ -133,10 +122,15 @@ export const getStaff = async () => {
   };
   // service/LoginGui.js
 export const postStudents = async (nombre, apellido, identificacion, fechaNacimiento, grado, estadoAcademico, telefono, email, imageUrl, alergias, guardianTelefono, nameGuardian, mensualidadDelEstudiante, password, institution_id) => {
+
     console.log(institution_id); 
+
+    console.log(nombre, apellido, identificacion, fechaNacimiento, grado, estadoAcademico, telefono, email, imageUrl, alergias, guardianTelefono, nameGuardian, mensualidadDelEstudiante, password, institution_id);
+    
+
   try {
     const response = await axios.post(`http://${domain}:8000/api/students/students/`, {
-      name: nombre,
+      username: nombre,
       last_name: apellido,
       identification_number: identificacion,
       birthdate_date: fechaNacimiento,
@@ -205,4 +199,5 @@ export const postGroups = async (group) => {
     console.error("Error haciendo la solicitud:", error);
     throw error;
   }
+
 };

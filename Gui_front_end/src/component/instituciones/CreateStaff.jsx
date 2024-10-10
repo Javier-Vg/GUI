@@ -21,7 +21,7 @@ function CreateStaff() {
   //Almacena los get de tablas consultadas
   const [contracts, setContracts] = useState();
   const [schedule, setSchedule] = useState();
-  const institution_id = localStorage.getItem('InstitutionID')
+  const institution_id = localStorage.getItem('institution_id');
 
   const handleFileChange = (e) => {
     const file = e.target.files[0];
@@ -46,19 +46,9 @@ function CreateStaff() {
   }
 
   useEffect(() => {
-      getDataInsititution();
       getDataContract();
       getDataSchedule();
   },[])
-
-  const getDataInsititution = async () => {
-    try {
-      const institutionData = await getInstitutions();
-      setInstitution(institutionData);
-    } catch (error) {
-        console.error("Error fetching institution:", error);
-    }
-  }
 
   const getDataContract = async () => {
     try {
@@ -117,7 +107,7 @@ function CreateStaff() {
       let confimacion = true
       
       let staff = {
-        name: changeNombre,
+        username: changeNombre,
         last_name: changeApellidos,
         identification_number: changeIdentificacion,
         birthdate_date: changeFechaNacimiento,
