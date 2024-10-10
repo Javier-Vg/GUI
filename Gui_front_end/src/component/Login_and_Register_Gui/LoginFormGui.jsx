@@ -4,36 +4,38 @@ import { loginAdmin } from '../../service/LoginGui'; // Importamos la función d
 import '../../css/loginGui.css';
 
 function LoginFormGui() {
-  const [nombre, setNombre] = useState('');
-  const [contra, setContra] = useState('');
+  const [username, setNombre] = useState('');
+  const [password, setContra] = useState('');
   const [texto, setTexto] = useState("");
   const navigate = useNavigate();
 
-  // Validación del formulario de login
   const handleLogin = async (e) => {
     e.preventDefault();
 
-    // Verifica que los campos no estén vacíos
-    if (nombre.trim() !== '' && contra.trim() !== '') {
-      try {
-        // Llama al backend para autenticar
-        const response = await loginAdmin(nombre, contra);
-        
-        // Si el login es exitoso, redirige
-        if (response.success) {
-          navigate('/gui_home'); // Redirige a la página principal
-        } else {
-          setTexto("Usuario o contraseña incorrectos");
-        }
-      } catch (error) {
-        console.error("Error al intentar iniciar sesión:", error);
-        setTexto("Ocurrió un error, intenta nuevamente.");
-      }
-    } else {
-      setTexto("Por favor, complete todos los campos");
-    }
-  };
+    if (username.trim() !== '' && password.trim() !== '') {
+        try {
+            const response = await loginAdmin(username, password);
+            console.log(response,"hola");
+            
 
+
+            // Verificamos si el login fue exitoso y redireccionamos a la página principal si es así
+            if (response.success) {
+                navigate('/gui_home'); // Redirige si las credenciales son correctas
+                localStorage.setItem('token', response.token);
+            } else {
+                setTexto(response.message || "Usuario o contraseña incorrectos");
+                console.log(response);
+                
+            }
+        } catch (error) {
+            console.error("Error al intentar iniciar sesión:", error.message);
+            setTexto(error.message || "Ocurrió un error, intenta nuevamente.");
+        }
+    } else {
+        setTexto("Por favor, complete todos los campos");
+    }
+};
   return (
     <div className="login-body">
       <div className="login-container">
@@ -48,7 +50,7 @@ function LoginFormGui() {
             id="nombre"
             name="nombre"
             className="login-input"
-            value={nombre}
+            value={username}
             onChange={(e) => setNombre(e.target.value)}
           />
           
@@ -58,7 +60,7 @@ function LoginFormGui() {
             id="contra"
             name="contra"
             className="login-input"
-            value={contra}
+            value={password}
             onChange={(e) => setContra(e.target.value)}
           />
           
