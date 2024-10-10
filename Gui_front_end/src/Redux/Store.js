@@ -8,6 +8,12 @@ import groupReducer from '../Redux/Slices/SliceGroup';
 import studentReducer from '../Redux/Slices/SliceStudent';
 import subjectReducer from '../Redux/Slices/SliceSubjects';
 import scheduleReducer from '../Redux/Slices/SliceSchedule';
+import taskReducer from '../Redux/Slices/SliceTask';
+
+//Prueba:
+import datazo from '../Redux/Slices/estado_any';
+
+const isDev = process.env.NODE_ENV === 'development';
 
 const Store = configureStore({
   reducer: {
@@ -16,10 +22,22 @@ const Store = configureStore({
     group: groupReducer,
     student: studentReducer,
     subject: subjectReducer,
-    schedule: scheduleReducer
+    schedule: scheduleReducer,
+    task: taskReducer,
+    dato: datazo
 
   },
-  middleware: (getDefaultMiddleware) => getDefaultMiddleware().concat(thunk, logger),//Se usa solo en desarrollo.
+  middleware: (getDefaultMiddleware) => {
+    const middlewares = getDefaultMiddleware().concat(thunk);
+
+    if (isDev) {
+      middlewares.push(logger); // Solo agregar logger en desarrollo
+    }
+
+    return middlewares;
+  },
+  devTools: isDev, // Habilitar DevTools solo en desarrollo
+  
 });
 
 export default Store;
