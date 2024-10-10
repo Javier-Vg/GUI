@@ -27,9 +27,6 @@ function ListGroups() {
               setGroups((prevFiltred) => [...prevFiltred, items[i]]);
             };
         }
-
-        console.log(items);
-
     }, [items]);
 
     const openModal = (group) => {

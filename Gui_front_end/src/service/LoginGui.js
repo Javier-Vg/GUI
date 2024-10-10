@@ -140,12 +140,7 @@ export const getStaff = async () => {
   };
   // service/LoginGui.js
 export const postStudents = async (nombre, apellido, identificacion, fechaNacimiento, grado, estadoAcademico, telefono, email, imageUrl, alergias, guardianTelefono, nameGuardian, mensualidadDelEstudiante, password, institution_id) => {
-
-    console.log(institution_id); 
-
-    console.log(nombre, apellido, identificacion, fechaNacimiento, grado, estadoAcademico, telefono, email, imageUrl, alergias, guardianTelefono, nameGuardian, mensualidadDelEstudiante, password, institution_id);
-    
-
+  
   try {
     const response = await axios.post(`http://${domain}:8000/api/students/students/`, {
       username: nombre,

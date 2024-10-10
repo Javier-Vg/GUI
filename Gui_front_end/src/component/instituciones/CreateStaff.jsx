@@ -1,28 +1,58 @@
 import React, { useEffect, useState } from 'react';
-import { postStaff, getInstitutions, getContracts, getSchedule} from '../../service/LoginGui';
+import { postStaff, getContracts, getSchedule } from '../../service/LoginGui';
 import '../../css/create_staff.css';
-import { clientId } from '../../keys/keys.js';
+
+const domain = window.location.hostname;
 
 function CreateStaff() {
+  // Estados para los campos del formulario
+  const [changeNombre, setChangeNombre] = useState('');
+  const [changeApellidos, setChangeApellidos] = useState('');
+  const [changeIdentificacion, setChangeIdentificacion] = useState('');
 
-  const [changeNombre, setChangeNombre] = useState();
-  const [changeApellidos, setChangeApellidos] = useState();
-  const [changeIdentificacion, setChangeIdentificacion] = useState();
-  const [changeFechaNacimiento, setChangeFechaNacimiento] = useState();
-  const [changeDireccion, setChangeDireccion] = useState();
-  const [changeTelefono, setChangeTelefono] = useState();
-  const [changeCorreo, setChangeCorreo] = useState();
-  const [changeEstadoTrabajador, setChangeEstadoTrabajador] = useState();
-  const [changePuesto, setChangePuesto] = useState();
-  const [changeImagen, setChangeImagen] = useState();
-  const [changeContratoId, setChangeContratoId] = useState();
-  const [changeHorarioId, setChangeHorarioId] = useState();
-  const [changePassword, setChangePassword] = useState();
+  const [changeFechaNacimiento, setChangeFechaNacimiento] = useState('');
+  const [changeDireccion, setChangeDireccion] = useState('');
+  const [changeTelefono, setChangeTelefono] = useState('');
 
-  //Almacena los get de tablas consultadas
-  const [contracts, setContracts] = useState();
-  const [schedule, setSchedule] = useState();
-  const institution_id = localStorage.getItem('institution_id');
+  const [changeEstadoTrabajador, setChangeEstadoTrabajador] = useState('');
+  const [changeCorreo, setChangeCorreo] = useState('');
+  const [changePuesto, setChangePuesto] = useState('');
+  const [changeImagen, setChangeImagen] = useState(null);
+
+  const [changeContratoId, setChangeContratoId] = useState('');
+  const [changeHorarioId, setChangeHorarioId] = useState('');
+  const [changePassword, setChangePassword] = useState('');
+
+  const [formMessage, setFormMessage] = useState('');
+  const [contracts, setContracts] = useState([]);
+  const [schedule, setSchedule] = useState([]);
+
+  const [errors, setErrors] = useState({});
+  
+  const institution_id = localStorage.getItem('InstitutionID');
+
+  useEffect(() => {
+    getDataContracts();
+    getDataSchedule();
+  }, []);
+
+  const getDataContracts = async () => {
+    try {
+      const contractsData = await getContracts();
+      setContracts(contractsData);
+    } catch (error) {
+      console.error("Error fetching contracts:", error);
+    }
+  };
+
+  const getDataSchedule = async () => {
+    try {
+      const scheduleData = await getSchedule();
+      setSchedule(scheduleData);
+    } catch (error) {
+      console.error("Error fetching schedule:", error);
+    }
+  };
 
   const handleFileChange = (e) => {
     const file = e.target.files[0];
@@ -31,83 +61,53 @@ function CreateStaff() {
     }
   };
 
-  //Ocultar id profesor
-  const handleChangePuesto = (e) => {
-    setChangePuesto(e.target.value)
-  }
+  const validateForm = () => {
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    const dateRegex = /^\d{4}-(0[1-9]|1[0-2])-(0[1-9]|[12]\d|3[01])$/;
+    const newErrors = {};
 
-  const handleChangeInstitucion = (e) => {
-    setChangeInstitucionId(e.target.value)
-  }
-  const handleChangeHorario = (e) => {
-    setChangeHorarioId(e.target.value)
-  }
-  const handleChangeContrato = (e) => {
-    setChangeContratoId(e.target.value)
-  }
-
-  useEffect(() => {
-      getDataContract();
-      getDataSchedule();
-  },[])
-
-  const getDataContract = async () => {
-    try {
-        const contractsData = await getContracts();
-        setContracts(contractsData);
-
-    } catch (error) {
-        console.error("Error fetching contract:", error);
+    if (!changeNombre) newErrors.nombre = "El nombre es obligatorio.";
+    if (!changeApellidos) newErrors.apellidos = "Los apellidos son obligatorios.";
+    if (!changeIdentificacion) newErrors.identificacion = "El número de identificación es obligatorio.";
+    if (!changeFechaNacimiento || !dateRegex.test(changeFechaNacimiento)) {
+      newErrors.fechaNacimiento = "Por favor, ingrese una fecha válida (formato: AAAA-MM-DD).";
     }
-  }
-
-  const getDataSchedule = async () => {
-    try {
-        const subjectsData = await getSchedule();
-        setSchedule(subjectsData);
-    } catch (error) {
-        console.error("Error fetching subject:", error);
+    if (!changeDireccion) newErrors.direccion = "La dirección es obligatoria.";
+    if (!changeTelefono) newErrors.telefono = "El teléfono es obligatorio.";
+    if (!changeCorreo || !emailRegex.test(changeCorreo)) {
+      newErrors.correo = "Por favor, ingrese un correo electrónico válido.";
     }
-  }
+    if (!changeEstadoTrabajador) newErrors.estadoTrabajador = "Seleccione el estado del trabajador.";
+    if (!changePuesto) newErrors.puesto = "Seleccione un puesto.";
+    if (!changeImagen) newErrors.imagen = "Debe seleccionar una imagen.";
+    if (!changePassword) newErrors.password = "La contraseña es obligatoria.";
+    if (!changeContratoId) newErrors.contrato = "Debe seleccionar un contrato.";
+    if (!changeHorarioId) newErrors.horario = "Debe seleccionar un horario.";
 
-  const handleChangeStatus = (e) => {
-    setChangeEstadoTrabajador(e.target.value)
-  }
-  
+    setErrors(newErrors);
+    return Object.keys(newErrors).length === 0;
+  };
+
   const handleSubmit = async (e) => {
-    e.preventDefault()
-    if (!changeImagen) {
-      alert("Por favor selecciona una imagen.");
+    e.preventDefault();
+
+    if (!validateForm()) {
       return;
     }
-    
+
     try {
-      // Subir la imagen a Imgur
-      const auth = "Client-ID " + clientId;
       const formData = new FormData();
       formData.append("image", changeImagen);
 
-      const response = await fetch("https://api.imgur.com/3/image/", {
+      const response = await fetch(`http://${domain}:8000/api/urlResponse/`, {
         method: "POST",
         body: formData,
-        headers: {
-          Authorization: auth,
-          Accept: "application/json",
-        },
       });
 
       const data = await response.json();
-      if (!data.data.link) {
-        throw new Error('Error al subir la imagen');
-      }
-      const imageUrl = data.data.link; // URL de la imagen subida      
-    
-      // Expresión regular para validar el formato del correo electrónico
-      const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-      const dateRegex = /^\d{4}-(0[1-9]|1[0-2])-(0[1-9]|[12]\d|3[01])$/;
-      let confimacion = true
-      
-      let staff = {
+      const imageUrl = data.image_url;
+
+      const staff = {
         username: changeNombre,
         last_name: changeApellidos,
         identification_number: changeIdentificacion,
@@ -122,90 +122,73 @@ function CreateStaff() {
         institution: institution_id,
         schedule: changeHorarioId,
         password: changePassword
-      }
+      };
 
-      //Validaciones
-      for (const [key, value] of Object.entries(staff)) {
-        
-        // Validar el correo electrónico
-        if (key == "email"){
-          if (!emailRegex.test(changeCorreo)) {
-            alert('Por favor, ingrese un correo electrónico válido')
-            confimacion = false
-          } else {
-            console.log("correo validado correctamente");
-          }
-        }
-        // Validar la fecha
-        if (key == "birthdate_date"){
-          if (!dateRegex.test(changeFechaNacimiento)) {
-            alert('Por favor, ingrese una fecha válida')
-            confimacion = false
-          } else {
-            console.log("fecha validado correctamente");
-          }
-        }
-      }
-    
-      if (confimacion){
-        postStaff(staff); //Envia los datos
-      }
-    }
-    catch (error) {
+      await postStaff(staff);
+      setFormMessage("Personal creado exitosamente"); // Mostrar mensaje de éxito
+    } catch (error) {
       console.error("Error al enviar los datos:", error);
     }
-  }
+  };
 
   return (
     <div className='div-core'>
-      <form className='form-staff' action="submit">
+      <form className='form-staff' onSubmit={handleSubmit}>
         <label>
           Nombre:
-          <input type="text" placeholder='nombre' onChange={(e) => setChangeNombre(e.target.value)}/>
+          <input type="text" value={changeNombre} onChange={(e) => setChangeNombre(e.target.value)} />
+          {errors.nombre && <p className="error">{errors.nombre}</p>}
         </label>
         <br />
         <label>
           Apellidos:
-          <input type="text" placeholder='apellidos' onChange={(e) => setChangeApellidos(e.target.value)}/>
+          <input type="text" value={changeApellidos} onChange={(e) => setChangeApellidos(e.target.value)} />
+          {errors.apellidos && <p className="error">{errors.apellidos}</p>}
         </label>
         <br />
         <label>
           Número de Identificación:
-          <input type="text" placeholder='número de identificación' onChange={(e) => setChangeIdentificacion(e.target.value)}/>
+          <input type="text" value={changeIdentificacion} onChange={(e) => setChangeIdentificacion(e.target.value)} />
+          {errors.identificacion && <p className="error">{errors.identificacion}</p>}
         </label>
         <br />
         <label>
           Fecha de Nacimiento:
-          <input type="date" placeholder='fecha de nacimiento' onChange={(e) => setChangeFechaNacimiento(e.target.value)}/>
+          <input type="date" value={changeFechaNacimiento} onChange={(e) => setChangeFechaNacimiento(e.target.value)} />
+          {errors.fechaNacimiento && <p className="error">{errors.fechaNacimiento}</p>}
         </label>
         <br />
         <label>
           Dirección:
-          <input type="text" placeholder='dirección' onChange={(e) => setChangeDireccion(e.target.value)}/>
+          <input type="text" value={changeDireccion} onChange={(e) => setChangeDireccion(e.target.value)} />
+          {errors.direccion && <p className="error">{errors.direccion}</p>}
         </label>
         <br />
         <label>
           Teléfono:
-          <input type="number" placeholder='teléfono' onChange={(e) => setChangeTelefono(e.target.value)}/>
+          <input type="number" value={changeTelefono} onChange={(e) => setChangeTelefono(e.target.value)} />
+          {errors.telefono && <p className="error">{errors.telefono}</p>}
         </label>
         <br />
         <label>
           Correo:
-          <input type="email" placeholder='email' onChange={(e) => setChangeCorreo(e.target.value)}/>
+          <input type="email" value={changeCorreo} onChange={(e) => setChangeCorreo(e.target.value)} />
+          {errors.correo && <p className="error">{errors.correo}</p>}
         </label>
         <br />
         <label>
           Estado del trabajador:
-          <select value={changeEstadoTrabajador} onChange={handleChangeStatus}  id="opciones">
-            <option >--Selecciona un puesto--</option>
-            <option value="Active" >Activo</option>
-            <option value="Inactive" >Inactivo</option>
+          <select value={changeEstadoTrabajador} onChange={(e) => setChangeEstadoTrabajador(e.target.value)}>
+            <option value="">--Selecciona un estado--</option>
+            <option value="Active">Activo</option>
+            <option value="Inactive">Inactivo</option>
           </select>
+          {errors.estadoTrabajador && <p className="error">{errors.estadoTrabajador}</p>}
         </label>
         <br />
-
-        <label htmlFor="opciones">Selecciona un Puesto Creado Anteriormente:</label>
-        <select value={changePuesto} onChange={handleChangePuesto}  id="opciones">
+        <label>
+          Seleccione un Puesto:
+          <select value={changePuesto} onChange={(e) => setChangePuesto(e.target.value)}>
           <option >--Selecciona un puesto--</option>
           <option value="Directors" >Director</option>
           <option value="Teacher" >Profesor</option>
@@ -214,60 +197,58 @@ function CreateStaff() {
           <option value="Cleaning staff" >Personal de limpieza</option>
           <option value="Librarians" >Bibliotecarios</option>
           <option value="Security staff" >Personal de seguridad</option>
-        </select>
-
+            {/* Otras opciones */}
+          </select>
+          {errors.puesto && <p className="error">{errors.puesto}</p>}
+        </label>
         <br />
-
         <label>
           Imagen del empleado:
           <input type="file" accept="image/*" onChange={handleFileChange} />
+          {errors.imagen && <p className="error">{errors.imagen}</p>}
         </label>
         <br />
         <label>
-          Cree una contraseña:
-          <input type="password" onChange={((e) => setChangePassword(e.target.value))} />
+          Contraseña:
+          <input type="password" value={changePassword} onChange={(e) => setChangePassword(e.target.value)} />
+          {errors.password && <p className="error">{errors.password}</p>}
         </label>
-
         <br />
-        
         <label>
           Seleccione su contrato:
-        {contracts && (
-          <select value={changeContratoId} onChange={handleChangeContrato} id="opciones">
-            <option value="">--Seleccionar--</option>
-            {contracts.map((contract, index) => (
-              <option key={index} value={contract.id}>
-                {contract.contract_type}
-              </option>
-            ))}
-          </select>
-        )}
+          {contracts && (
+            <select value={changeContratoId} onChange={(e) => setChangeContratoId(e.target.value)}>
+              <option value="">--Seleccionar--</option>
+              {contracts.map((contract) => (
+                <option key={contract.id} value={contract.id}>
+                  {contract.contract_type}
+                </option>
+              ))}
+            </select>
+          )}
+          {errors.contrato && <p className="error">{errors.contrato}</p>}
         </label>
-
         <br />
-
         <label>
           Seleccione el horario:
-        {schedule && (
-          <select value={changeHorarioId} onChange={handleChangeHorario} id="opciones">
-            <option value="">--Seleccionar--</option>
-            {schedule.map((horario, index) => (
-              <option key={index} value={horario.id}>
-                {horario.days}
-              </option>
-            ))}
-          </select>
-        )}
+          {schedule && (
+            <select value={changeHorarioId} onChange={(e) => setChangeHorarioId(e.target.value)}>
+              <option value="">--Seleccionar--</option>
+              {schedule.map((horario) => (
+                <option key={horario.id} value={horario.id}>
+                  {horario.days}
+                </option>
+              ))}
+            </select>
+          )}
+          {errors.horario && <p className="error">{errors.horario}</p>}
+          {formMessage && <p>{formMessage}</p>}
         </label>
-
         <br />
-
-        <br />
-        <button onClick={handleSubmit}>ENVIAR</button>
+        <button type="submit">ENVIAR</button>
       </form>
     </div>
   );
-  
 }
 
 export default CreateStaff;

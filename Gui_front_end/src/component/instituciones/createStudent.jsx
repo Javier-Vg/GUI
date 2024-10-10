@@ -1,25 +1,29 @@
 // Componente CreateStudent
 import React, { useState } from 'react';
-import { useSelector } from 'react-redux'; // Importa useSelector
 import { postStudents } from '../../service/LoginGui';
-import { clientId } from "../../keys/keys.js";
+const domain = window.location.hostname 
 
 function CreateStudent() {
   const [nombre, setNombre] = useState('');
   const [apellido, setApellido] = useState('');
   const [identificacion, setIdentificacion] = useState('');
+
   const [fechaNacimiento, setFechaNacimiento] = useState('');
-  const [grado, setGrado] = useState('');
   const [estadoAcademico, setEstadoAcademico] = useState('');
+  const [grado, setGrado] = useState('');
+
+  const [guardianTelefono, setGuardianTelefono] = useState('');
   const [telefono, setTelefono] = useState('');
   const [email, setEmail] = useState('');
-  const [guardianTelefono, setGuardianTelefono] = useState('');
+ 
   const [nameGuardian, setNameGuardian] = useState('');
-  const [imagen, setImagen] = useState(null);
   const [alergias, setAlergias] = useState('');
+  const [imagen, setImagen] = useState(null);
+  
   const [mensualidadDelEstudiante, setMensualidadDelEstudiante] = useState('');
+  const [formMessage, setFormMessage] = useState('');
   const [password, setPassword] = useState('');
-  // const institution_id = useSelector((state) => state.institution.institutionId); // Obtén el ID de la institución
+  
   
   const handleInputChange = (e) => {
     const { name, value } = e.target;
@@ -87,28 +91,25 @@ function CreateStudent() {
     }
 
     try {
-      const auth = "Client-ID " + clientId;
+      // Crear el objeto FormData y adjuntar la imagen seleccionada
       const formData = new FormData();
       formData.append("image", imagen);
-      
-      const response = await fetch("https://api.imgur.com/3/image/", {
+  
+      // Enviar la imagen al backend
+      const response = await fetch(`http://${domain}:8000/api/urlResponse/`, {
         method: "POST",
         body: formData,
-        headers: {
-          Authorization: auth,
-          Accept: "application/json",
-        },
       });
 
       const data = await response.json();
-      if (!data.data.link) {
+      if (!data.image_url) {
         throw new Error('Error al subir la imagen');
       }
-      const imageUrl = data.data.link;
+      const imageUrl = data.image_url;
       const institution_id = localStorage.getItem('InstitutionID')
       // Aquí agregamos el institutionId al postStudents
       await postStudents(nombre, apellido, identificacion, fechaNacimiento, grado, estadoAcademico, telefono, email, imageUrl, alergias, guardianTelefono, nameGuardian, mensualidadDelEstudiante, password, institution_id); // Añadir institutionId
-      console.log('Estudiante agregado exitosamente');
+      setFormMessage("Personal creado exitosamente"); // Mostrar mensaje de éxito
 
       // Restablecer campos
       setNombre('');
@@ -216,6 +217,7 @@ function CreateStudent() {
         <input type="text" name="mensualidadDelEstudiante" value={mensualidadDelEstudiante} onChange={handleInputChange} />
       </label>
       <br />
+      {formMessage && <div>{formMessage}</div>}
       <button type="button" onClick={handleSubmit}>Agregar Estudiante</button>
     </div>
   );
