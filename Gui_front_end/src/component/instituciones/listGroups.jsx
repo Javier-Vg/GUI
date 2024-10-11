@@ -7,7 +7,7 @@ function ListGroups() {
     const [groups, setGroups] = useState([]);
     const [seeMore, setSeeMore] = useState(false);
     const [selectedGroup, setSelectedGroups] = useState(null);
-    const institution_id = localStorage.getItem('institution_id');  // ID de la institución almacenado en localStorage
+    const institution_id = localStorage.getItem('InstitutionID');  // ID de la institución almacenado en localStorage
 
     const dispatch = useDispatch();
 
@@ -21,6 +21,7 @@ function ListGroups() {
     }, [dispatch]);
 
     useEffect(() => {
+        setGroups([]);
         for (let i = 0; i < items.length; i++) {
             if (items[i].institution === parseInt(institution_id, 10)) {
               // Actualiza el valor de la clave correspondiente

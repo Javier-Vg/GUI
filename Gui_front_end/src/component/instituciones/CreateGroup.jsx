@@ -1,18 +1,18 @@
 import React, { useEffect, useState } from "react";
-import { postGroups, getInstitutions, getSubjects, getStaff, getSchedule,} from "../../service/LoginGui";
+import { postGroups } from "../../service/LoginGui";
 import "../../css/create_group.css";
 import { useDispatch, useSelector } from 'react-redux';
 import { fetchSubjects } from '../../Redux/Slices/SliceSubjects';
 import { fetchInstitution } from '../../Redux/Slices/SliceInstitution';
 import { fetchStaff } from '../../Redux/Slices/SliceStaff';
+import { toast } from "react-toastify";
 
 function CreateGroup() {
  //Redux
-  // const itemsInstitution = useSelector(state => state.institution.items);  
+  const itemsInstitution = useSelector(state => state.institutions.items);  
   const itemsStaff = useSelector(state => state.staff.items);  
-  // const itemsSubjects = useSelector(state => state.subjects.items);
+  const itemsSubjects = useSelector(state => state.subject.items);
   const dispatch = useDispatch();
-
 
   useEffect(() => {
         
@@ -23,21 +23,15 @@ function CreateGroup() {
   }, [dispatch]);
 
 
-
-
-
   //Local Storage institucion id
   const institutionId = localStorage.getItem("InstitutionID");
-  //Alamacena las respuestas del api
-  const [institutions, setInstitution] = useState();
-  const [subjects, setSubjects] = useState();
-  const [staff, setStaff] = useState();
 
   //Alamacena los inputs
   const [Name, setName] = useState();
   const [educationLevel, setEducationLevel] = useState();
   const [capacity, setCapacity] = useState();
   const [classroom, setClassroom] = useState();
+  
 
   //Almacena los datos del api segun el id de institucion
   const [subjectsFiltred, setSubjectsFiltred] = useState("");
@@ -50,17 +44,32 @@ function CreateGroup() {
   const [objectStudentsSubjects, setObjectStudentsSubjects] = useState([]);
 
   useEffect(() => {
-    getDataInsititution();
-    getDataStaff();
-    getDataSubjects();
-  }, []);
 
+    // Limpiar los estados al entrar al componente.
+    setSubjectsFiltred([]);
+    setTeachersFiltred([]);
+
+    //Condicion para luego mostrar las materia y profesores segun el id de institucions
+    itemsSubjects.forEach((i) => {
+      if (institutionId == i.institution) {
+        setSubjectsFiltred((prevSubjectsFiltred) => [...prevSubjectsFiltred,i,]);
+      }
+    });
+
+     //Filtra los estudiantes:
+     itemsStaff.forEach((i) => {
+      if (i.position == "Teacher" && institutionId == i.institution) { //MOSTRAR MENSAJE EN CASO DE QUE NO EXISTA PROFESOR DE ESA INSTITUCION. 
+        setTeachersFiltred((prevTeachersFiltred) => [...prevTeachersFiltred,i,]);
+      }
+    }); 
+  }, [itemsInstitution, itemsStaff, itemsSubjects]);
+  
+  
   const changeCommunication_of_subjects_and_teacher = (e) => {
     setObjctChosen([...objctChosen, e.target.value]);
   };
 
-const Post = async () => {
-
+const Post = () => {
   const group = [{
     group_name: Name,
     educational_level: educationLevel,
@@ -71,60 +80,14 @@ const Post = async () => {
     current_students: 0
   }];
 
+  try {
     postGroups(group);
-  };
-  
-
-  const getDataInsititution = async () => {
-    try {
-      const institutionData = await getInstitutions();
-      setInstitution(institutionData);
-    } catch (error) {
-      console.error("Error fetching institution:", error);
-    }
+    toast.success("Grupo creado con exito.");
+  } catch (error) {
+    toast.success("Error al crear usuario: ",error);
+  }
   };
 
-  const getDataSubjects = async () => {
-    try {
-      const subjectsData = await getSubjects();
-      setSubjects(subjectsData);
-    } catch (error) {
-      console.error("Error fetching institution:", error);
-    }
-
-    //Condicion para luego mostrar las materia y profesores segun el id de institucions
-    subjects.forEach((i) => {
-      if (institutionId == i.institution) {
-        setSubjectsFiltred((prevSubjectsFiltred) => [...prevSubjectsFiltred,i,]);
-      }
-    });
-    
-  };
-
-  const getDataStaff = async () => {
-    try {
-      const staffData = await getStaff();
-      setStaff(staffData);
-    } catch (error) {
-      console.error("Error fetching institution:", error);
-    }
-
-    //Filtra lios estudiantes:
-    staff.forEach((i) => {
-      if (i.position == "Teacher" && institutionId == i.institution) { //MOSTRAR MENSAJE EN CASO DE QUE NO EXISTA PROFESOR DE ESA INSTITUCION. 
-        setTeachersFiltred((prevTeachersFiltred) => [...prevTeachersFiltred,i,]);
-      }
-    });    
-
-  };
-
-  // const closeModal = () => {
-  //   setModal(false);
-  //   setSubjectsFiltred(""); //Setea cada que cierre el modal
-  //   setTeachersFiltred("");
-  //   setObjctChosen([]);
-  //   setObjectStudentsSubjects([]);
-  // };
 
   //empieza a crear el objeto final del objeto
   const asingTeachers = () => {
@@ -153,6 +116,7 @@ const Post = async () => {
   };
 
   return (
+    
     <div className="div-core">
       <h2>Creacion de grupos</h2>
       <br />
@@ -189,13 +153,16 @@ const Post = async () => {
           <input
             required
             onChange={(e) => setClassroom(e.target.value)}
-            type="number"
+            type="text"
           />
         </label>
         <br />
 
         <div className="div-1">
               <div>
+                <br />
+               
+                <h2>Asignaturas que se impartiran:</h2>
 
                 {/* Mensaje si no se ha seleccionado ninguna materia válida */}
                 {objctChosen.length > 0 ? null : (
@@ -247,15 +214,15 @@ const Post = async () => {
                           <option value="">-Seleccione docente-</option>
                           {teachersFiltred.map((teacher) => (
                             <option key={teacher.id} value={teacher.name}>
-                              {teacher.name}
+                              {teacher.username}
                             </option>
                           ))}
                         </select>
                       </div>
                     ))}
                     <br />
-                    <form action="">
-                      <button onClick={() => Post()} className="btn-save">Guardar Grupo</button>
+                    <form onSubmit={Post}>
+                      <button className="btn-save">Guardar Grupo</button>
                     </form>
               </div>
               )}

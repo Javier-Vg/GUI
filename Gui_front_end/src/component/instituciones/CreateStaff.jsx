@@ -1,7 +1,14 @@
 import React, { useEffect, useState } from 'react';
-import { postStaff, getInstitutions, getContracts, getSchedule} from '../../service/LoginGui';
+import { postStaff } from '../../service/LoginGui';
 import '../../css/create_staff.css';
 import { clientId } from '../../keys/keys.js';
+import 'react-toastify/dist/ReactToastify.css';
+import { ToastContainer } from 'react-toastify';
+import { toast } from "react-toastify";
+import { fetchContract } from '../../Redux/Slices/SliceContract.js';
+import { fetchSchedule } from '../../Redux/Slices/SliceSchedule.js';
+import { useDispatch, useSelector } from 'react-redux';
+
 
 function CreateStaff() {
 
@@ -19,10 +26,16 @@ function CreateStaff() {
   const [changeHorarioId, setChangeHorarioId] = useState();
   const [changePassword, setChangePassword] = useState();
 
+  //Redux
+  const itemsSchedule = useSelector(state => state.schedule.items);  
+  const itemsContract = useSelector(state => state.contract.items);  
+  const dispatch = useDispatch();  
+
+
   //Almacena los get de tablas consultadas
   const [contracts, setContracts] = useState();
   const [schedule, setSchedule] = useState();
-  const institution_id = localStorage.getItem('institution_id');
+  const institution_id = localStorage.getItem('InstitutionID');
 
   const handleFileChange = (e) => {
     const file = e.target.files[0];
@@ -31,14 +44,16 @@ function CreateStaff() {
     }
   };
 
+  useEffect(() => {
+    dispatch(fetchContract());
+    dispatch(fetchSchedule());
+  }, [dispatch]);
+
   //Ocultar id profesor
   const handleChangePuesto = (e) => {
     setChangePuesto(e.target.value)
   }
 
-  const handleChangeInstitucion = (e) => {
-    setChangeInstitucionId(e.target.value)
-  }
   const handleChangeHorario = (e) => {
     setChangeHorarioId(e.target.value)
   }
@@ -47,28 +62,13 @@ function CreateStaff() {
   }
 
   useEffect(() => {
-      getDataContract();
-      getDataSchedule();
-  },[])
+      setContracts([]);//Setea
+      setSchedule([]);
+      
+      setSchedule(itemsSchedule);
+      setContracts(itemsContract);
+  },[itemsContract, itemsSchedule])
 
-  const getDataContract = async () => {
-    try {
-        const contractsData = await getContracts();
-        setContracts(contractsData);
-
-    } catch (error) {
-        console.error("Error fetching contract:", error);
-    }
-  }
-
-  const getDataSchedule = async () => {
-    try {
-        const subjectsData = await getSchedule();
-        setSchedule(subjectsData);
-    } catch (error) {
-        console.error("Error fetching subject:", error);
-    }
-  }
 
   const handleChangeStatus = (e) => {
     setChangeEstadoTrabajador(e.target.value)
@@ -148,16 +148,20 @@ function CreateStaff() {
       }
     
       if (confimacion){
+        toast.success("Personal creado con exito.");
         postStaff(staff); //Envia los datos
+
       }
     }
     catch (error) {
       console.error("Error al enviar los datos:", error);
+      toast.error("Error.");
     }
   }
 
   return (
     <div className='div-core'>
+      <ToastContainer />
       <form className='form-staff' action="submit">
         <label>
           Nombre:
@@ -225,7 +229,7 @@ function CreateStaff() {
         <br />
         <label>
           Cree una contraseña:
-          <input type="password" onChange={((e) => setChangePassword(e.target.value))} />
+          <input type="text" onChange={((e) => setChangePassword(e.target.value))} />
         </label>
 
         <br />

@@ -26,3 +26,6 @@ python manage.py createsuperuser
 
 Redux dependecias:
 npm i redux-thunk
+
+Alertas:
+npm i react-toastify
