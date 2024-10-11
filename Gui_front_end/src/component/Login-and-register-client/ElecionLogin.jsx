@@ -68,12 +68,11 @@ function ElecionLogin() {
         }
       );
   
-      if (response.data.token) {
+      if (response.data) {
         console.log(response);
         
         // Almacenar el token y el id de la institución en localStorage
         localStorage.setItem("InstitutionID", response.data.institution);
-        localStorage.setItem("token", response.data.token);
 
         dispatch({ type: "LOGIN_SUCCESS", payload: response.data.token });
         setMessage("Login exitoso");
