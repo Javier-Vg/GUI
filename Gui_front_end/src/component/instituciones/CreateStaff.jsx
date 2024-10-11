@@ -7,10 +7,11 @@ import { ToastContainer } from 'react-toastify';
 import { toast } from "react-toastify";
 import { fetchContract } from '../../Redux/Slices/SliceContract.js';
 import { fetchSchedule } from '../../Redux/Slices/SliceSchedule.js';
+import { setID } from '../../Redux/Slices/SliceInstitution.js';
 import { useDispatch, useSelector } from 'react-redux';
 
 function CreateStaff() {
-
+  
   const [changeNombre, setChangeNombre] = useState();
   const [changeApellidos, setChangeApellidos] = useState();
   const [changeIdentificacion, setChangeIdentificacion] = useState();
@@ -25,10 +26,19 @@ function CreateStaff() {
   const [changeHorarioId, setChangeHorarioId] = useState();
   const [changePassword, setChangePassword] = useState();
 
+  //Estado id
+  const [idRedux, setId] = useState();
+
   //Redux
   const itemsSchedule = useSelector(state => state.schedule.items);  
-  const itemsContract = useSelector(state => state.contract.items);  
+  const itemsContract = useSelector(state => state.contract.items);
+  const StateReduxID = useSelector(state => state.institutions.InstitutionID);  
   const dispatch = useDispatch();  
+
+  useEffect(() => {
+    console.log();
+  },[]);
+
 
 
   //Almacena los get de tablas consultadas
@@ -40,12 +50,13 @@ function CreateStaff() {
     const file = e.target.files[0];
     if (file) {
       setChangeImagen(file);
-    }
+    }mxm
   };
 
   useEffect(() => {
     dispatch(fetchContract());
     dispatch(fetchSchedule());
+    dispatch(setID(Number(idRedux)));
   }, [dispatch]);
 
   //Ocultar id profesor
@@ -105,6 +116,13 @@ function CreateStaff() {
       const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
       const dateRegex = /^\d{4}-(0[1-9]|1[0-2])-(0[1-9]|[12]\d|3[01])$/;
       let confimacion = true
+
+      dispatch(setID(Number(idRedux)));
+      setId(idRedux);
+
+      console.log(idRedux);
+      
+
       
       let staff = {
         username: changeNombre,
@@ -118,10 +136,13 @@ function CreateStaff() {
         position: changePuesto,
         imagen_url: imageUrl,
         contract: changeContratoId,
-        institution: institution_id,
+        institution: idRedux,
         schedule: changeHorarioId,
         password: changePassword
       }
+
+      alert(JSON.stringify(staff));
+      
 
       //Validaciones
       for (const [key, value] of Object.entries(staff)) {
@@ -148,8 +169,14 @@ function CreateStaff() {
     
       if (confimacion){
         toast.success("Personal creado con exito.");
-        postStaff(staff); //Envia los datos
 
+        try {
+          postStaff(staff);
+          toast.success("Grupo creado con exito.");
+        } catch (error) {
+          toast.success("Error al crear usuario: ",error);
+        }
+        setId('');//Limpia el input
       }
     }
     catch (error) {
@@ -265,9 +292,14 @@ function CreateStaff() {
 
         <br />
 
+        <p>Id de la institucion</p>
+        <input onChange={((e) => setId(e.target.value))} type="text" />
+
         <br />
         <button onClick={handleSubmit}>ENVIAR</button>
       </form>
+
+      <h2>ID : {StateReduxID}</h2>
     </div>
   );
   

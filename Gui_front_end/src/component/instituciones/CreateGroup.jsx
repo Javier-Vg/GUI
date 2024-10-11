@@ -8,7 +8,8 @@ import { fetchStaff } from '../../Redux/Slices/SliceStaff';
 import { toast } from "react-toastify";
 
 function CreateGroup() {
- //Redux
+  
+  //Redux
   const itemsInstitution = useSelector(state => state.institutions.items);  
   const itemsStaff = useSelector(state => state.staff.items);  
   const itemsSubjects = useSelector(state => state.subject.items);
@@ -21,7 +22,6 @@ function CreateGroup() {
     dispatch(fetchStaff());
 
   }, [dispatch]);
-
 
   //Local Storage institucion id
   const institutionId = localStorage.getItem("InstitutionID");
@@ -64,13 +64,12 @@ function CreateGroup() {
     }); 
   }, [itemsInstitution, itemsStaff, itemsSubjects]);
   
-  
   const changeCommunication_of_subjects_and_teacher = (e) => {
     setObjctChosen([...objctChosen, e.target.value]);
   };
 
 const Post = () => {
-  const group = [{
+  const group = {
     group_name: Name,
     educational_level: educationLevel,
     capacity: capacity,
@@ -78,7 +77,7 @@ const Post = () => {
     institution: institutionId,
     communication_of_subjects_and_teacher: objectStudentsSubjects,
     current_students: 0
-  }];
+  };
 
   try {
     postGroups(group);
@@ -88,10 +87,8 @@ const Post = () => {
   }
   };
 
-
   //empieza a crear el objeto final del objeto
   const asingTeachers = () => {
-    console.log(objctChosen);
 
     objctChosen.forEach((i) => {
       // Usar la versión anterior del estado con el callback
@@ -193,7 +190,6 @@ const Post = () => {
                       Asignar docentes
                     </a>
 
-                    
                   </>
                 ) : (
                   <p>No hay materias disponibles para esta institución.</p>
@@ -221,10 +217,10 @@ const Post = () => {
                       </div>
                     ))}
                     <br />
-                    <form onSubmit={Post}>
-                      <button className="btn-save">Guardar Grupo</button>
+                    <form >
+                      <button onClick={(()  => Post())} className="btn-save">Guardar Grupo</button>
                     </form>
-              </div>
+                </div>
               )}
               
             </div>

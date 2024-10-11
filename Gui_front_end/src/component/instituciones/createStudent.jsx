@@ -1,6 +1,5 @@
 // Componente CreateStudent
 import React, { useState } from 'react';
-import { useSelector } from 'react-redux'; // Importa useSelector
 import { postStudents } from '../../service/LoginGui';
 import { clientId } from "../../keys/keys.js";
 import 'react-toastify/dist/ReactToastify.css';
