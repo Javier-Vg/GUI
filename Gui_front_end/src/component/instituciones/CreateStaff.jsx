@@ -9,7 +9,6 @@ import { fetchContract } from '../../Redux/Slices/SliceContract.js';
 import { fetchSchedule } from '../../Redux/Slices/SliceSchedule.js';
 import { useDispatch, useSelector } from 'react-redux';
 
-
 function CreateStaff() {
 
   const [changeNombre, setChangeNombre] = useState();
