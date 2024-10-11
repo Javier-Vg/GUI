@@ -193,7 +193,7 @@ export const getSubjects = async () => {
 };
 export const getSchedule = async () => {
   try {
-    const response = await axios.get(`http://${domain}:8000/api/schedule/schedule`);
+    const response = await axios.get(`http://${domain}:8000/api/schedule/schedule/`);
     return response.data
   } catch (error) {
     console.error('Error fetching user data:', error);

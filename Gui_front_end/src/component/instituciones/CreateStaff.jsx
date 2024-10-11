@@ -49,6 +49,8 @@ function CreateStaff() {
     try {
       const scheduleData = await getSchedule();
       setSchedule(scheduleData);
+      console.log(scheduleData);
+      
     } catch (error) {
       console.error("Error fetching schedule:", error);
     }

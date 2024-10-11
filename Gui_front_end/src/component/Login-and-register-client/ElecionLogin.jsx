@@ -73,6 +73,7 @@ function ElecionLogin() {
         
         // Almacenar el token y el id de la institución en localStorage
         localStorage.setItem("InstitutionID", response.data.institution);
+        localStorage.setItem("StudentID", response.data.estudiante); // Guardar el ID del estudiante
         localStorage.setItem("token", response.data.token);
 
         dispatch({ type: "LOGIN_SUCCESS", payload: response.data.token });

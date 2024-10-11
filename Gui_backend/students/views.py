@@ -30,14 +30,14 @@ def LoginView(request):
     password = request.data.get('password')
 
     try:
-        # Buscar la institución por el username
-        Students = students.objects.get(username=username)
+        # Buscar el estudiante por el username
+        student = students.objects.get(username=username)
 
         # Verificar la contraseña hasheada
-        if check_password(password, Students.password):
+        if check_password(password, student.password):
             # Generar el payload para el JWT
             payload = {
-                'id': Students.id,
+                'id': student.id,
                 'exp': datetime.utcnow() + timedelta(hours=24),  # Expira en 24 horas
                 'iat': datetime.utcnow(),  # Hora de creación del token
             }
@@ -45,8 +45,12 @@ def LoginView(request):
             # Generar el JWT usando PyJWT
             encoded = jwt.encode(payload, "asd", algorithm='HS256')
 
-            # Retornar el token y el ID de la institución
-            return Response({'token': encoded, 'institution': Students.id})
+            # Retornar el token y el ID del estudiante e institución
+            return Response({
+                'token': encoded,
+                'estudiante': student.id,
+                'institution': student.institution.id if student.institution else None  # Verificar si el estudiante tiene una institución
+            })
         else:
             return Response({'error': 'Credenciales inválidas'}, status=400)
     except students.DoesNotExist:
