@@ -10,14 +10,14 @@ function Home_Gui() {
   const [isDeployed, setIsDeployed] = useState(false);
   const navigate = useNavigate(); // Inicializa el hook para redirección
 
-  useEffect(() => {
-    // Verifica si hay un token en el local storage
-    const token = localStorage.getItem("token");
-    if (!token) {
-      // Si no hay token, redirige a la página de inicio de sesión
-      navigate("/gui"); // Cambia "/gui" a la ruta de tu página de inicio de sesión
-    }
-  }, [navigate]);
+  // useEffect(() => {
+  //   // Verifica si hay un token en el local storage
+  //   const token = localStorage.getItem("token");
+  //   if (!token) {
+  //     // Si no hay token, redirige a la página de inicio de sesión
+  //     navigate("/gui"); // Cambia "/login" a la ruta de tu página de inicio de sesión
+  //   }
+  // }, [navigate]);
 
   const toggleAside = () => {
     setIsDeployed(!isDeployed);

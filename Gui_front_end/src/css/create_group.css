@@ -21,9 +21,10 @@
 }
 
 .div-radios{
-    text-align: left;
+    text-align: center;
     color: aqua;
     padding: 3px;
+    font-size: 20px;
 }
 
 .a-asign{

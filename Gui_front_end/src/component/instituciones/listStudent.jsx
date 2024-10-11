@@ -8,7 +8,7 @@ function ListStudents() {
     const [students, setStudents] = useState([]);
     const [seeMore, setSeeMore] = useState(false);
     const [selectedStudent, setSelectedStudent] = useState(null);
-    const institution_id = localStorage.getItem('institution_id');  // ID de la institución almacenado en localStoragez
+    const institution_id = localStorage.getItem('InstitutionID');  // ID de la institución almacenado en localStoragez
 
     const dispatch = useDispatch();
 
@@ -17,27 +17,21 @@ function ListStudents() {
     const loading = useSelector(state => state.student.loading);  
     const error = useSelector(state => state.student.error); 
 
+    console.log(items);
+    
     useEffect(() => {
-        
-        // dispatch(fetchStudent());
-
-        
-        return () => {
-            // Código que se ejecuta al desmontar el componente
-            dispatch(fetchStudent()); // Despacha la acción para limpiar datos
-        };
-
+        dispatch(fetchStudent());
     }, [dispatch]);
     
 
     useEffect(() => {
+        setStudents([]);
         for (let i = 0; i < items.length; i++) {
             if (items[i].institution === parseInt(institution_id, 10)) {
               // Actualiza el valor de la clave correspondiente
               setStudents((prevFiltred) => [...prevFiltred, items[i]]);
             };
         }
-
     }, [items]);
 
     const openModal = (student) => {

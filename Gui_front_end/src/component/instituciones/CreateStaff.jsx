@@ -1,60 +1,41 @@
 import React, { useEffect, useState } from 'react';
-import { postStaff, getContracts, getSchedule } from '../../service/LoginGui';
+import { postStaff } from '../../service/LoginGui';
 import '../../css/create_staff.css';
+import { clientId } from '../../keys/keys.js';
+import 'react-toastify/dist/ReactToastify.css';
+import { ToastContainer } from 'react-toastify';
+import { toast } from "react-toastify";
+import { fetchContract } from '../../Redux/Slices/SliceContract.js';
+import { fetchSchedule } from '../../Redux/Slices/SliceSchedule.js';
+import { useDispatch, useSelector } from 'react-redux';
 
-const domain = window.location.hostname;
 
 function CreateStaff() {
-  // Estados para los campos del formulario
-  const [changeNombre, setChangeNombre] = useState('');
-  const [changeApellidos, setChangeApellidos] = useState('');
-  const [changeIdentificacion, setChangeIdentificacion] = useState('');
 
-  const [changeFechaNacimiento, setChangeFechaNacimiento] = useState('');
-  const [changeDireccion, setChangeDireccion] = useState('');
-  const [changeTelefono, setChangeTelefono] = useState('');
+  const [changeNombre, setChangeNombre] = useState();
+  const [changeApellidos, setChangeApellidos] = useState();
+  const [changeIdentificacion, setChangeIdentificacion] = useState();
+  const [changeFechaNacimiento, setChangeFechaNacimiento] = useState();
+  const [changeDireccion, setChangeDireccion] = useState();
+  const [changeTelefono, setChangeTelefono] = useState();
+  const [changeCorreo, setChangeCorreo] = useState();
+  const [changeEstadoTrabajador, setChangeEstadoTrabajador] = useState();
+  const [changePuesto, setChangePuesto] = useState();
+  const [changeImagen, setChangeImagen] = useState();
+  const [changeContratoId, setChangeContratoId] = useState();
+  const [changeHorarioId, setChangeHorarioId] = useState();
+  const [changePassword, setChangePassword] = useState();
 
-  const [changeEstadoTrabajador, setChangeEstadoTrabajador] = useState('');
-  const [changeCorreo, setChangeCorreo] = useState('');
-  const [changePuesto, setChangePuesto] = useState('');
-  const [changeImagen, setChangeImagen] = useState(null);
+  //Redux
+  const itemsSchedule = useSelector(state => state.schedule.items);  
+  const itemsContract = useSelector(state => state.contract.items);  
+  const dispatch = useDispatch();  
 
-  const [changeContratoId, setChangeContratoId] = useState('');
-  const [changeHorarioId, setChangeHorarioId] = useState('');
-  const [changePassword, setChangePassword] = useState('');
 
-  const [formMessage, setFormMessage] = useState('');
-  const [contracts, setContracts] = useState([]);
-  const [schedule, setSchedule] = useState([]);
-
-  const [errors, setErrors] = useState({});
-  
+  //Almacena los get de tablas consultadas
+  const [contracts, setContracts] = useState();
+  const [schedule, setSchedule] = useState();
   const institution_id = localStorage.getItem('InstitutionID');
-
-  useEffect(() => {
-    getDataContracts();
-    getDataSchedule();
-  }, []);
-
-  const getDataContracts = async () => {
-    try {
-      const contractsData = await getContracts();
-      setContracts(contractsData);
-    } catch (error) {
-      console.error("Error fetching contracts:", error);
-    }
-  };
-
-  const getDataSchedule = async () => {
-    try {
-      const scheduleData = await getSchedule();
-      setSchedule(scheduleData);
-      console.log(scheduleData);
-      
-    } catch (error) {
-      console.error("Error fetching schedule:", error);
-    }
-  };
 
   const handleFileChange = (e) => {
     const file = e.target.files[0];
@@ -63,33 +44,36 @@ function CreateStaff() {
     }
   };
 
-  const validateForm = () => {
-    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-    const dateRegex = /^\d{4}-(0[1-9]|1[0-2])-(0[1-9]|[12]\d|3[01])$/;
-    const newErrors = {};
+  useEffect(() => {
+    dispatch(fetchContract());
+    dispatch(fetchSchedule());
+  }, [dispatch]);
 
-    if (!changeNombre) newErrors.nombre = "El nombre es obligatorio.";
-    if (!changeApellidos) newErrors.apellidos = "Los apellidos son obligatorios.";
-    if (!changeIdentificacion) newErrors.identificacion = "El número de identificación es obligatorio.";
-    if (!changeFechaNacimiento || !dateRegex.test(changeFechaNacimiento)) {
-      newErrors.fechaNacimiento = "Por favor, ingrese una fecha válida (formato: AAAA-MM-DD).";
-    }
-    if (!changeDireccion) newErrors.direccion = "La dirección es obligatoria.";
-    if (!changeTelefono) newErrors.telefono = "El teléfono es obligatorio.";
-    if (!changeCorreo || !emailRegex.test(changeCorreo)) {
-      newErrors.correo = "Por favor, ingrese un correo electrónico válido.";
-    }
-    if (!changeEstadoTrabajador) newErrors.estadoTrabajador = "Seleccione el estado del trabajador.";
-    if (!changePuesto) newErrors.puesto = "Seleccione un puesto.";
-    if (!changeImagen) newErrors.imagen = "Debe seleccionar una imagen.";
-    if (!changePassword) newErrors.password = "La contraseña es obligatoria.";
-    if (!changeContratoId) newErrors.contrato = "Debe seleccionar un contrato.";
-    if (!changeHorarioId) newErrors.horario = "Debe seleccionar un horario.";
+  //Ocultar id profesor
+  const handleChangePuesto = (e) => {
+    setChangePuesto(e.target.value)
+  }
 
-    setErrors(newErrors);
-    return Object.keys(newErrors).length === 0;
-  };
+  const handleChangeHorario = (e) => {
+    setChangeHorarioId(e.target.value)
+  }
+  const handleChangeContrato = (e) => {
+    setChangeContratoId(e.target.value)
+  }
 
+  useEffect(() => {
+      setContracts([]);//Setea
+      setSchedule([]);
+      
+      setSchedule(itemsSchedule);
+      setContracts(itemsContract);
+  },[itemsContract, itemsSchedule])
+
+
+  const handleChangeStatus = (e) => {
+    setChangeEstadoTrabajador(e.target.value)
+  }
+  
   const handleSubmit = async (e) => {
     e.preventDefault();
 
@@ -124,18 +108,47 @@ function CreateStaff() {
         institution: institution_id,
         schedule: changeHorarioId,
         password: changePassword
-      };
+      }
 
-      await postStaff(staff);
-      setFormMessage("Personal creado exitosamente"); // Mostrar mensaje de éxito
-    } catch (error) {
+      //Validaciones
+      for (const [key, value] of Object.entries(staff)) {
+        
+        // Validar el correo electrónico
+        if (key == "email"){
+          if (!emailRegex.test(changeCorreo)) {
+            alert('Por favor, ingrese un correo electrónico válido')
+            confimacion = false
+          } else {
+            console.log("correo validado correctamente");
+          }
+        }
+        // Validar la fecha
+        if (key == "birthdate_date"){
+          if (!dateRegex.test(changeFechaNacimiento)) {
+            alert('Por favor, ingrese una fecha válida')
+            confimacion = false
+          } else {
+            console.log("fecha validado correctamente");
+          }
+        }
+      }
+    
+      if (confimacion){
+        toast.success("Personal creado con exito.");
+        postStaff(staff); //Envia los datos
+
+      }
+    }
+    catch (error) {
       console.error("Error al enviar los datos:", error);
+      toast.error("Error.");
     }
   };
 
   return (
     <div className='div-core'>
-      <form className='form-staff' onSubmit={handleSubmit}>
+      <ToastContainer />
+      <form className='form-staff' action="submit">
         <label>
           Nombre:
           <input type="text" value={changeNombre} onChange={(e) => setChangeNombre(e.target.value)} />
@@ -211,9 +224,8 @@ function CreateStaff() {
         </label>
         <br />
         <label>
-          Contraseña:
-          <input type="password" value={changePassword} onChange={(e) => setChangePassword(e.target.value)} />
-          {errors.password && <p className="error">{errors.password}</p>}
+          Cree una contraseña:
+          <input type="text" onChange={((e) => setChangePassword(e.target.value))} />
         </label>
         <br />
         <label>
