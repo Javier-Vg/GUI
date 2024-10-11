@@ -68,7 +68,7 @@ function ElecionLogin() {
         }
       );
   
-      if (response.data.token) {
+      if (response.data) {
         console.log(response);
         
         // Almacenar el token y el id de la institución en localStorage
