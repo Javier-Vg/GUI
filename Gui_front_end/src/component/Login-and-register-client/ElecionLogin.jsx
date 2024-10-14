@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
+import { setInstitutionInfo } from '../../Redux/Slices/SliceInfInstitution';  // Importa la acción
 
 import { useNavigate } from "react-router-dom";
 import LoginProfesor from "./LoginProfesor";
@@ -69,6 +70,10 @@ function ElecionLogin() {
       );
   
       if (response.data.token) {
+        dispatch(setInstitutionInfo({
+          imgInstitution: response.data.imgInstitution,
+          nameInstitution: response.data.Name,
+        }));
         
         // Almacenar el token y el id de la institución en localStorage
         localStorage.setItem("InstitutionID", response.data.institution);

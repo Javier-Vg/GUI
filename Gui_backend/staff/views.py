@@ -83,31 +83,37 @@ def LoginView(request):
 
             # Generar el JWT usando PyJWT
             encoded = jwt.encode(payload, KeyJWT, algorithm='HS256')
-            
-            # Crear la respuesta JSON
-            response = JsonResponse({'message': 'Login exitoso', 'institution': staff_member.institution.id})
-            
+
+# Crear la respuesta JSON correctamente
+            return Response({
+                'token': encoded,
+                'message': 'Login exitoso',
+                'institution': staff_member.institution.id,
+                'Name': staff_member.username,
+                'imgInstitution': staff_member.imagen_url
+            })
+                        
             # Crear la cookie para el token (JWT)
-            response.set_cookie(
-                key='Authorization',
-                value=f'Bearer {encoded}',
-                expires=datetime.now() + timedelta(hours=24),
-                httponly=False,  # Cambia esto a True si no necesitas acceder desde JavaScript
-                secure=False,   # Cambia a True si usas HTTPS
-                samesite='Lax', # Política de SameSite
-                path='/',       # La cookie será accesible en todo el dominio
-            )
+            # response.set_cookie(
+            #     key='Authorization',
+            #     value=f'Bearer {encoded}',
+            #     expires=datetime.now() + timedelta(hours=24),
+            #     httponly=False,  # Cambia esto a True si no necesitas acceder desde JavaScript
+            #     secure=False,   # Cambia a True si usas HTTPS
+            #     samesite='Lax', # Política de SameSite
+            #     path='/',       # La cookie será accesible en todo el dominio
+            # )
             
-            # También crear una cookie para el username si lo necesitas
-            response.set_cookie(
-                key='username',
-                value=staff_member.username,
-                expires=datetime.now() + timedelta(hours=24),
-                httponly=False,  # Deja en False si necesitas acceder desde JavaScript
-                path='/',
-            )
+            # # También crear una cookie para el username si lo necesitas
+            # response.set_cookie(
+            #     key='username',
+            #     value=staff_member.username,
+            #     expires=datetime.now() + timedelta(hours=24),
+            #     httponly=False,  # Deja en False si necesitas acceder desde JavaScript
+            #     path='/',
+            # )
             
-            return response
+            # return response
         
         else:
             return Response({'error': 'Credenciales inválidas'}, status=400)

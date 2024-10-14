@@ -25,6 +25,7 @@ import subjectReducer from '../Redux/Slices/SliceSubjects';
 import scheduleReducer from '../Redux/Slices/SliceSchedule';
 import taskReducer from '../Redux/Slices/SliceTask';
 import loginReducer from '../Redux/Slices/SliceLogin';
+import SliceInfInstitution from '../Redux/Slices/SliceInfInstitution'
 const isDev = process.env.NODE_ENV === 'development';
 
 const Store = configureStore({
@@ -36,8 +37,8 @@ const Store = configureStore({
     subject: subjectReducer,
     schedule: scheduleReducer,
     task: taskReducer,
-    login: loginReducer
-
+    login: loginReducer,
+    infInstitution: SliceInfInstitution,
   },
   middleware: (getDefaultMiddleware) => {
     const middlewares = getDefaultMiddleware().concat(thunk);
