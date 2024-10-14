@@ -7,7 +7,7 @@ import Gastos from './Gastos';
 import CreateGroup from './CreateGroup'; // Ajusta la ruta según sea necesario
 import ListGroups from './listGroups';
 import ManageSubjects from './manageSubjects'; // Ajusta la ruta según sea necesario
-import { useSelector, useDispatch } from "react-redux";
+import { useSelector} from "react-redux";
 import '../../css/home_institution.css';
 
 function HomeInstitutionsForm() {
@@ -15,8 +15,11 @@ function HomeInstitutionsForm() {
 
    // Definir el estado para controlar el despliegue del aside
     const [isDeployed, setIsDeployed] = useState(false);
-    const NameInstitution = useSelector((state) => state.infInstitution.nameInstitution)
-    const InfInstitution = useSelector((state) => state.infInstitution.imgInstitution)
+    // const NameInstitution = useSelector((state) => state.infInstitution.nameInstitution)
+    // const InfInstitution = useSelector((state) => state.infInstitution.imgInstitution)
+    const NameInstitution = useSelector((state) => state.infInstitution?.nameInstitution || 'Nombre por defecto');
+    const InfInstitution = useSelector((state) => state.infInstitution?.imgInstitution || 'URL de imagen por defecto');
+
     // Manejador de eventos para alternar el estado
     const toggleAside = () => {
         setIsDeployed(!isDeployed);

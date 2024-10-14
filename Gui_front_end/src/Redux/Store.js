@@ -41,6 +41,7 @@ const Store = configureStore({
     login: loginReducer,
     contract: contractReducer,
     event: eventReducer
+    
 
   },
   middleware: (getDefaultMiddleware) => {
