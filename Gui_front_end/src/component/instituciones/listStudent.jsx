@@ -1,7 +1,9 @@
 import React, { useEffect, useState } from 'react';
-import { getStudents } from '../../service/LoginGui';
+import { postGroupsAsiggnment } from '../../service/LoginGui';
 import { fetchStudent } from '../../Redux/Slices/SliceStudent';
+import { fetchGroups } from '../../Redux/Slices/SliceGroup';
 import { useDispatch, useSelector } from 'react-redux';
+import '../../css/list_student.css';
 
 function ListStudents() {
 
@@ -10,6 +12,12 @@ function ListStudents() {
     const [selectedStudent, setSelectedStudent] = useState(null);
     const institution_id = localStorage.getItem('InstitutionID');  // ID de la institución almacenado en localStoragez
 
+    //Confirmacion de asignacion a grupo:
+    const [confirm, setConfirm] = useState(false);
+
+    //Seteo del la opcion de grupo
+    const [GroupId, setGroupId] = useState(false);
+
     const dispatch = useDispatch();
 
     //Estados de Staff:
@@ -17,10 +25,12 @@ function ListStudents() {
     const loading = useSelector(state => state.student.loading);  
     const error = useSelector(state => state.student.error); 
 
-    console.log(items);
+    //Estado de grupos:
+    const itemsGroups= useSelector(state => state.group.items); 
     
     useEffect(() => {
         dispatch(fetchStudent());
+        dispatch(fetchGroups());
     }, [dispatch]);
     
 
@@ -42,8 +52,33 @@ function ListStudents() {
     const closeModal = () => {
         setSeeMore(false);
         setSelectedStudent(null);
+        setConfirm(!confirm);
     };
 
+    //Setea el estado y muestra el div de asignacion:
+    const handleChange = () => {
+        setConfirm(!confirm);
+    }
+
+    //Añade el grupo al grupo:
+    const handleSubmit = (prop) => {
+        const fechaActual = new Date();
+        const anio = fechaActual.getFullYear();
+        const mes = String(fechaActual.getMonth() + 1).padStart(2, '0'); // +1 porque los meses son de 0 a 11
+        const dia = String(fechaActual.getDate()).padStart(2, '0');
+        const fechaFormateada = `${anio}/${mes}/${dia}`;
+        
+        const group = {
+            registration_day: fechaFormateada,
+            group: GroupId,
+            student: prop
+        }
+
+        postGroupsAsiggnment(group); //manda los datos
+        setConfirm(!confirm);
+    }
+    
+    
     if (loading) {
         return <div>Cargando...</div>; // Muestra un mensaje de carga
       }
@@ -88,6 +123,35 @@ function ListStudents() {
                     <h3>Estado Académico: {selectedStudent.academic_status}</h3>
                     <h3>Información de Alergias: {selectedStudent.allergy_information}</h3>
                     <h3>Contacto: {selectedStudent.contact_information}</h3>
+                    <br />
+                    {!confirm ?(
+                        <button onClick={handleChange} className='btn-asign'>Asignar estudiante a grupo</button>
+                    ) : (
+                        <div>
+                           <h2>Asigne al estudiante entre estos grupos:</h2>
+                           <br />
+                           <button className='btn_volver' onClick={handleChange}>volver</button>
+                           <br />
+                           <select onChange={((e) => setGroupId(e.target.value))}>
+                            <option>-Seleccione el grupo-</option>
+                                {itemsGroups.map((group, i) => (
+                                    <option key={i} value={group.id}>
+                                        {group.group_name}
+                                    </option>
+                                ))}
+
+                           </select>
+                           
+                           {GroupId && (
+                                <button onClick={(() => handleSubmit(selectedStudent.id))}>Añadir al grupo</button>
+                           )}
+                           <br />
+                            
+                        </div>
+                        
+                    )}
+                    
+                    <br />
                     <input onClick={closeModal} type="button" value="Cerrar" />
                 </div>
             )}
@@ -95,4 +159,4 @@ function ListStudents() {
     );
 }
 
-export default ListStudents;
+export default ListStudents

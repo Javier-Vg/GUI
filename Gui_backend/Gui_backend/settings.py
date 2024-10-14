@@ -68,6 +68,7 @@ INSTALLED_APPS = [
     'payments',
     'tasks',
     'Gastos',
+    'group_assignment',
     'rest_framework.authtoken',
     'rest_framework_simplejwt',
     

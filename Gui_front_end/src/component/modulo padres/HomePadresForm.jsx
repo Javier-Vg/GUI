@@ -2,13 +2,16 @@ import React, { useState } from 'react';
 import ExpedienteAlumno from './ExpedienteAlumno';
 import Chat from './Chat';
 import '../../css/home_institution.css';
+import { useSelector, useDispatch } from "react-redux";
+
 
 function HomePadresForm() {
     const [changeComponent, setChangeComponent] = useState('');
 
    // Definir el estado para controlar el despliegue del aside
     const [isDeployed, setIsDeployed] = useState(false);
-
+    const NameInstitution = useSelector((state) => state.infInstitution.nameInstitution)
+    const InfInstitution = useSelector((state) => state.infInstitution.imgInstitution)
     // Manejador de eventos para alternar el estado
     const toggleAside = () => {
         setIsDeployed(!isDeployed);
@@ -26,8 +29,8 @@ function HomePadresForm() {
             <button id="open-close" onClick={toggleAside}>
                 <span id="open-close"><i className='bx bx-menu'></i></span>
             </button>
-            <img src="https://static.vecteezy.com/system/resources/previews/009/126/808/non_2x/gui-logo-gui-letter-gui-letter-logo-design-initials-gui-logo-linked-with-circle-and-uppercase-monogram-logo-gui-typography-for-technology-business-and-real-estate-brand-vector.jpg" alt="" />
-            <h2>Nombre de la institucion</h2>
+            <img src={InfInstitution} alt="" />
+            <h2>{NameInstitution}</h2>
             
         
         </nav>

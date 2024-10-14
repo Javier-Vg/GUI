@@ -1,10 +1,14 @@
 import React, { useState } from 'react';
 import { useSelector } from 'react-redux'; // Importa useSelector
 import { postStudents } from '../../service/LoginGui';
+
 import { clientId } from "../../keys/keys.js";
 import 'react-toastify/dist/ReactToastify.css';
 import { ToastContainer } from 'react-toastify';
 import { toast } from "react-toastify";
+
+const domain = window.location.hostname 
+
 
 function CreateStudent() {
   const [nombre, setNombre] = useState('');
@@ -21,7 +25,9 @@ function CreateStudent() {
   const [alergias, setAlergias] = useState('');
   const [mensualidadDelEstudiante, setMensualidadDelEstudiante] = useState('');
   const [password, setPassword] = useState('');
+
   // const institution_id = useSelector((state) => state.institution.institutionId); // Obtén el ID de la institución
+
   
   const handleInputChange = (e) => {
     const { name, value } = e.target;
@@ -111,7 +117,11 @@ function CreateStudent() {
       // Aquí agregamos el institutionId al postStudents
       await postStudents(nombre, apellido, identificacion, fechaNacimiento, grado, estadoAcademico, telefono, email, imageUrl, alergias, guardianTelefono, nameGuardian, mensualidadDelEstudiante, password, institution_id); // Añadir institutionId
 
+
       toast.success("Estudiante agregado exitosamente.");
+
+      setFormMessage("Personal creado exitosamente"); // Mostrar mensaje de éxito
+
 
       // Restablecer campos
       setNombre('');
@@ -136,7 +146,6 @@ function CreateStudent() {
 
   return (
     <div>
-      <ToastContainer />
       <label>
         Nombre estudiante:
         <input type="text" name="nombre" value={nombre} onChange={handleInputChange} />

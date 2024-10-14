@@ -47,7 +47,7 @@ class students(models.Model):
             self.password = make_password(self.password)
         super(students, self).save(*args, **kwargs)
     def __str__(self):
-        return self.name
+        return self.username
     
     #IMAGENEEEEE
     

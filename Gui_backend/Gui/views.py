@@ -6,7 +6,7 @@ from rest_framework.decorators import api_view
 from .models import Admin_Gui
 from .serializers import AdminGuiSerializer
 from django.contrib.auth.hashers import make_password
-
+from Api.Key import KeyJWT
 import jwt
 from datetime import datetime, timedelta
 
@@ -57,7 +57,7 @@ def login(request):
                 'email': admin_gui.email,
                 'exp': datetime.utcnow() + timedelta(hours=TOKEN_EXPIRATION_TIME)  # Expiración en 24 horas
             }
-            token = jwt.encode(payload, "tokenmiedo", algorithm='HS256')
+            token = jwt.encode(payload, KeyJWT, algorithm='HS256')
 
             return Response({'success': True,'token': token}, status=status.HTTP_200_OK)
         else:

@@ -1,50 +1,41 @@
-import React, { useEffect, useState } from 'react';
-import { postStaff, getContracts, getSchedule } from '../../service/LoginGui';
-import { fetchContract } from '../../Redux/Slices/SliceContract';
-import { fetchSchedule } from '../../Redux/Slices/SliceSchedule';
-import { setID } from '../../Redux/Slices/SliceInstitution';
-import { useDispatch, useSelector } from 'react-redux';
-import '../../css/create_staff.css';
 
-const domain = window.location.hostname;
+
+import React, { useEffect, useState } from 'react';
+import { postStaff, getInstitutions, getContracts, getSchedule} from '../../service/LoginGui';
+import '../../css/create_staff.css';
+import { clientId } from '../../keys/keys.js';
+import { setID } from '../../Redux/Slices/SliceInstitution.js';
 
 function CreateStaff() {
-  // Estados para los campos del formulario
-  const [changeNombre, setChangeNombre] = useState('');
-  const [changeApellidos, setChangeApellidos] = useState('');
-  const [changeIdentificacion, setChangeIdentificacion] = useState('');
 
-  const [changeFechaNacimiento, setChangeFechaNacimiento] = useState('');
-  const [changeDireccion, setChangeDireccion] = useState('');
-  const [changeTelefono, setChangeTelefono] = useState('');
+  const [changeNombre, setChangeNombre] = useState();
+  const [changeApellidos, setChangeApellidos] = useState();
+  const [changeIdentificacion, setChangeIdentificacion] = useState();
 
-  const [changeEstadoTrabajador, setChangeEstadoTrabajador] = useState('');
-  const [changeCorreo, setChangeCorreo] = useState('');
-  const [changePuesto, setChangePuesto] = useState('');
-  const [changeImagen, setChangeImagen] = useState(null);
+  const [changeFechaNacimiento, setChangeFechaNacimiento] = useState();
+  const [changeDireccion, setChangeDireccion] = useState();
+  const [changeTelefono, setChangeTelefono] = useState();
 
-  const [changeContratoId, setChangeContratoId] = useState('');
-  const [changeHorarioId, setChangeHorarioId] = useState('');
-  const [changePassword, setChangePassword] = useState('');
+  const [changeCorreo, setChangeCorreo] = useState();
+  const [changeEstadoTrabajador, setChangeEstadoTrabajador] = useState();
+  const [changePuesto, setChangePuesto] = useState();
+
+  const [changeImagen, setChangeImagen] = useState();
+  const [changeContratoId, setChangeContratoId] = useState();
+  const [changeHorarioId, setChangeHorarioId] = useState();
+  const [changePassword, setChangePassword] = useState();
   const [InstitutionId, setInstitutionId] = useState(1);
 
-
-  const [formMessage, setFormMessage] = useState('');
-
-  //Estados de Staff:
-  const itemsContracts = useSelector(state => state.contract.items); 
-  const itemsSchedule = useSelector(state => state.schedule.items);  
-  const dispatch = useDispatch();
-
-  const [errors, setErrors] = useState({});
-
-  // const institution_id = localStorage.getItem('InstitutionID');
+  //Almacena los get de tablas consultadas
+  const [contracts, setContracts] = useState();
+  const [schedule, setSchedule] = useState();
+  const institution_id = localStorage.getItem('institution_id');
 
   const handleFileChange = (e) => {
     const file = e.target.files[0];
     if (file) {
       setChangeImagen(file);
-    }
+    }mxm
   };
 
   useEffect(() => {
@@ -53,33 +44,11 @@ function CreateStaff() {
     dispatch(setID(Number(InstitutionId)));
   }, [dispatch]);
 
-  const validateForm = () => {
-    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-    const dateRegex = /^\d{4}-(0[1-9]|1[0-2])-(0[1-9]|[12]\d|3[01])$/;
-    const newErrors = {};
 
-    if (!changeNombre) newErrors.nombre = "El nombre es obligatorio.";
-    if (!changeApellidos) newErrors.apellidos = "Los apellidos son obligatorios.";
-    if (!changeIdentificacion) newErrors.identificacion = "El número de identificación es obligatorio.";
-    if (!changeFechaNacimiento || !dateRegex.test(changeFechaNacimiento)) {
-      newErrors.fechaNacimiento = "Por favor, ingrese una fecha válida (formato: AAAA-MM-DD).";
-    }
-    if (!changeDireccion) newErrors.direccion = "La dirección es obligatoria.";
-    if (!changeTelefono) newErrors.telefono = "El teléfono es obligatorio.";
-    if (!changeCorreo || !emailRegex.test(changeCorreo)) {
-      newErrors.correo = "Por favor, ingrese un correo electrónico válido.";
-    }
-    if (!changeEstadoTrabajador) newErrors.estadoTrabajador = "Seleccione el estado del trabajador.";
-    if (!changePuesto) newErrors.puesto = "Seleccione un puesto.";
-    if (!changeImagen) newErrors.imagen = "Debe seleccionar una imagen.";
-    if (!changePassword) newErrors.password = "La contraseña es obligatoria.";
-    if (!changeContratoId) newErrors.contrato = "Debe seleccionar un contrato.";
-    if (!changeHorarioId) newErrors.horario = "Debe seleccionar un horario.";
-
-    setErrors(newErrors);
-    return Object.keys(newErrors).length === 0;
-  };
-
+//   const handleChangeStatus = (e) => {
+//     setChangeEstadoTrabajador(e.target.value)
+//   }
+  
   const handleSubmit = async (e) => {
     e.preventDefault();
 
@@ -97,14 +66,17 @@ function CreateStaff() {
       });
 
       const data = await response.json();
-      const imageUrl = data.image_url;
-
+      if (!data.data.link) {
+        throw new Error('Error al subir la imagen');
+      }
+      const imageUrl = data.data.link; // URL de la imagen subida      
+    
       // Expresión regular para validar el formato del correo electrónico
       const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
       const dateRegex = /^\d{4}-(0[1-9]|1[0-2])-(0[1-9]|[12]\d|3[01])$/;
       let confimacion = true
-
-      const staff = {
+      
+      let staff = {
         username: changeNombre,
         last_name: changeApellidos,
         identification_number: changeIdentificacion,
@@ -119,7 +91,7 @@ function CreateStaff() {
         institution: InstitutionId,
         schedule: changeHorarioId,
         password: changePassword
-      };
+      }
 
       //Validaciones
       for (const [key, value] of Object.entries(staff)) {
@@ -143,13 +115,13 @@ function CreateStaff() {
           }
         }
       }
-
+    
       if (confimacion){
-        await postStaff(staff); //Envia los datos
+        postStaff(staff); //Envia los datos
+        dispatch(setID())
       }
-
-      // setFormMessage("Personal creado exitosamente"); // Mostrar mensaje de éxito
-    } catch (error) {
+    }
+    catch (error) {
       console.error("Error al enviar los datos:", error);
       toast.error("Error.");
     }
@@ -157,7 +129,7 @@ function CreateStaff() {
 
   return (
     <div className='div-core'>
-      <form className='form-staff' onSubmit={handleSubmit}>
+      <form className='form-staff' action="submit">
         <label>
           Nombre:
           <input type="text" value={changeNombre} onChange={(e) => setChangeNombre(e.target.value)} />
@@ -233,17 +205,16 @@ function CreateStaff() {
         </label>
         <br />
         <label>
-          Contraseña:
-          <input type="password" value={changePassword} onChange={(e) => setChangePassword(e.target.value)} />
-          {errors.password && <p className="error">{errors.password}</p>}
+          Cree una contraseña:
+          <input type="password" onChange={((e) => setChangePassword(e.target.value))} />
         </label>
         <br />
         <label>
           Seleccione su contrato:
-          {itemsContracts && (
+          {contracts && (
             <select value={changeContratoId} onChange={(e) => setChangeContratoId(e.target.value)}>
               <option value="">--Seleccionar--</option>
-              {itemsContracts.map((contract) => (
+              {contracts.map((contract) => (
                 <option key={contract.id} value={contract.id}>
                   {contract.contract_type}
                 </option>
@@ -255,10 +226,10 @@ function CreateStaff() {
         <br />
         <label>
           Seleccione el horario:
-          {itemsSchedule && (
+          {schedule && (
             <select value={changeHorarioId} onChange={(e) => setChangeHorarioId(e.target.value)}>
               <option value="">--Seleccionar--</option>
-              {itemsSchedule.map((horario) => (
+              {schedule.map((horario) => (
                 <option key={horario.id} value={horario.id}>
                   {horario.days}
                 </option>
@@ -269,7 +240,9 @@ function CreateStaff() {
           {formMessage && <p>{formMessage}</p>}
         </label>
         <br />
-        <button type="submit">ENVIAR</button>
+
+        <br />
+        <button onClick={handleSubmit}>ENVIAR</button>
       </form>
 
     </div>
@@ -277,3 +250,4 @@ function CreateStaff() {
 }
 
 export default CreateStaff;
+

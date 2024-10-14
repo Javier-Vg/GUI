@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
+import { setInstitutionInfo } from '../../Redux/Slices/SliceInfInstitution';  // Importa la acción
 
 import { useNavigate } from "react-router-dom";
 import LoginProfesor from "./LoginProfesor";
@@ -68,14 +69,19 @@ function ElecionLogin() {
         }
       );
   
-      if (response.data) {
-        console.log(response);
+      if (response.data.token) {
+        dispatch(setInstitutionInfo({
+          imgInstitution: response.data.imgInstitution,
+          nameInstitution: response.data.Name,
+        }));//
         
         // Almacenar el token y el id de la institución en localStorage
+
         sessionStorage.setItem("InstitutionID", response.data.institution);
         sessionStorage.setItem("StaffID", response.data.staff_id);
         sessionStorage.setItem("StudentID", response.data.estudiante); // Guardar el ID del estudiante
         sessionStorage.setItem("token", response.data.token);
+
 
         dispatch({ type: "LOGIN_SUCCESS", payload: response.data.token });
         setMessage("Login exitoso");

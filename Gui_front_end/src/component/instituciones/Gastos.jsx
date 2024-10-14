@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
+import {postGastos} from '../../service/LoginGui';
 
 function GastosGanancias() {
-  // Estado para los gastos y ganancias
   const [estado, setEstado] = useState({
     luz: '',
     agua: '',
@@ -17,28 +17,29 @@ function GastosGanancias() {
     fechaRegistro: '',
     mensualidadNinosPrivados: '',
     mensualidadNinosRedCuido: '',
+    TotalGanancia: 0,
+    TotalGastos: 0,
+    total: 0,
+    alquilerLocal: '',
   });
 
-  // Resultados
   const [totalGastos, setTotalGastos] = useState(0);
   const [totalGanancias, setTotalGanancias] = useState(0);
   const [balance, setBalance] = useState(null);
   const [resultadosGastos, setResultadosGastos] = useState({});
 
-  // Manejar cambios en los inputs
   const handleChange = (e) => {
     const { name, value } = e.target;
     setEstado((prev) => ({ ...prev, [name]: value }));
   };
 
-  // Función para aplicar las operaciones
   const aplicarOperaciones = () => {
     const gastos = calcularGastos();
-    calcularGanancias();
+    const ganancias = calcularGanancias();
     setResultadosGastos(gastos);
+    calcularBalance(ganancias, gastos.total);
   };
 
-  // Función para calcular gastos
   const calcularGastos = () => {
     const gastos = {
       luz: parseFloat(estado.luz || 0),
@@ -49,18 +50,17 @@ function GastosGanancias() {
       patentes: parseFloat(estado.patentes || 0),
       deduccionCaja: parseFloat(estado.deduccionCaja || 0),
       polizas: parseFloat(estado.polizas || 0),
+      alquilerLocal: parseFloat(estado.alquilerLocal || 0),
       uniformesComprados: parseFloat(estado.uniformesCompradosCantidad || 0) * parseFloat(estado.uniformeCostoInstitucion || 0),
       uniformesRegalados: parseFloat(estado.uniformesRegalados || 0) * parseFloat(estado.uniformeCostoInstitucion || 0),
     };
 
     const total = Object.values(gastos).reduce((acc, curr) => acc + curr, 0);
     setTotalGastos(total);
-    calcularBalance(totalGanancias, total);
-
-    return gastos;
+    setEstado((prev) => ({ ...prev, TotalGastos: total }));  // Guardar el total de gastos
+    return { ...gastos, total };
   };
 
-  // Función para calcular ganancias
   const calcularGanancias = () => {
     const ingresosPrivados = parseFloat(estado.mensualidadNinosPrivados || 0);
     const ingresosRedCuido = parseFloat(estado.mensualidadNinosRedCuido || 0);
@@ -68,22 +68,39 @@ function GastosGanancias() {
 
     const total = ingresosPrivados + ingresosRedCuido + ingresosUniformesComprados;
     setTotalGanancias(total);
-    calcularBalance(total, totalGastos); // Mantener el orden correcto
+    setEstado((prev) => ({ ...prev, TotalGanancia: total }));  // Guardar las ganancias
+    return total;
   };
 
-  // Función para calcular balance
-  const calcularBalance = (ingresos, gastos) => {
-    const resultado = ingresos - gastos; // Ajuste aquí para el cálculo correcto del balance
+  const calcularBalance = (ganancias, gastosTotal) => {
+    const resultado = ganancias - gastosTotal;
     setBalance(resultado);
+    setEstado((prev) => ({ ...prev, balance: resultado }));  // Guardar el balance
+  };
+
+  const enviarDatosAlBackend = async () => {    
+    const datos = {
+      ...estado,  // Incluye todos los campos del estado
+      balance: estado.balance,
+      institution: localStorage.getItem('InstitutionID'),  // Asegúrate de que este campo sea el ID correcto
+    };
+    await postGastos(datos)
+    try {
+      const response = await postGastos(datos);  // Envía los datos al backend
+      console.log('Datos enviados:', datos);
+      console.log('Respuesta del backend:', response);
+    } catch (error) {
+      console.error('Error al enviar datos:', error);
+    }
   };
 
   return (
     <div>
       <h1>Gastos</h1>
-      {['luz', 'agua', 'internet', 'comida', 'materialDidactico', 'patentes', 'deduccionCaja', 'polizas', 'uniformesCompradosCantidad', 'uniformeCostoInstitucion', 'uniformesRegalados'].map((item) => (
+      {['luz', 'agua', 'internet', 'comida', 'materialDidactico', 'patentes', 'deduccionCaja', 'polizas', 'uniformesCompradosCantidad', 'uniformeCostoInstitucion', 'uniformesRegalados', 'alquilerLocal'].map((item) => (
         <label key={item}>
-          {item.charAt(0).toUpperCase() + item.slice(1)}:
-          <input className='Forms-clients'
+          {item.replace(/([A-Z])/g, ' $1').trim()}:
+          <input
             type="number"
             name={item}
             value={estado[item]}
@@ -117,7 +134,6 @@ function GastosGanancias() {
         </label>
       ))}
       <br />
-      <button onClick={calcularGanancias}>Calcular Ganancias</button>
       <h3>Total Ganancias: ${totalGanancias.toFixed(2)}</h3>
 
       {balance !== null && <h3>Balance: ${balance.toFixed(2)}</h3>}
@@ -125,9 +141,12 @@ function GastosGanancias() {
       <h2>Resultados Detallados</h2>
       <ul>
         {Object.entries(resultadosGastos).map(([key, value]) => (
-          <li key={key}>{key.charAt(0).toUpperCase() + key.slice(1)}: ${value?.toFixed(2) || 0}</li>
+          <li key={key}>{key.replace(/([A-Z])/g, ' $1').trim()}: ${value?.toFixed(2) || 0}</li>
         ))}
       </ul>
+
+      <h2>Enviar Datos al Backend</h2>
+      <button onClick={enviarDatosAlBackend}>Enviar Datos</button>
     </div>
   );
 }
