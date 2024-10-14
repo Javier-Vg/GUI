@@ -15,11 +15,8 @@ function HomeInstitutionsForm() {
 
    // Definir el estado para controlar el despliegue del aside
     const [isDeployed, setIsDeployed] = useState(false);
-    // const NameInstitution = useSelector((state) => state.infInstitution.nameInstitution)
-    // const InfInstitution = useSelector((state) => state.infInstitution.imgInstitution)
-    const NameInstitution = useSelector((state) => state.infInstitution?.nameInstitution || 'Nombre por defecto');
-    const InfInstitution = useSelector((state) => state.infInstitution?.imgInstitution || 'URL de imagen por defecto');
-
+    const NameInstitution = useSelector((state) => state.infInstitution.nameInstitution)
+    const InfInstitution = useSelector((state) => state.infInstitution.imgInstitution)
     // Manejador de eventos para alternar el estado
     const toggleAside = () => {
         setIsDeployed(!isDeployed);

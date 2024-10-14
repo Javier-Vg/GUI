@@ -26,7 +26,7 @@ function CreateStaff() {
   const [changeContratoId, setChangeContratoId] = useState('');
   const [changeHorarioId, setChangeHorarioId] = useState('');
   const [changePassword, setChangePassword] = useState('');
-  const [InstitutionId, setInstitutionId] = useState(1);
+  // const [InstitutionId, setInstitutionId] = useState(1);
 
 
   const [formMessage, setFormMessage] = useState('');
@@ -38,7 +38,7 @@ function CreateStaff() {
 
   const [errors, setErrors] = useState({});
 
-  // const institution_id = localStorage.getItem('InstitutionID');
+  const institution_id = sessionStorage.getItem('InstitutionID');
 
   const handleFileChange = (e) => {
     const file = e.target.files[0];
@@ -50,7 +50,7 @@ function CreateStaff() {
   useEffect(() => {
     dispatch(fetchContract());
     dispatch(fetchSchedule());
-    dispatch(setID(Number(InstitutionId)));
+    dispatch(setID(Number(institution_id)));
   }, [dispatch]);
 
   const validateForm = () => {
@@ -116,7 +116,7 @@ function CreateStaff() {
         position: changePuesto,
         imagen_url: imageUrl,
         contract: changeContratoId,
-        institution: InstitutionId,
+        institution: institution_id,
         schedule: changeHorarioId,
         password: changePassword
       };
