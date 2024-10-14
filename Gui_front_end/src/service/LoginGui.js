@@ -214,3 +214,33 @@ export const postGroups = async (group) => {
   }
 
 };
+export const postGastos = async (datos) => {
+  try {
+    const response = await axios.post(`http://${domain}:8000/api/gastos/Gastos/`,{
+      luz : datos.luz,
+      agua : datos.agua,
+      internet : datos.internet,
+      comida : datos.comida ,
+      material_didactico : datos.materialDidactico,
+      patentes : datos.patentes ,
+      deduccion_caja : datos.deduccionCaja ,
+      polizas : datos.polizas ,
+      uniformes_comprados_cantidad : datos.uniformesCompradosCantidad ,
+      uniformes_regalados_cantidad : datos.uniformesRegalados ,
+      precio_uniformes : datos.uniformeCostoInstitucion ,
+      fecha:  datos.fechaRegistro,
+      mensualidad_ninos_privados : datos.mensualidadNinosPrivados,
+      mensualidad_ninos_red_cuido : datos.mensualidadNinosRedCuido,
+      Total_ganancia: datos.TotalGanancia ,
+      Total_gastos: datos.TotalGastos,
+      total: datos.total,
+      alquiler_local : datos.alquilerLocal,
+      institution :datos.institution ,
+      balance : datos.balance,
+    });
+    return response.data;
+  } catch (error) {
+    console.error("Error haciendo la solicitud:", error);
+    throw error;
+  }
+};
