@@ -56,7 +56,6 @@ function ElecionLogin() {
         setMessage("Rol no válido");
         return;
     }
-  
     try {
       const response = await axios.post(
         apiEndpoint,
@@ -65,6 +64,7 @@ function ElecionLogin() {
           headers: {
             "Content-Type": "application/json",
           },
+          
         }
       );
   
@@ -72,9 +72,10 @@ function ElecionLogin() {
         console.log(response);
         
         // Almacenar el token y el id de la institución en localStorage
-        localStorage.setItem("InstitutionID", response.data.institution);
-        localStorage.setItem("StudentID", response.data.estudiante); // Guardar el ID del estudiante
-        localStorage.setItem("token", response.data.token);
+        sessionStorage.setItem("InstitutionID", response.data.institution);
+        sessionStorage.setItem("StaffID", response.data.staff_id);
+        sessionStorage.setItem("StudentID", response.data.estudiante); // Guardar el ID del estudiante
+        sessionStorage.setItem("token", response.data.token);
 
         dispatch({ type: "LOGIN_SUCCESS", payload: response.data.token });
         setMessage("Login exitoso");

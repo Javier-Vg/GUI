@@ -39,8 +39,7 @@ class AdminGuiViewSet(viewsets.ModelViewSet):
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
 from django.contrib.auth.hashers import check_password
-TOKEN_EXPIRATION_TIME = 24
-
+TOKEN_EXPIRATION_TIME = 5
 @api_view(['POST'])
 def login(request):
     username = request.data.get('username')

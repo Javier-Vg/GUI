@@ -19,8 +19,8 @@ def LoginView(request):
     password = request.data.get('password')
 
     try:
-        # Buscar la institución por el username
-        staff_member = staff.objects.get(username=username)  # Asegúrate de usar el nombre correcto del modelo
+        # Buscar el miembro del personal por el username
+        staff_member = staff.objects.get(username=username, position='Teacher')  # Asegúrate de que el puesto sea profesor
 
         # Verificar la contraseña hasheada
         if check_password(password, staff_member.password):
@@ -30,15 +30,15 @@ def LoginView(request):
                 'iat': datetime.utcnow(),  # Hora de creación del token
                 'username': staff_member.username,
                 'institution_id': staff_member.institution.id,  # Incluye el ID de la institución
+                'staff_id': staff_member.id,  # Incluye el ID del profesor
             }
 
-            # # Generar el JWT usando PyJWT
+            # Generar el JWT usando PyJWT
             encoded = jwt.encode(payload, "asd", algorithm='HS256')
 
-            # # Retornar el token y el ID de la institución
-            return Response({'token': encoded, 'institution': staff_member.institution.id})
+            # Retornar el token y los IDs
+            return Response({'token': encoded, 'institution': staff_member.institution.id, 'staff_id': staff_member.id})
         else:
             return Response({'error': 'Credenciales inválidas'}, status=400)
     except staff.DoesNotExist:
         return Response({'error': 'Credenciales inválidas'}, status=400)
-    

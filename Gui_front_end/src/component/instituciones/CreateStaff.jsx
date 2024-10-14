@@ -74,25 +74,39 @@ function CreateStaff() {
   }
   
   const handleSubmit = async (e) => {
-    e.preventDefault();
-
-    if (!validateForm()) {
+    e.preventDefault()
+    if (!changeImagen) {
+      alert("Por favor selecciona una imagen.");
       return;
     }
-
+    
     try {
+      // Subir la imagen a Imgur
+      const auth = "Client-ID " + clientId;
       const formData = new FormData();
       formData.append("image", changeImagen);
 
-      const response = await fetch(`http://${domain}:8000/api/urlResponse/`, {
+      const response = await fetch("https://api.imgur.com/3/image/", {
         method: "POST",
         body: formData,
+        headers: {
+          Authorization: auth,
+          Accept: "application/json",
+        },
       });
 
       const data = await response.json();
-      const imageUrl = data.image_url;
-
-      const staff = {
+      if (!data.data.link) {
+        throw new Error('Error al subir la imagen');
+      }
+      const imageUrl = data.data.link; // URL de la imagen subida      
+    
+      // Expresión regular para validar el formato del correo electrónico
+      const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+      const dateRegex = /^\d{4}-(0[1-9]|1[0-2])-(0[1-9]|[12]\d|3[01])$/;
+      let confimacion = true
+      
+      let staff = {
         username: changeNombre,
         last_name: changeApellidos,
         identification_number: changeIdentificacion,
@@ -142,7 +156,7 @@ function CreateStaff() {
       console.error("Error al enviar los datos:", error);
       toast.error("Error.");
     }
-  };
+  }
 
   return (
     <div className='div-core'>
@@ -150,59 +164,51 @@ function CreateStaff() {
       <form className='form-staff' action="submit">
         <label>
           Nombre:
-          <input type="text" value={changeNombre} onChange={(e) => setChangeNombre(e.target.value)} />
-          {errors.nombre && <p className="error">{errors.nombre}</p>}
+          <input type="text" placeholder='nombre' onChange={(e) => setChangeNombre(e.target.value)}/>
         </label>
         <br />
         <label>
           Apellidos:
-          <input type="text" value={changeApellidos} onChange={(e) => setChangeApellidos(e.target.value)} />
-          {errors.apellidos && <p className="error">{errors.apellidos}</p>}
+          <input type="text" placeholder='apellidos' onChange={(e) => setChangeApellidos(e.target.value)}/>
         </label>
         <br />
         <label>
           Número de Identificación:
-          <input type="text" value={changeIdentificacion} onChange={(e) => setChangeIdentificacion(e.target.value)} />
-          {errors.identificacion && <p className="error">{errors.identificacion}</p>}
+          <input type="text" placeholder='número de identificación' onChange={(e) => setChangeIdentificacion(e.target.value)}/>
         </label>
         <br />
         <label>
           Fecha de Nacimiento:
-          <input type="date" value={changeFechaNacimiento} onChange={(e) => setChangeFechaNacimiento(e.target.value)} />
-          {errors.fechaNacimiento && <p className="error">{errors.fechaNacimiento}</p>}
+          <input type="date" placeholder='fecha de nacimiento' onChange={(e) => setChangeFechaNacimiento(e.target.value)}/>
         </label>
         <br />
         <label>
           Dirección:
-          <input type="text" value={changeDireccion} onChange={(e) => setChangeDireccion(e.target.value)} />
-          {errors.direccion && <p className="error">{errors.direccion}</p>}
+          <input type="text" placeholder='dirección' onChange={(e) => setChangeDireccion(e.target.value)}/>
         </label>
         <br />
         <label>
           Teléfono:
-          <input type="number" value={changeTelefono} onChange={(e) => setChangeTelefono(e.target.value)} />
-          {errors.telefono && <p className="error">{errors.telefono}</p>}
+          <input type="number" placeholder='teléfono' onChange={(e) => setChangeTelefono(e.target.value)}/>
         </label>
         <br />
         <label>
           Correo:
-          <input type="email" value={changeCorreo} onChange={(e) => setChangeCorreo(e.target.value)} />
-          {errors.correo && <p className="error">{errors.correo}</p>}
+          <input type="email" placeholder='email' onChange={(e) => setChangeCorreo(e.target.value)}/>
         </label>
         <br />
         <label>
           Estado del trabajador:
-          <select value={changeEstadoTrabajador} onChange={(e) => setChangeEstadoTrabajador(e.target.value)}>
-            <option value="">--Selecciona un estado--</option>
-            <option value="Active">Activo</option>
-            <option value="Inactive">Inactivo</option>
+          <select value={changeEstadoTrabajador} onChange={handleChangeStatus}  id="opciones">
+            <option >--Selecciona un puesto--</option>
+            <option value="Active" >Activo</option>
+            <option value="Inactive" >Inactivo</option>
           </select>
-          {errors.estadoTrabajador && <p className="error">{errors.estadoTrabajador}</p>}
         </label>
         <br />
-        <label>
-          Seleccione un Puesto:
-          <select value={changePuesto} onChange={(e) => setChangePuesto(e.target.value)}>
+
+        <label htmlFor="opciones">Selecciona un Puesto Creado Anteriormente:</label>
+        <select value={changePuesto} onChange={handleChangePuesto}  id="opciones">
           <option >--Selecciona un puesto--</option>
           <option value="Directors" >Director</option>
           <option value="Teacher" >Profesor</option>
@@ -211,57 +217,60 @@ function CreateStaff() {
           <option value="Cleaning staff" >Personal de limpieza</option>
           <option value="Librarians" >Bibliotecarios</option>
           <option value="Security staff" >Personal de seguridad</option>
-            {/* Otras opciones */}
-          </select>
-          {errors.puesto && <p className="error">{errors.puesto}</p>}
-        </label>
+        </select>
+
         <br />
+
         <label>
           Imagen del empleado:
           <input type="file" accept="image/*" onChange={handleFileChange} />
-          {errors.imagen && <p className="error">{errors.imagen}</p>}
         </label>
         <br />
         <label>
           Cree una contraseña:
           <input type="text" onChange={((e) => setChangePassword(e.target.value))} />
         </label>
+
         <br />
+        
         <label>
           Seleccione su contrato:
-          {contracts && (
-            <select value={changeContratoId} onChange={(e) => setChangeContratoId(e.target.value)}>
-              <option value="">--Seleccionar--</option>
-              {contracts.map((contract) => (
-                <option key={contract.id} value={contract.id}>
-                  {contract.contract_type}
-                </option>
-              ))}
-            </select>
-          )}
-          {errors.contrato && <p className="error">{errors.contrato}</p>}
+        {contracts && (
+          <select value={changeContratoId} onChange={handleChangeContrato} id="opciones">
+            <option value="">--Seleccionar--</option>
+            {contracts.map((contract, index) => (
+              <option key={index} value={contract.id}>
+                {contract.contract_type}
+              </option>
+            ))}
+          </select>
+        )}
         </label>
+
         <br />
+
         <label>
           Seleccione el horario:
-          {schedule && (
-            <select value={changeHorarioId} onChange={(e) => setChangeHorarioId(e.target.value)}>
-              <option value="">--Seleccionar--</option>
-              {schedule.map((horario) => (
-                <option key={horario.id} value={horario.id}>
-                  {horario.days}
-                </option>
-              ))}
-            </select>
-          )}
-          {errors.horario && <p className="error">{errors.horario}</p>}
-          {formMessage && <p>{formMessage}</p>}
+        {schedule && (
+          <select value={changeHorarioId} onChange={handleChangeHorario} id="opciones">
+            <option value="">--Seleccionar--</option>
+            {schedule.map((horario, index) => (
+              <option key={index} value={horario.id}>
+                {horario.days}
+              </option>
+            ))}
+          </select>
+        )}
         </label>
+
         <br />
-        <button type="submit">ENVIAR</button>
+
+        <br />
+        <button onClick={handleSubmit}>ENVIAR</button>
       </form>
     </div>
   );
+  
 }
 
 export default CreateStaff;

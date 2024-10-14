@@ -1,9 +1,10 @@
 import React, { useState } from 'react';
 import ExpedienteAlumno from './ExpedienteAlumno';
 import Chat from './Chat';
+import Notas from './Notas';
 import '../../css/home_institution.css';
 
-function HomePadresForm() {
+function HomeProfesorFunc() {
     const [changeComponent, setChangeComponent] = useState('');
 
    // Definir el estado para controlar el despliegue del aside
@@ -45,19 +46,12 @@ function HomePadresForm() {
                 <div>
                 <input 
                     type="button" 
-                    value="Comunicacion" 
-                    onClick={() => setChangeComponent("Comunicacion")} 
+                    value="MENSAJES" 
+                    onClick={() => setChangeComponent("MENSAJES")} 
                     className = "inputBoton"
                 />
                 </div>
-                <div>
-                <input 
-                    type="button" 
-                    value="Estado de Cuenta" 
-                    onClick={() => setChangeComponent("Estado de Cuenta")} 
-                    className = "inputBoton"
-                />
-                </div>
+               
                 <div>
                     <input 
                         type="button" 
@@ -78,6 +72,7 @@ function HomePadresForm() {
                 {changeComponent === " Expediente de Alumno" && <ExpedienteAlumno />}
                 {changeComponent === "Comunicacion" && < Chat />}
                 {changeComponent === "Estado de Cuenta" && <ExpedienteAlumno />}
+                {changeComponent === "Calificacion del Estudiante" && < Notas />}
             </div>
 
             </div>
@@ -85,4 +80,4 @@ function HomePadresForm() {
     );
 }
 
-export default HomePadresForm;
+export default HomeProfesorFunc;

@@ -84,19 +84,9 @@ def LoginView(request):
             encoded = jwt.encode(payload, "asd", algorithm='HS256')
 
             # Crear la respuesta usando Response de DRF
-            response = Response({'message': 'Login exitoso', 'institution': institution.id})
+            response = Response({'message': 'Login exitoso', 'institution': institution.id,'token': encoded})
 
-            # Guardar el token en la cookie
-            response.set_cookie(
-                'token',
-                encoded,
-                httponly=True,  # Impide el acceso al token desde JavaScript
-                secure=True,    # Solo se enviará en conexiones HTTPS
-                samesite='Lax',  # Lax es más permisivo que Strict
-                max_age=60*60*24,  # Expira en 24 horas
-                path='/institutions',  # Asegura que la cookie sea accesible en todas las rutas
-                domain=None  # Deja que se aplique al dominio actual del sitio
-            )
+          
 
             return response  # Aquí se retorna la respuesta correctamente
         else:

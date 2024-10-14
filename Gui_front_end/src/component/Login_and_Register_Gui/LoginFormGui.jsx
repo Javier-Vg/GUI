@@ -19,10 +19,9 @@ function LoginFormGui() {
             
 
 
-            // Verificamos si el login fue exitoso y redireccionamos a la página principal si es así
             if (response.success) {
                 navigate('/gui_home'); // Redirige si las credenciales son correctas
-                localStorage.setItem('token', response.token);
+                sessionStorage.setItem('token', response.token);
             } else {
                 setTexto(response.message || "Usuario o contraseña incorrectos");
                 console.log(response);

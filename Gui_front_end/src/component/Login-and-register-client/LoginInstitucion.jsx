@@ -19,24 +19,6 @@ function LoginInstitucion() {
     dispatch(setPassword(password));
   }, [password, dispatch]); // Se ejecuta cuando password cambia
 
-  const handleLogin = async (e) => {
-    e.preventDefault(); // Prevenir el comportamiento por defecto del formulario
-
-    try {
-      // Llama a la función de inicio de sesión
-      const response = await postInstitutions(username, password);
-
-      // Guarda el token en localStorage
-      localStorage.setItem('token', response.data.token);
-
-      // Puedes agregar aquí más lógica si es necesario, como redirigir al usuario
-      console.log("Inicio de sesión exitoso", response.data);
-    } catch (error) {
-      console.error("Error al iniciar sesión", error.response?.data || error.message);
-      // Manejar el error de inicio de sesión aquí (mostrar un mensaje al usuario, etc.)
-    }
-  };
-
   return (
     <div className='container-login'>
         <div className='div-1'>

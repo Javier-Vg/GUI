@@ -22,6 +22,11 @@ function HomeInstitutionsForm() {
         setIsDeployed(!isDeployed);
     };
 
+    // Verificar si hay un token en sessionStorage
+    if (!sessionStorage.getItem('token')) {
+        window.location.href = '/login';
+    }
+
     return (
 
         <div>

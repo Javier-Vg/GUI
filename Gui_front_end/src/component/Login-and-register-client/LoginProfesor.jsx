@@ -20,29 +20,29 @@ function LoginProfesor() {
 
   return (
     <div className='container-login'>
-        <div className='div-1'>
-          <label htmlFor="username">Nombre del profesor:</label>
-          <input
-            autoComplete="off"
-            className='inp-username'
-            type="text"
-            id="username"
-            value={username}
-            onChange={(e) => setUsernameInput(e.target.value)}
-          />
-        </div>
+      <div className='div-1'>
+        <label htmlFor="username">Nombre del profesor:</label>
+        <input
+          autoComplete="off"
+          className='inp-username'
+          type="text"
+          id="username"
+          value={username}
+          onChange={(e) => setUsernameInput(e.target.value)}
+        />
+      </div>
 
-        <div className='div-2'>
-          <label htmlFor="password">Contraseña:</label>
-          <input
-            autoComplete="off"
-            className='inp-password'
-            type="password"
-            id="password"
-            value={password}
-            onChange={(e) => setPasswordInput(e.target.value)}
-          />
-        </div>
+      <div className='div-2'>
+        <label htmlFor="password">Contraseña:</label>
+        <input
+          autoComplete="off"
+          className='inp-password'
+          type="password"
+          id="password"
+          value={password}
+          onChange={(e) => setPasswordInput(e.target.value)}
+        />
+      </div>
     </div>
   );
 }
