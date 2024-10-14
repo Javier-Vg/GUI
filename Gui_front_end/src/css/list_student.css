@@ -1,0 +1,17 @@
+.btn-asign{
+    color: aliceblue;
+    background-color: #FE8e03;
+    padding: 10px;
+    border: 1px black solid;
+    border-radius: 5px;
+}
+
+.btn_volver{
+    color: white;
+    background-color: #2f94e1;
+    padding: 5px;
+    width: 70px;
+    border: 2px black solid;
+    border-radius: 5px;
+    margin-right: 170px;
+}

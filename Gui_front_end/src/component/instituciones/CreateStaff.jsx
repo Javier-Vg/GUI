@@ -119,8 +119,6 @@ function CreateStaff() {
 
       dispatch(setID(Number(idRedux)));
       setId(idRedux);
-
-      console.log(idRedux);
       
 
       
@@ -139,10 +137,9 @@ function CreateStaff() {
         institution: idRedux,
         schedule: changeHorarioId,
         password: changePassword
-      }
-
-      alert(JSON.stringify(staff));
+      }  
       
+         
 
       //Validaciones
       for (const [key, value] of Object.entries(staff)) {
@@ -167,12 +164,13 @@ function CreateStaff() {
         }
       }
     
-      if (confimacion){
-        toast.success("Personal creado con exito.");
+      if (confimacion && idRedux){
 
         try {
+          console.log(staff);
+          
           postStaff(staff);
-          toast.success("Grupo creado con exito.");
+          toast.success("Personal creado con exito.");
         } catch (error) {
           toast.success("Error al crear usuario: ",error);
         }
@@ -299,7 +297,6 @@ function CreateStaff() {
         <button onClick={handleSubmit}>ENVIAR</button>
       </form>
 
-      <h2>ID : {StateReduxID}</h2>
     </div>
   );
   

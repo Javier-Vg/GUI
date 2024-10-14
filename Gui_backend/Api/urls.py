@@ -22,4 +22,5 @@ urlpatterns = [
     path('payments/', include('payments.urls')),
     path('tasks/', include('tasks.urls')),
     path('gastos/', include('Gastos.urls')),
+    path('group_assignment/', include('group_assignment.urls')),
 ]
