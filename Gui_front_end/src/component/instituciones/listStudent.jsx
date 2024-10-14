@@ -10,22 +10,22 @@ function ListStudents() {
     const [students, setStudents] = useState([]);
     const [seeMore, setSeeMore] = useState(false);
     const [selectedStudent, setSelectedStudent] = useState(null);
-    const institution_id = localStorage.getItem('InstitutionID');  // ID de la institución almacenado en localStoragez
+    const institution_id = sessionStorage.getItem('InstitutionID');  // ID de la institución almacenado en sessionStorage
 
-    //Confirmacion de asignacion a grupo:
+    // Confirmación de asignación a grupo:
     const [confirm, setConfirm] = useState(false);
 
-    //Seteo del la opcion de grupo
+    // Seteo de la opción de grupo:
     const [GroupId, setGroupId] = useState(false);
 
     const dispatch = useDispatch();
 
-    //Estados de Staff:
+    // Estados de Staff:
     const items= useSelector(state => state.student.items);  
     const loading = useSelector(state => state.student.loading);  
     const error = useSelector(state => state.student.error); 
 
-    //Estado de grupos:
+    // Estado de grupos:
     const itemsGroups= useSelector(state => state.group.items); 
     
     useEffect(() => {
@@ -40,9 +40,9 @@ function ListStudents() {
             if (items[i].institution === parseInt(institution_id, 10)) {
               // Actualiza el valor de la clave correspondiente
               setStudents((prevFiltred) => [...prevFiltred, items[i]]);
-            };
+            }
         }
-    }, [items]);
+    }, [items, institution_id]);
 
     const openModal = (student) => {
         setSelectedStudent(student);
@@ -55,12 +55,12 @@ function ListStudents() {
         setConfirm(!confirm);
     };
 
-    //Setea el estado y muestra el div de asignacion:
+    // Setea el estado y muestra el div de asignación:
     const handleChange = () => {
         setConfirm(!confirm);
     }
 
-    //Añade el grupo al grupo:
+    // Añade el grupo al grupo:
     const handleSubmit = (prop) => {
         const fechaActual = new Date();
         const anio = fechaActual.getFullYear();
@@ -74,7 +74,7 @@ function ListStudents() {
             student: prop
         }
 
-        postGroupsAsiggnment(group); //manda los datos
+        postGroupsAsiggnment(group); // manda los datos
         setConfirm(!confirm);
     }
     
@@ -83,9 +83,9 @@ function ListStudents() {
         return <div>Cargando...</div>; // Muestra un mensaje de carga
       }
     
-      if (error) {
+    if (error) {
         return <div>Error: {error}</div>; // Muestra el error si ocurre
-      }
+    }
 
     return (
         <div className='container_list'>
@@ -130,7 +130,7 @@ function ListStudents() {
                         <div>
                            <h2>Asigne al estudiante entre estos grupos:</h2>
                            <br />
-                           <button className='btn_volver' onClick={handleChange}>volver</button>
+                           <button className='btn_volver' onClick={handleChange}>Volver</button>
                            <br />
                            <select onChange={((e) => setGroupId(e.target.value))}>
                             <option>-Seleccione el grupo-</option>
@@ -159,4 +159,4 @@ function ListStudents() {
     );
 }
 
-export default ListStudents
+export default ListStudents;

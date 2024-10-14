@@ -1,29 +1,30 @@
-import React, { useState, useEffect } from 'react';
-import { postSubjects} from '../../service/LoginGui';
-import 'react-toastify/dist/ReactToastify.css';
-import { ToastContainer } from 'react-toastify';
-import { toast } from "react-toastify";
+import React, { useState } from 'react';
+import { toast } from 'react-toastify'; // Asegúrate de que tienes react-toastify instalado
+import { postSubjects } from '../../service/LoginGui';
 
-const manageSubjects = () => {
+const ManageSubjects = () => {
     const [subjectName, setSubjectName] = useState('');
 
-    const InstitutionID = localStorage.getItem('InstitutionID');
+    const InstitutionID = sessionStorage.getItem('InstitutionID'); // Obtener el ID de la institución del localStorage
     
-    const saveSubject = () => {
-        console.log('Nombre de la materia:', subjectName);
-       
+    const saveSubject = async () => {
         const subject = {
             name: subjectName,
-            institution: InstitutionID
+            institution: InstitutionID // Usar el ID de la institución del localStorage
+        };
+
+        try {
+            await postSubjects(subject);
+            toast.success("Materia agregada exitosamente.");
+            setSubjectName(''); // Limpiar el campo después de agregar la materia
+        } catch (error) {
+            console.error("Error:", error);
+            toast.error("Error al agregar la materia.");
         }
-        toast.success("Materia agregada exitosamente.");
-        postSubjects(subject);
-        // Aquí puedes agregar la lógica para guardar la materia, por ejemplo enviarla a un API.
     };
 
     return (
         <div className='subject-form'>
-            <ToastContainer />
             <h2>Registro de Materia</h2>
             <label htmlFor='subjectName'>Nombre de la Materia:</label>
             <input
@@ -35,11 +36,9 @@ const manageSubjects = () => {
             />
             <br />
             <br />
-
-            <button onClick={saveSubject}>Save</button>
-
+            <button onClick={saveSubject}>Guardar</button>
         </div>
     );
 };
 
-export default manageSubjects;
+export default ManageSubjects;

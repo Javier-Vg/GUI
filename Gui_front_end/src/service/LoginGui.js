@@ -173,13 +173,24 @@ export const getContracts = async () => {
     throw error;
   }
 };
-export const postSubjects = async (subjects) => {
+
+export const postSubjects = async (subject,institution) => {
+  const token = localStorage.getItem('token'); // Obtener el token del localStorage
   try {
-    const response = await axios.post(`http://${domain}:8000/api/subjects/subjects/`, subjects);
-    return response.data;
+      const response = await axios.post(
+          `http://${domain}:8000/api/subjects/subjects/`, // Asegúrate de que esta sea la URL correcta de tu API
+          subject,institution,
+          {
+              headers: {
+                  'Content-Type': 'application/json',
+                  'Authorization': `Bearer ${token}`, // Añade el token en los encabezados
+              },
+          }
+      );
+      return response.data; // Retornar la respuesta de la API si se requiere
   } catch (error) {
-    console.error("Error haciendo la solicitud:", error);
-    throw error;
+      console.error('Error en la solicitud:', error);
+      throw error; // Lanzar el error para ser manejado en la UI
   }
 };
 export const getSubjects = async () => {

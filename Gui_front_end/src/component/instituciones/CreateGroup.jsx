@@ -24,7 +24,7 @@ function CreateGroup() {
   }, [dispatch]);
 
   //Local Storage institucion id
-  const institutionId = localStorage.getItem("InstitutionID");
+  const institutionId = sessionStorage.getItem("InstitutionID");
 
   //Alamacena los inputs
   const [Name, setName] = useState();

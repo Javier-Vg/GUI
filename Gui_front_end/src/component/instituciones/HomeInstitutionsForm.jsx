@@ -7,7 +7,7 @@ import Gastos from './Gastos';
 import CreateGroup from './CreateGroup'; // Ajusta la ruta según sea necesario
 import ListGroups from './listGroups';
 import ManageSubjects from './manageSubjects'; // Ajusta la ruta según sea necesario
-import { useSelector, useDispatch } from "react-redux";
+import { useSelector} from "react-redux";
 import '../../css/home_institution.css';
 
 function HomeInstitutionsForm() {
@@ -21,6 +21,11 @@ function HomeInstitutionsForm() {
     const toggleAside = () => {
         setIsDeployed(!isDeployed);
     };
+
+    // Verificar si hay un token en sessionStorage
+    if (!sessionStorage.getItem('token')) {
+        window.location.href = '/login';
+    }
 
     return (
 

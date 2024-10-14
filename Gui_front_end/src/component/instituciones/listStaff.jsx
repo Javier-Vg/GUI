@@ -10,7 +10,7 @@ function ListStaff() {
   const [staff, setStaff] = useState([]);
   const [modal, setModal] = useState(false);
   const [selectedStaff, setSelectedStaff] = useState(null);
-  const institution_id = localStorage.getItem('InstitutionID');  // Obtener el institution_id del localStorage
+  const institution_id = sessionStorage.getItem('InstitutionID');  // Obtener el institution_id del localStorage
 
   const dispatch = useDispatch();
 

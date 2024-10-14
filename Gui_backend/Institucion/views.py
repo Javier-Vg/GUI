@@ -54,4 +54,3 @@ def LoginView(request):
             return Response({'error': 'Credenciales inválidas'}, status=400)
     except Institution.DoesNotExist:
         return Response({'error': 'Credenciales inválidas'}, status=400)
-    
