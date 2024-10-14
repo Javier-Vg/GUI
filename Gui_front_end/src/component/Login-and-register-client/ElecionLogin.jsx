@@ -73,7 +73,7 @@ function ElecionLogin() {
         dispatch(setInstitutionInfo({
           imgInstitution: response.data.imgInstitution,
           nameInstitution: response.data.Name,
-        }));
+        }));//
         
         // Almacenar el token y el id de la institución en localStorage
         localStorage.setItem("InstitutionID", response.data.institution);
