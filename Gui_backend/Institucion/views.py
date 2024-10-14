@@ -7,6 +7,7 @@ from datetime import datetime, timedelta
 from django.conf import settings
 import jwt
 from django.contrib.auth.hashers import check_password
+from Api.Key import KeyJWT
 # import python_jwt as jwt, jwcrypto.jwk as jwk, datetime
 # import mysql.connector
 
@@ -45,8 +46,8 @@ def LoginView(request):
             }
 
             # Generar el JWT usando PyJWT
-            encoded = jwt.encode(payload, "asd", algorithm='HS256')
-
+            encoded = jwt.encode(payload, KeyJWT , algorithm='HS256')
+            
             # Retornar el token y el ID de la institución
             return Response({'token': encoded, 'institution': institution.id})
         else:

@@ -69,7 +69,6 @@ function ElecionLogin() {
       );
   
       if (response.data.token) {
-        console.log(response);
         
         // Almacenar el token y el id de la institución en localStorage
         localStorage.setItem("InstitutionID", response.data.institution);

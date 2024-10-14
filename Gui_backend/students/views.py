@@ -7,6 +7,7 @@ from .serializers import Students_Serializer
 import jwt
 from django.contrib.auth.hashers import check_password
 from datetime import datetime, timedelta
+from Api.Key import KeyJWT
 
 class StudentsViewSet(viewsets.ModelViewSet):
     queryset = students.objects.all()
@@ -43,7 +44,7 @@ def LoginView(request):
             }
 
             # Generar el JWT usando PyJWT
-            encoded = jwt.encode(payload, "asd", algorithm='HS256')
+            encoded = jwt.encode(payload,KeyJWT, algorithm='HS256')
 
             # Retornar el token y el ID de la institución
             return Response({'token': encoded, 'institution': Students.id})

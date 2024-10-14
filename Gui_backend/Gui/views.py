@@ -6,7 +6,7 @@ from rest_framework.decorators import api_view
 from .models import Admin_Gui
 from .serializers import AdminGuiSerializer
 from django.contrib.auth.hashers import make_password
-
+from Api.Key import KeyJWT
 import jwt
 from datetime import datetime, timedelta
 
@@ -21,7 +21,7 @@ class AdminGuiViewSet(viewsets.ModelViewSet):
                 # Hashear la contraseña antes de guardar
                 serializer.validated_data['password'] = make_password(serializer.validated_data['password'])
                 serializer.save()
-                return Response(serializer.data, status=status.HTTP_201_CREATED)
+                return Response({"success": True, "data": serializer.data}, status=status.HTTP_201_CREATED)
          except Exception as e:
                 return Response({"error": str(e)}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
@@ -58,7 +58,7 @@ def login(request):
                 'email': admin_gui.email,
                 'exp': datetime.utcnow() + timedelta(hours=TOKEN_EXPIRATION_TIME)  # Expiración en 24 horas
             }
-            token = jwt.encode(payload, "tokenmiedo", algorithm='HS256')
+            token = jwt.encode(payload, KeyJWT, algorithm='HS256')
 
             return Response({'success': True,'token': token}, status=status.HTTP_200_OK)
         else:

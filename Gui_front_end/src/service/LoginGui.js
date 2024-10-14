@@ -32,7 +32,7 @@ export const getDatos = async () => {
   export const PostData = async (nombre, contra, email, rol) => {
     try {
       const response = await axios.post(`http://${domain}:8000/api/gui/admins/`, {
-        nombre: nombre,
+        username: nombre,
         email: email,
         password: contra,
         rol: rol,
@@ -40,12 +40,8 @@ export const getDatos = async () => {
         headers: {
           "Content-Type": "application/json"
         }
-      });
-      return {
-        success: true,
-        token: response.data.token,
-        data: response.data
-      };
+      }); 
+      return response
     } catch (error) {
       console.error("Error haciendo la solicitud:", error);
       return {
@@ -144,12 +140,7 @@ export const getStaff = async () => {
   };
   // service/LoginGui.js
 export const postStudents = async (nombre, apellido, identificacion, fechaNacimiento, grado, estadoAcademico, telefono, email, imageUrl, alergias, guardianTelefono, nameGuardian, mensualidadDelEstudiante, password, institution_id) => {
-
-    console.log(institution_id); 
-
-    console.log(nombre, apellido, identificacion, fechaNacimiento, grado, estadoAcademico, telefono, email, imageUrl, alergias, guardianTelefono, nameGuardian, mensualidadDelEstudiante, password, institution_id);
-    
-
+  
   try {
     const response = await axios.post(`http://${domain}:8000/api/students/students/`, {
       username: nombre,
@@ -193,7 +184,7 @@ export const postSubjects = async (subjects) => {
 };
 export const getSubjects = async () => {
   try {
-    const response = await axios.get(`http://${domain}:8000/api/subjects/subjects`);
+    const response = await axios.get(`http://${domain}:8000/api/subjects/subjects/`);
     return response.data
   } catch (error) {
     console.error('Error fetching user data:', error);
@@ -202,7 +193,7 @@ export const getSubjects = async () => {
 };
 export const getSchedule = async () => {
   try {
-    const response = await axios.get(`http://${domain}:8000/api/schedule/schedule`);
+    const response = await axios.get(`http://${domain}:8000/api/schedule/schedule/`);
     return response.data
   } catch (error) {
     console.error('Error fetching user data:', error);
@@ -222,14 +213,45 @@ export const postGroups = async (group) => {
     console.error("Error haciendo la solicitud:", error);
     throw error;
   }
+
 };
 
 export const postGroupsAsiggnment = async (prop) => {
   try {
-    const response = await axios.post(`http://${domain}:8000/api/group_assignment/group_assignment/`, prop,{
+    const response = await axios.post(`http://${domain}:8000/api/group_assignment/group_assignment/`, prop, {
       headers: {
         'Content-Type': 'application/json',
-      },
+      }
+    });
+    return response.data;
+  } catch (error) {
+    console.error("Error haciendo la solicitud:", error);
+    throw error;
+  }
+};
+export const postGastos = async (datos) => {
+  try {
+    const response = await axios.post(`http://${domain}:8000/api/gastos/Gastos/`,{
+      luz : datos.luz,
+      agua : datos.agua,
+      internet : datos.internet,
+      comida : datos.comida ,
+      material_didactico : datos.materialDidactico,
+      patentes : datos.patentes ,
+      deduccion_caja : datos.deduccionCaja ,
+      polizas : datos.polizas ,
+      uniformes_comprados_cantidad : datos.uniformesCompradosCantidad ,
+      uniformes_regalados_cantidad : datos.uniformesRegalados ,
+      precio_uniformes : datos.uniformeCostoInstitucion ,
+      fecha:  datos.fechaRegistro,
+      mensualidad_ninos_privados : datos.mensualidadNinosPrivados,
+      mensualidad_ninos_red_cuido : datos.mensualidadNinosRedCuido,
+      Total_ganancia: datos.TotalGanancia ,
+      Total_gastos: datos.TotalGastos,
+      total: datos.total,
+      alquiler_local : datos.alquilerLocal,
+      institution :datos.institution ,
+      balance : datos.balance,
     });
     return response.data;
   } catch (error) {

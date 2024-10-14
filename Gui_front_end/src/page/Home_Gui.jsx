@@ -10,17 +10,24 @@ function Home_Gui() {
   const [isDeployed, setIsDeployed] = useState(false);
   const navigate = useNavigate(); // Inicializa el hook para redirección
 
-  // useEffect(() => {
-  //   // Verifica si hay un token en el local storage
-  //   const token = localStorage.getItem("token");
-  //   if (!token) {
-  //     // Si no hay token, redirige a la página de inicio de sesión
-  //     navigate("/gui"); // Cambia "/login" a la ruta de tu página de inicio de sesión
-  //   }
-  // }, [navigate]);
+  useEffect(() => {
+    // Verifica si hay un token en el local storage
+    const token = localStorage.getItem("token");
+    if (!token) {
+      // Si no hay token, redirige a la página de inicio de sesión
+      navigate("/gui"); // Cambia "/gui" a la ruta de tu página de inicio de sesión
+    }
+  }, [navigate]);
 
   const toggleAside = () => {
     setIsDeployed(!isDeployed);
+  };
+
+  const handleLogout = () => {
+    // Borra el token del local storage
+    localStorage.removeItem("token");
+    // Redirige a la página de inicio de sesión
+    navigate("/gui"); // Cambia "/gui" a la ruta de tu página de inicio de sesión
   };
 
   return (
@@ -68,6 +75,14 @@ function Home_Gui() {
               value="Gestionar Instituciones"
               className="inputBoton"
               onClick={() => setChangeComponent("Gestionar Instituciones")}
+            />
+          </div>
+          <div>
+            <input
+              type="button"
+              value="Cerrar SESION"
+              className="inputBoton"
+              onClick={handleLogout} // Cambiado para manejar el cierre de sesión
             />
           </div>
         </div>
