@@ -200,6 +200,7 @@ export const getSchedule = async () => {
     throw error;
   }
 };
+
 export const postGroups = async (group) => {
   try {
     const response = await axios.post(`http://${domain}:8000/api/groups/groups/`, group,{
@@ -213,6 +214,20 @@ export const postGroups = async (group) => {
     throw error;
   }
 
+};
+
+export const postGroupsAsiggnment = async (prop) => {
+  try {
+    const response = await axios.post(`http://${domain}:8000/api/group_assignment/group_assignment/`, prop, {
+      headers: {
+        'Content-Type': 'application/json',
+      }
+    });
+    return response.data;
+  } catch (error) {
+    console.error("Error haciendo la solicitud:", error);
+    throw error;
+  }
 };
 export const postGastos = async (datos) => {
   try {

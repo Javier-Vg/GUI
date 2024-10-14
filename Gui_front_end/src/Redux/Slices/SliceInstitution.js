@@ -20,8 +20,13 @@ const institutionSlice = createSlice({
     items: [],
     loading: false,
     error: null,
+    InstitutionID: 0
   },
-  reducers: {},
+  reducers: {
+    setID: (state, action) => {
+      state.institution_id = action.payload; // Establece el valor del id de la institucion.
+  },
+  },
   extraReducers: (builder) => {
     builder
       .addCase(fetchInstitution.pending, (state) => {
@@ -38,6 +43,9 @@ const institutionSlice = createSlice({
       });
   },
 });
+
+// Exportar la acción generada, el id
+export const { setID } = institutionSlice.actions;
 
 // Exporta el reducer
 export default institutionSlice.reducer;

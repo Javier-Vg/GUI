@@ -1,21 +1,21 @@
-
+// productSlice.js
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 const domain = window.location.hostname 
 
 // Thunk para realizar la llamada a la API
-export const fetchTask = createAsyncThunk(
-  'task/fetchTask',
+export const fetchContract = createAsyncThunk(
+  'contract/fetchContract',
   async () => {
-    const response = await fetch(`http://${domain}:8000/api/tasks/tasks/`); // Cambia esto por tu API
+    const response = await fetch(`http://${domain}:8000/api/contracts/contracts/`); // Cambia esto por tu API
     if (!response.ok) {
-      throw new Error('Failed to fetch Task');
+      throw new Error('Failed to fetch Contract');
     }
     return response.json();
   }
 );
 
-const TaskSlice = createSlice({
-  name: 'task',
+const productSlice = createSlice({
+  name: 'contract',
   initialState: {
     items: [],
     loading: false,
@@ -24,15 +24,15 @@ const TaskSlice = createSlice({
   reducers: {},
   extraReducers: (builder) => {
     builder
-      .addCase(fetchTask.pending, (state) => {
+      .addCase(fetchContract.pending, (state) => {
         state.loading = true; // Indica que la carga ha comenzado
         state.error = null; // Resetea cualquier error anterior
       })
-      .addCase(fetchTask.fulfilled, (state, action) => {
+      .addCase(fetchContract.fulfilled, (state, action) => {
         state.loading = false; // La carga ha terminado
         state.items = action.payload; // Almacena los productos en el estado
       })
-      .addCase(fetchTask.rejected, (state, action) => {
+      .addCase(fetchContract.rejected, (state, action) => {
         state.loading = false; // La carga ha terminado
         state.error = action.error.message; // Almacena el error
       });
@@ -40,4 +40,4 @@ const TaskSlice = createSlice({
 });
 
 // Exporta el reducer
-export default TaskSlice.reducer;
+export default productSlice.reducer;

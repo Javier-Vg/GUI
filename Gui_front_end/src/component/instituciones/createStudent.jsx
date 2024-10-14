@@ -24,7 +24,6 @@ function CreateStudent() {
   const [formMessage, setFormMessage] = useState('');
   const [password, setPassword] = useState('');
   
-  
   const handleInputChange = (e) => {
     const { name, value } = e.target;
     switch (name) {

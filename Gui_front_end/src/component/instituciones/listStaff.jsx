@@ -1,9 +1,7 @@
 
 // export default ListStaff
 import React, { useEffect, useState } from 'react';
-import { getStaff } from '../../service/LoginGui';
 import { fetchStaff } from '../../Redux/Slices/SliceStaff';
-import { fetchInstitution } from '../../Redux/Slices/SliceInstitution'
 import { useDispatch, useSelector } from 'react-redux';
 import '../../css/list_staff.css';
 
@@ -12,7 +10,7 @@ function ListStaff() {
   const [staff, setStaff] = useState([]);
   const [modal, setModal] = useState(false);
   const [selectedStaff, setSelectedStaff] = useState(null);
-  const institution_id = localStorage.getItem('institution_id');  // Obtener el institution_id del localStorage
+  const institution_id = localStorage.getItem('InstitutionID');  // Obtener el institution_id del localStorage
 
   const dispatch = useDispatch();
 
@@ -26,13 +24,14 @@ function ListStaff() {
   }, [dispatch]);
 
   useEffect(() => {
+    setStaff([]);
     for (let i = 0; i < itemsStaff.length; i++) {
       if (itemsStaff[i].institution === parseInt(institution_id, 10)) {
         // Actualiza el valor de la clave correspondiente
         setStaff((prevFiltred) => [...prevFiltred, itemsStaff[i]]);
       };
     }
-  },[itemsStaff])
+  },[itemsStaff]);
 
   const openModal = (staffMember) => {
     setSelectedStaff(staffMember);
@@ -82,17 +81,6 @@ function ListStaff() {
         ))
       ) : (
         <p>No hay personal registrado en esta institución.</p>
-      )}
-
-      {staff.length > 0 ? (
-        staff.map((staffMember, index) => (
-          <div key={index}>
-            <h3>{staffMember.name}</h3>
-            <p>{staffMember.position}</p>
-          </div>
-        ))
-      ) : (
-        <p>No hay personal disponible</p>
       )}
 
       {modal && selectedStaff && (

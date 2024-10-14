@@ -2,12 +2,13 @@ import React, { useEffect, useState } from 'react';
 import { getStudents } from '../../service/LoginGui';
 import { fetchGroups } from '../../Redux/Slices/SliceGroup';
 import { useDispatch, useSelector } from 'react-redux';
+import '../../css/list_group.css'
 
 function ListGroups() {
     const [groups, setGroups] = useState([]);
     const [seeMore, setSeeMore] = useState(false);
     const [selectedGroup, setSelectedGroups] = useState(null);
-    const institution_id = localStorage.getItem('institution_id');  // ID de la institución almacenado en localStorage
+    const institution_id = localStorage.getItem('InstitutionID');  // ID de la institución almacenado en localStorage
 
     const dispatch = useDispatch();
 
@@ -21,12 +22,14 @@ function ListGroups() {
     }, [dispatch]);
 
     useEffect(() => {
+        setGroups([]);
         for (let i = 0; i < items.length; i++) {
             if (items[i].institution === parseInt(institution_id, 10)) {
               // Actualiza el valor de la clave correspondiente
               setGroups((prevFiltred) => [...prevFiltred, items[i]]);
             };
         }
+
     }, [items]);
 
     const openModal = (group) => {
@@ -39,6 +42,15 @@ function ListGroups() {
         setSelectedGroups(null);
     };
 
+
+    const listSubject = () => {
+        for (const key in data) {
+            if (data.hasOwnProperty(key)) {
+              console.log(`${key}: ${data[key]}`);
+            }
+        }
+    }
+    
     if (loading) {
         return <div>Cargando...</div>; // Muestra un mensaje de carga
       }
@@ -73,8 +85,36 @@ function ListGroups() {
                     <h3>Nivel de educacion: {selectedGroup.educational_level}</h3>
                     <h3>Capacidad maxima: {selectedGroup.capacity}</h3>
                     <h3>Numero de clase: {selectedGroup.classroom}</h3>
-                    {/* <h3>Estado Académico: {selectedGroup.communication_of_subjects_and_teacher}</h3> */}
                     <h3>Estudiantes activos: {selectedGroup.current_students}</h3>
+                    <h3>Docentes asignados:</h3>
+                    <br />
+                    
+                      {selectedGroup.communication_of_subjects_and_teacher && (
+                        <table className='table_json'>
+                            <tr>
+                                <th>Asignatura</th>
+                                <th>Docente</th>
+                            </tr>
+                            
+                            {Object.keys(selectedGroup.communication_of_subjects_and_teacher).map((key, index) => (
+                                
+                                <tr>
+                                    <td key={index}>
+                                        {key} 
+                                    </td>
+                                    
+                                    <td>
+                                        {selectedGroup.communication_of_subjects_and_teacher[key]}
+                                    </td>
+                                </tr>
+                                
+                            ))}
+                         
+                      </table>
+
+                    )}
+                        
+                    
                     <input onClick={closeModal} type="button" value="Cerrar" />
                 </div>
             )}
