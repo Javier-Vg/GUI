@@ -1,35 +1,41 @@
 import React, { useState } from 'react';
-import { PostData, getDatos } from '../../service/LoginGui'; // Asegúrate de importar `getDatos`
+import { PostData, getDatos } from '../../service/LoginGui';
 import '../../css/RegisterFormGui.css';
+
 function RegisterFormGui() {
   const [nombre, setNombre] = useState('');
   const [rol, setRol] = useState('');
-  const [email, setEmail] = useState(''); // Estado para el correo
+  const [email, setEmail] = useState(''); 
   const [contra, setContra] = useState('');
   const [texto, setTexto] = useState('');
+  // const [token, setToken] = useState('');
 
-  // Función que se encarga de validar el registro
   const cargarDatos = async () => {
-    // Valida que los espacios estén llenos
-    if (nombre.trim() === '' || email.trim() === '' || contra.trim() === '') {
+    if (nombre.trim() === '' || email.trim() === '' || contra.trim() === '' || rol.trim() === '') {
       setTexto("Por favor llene todos los campos");
       return;
     }
-
-    // Llama a la función get del API
-    const datos = await getDatos();
-    // Verifica si ya existe un usuario con el mismo nombre
-    const usuarioExistente = datos.some(elem => elem.nombre === nombre);
-
-    // Si ya existe, muestra un mensaje
-    if (usuarioExistente) {
-      setTexto("Este usuario ya está registrado");
-    } else {
-      // Si no está registrado, guarda lo que está en el input
-      PostData(nombre, contra, email,rol); // Asegúrate de que esta función esté definida para manejar el registro
-      // Asumiendo que tu API devuelve un objeto con una propiedad `success`
-        setTexto("Registro exitoso!"); // Muestra mensaje de registro exitoso
-     
+    
+    try {
+      const datos = await getDatos(); // Obtén los datos existentes
+      const usuarioExistente = datos.some(elem => elem.email === email);
+  
+      if (usuarioExistente) {
+        setTexto("Este correo ya está registrado");
+      } else {
+        const response = await PostData(nombre, contra, email, rol); // Enviar los datos en un objeto
+        
+        if (response.success) {
+          setTexto("Registro exitoso!");
+          // setToken(response.token); // Guarda el token si es necesario
+          // Aquí puedes redirigir al usuario o limpiar el formulario
+        } else {
+          setTexto("Error en el registro: " + (response.error || "Ocurrió un error inesperado"));
+        }
+      }
+    } catch (error) {
+      console.error("Error en el proceso de registro:", error);
+      setTexto("Error al procesar la solicitud");
     }
   };
 
@@ -49,7 +55,7 @@ function RegisterFormGui() {
       <div>
         <label htmlFor="email">Correo:</label>
         <input
-          type="email" // Cambiar a tipo email para validación automática
+          type="email"
           id="email"
           name="email"
           value={email}
@@ -60,7 +66,7 @@ function RegisterFormGui() {
         <label htmlFor="contra">Contraseña:</label>
         <input
           type="password"
-          id="contra" // Cambiar a 'contra' para que coincida
+          id="contra" 
           name="contra"
           value={contra}
           onChange={(e) => setContra(e.target.value)}
@@ -68,10 +74,18 @@ function RegisterFormGui() {
           title="La contraseña debe tener entre 3 y 8 caracteres alfanuméricos"
           required
         />
-        <label htmlFor="rol">rol</label>
-        <input onChange={(e) => setRol(e.target.value)} type="text" />
-        <h6>{texto}</h6> {/* Mostrar mensaje aquí */}
       </div>
+      <div>
+        <label htmlFor="rol">Rol:</label>
+        <input
+          type="text"
+          id="rol"
+          name="rol"
+          value={rol}
+          onChange={(e) => setRol(e.target.value)}
+        />
+      </div>
+      <h6>{texto}</h6> {/* Mostrar mensaje aquí */}
       <div>
         <button onClick={cargarDatos}>Registrar</button>
       </div>

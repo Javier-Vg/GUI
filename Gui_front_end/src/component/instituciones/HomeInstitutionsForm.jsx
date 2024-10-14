@@ -3,6 +3,11 @@ import CreateStaff from './CreateStaff';
 import CreateStudent from './createStudent';
 import ListStaff from './listStaff';
 import ListStudent from './listStudent';
+import Gastos from './Gastos';
+import CreateGroup from './CreateGroup'; // Ajusta la ruta según sea necesario
+import ListGroups from './listGroups';
+import ManageSubjects from './manageSubjects'; // Ajusta la ruta según sea necesario
+import { useSelector} from "react-redux";
 import '../../css/home_institution.css';
 
 function HomeInstitutionsForm() {
@@ -10,15 +15,22 @@ function HomeInstitutionsForm() {
 
    // Definir el estado para controlar el despliegue del aside
     const [isDeployed, setIsDeployed] = useState(false);
-
+    const NameInstitution = useSelector((state) => state.infInstitution.nameInstitution)
+    const InfInstitution = useSelector((state) => state.infInstitution.imgInstitution)
     // Manejador de eventos para alternar el estado
     const toggleAside = () => {
         setIsDeployed(!isDeployed);
     };
 
+    // Verificar si hay un token en sessionStorage
+    if (!sessionStorage.getItem('token')) {
+        window.location.href = '/login';
+    }
+
     return (
 
         <div>
+           
             <head>
                 <link href="https://unpkg.com/boxicons@2.0.7/css/boxicons.min.css" rel="stylesheet"/>
             </head>
@@ -27,8 +39,9 @@ function HomeInstitutionsForm() {
             <button id="open-close" onClick={toggleAside}>
                 <span id="open-close"><i className='bx bx-menu'></i></span>
             </button>
-            <img src="https://static.vecteezy.com/system/resources/previews/009/126/808/non_2x/gui-logo-gui-letter-gui-letter-logo-design-initials-gui-logo-linked-with-circle-and-uppercase-monogram-logo-gui-typography-for-technology-business-and-real-estate-brand-vector.jpg" alt="" />
-            <h2>Nombre de la institucion</h2>
+            <img src={InfInstitution} alt="" />
+            <h2>{NameInstitution}</h2>
+            
         
         </nav>
         <aside id="aside" className={isDeployed ? 'desplegar' : ''}>
@@ -50,6 +63,23 @@ function HomeInstitutionsForm() {
                     className = "inputBoton"
                 />
                 </div>
+                <div>
+                <input 
+                    type="button" 
+                    value="Crear Grupo" 
+                    onClick={() => setChangeComponent("Crear Grupo")} 
+                    className = "inputBoton"
+                />
+                </div>
+                <div>
+                    <input 
+                        type="button" 
+                        value="Crear Materias" 
+                        onClick={() => setChangeComponent("materias")} 
+                        className="inputBoton"
+                    />
+                </div>
+
                 <div>
                     <input 
                         type="button" 
@@ -100,40 +130,28 @@ function HomeInstitutionsForm() {
                         className = "inputBoton"
                     />
                 </div>
+
                 <div>
-                
                 </div>
             </div>
-            <div className="container-svg">
-                <h2>etc</h2>
-                <div>
-                    
-                    <span>YouTube Premium</span>
-                </div>
-                <div>
-                    
-                    <span>Videojuegos</span>
-                </div>
-                <div>
-                    
-                    <span>Directo</span>
-                </div>
-                <div>
-                    <span>Aprendizaje</span>
-                </div>
-                <div>
-                    <span>Deportes</span>
-                </div>
-            </div>
+            <img src="https://static.vecteezy.com/system/resources/previews/009/126/808/non_2x/gui-logo-gui-letter-gui-letter-logo-design-initials-gui-logo-linked-with-circle-and-uppercase-monogram-logo-gui-typography-for-technology-business-and-real-estate-brand-vector.jpg" alt="" />
         </aside>
 
             
 
             <div className='div-components'>
+                
+            <div className='div-components'>
                 {changeComponent === "crear personal" && <CreateStaff />}
                 {changeComponent === "crear estudiante" && <CreateStudent />}
-                {changeComponent === "profesor" && <ListStaff/>}
-                {changeComponent === "estudiante" && < ListStudent/>}
+                {changeComponent === "profesor" && <ListStaff />}
+                {changeComponent === "estudiante" && <ListStudent />}
+                {changeComponent === "gastos" && <Gastos />}
+                {changeComponent === "materias" && <ManageSubjects />}
+                {changeComponent === "Crear Grupo" && <CreateGroup />} 
+                {changeComponent === "grupos" && <ListGroups />} 
+            </div>
+
             </div>
         </div>
     );

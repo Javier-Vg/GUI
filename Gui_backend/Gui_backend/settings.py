@@ -11,31 +11,34 @@ https://docs.djangoproject.com/en/5.1/ref/settings/
 """
 
 from pathlib import Path
-# import os
+# import timedelta
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
-
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/5.1/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
 SECRET_KEY = 'django-insecure--)w=hwu666smegfn6!7*9v=phhg9c5^*go-i$7x2b56o^&!6xk'
+# settings.py
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['localhost', '127.0.0.1', 'Gui_front_end', '192.168.100.42', '192.168.100.44','192.168.100.47']
+ALLOWED_HOSTS = ['localhost', '127.0.0.1', 'Gui_front_end', '192.168.100.42', '192.168.100.44','192.168.100.47', '192.168.100.13',"192.168.0.10"]
 CORS_ALLOWED_ORIGINS = [
     "http://localhost:5173",
     "http://127.0.0.1:5173",
     "http://Gui_front_end:5173",
     "http://192.168.100.42:5173",
     "http://192.168.100.44:5173",
-    "http://192.168.100.47:5173"
+    "http://192.168.100.47:5173",
+    "http://192.168.100.13:5173",
+    "http://192.168.0.10:5173"
 ]
 
+#La que termina en 13 es la de la otra compu 
 # Application definition
 
 INSTALLED_APPS = [
@@ -51,7 +54,6 @@ INSTALLED_APPS = [
     'corsheaders',
     'Institucion',
     'staff',
-    'administration',
     'contracts',
     'students',
     'groups',
@@ -65,7 +67,11 @@ INSTALLED_APPS = [
     'events',
     'payments',
     'tasks',
-    'Gastos'
+    'Gastos',
+    'group_assignment',
+    'rest_framework.authtoken',
+    'rest_framework_simplejwt',
+    
 ] # nombre de las apps
 
 MIDDLEWARE = [
@@ -77,7 +83,7 @@ MIDDLEWARE = [
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
     'corsheaders.middleware.CorsMiddleware',
-    'django.middleware.common.CommonMiddleware'
+    
 ]
 
 ROOT_URLCONF = 'Gui_backend.urls'
@@ -115,8 +121,6 @@ DATABASES = { #Se tiene ue crear una db con el nombre de 'default' antes de hace
         'PORT': '3306',
     }
 }
-
-
 
 # Password validation
 # https://docs.djangoproject.com/en/5.1/ref/settings/#auth-password-validators
@@ -161,11 +165,22 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 REST_FRAMEWORK = {
      "DEFAULT_AUTHENTICATION_CLASSES": [
         "rest_framework.authentication.BasicAuthentication",
-        "rest_framework.authentication.TokenAuthentication"
-    ]
+
+        # "rest_framework.authentication.TokenAuthentication"
+
+        "rest_framework.authentication.TokenAuthentication",
+        'rest_framework.authentication.SessionAuthentication',
+        'rest_framework_simplejwt.authentication.JWTAuthentication',
+        #"rest_framework.authentication.TokenAuthentication"
+
+    ],
+  
+
 }
 
-
+AUTHENTICATION_BACKENDS = [
+    'django.contrib.auth.backends.ModelBackend',  # Mantén el backend por defecto para compatibilidad
+]
 
 
 #-------------------------IMGUR

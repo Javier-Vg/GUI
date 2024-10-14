@@ -1,212 +1,218 @@
 import React, { useEffect, useState } from 'react';
-import { postStaff, getInstitutions, getContracts, getSubjects } from '../../service/LoginGui';
+import { postStaff, getContracts, getSchedule } from '../../service/LoginGui';
+import { fetchContract } from '../../Redux/Slices/SliceContract';
+import { fetchSchedule } from '../../Redux/Slices/SliceSchedule';
+import { setID } from '../../Redux/Slices/SliceInstitution';
+import { useDispatch, useSelector } from 'react-redux';
 import '../../css/create_staff.css';
 
+const domain = window.location.hostname;
+
 function CreateStaff() {
+  // Estados para los campos del formulario
+  const [changeNombre, setChangeNombre] = useState('');
+  const [changeApellidos, setChangeApellidos] = useState('');
+  const [changeIdentificacion, setChangeIdentificacion] = useState('');
 
-  const [changeNombre, setChangeNombre] = useState();
-  const [changeApellidos, setChangeApellidos] = useState();
-  const [changeIdentificacion, setChangeIdentificacion] = useState();
-  const [changeFechaNacimiento, setChangeFechaNacimiento] = useState();
-  const [changeDireccion, setChangeDireccion] = useState();
-  const [changeTelefono, setChangeTelefono] = useState();
-  const [changeCorreo, setChangeCorreo] = useState();
-  const [changeEstadoTrabajador, setChangeEstadoTrabajador] = useState();
-  const [changePuesto, setChangePuesto] = useState();
-  const [changeSalarioMensual, setChangeSalarioMensual] = useState();
-  const [changeImagen, setChangeImagen] = useState();
-  const [changeContratoId, setChangeContratoId] = useState();
-  const [changeInstitucionId, setChangeInstitucionId] = useState();
-  const [changeMateriaId, setChangeMateriaId] = useState();
+  const [changeFechaNacimiento, setChangeFechaNacimiento] = useState('');
+  const [changeDireccion, setChangeDireccion] = useState('');
+  const [changeTelefono, setChangeTelefono] = useState('');
 
-  //Almacena los get de tablas consultadas
-  const [contracts, setContracts] = useState();
-  const [institutions, setInstitution] = useState();
-  const [subjects, setSubjects] = useState();
+  const [changeEstadoTrabajador, setChangeEstadoTrabajador] = useState('');
+  const [changeCorreo, setChangeCorreo] = useState('');
+  const [changePuesto, setChangePuesto] = useState('');
+  const [changeImagen, setChangeImagen] = useState(null);
 
-  //Ocultar id profesor
-  const handleChange = (e) => {
-    setChangePuesto(e.target.value)
-  }
+  const [changeContratoId, setChangeContratoId] = useState('');
+  const [changeHorarioId, setChangeHorarioId] = useState('');
+  const [changePassword, setChangePassword] = useState('');
+  // const [InstitutionId, setInstitutionId] = useState(1);
+
+
+  const [formMessage, setFormMessage] = useState('');
+
+  //Estados de Staff:
+  const itemsContracts = useSelector(state => state.contract.items); 
+  const itemsSchedule = useSelector(state => state.schedule.items);  
+  const dispatch = useDispatch();
+
+  const [errors, setErrors] = useState({});
+
+  const institution_id = sessionStorage.getItem('InstitutionID');
+
+  const handleFileChange = (e) => {
+    const file = e.target.files[0];
+    if (file) {
+      setChangeImagen(file);
+    }
+  };
 
   useEffect(() => {
-      getDataSubject();
-      getDataInsititution();
-      getDataContract();
-  },[])
+    dispatch(fetchContract());
+    dispatch(fetchSchedule());
+    dispatch(setID(Number(institution_id)));
+  }, [dispatch]);
 
-  const getDataInsititution = async () => {
-    try {
-      const institutionData = await getInstitutions();
-      setInstitution(institutionData);
-    } catch (error) {
-        console.error("Error fetching institution:", error);
-    }
-  }
-
-  const getDataContract = async () => {
-    try {
-        const contractsData = await getContracts();
-        setContracts(contractsData);
-        console.log(contractsData);
-
-    } catch (error) {
-        console.error("Error fetching contract:", error);
-    }
-  }
-
-  const getDataSubject = async () => {
-    try {
-        const subjectsData = await getSubjects();
-        setSubjects(subjectsData);
-    } catch (error) {
-        console.error("Error fetching subject:", error);
-    }
-  }
-
-
-
-  const handleChangeStatus = (e) => {
-    setChangeEstadoTrabajador(e.target.value)
-  }
-  
-  const handleSubmit = async (e) => {
-    e.preventDefault()
-    const auth = "Client-ID " + clientId;
-    const formData = new FormData();
-    formData.append("image", changeImagen);
-
-    const response = await fetch("https://api.imgur.com/3/image/", {
-      method: "POST",
-      body: formData,
-      headers: {
-        Authorization: auth,
-        Accept: "application/json",
-      },
-    });
-
-    const data = await response.json();
-    const imageUrl = data.data.link; // URL de la imagen subida
-    console.log(data);
-    
-    console.log(imageUrl);
-    
-    // Expresión regular para validar el formato del correo electrónico
+  const validateForm = () => {
     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-    const dateRegex = /^\d{4}-(0[1-9]|1[0-2])-(0[1-9]|[12]\d|3[01])$/
-    let confimacion = true
-    
-    let staff = {
-      name: changeNombre,
-      last_name: changeApellidos,
-      identification_number: changeIdentificacion,
-      birthdate_date: changeFechaNacimiento,
-      direction: changeDireccion,
-      phone_number: changeTelefono,
-      email: changeCorreo,
-      employment_status: changeEstadoTrabajador,
-      position: changePuesto,
-      salary: changeSalarioMensual,
-      imagen: imageUrl,
-      contract: changeContratoId,
-      institution: changeInstitucionId,
-      subjects: changeMateriaId
+    const dateRegex = /^\d{4}-(0[1-9]|1[0-2])-(0[1-9]|[12]\d|3[01])$/;
+    const newErrors = {};
+
+    if (!changeNombre) newErrors.nombre = "El nombre es obligatorio.";
+    if (!changeApellidos) newErrors.apellidos = "Los apellidos son obligatorios.";
+    if (!changeIdentificacion) newErrors.identificacion = "El número de identificación es obligatorio.";
+    if (!changeFechaNacimiento || !dateRegex.test(changeFechaNacimiento)) {
+      newErrors.fechaNacimiento = "Por favor, ingrese una fecha válida (formato: AAAA-MM-DD).";
+    }
+    if (!changeDireccion) newErrors.direccion = "La dirección es obligatoria.";
+    if (!changeTelefono) newErrors.telefono = "El teléfono es obligatorio.";
+    if (!changeCorreo || !emailRegex.test(changeCorreo)) {
+      newErrors.correo = "Por favor, ingrese un correo electrónico válido.";
+    }
+    if (!changeEstadoTrabajador) newErrors.estadoTrabajador = "Seleccione el estado del trabajador.";
+    if (!changePuesto) newErrors.puesto = "Seleccione un puesto.";
+    if (!changeImagen) newErrors.imagen = "Debe seleccionar una imagen.";
+    if (!changePassword) newErrors.password = "La contraseña es obligatoria.";
+    if (!changeContratoId) newErrors.contrato = "Debe seleccionar un contrato.";
+    if (!changeHorarioId) newErrors.horario = "Debe seleccionar un horario.";
+
+    setErrors(newErrors);
+    return Object.keys(newErrors).length === 0;
+  };
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+
+    if (!validateForm()) {
+      return;
     }
 
-    //Validaciones
-    for (const [key, value] of Object.entries(staff)) {
-      // if (key == "subjects"){
-      //   continue
-      // }else{
-      //   if (!value) {
-      //     alert(`El campo ${key} es obligatorio.`);
-      //     console.error(`El campo ${key} es obligatorio.`);
-      //     confimacion = false
-      //     return; // Salir si algún campo está vacío
-      //   }
-      // }
-      
-      // Validar el correo electrónico
-      if (key == "email"){
-        if (!emailRegex.test(changeCorreo)) {
-          alert('Por favor, ingrese un correo electrónico válido')
-          confimacion = false
-        } else {
-          console.log("correo validado correctamente");
-          
+    try {
+      const formData = new FormData();
+      formData.append("image", changeImagen);
+
+      const response = await fetch(`http://${domain}:8000/api/urlResponse/`, {
+        method: "POST",
+        body: formData,
+      });
+
+      const data = await response.json();
+      const imageUrl = data.image_url;
+
+      // Expresión regular para validar el formato del correo electrónico
+      const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+      const dateRegex = /^\d{4}-(0[1-9]|1[0-2])-(0[1-9]|[12]\d|3[01])$/;
+      let confimacion = true
+
+      const staff = {
+        username: changeNombre,
+        last_name: changeApellidos,
+        identification_number: changeIdentificacion,
+        birthdate_date: changeFechaNacimiento,
+        direction: changeDireccion,
+        phone_number: changeTelefono,
+        email: changeCorreo,
+        employment_status: changeEstadoTrabajador,
+        position: changePuesto,
+        imagen_url: imageUrl,
+        contract: changeContratoId,
+        institution: institution_id,
+        schedule: changeHorarioId,
+        password: changePassword
+      };
+
+      //Validaciones
+      for (const [key, value] of Object.entries(staff)) {
+        
+        // Validar el correo electrónico
+        if (key == "email"){
+          if (!emailRegex.test(changeCorreo)) {
+            alert('Por favor, ingrese un correo electrónico válido')
+            confimacion = false
+          } else {
+            console.log("correo validado correctamente");
+          }
+        }
+        // Validar la fecha
+        if (key == "birthdate_date"){
+          if (!dateRegex.test(changeFechaNacimiento)) {
+            alert('Por favor, ingrese una fecha válida')
+            confimacion = false
+          } else {
+            console.log("fecha validado correctamente");
+          }
         }
       }
-      // Validar la fecha
-      if (key == "birthdate_date"){
-        if (!dateRegex.test(changeFechaNacimiento)) {
-          alert('Por favor, ingrese una fecha válida')
-          confimacion = false
-        } else {
-          console.log("fecha validado correctamente");
-          
-        }
+
+      if (confimacion){
+        await postStaff(staff); //Envia los datos
       }
-    }
 
-    if (confimacion){
-      postStaff(staff); //Envia los dat
+      // setFormMessage("Personal creado exitosamente"); // Mostrar mensaje de éxito
+    } catch (error) {
+      console.error("Error al enviar los datos:", error);
+      toast.error("Error.");
     }
-  }
-
-  console.log(contracts);
-  console.log(institutions);
-  
+  };
 
   return (
     <div className='div-core'>
-      <form className='form-staff' action="submit">
+      <form className='form-staff' onSubmit={handleSubmit}>
         <label>
           Nombre:
-          <input type="text" placeholder='nombre' onChange={(e) => setChangeNombre(e.target.value)}/>
+          <input type="text" value={changeNombre} onChange={(e) => setChangeNombre(e.target.value)} />
+          {errors.nombre && <p className="error">{errors.nombre}</p>}
         </label>
         <br />
         <label>
           Apellidos:
-          <input type="text" placeholder='apellidos' onChange={(e) => setChangeApellidos(e.target.value)}/>
+          <input type="text" value={changeApellidos} onChange={(e) => setChangeApellidos(e.target.value)} />
+          {errors.apellidos && <p className="error">{errors.apellidos}</p>}
         </label>
         <br />
         <label>
           Número de Identificación:
-          <input type="text" placeholder='número de identificación' onChange={(e) => setChangeIdentificacion(e.target.value)}/>
+          <input type="text" value={changeIdentificacion} onChange={(e) => setChangeIdentificacion(e.target.value)} />
+          {errors.identificacion && <p className="error">{errors.identificacion}</p>}
         </label>
         <br />
         <label>
           Fecha de Nacimiento:
-          <input type="date" placeholder='fecha de nacimiento' onChange={(e) => setChangeFechaNacimiento(e.target.value)}/>
+          <input type="date" value={changeFechaNacimiento} onChange={(e) => setChangeFechaNacimiento(e.target.value)} />
+          {errors.fechaNacimiento && <p className="error">{errors.fechaNacimiento}</p>}
         </label>
         <br />
         <label>
           Dirección:
-          <input type="text" placeholder='dirección' onChange={(e) => setChangeDireccion(e.target.value)}/>
+          <input type="text" value={changeDireccion} onChange={(e) => setChangeDireccion(e.target.value)} />
+          {errors.direccion && <p className="error">{errors.direccion}</p>}
         </label>
         <br />
         <label>
           Teléfono:
-          <input type="number" placeholder='teléfono' onChange={(e) => setChangeTelefono(e.target.value)}/>
+          <input type="number" value={changeTelefono} onChange={(e) => setChangeTelefono(e.target.value)} />
+          {errors.telefono && <p className="error">{errors.telefono}</p>}
         </label>
         <br />
         <label>
           Correo:
-          <input type="email" placeholder='email' onChange={(e) => setChangeCorreo(e.target.value)}/>
+          <input type="email" value={changeCorreo} onChange={(e) => setChangeCorreo(e.target.value)} />
+          {errors.correo && <p className="error">{errors.correo}</p>}
         </label>
         <br />
         <label>
           Estado del trabajador:
-          <select value={changeEstadoTrabajador} onChange={handleChangeStatus}  id="opciones">
-          <option >--Selecciona un puesto--</option>
-          <option value="Active" >Activo</option>
-          <option value="Inactive" >Inactivo</option>
-        </select>
+          <select value={changeEstadoTrabajador} onChange={(e) => setChangeEstadoTrabajador(e.target.value)}>
+            <option value="">--Selecciona un estado--</option>
+            <option value="Active">Activo</option>
+            <option value="Inactive">Inactivo</option>
+          </select>
+          {errors.estadoTrabajador && <p className="error">{errors.estadoTrabajador}</p>}
         </label>
         <br />
-
-        <label htmlFor="opciones">Selecciona un Puesto Creado Anteriormente:</label>
-        <select value={changePuesto} onChange={handleChange}  id="opciones">
+        <label>
+          Seleccione un Puesto:
+          <select value={changePuesto} onChange={(e) => setChangePuesto(e.target.value)}>
           <option >--Selecciona un puesto--</option>
           <option value="Directors" >Director</option>
           <option value="Teacher" >Profesor</option>
@@ -215,53 +221,59 @@ function CreateStaff() {
           <option value="Cleaning staff" >Personal de limpieza</option>
           <option value="Librarians" >Bibliotecarios</option>
           <option value="Security staff" >Personal de seguridad</option>
-        </select>
-
-        <br />
-        <label>
-          Salario Mensual:
-          <input type="number" placeholder='salario mensual' onChange={(e) => setChangeSalarioMensual(e.target.value)}/>
+            {/* Otras opciones */}
+          </select>
+          {errors.puesto && <p className="error">{errors.puesto}</p>}
         </label>
         <br />
         <label>
           Imagen del empleado:
-          <input type="file" placeholder='imagen' onChange={(e) => setChangeImagen(e.target.value)}/>
+          <input type="file" accept="image/*" onChange={handleFileChange} />
+          {errors.imagen && <p className="error">{errors.imagen}</p>}
         </label>
         <br />
         <label>
-
-         {contracts && (
-            contracts.map((contract, index) => (
-              <div key={index}>
-                <p>{contract.contract_type}</p>
-              </div>
-            ))
+          Contraseña:
+          <input type="password" value={changePassword} onChange={(e) => setChangePassword(e.target.value)} />
+          {errors.password && <p className="error">{errors.password}</p>}
+        </label>
+        <br />
+        <label>
+          Seleccione su contrato:
+          {itemsContracts && (
+            <select value={changeContratoId} onChange={(e) => setChangeContratoId(e.target.value)}>
+              <option value="">--Seleccionar--</option>
+              {itemsContracts.map((contract) => (
+                <option key={contract.id} value={contract.id}>
+                  {contract.contract_type}
+                </option>
+              ))}
+            </select>
           )}
-
-          Id contrato:
-          <input type="number" placeholder='contrato_id' onChange={(e) => setChangeContratoId(e.target.value)} />
+          {errors.contrato && <p className="error">{errors.contrato}</p>}
         </label>
         <br />
         <label>
-          Id Institucion:
-          <input type="number" placeholder='institucion_id' onChange={(e) => setChangeInstitucionId(e.target.value)} />
+          Seleccione el horario:
+          {itemsSchedule && (
+            <select value={changeHorarioId} onChange={(e) => setChangeHorarioId(e.target.value)}>
+              <option value="">--Seleccionar--</option>
+              {itemsSchedule.map((horario) => (
+                <option key={horario.id} value={horario.id}>
+                  {horario.days}
+                </option>
+              ))}
+            </select>
+          )}
+          {errors.horario && <p className="error">{errors.horario}</p>}
+          {formMessage && <p>{formMessage}</p>}
         </label>
         <br />
-
-        {changePuesto == "Teacher" ? (
-          <label>
-            Id Materia:
-            <input type="number" placeholder='materia_id' onChange={(e) => setChangeMateriaId(e.target.value)}/>
-          </label>
-        ) : (
-          <p style={{ display: "none" }}>oculto</p>
-        )}
-        <br />
-        <button onClick={handleSubmit}>ENVIAR</button>
+        <button type="submit">ENVIAR</button>
       </form>
+
     </div>
   );
-  
 }
 
 export default CreateStaff;

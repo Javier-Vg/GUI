@@ -2,51 +2,43 @@ import React, { useState } from "react";
 import { clientId } from '../../keys/keys.js'; // Asegúrate de tener el clientId configurado
 import { postInstitutions } from "../../service/LoginGui"; // Asegúrate de que esta función maneje la subida de datos
 import '../../css/Register_institutions.css'
-
+const domain = window.location.hostname 
 function Institucion_register() {
-  const [name, setName] = useState("");
+  
+  const [username, setName] = useState("");
   const [address, setAddress] = useState("");
   const [estado, setEstado] = useState("");
   const [subscriptionType, setSubscriptionType] = useState("");
   const [phoneNumber, setPhoneNumber] = useState("");
   const [email, setEmail] = useState("");
   const [date, setDate] = useState("");
+  const [password, setPassword] = useState("");
   const [file, setFile] = useState(null); // Estado para la imagen
   const [monthly_payent, setMonthly_payent] = useState(""); // Estado para la imagen
 
-
   const send_data = async (e) => {
     e.preventDefault();
-    
+  
     if (!file) {
       alert("Por favor selecciona una imagen.");
       return;
     }
-
     try {
-      // Subir la imagen a Imgur
-      const auth = "Client-ID " + clientId;
+      // Crear el objeto FormData y adjuntar la imagen seleccionada
       const formData = new FormData();
       formData.append("image", file);
-
-      const response = await fetch("https://api.imgur.com/3/image/", {
+  
+      // Enviar la imagen al backend
+      const response = await fetch(`http://${domain}:8000/api/urlResponse/`, {
         method: "POST",
         body: formData,
-        headers: {
-          Authorization: auth,
-          Accept: "application/json",
-        },
       });
-
+  
       const data = await response.json();
-      const imageUrl = data.data.link; // URL de la imagen subida
-      console.log(data);
-      
-      // Luego de subir la imagen, envía los datos del formulario junto con la URL de la imagen
-      await postInstitutions(name, address, estado, subscriptionType, phoneNumber, email, imageUrl,monthly_payent);
-      console.log("Datos e imagen enviados correctamente");
+      const imageUrl = data.image_url; // URL de la imagen devuelta por el backend
+      await postInstitutions(username, address, estado, subscriptionType, phoneNumber, email, imageUrl,monthly_payent,password);
     } catch (error) {
-      console.error("Error al enviar los datos:", error);
+      console.error("Error al subir la imagen:", error);
     }
   };
 
@@ -62,7 +54,7 @@ function Institucion_register() {
             className="inpts"
             type="text"
             id="name_institution"
-            value={name}
+            value={username}
             onChange={(e) => setName(e.target.value)}
             required
           />
@@ -149,6 +141,9 @@ function Institucion_register() {
           />
         </div>
         <div className="divsInputs">
+          <input placeholder="Contraseña" type="password"value={password} name="" id="" onChange={(e) => setPassword(e.target.value)}/>
+        </div>
+        <div className="divsInputs">
           <input
             placeholder="file"
             className="inpts"
@@ -163,5 +158,4 @@ function Institucion_register() {
     </div>
   );
 }
-
 export default Institucion_register;

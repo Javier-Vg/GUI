@@ -1,14 +1,14 @@
 from django.urls import path, include
 from . import views
 from .router import router_post
-# from .views import helloworld
+from .views import upload_image
 
 urlpatterns = [
+    path('urlResponse/',upload_image, name='upload_image'),
     path('post/', include(router_post.urls)),
     path('gui/', include("Gui.urls")),
     path('institutions/', include('Institucion.urls')), #Institucion.urls es el nombre del app
     path('staff/', include('staff.urls')), 
-    path('administration/', include('administration.urls')), 
     path('contracts/', include('contracts.urls')),
     path('students/', include('students.urls')),
     path('groups/', include('groups.urls')),
@@ -23,4 +23,5 @@ urlpatterns = [
     path('payments/', include('payments.urls')),
     path('tasks/', include('tasks.urls')),
     path('gastos/', include('Gastos.urls')),
+    path('group_assignment/', include('group_assignment.urls')),
 ]

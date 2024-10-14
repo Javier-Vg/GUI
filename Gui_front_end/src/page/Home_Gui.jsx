@@ -1,4 +1,5 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
+import { useNavigate } from "react-router-dom"; // Importa useNavigate para la redirección
 import RegisterFormGui from "../component/Login_and_Register_Gui/RegisterFormGui";
 import Institucion_register from "../component/Gui/Institucion_register";
 import List_institutions from "../component/Gui/List_institutions";
@@ -6,12 +7,40 @@ import "../css/Gui_list_institutions.css";
 
 function Home_Gui() {
   const [changeComponent, setChangeComponent] = useState("");
-  // Definir el estado para controlar el despliegue del aside
   const [isDeployed, setIsDeployed] = useState(false);
+  const navigate = useNavigate(); // Inicializa el hook para redirección
+
+
+  // useEffect(() => {
+  //   // Verifica si hay un token en el local storage
+  //   const token = localStorage.getItem("token");
+  //   if (!token) {
+  //     // Si no hay token, redirige a la página de inicio de sesión
+  //     navigate("/gui"); // Cambia "/login" a la ruta de tu página de inicio de sesión
+  //   }
+  // }, [navigate]);
+
+  useEffect(() => {
+    // Verifica si hay un token en el local storage
+    const token = localStorage.getItem("token");
+    if (!token) {
+      // Si no hay token, redirige a la página de inicio de sesión
+      navigate("/gui"); // Cambia "/gui" a la ruta de tu página de inicio de sesión
+    }
+  }, [navigate]);
+
 
   const toggleAside = () => {
     setIsDeployed(!isDeployed);
   };
+
+  const handleLogout = () => {
+    // Borra el token del local storage
+    localStorage.removeItem("token");
+    // Redirige a la página de inicio de sesión
+    navigate("/gui"); // Cambia "/gui" a la ruta de tu página de inicio de sesión
+  };
+
   return (
     <div>
       <head>
@@ -39,7 +68,7 @@ function Home_Gui() {
             <input
               type="button"
               value="Registrar Admin"
-               className="inputBoton"
+              className="inputBoton"
               onClick={() => setChangeComponent("Registrar Admin")}
             />
           </div>
@@ -47,7 +76,7 @@ function Home_Gui() {
             <input
               type="button"
               value="Crear Instituciones"
-               className="inputBoton"
+              className="inputBoton"
               onClick={() => setChangeComponent("Crear Instituciones")}
             />
           </div>
@@ -59,75 +88,19 @@ function Home_Gui() {
               onClick={() => setChangeComponent("Gestionar Instituciones")}
             />
           </div>
+          <div>
+            <input
+              type="button"
+              value="Cerrar SESION"
+              className="inputBoton"
+              onClick={handleLogout} // Cambiado para manejar el cierre de sesión
+            />
+          </div>
         </div>
-        {/* <div className="container-svg">
-          <div>
-            <input 
-                        type="button" 
-                        value="Estudiantes" 
-                        onClick={() => setChangeComponent("estudiante")} 
-                        className = "inputBoton"
-                    />
-          </div>
-          <div>
-            <input 
-                    type="button" 
-                    value="Grupos" 
-                    onClick={() => setChangeComponent("grupos")} 
-                    className = "inputBoton"
-                />
-          </div>
-          <div>
-            <input 
-                        type="button" 
-                        value="Gastos" 
-                        onClick={() => setChangeComponent("gastos")} 
-                        className = "inputBoton"
-                    />
-          </div>
-          <div>
-            <input 
-                        type="button" 
-                        value="Soporte de Sistema" 
-                        onClick={() => setChangeComponent("soporte de sistema")} 
-                        className = "inputBoton"
-                    />
-          </div>
-          <div>
-            <input 
-                        type="button" 
-                        value="Cerrar Sesión" 
-                        onClick={() => setChangeComponent("cerrar sesión")} 
-                        className = "inputBoton"
-                    />
-          </div>
-          <div></div>
-        </div>
-        <div className="container-svg">
-          <h2>etc</h2>
-                <div>
-                    
-                    <span>YouTube Premium</span>
-                </div>
-                <div>
-                    
-                    <span>Videojuegos</span>
-                </div>
-                <div>
-                    
-                    <span>Directo</span>
-                </div>
-                <div>
-                    <span>Aprendizaje</span>
-                </div>
-                <div>
-                    <span>Deportes</span>
-                </div>
-        </div> */}
       </aside>
 
       <div className="div-components">
-        {/* // cambia los componentes dependiendo de el estado */}
+        {/* Cambia los componentes dependiendo del estado */}
         {changeComponent === "Registrar Admin" && <RegisterFormGui />}
         {changeComponent === "Crear Instituciones" && <Institucion_register />}
         {changeComponent === "Gestionar Instituciones" && <List_institutions />}

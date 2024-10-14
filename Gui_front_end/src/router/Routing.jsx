@@ -4,6 +4,7 @@ import Login from '../page/LoginGui'
 import Home_Gui from '../page/Home_Gui'
 import HomeInstitutions from '../page/HomeInstitutions';
 import LoginRol from '../page/LoginRol';
+import HomePadres from '../page/Homepadres';
 
 function Routing() {
 
@@ -12,11 +13,11 @@ function Routing() {
     <div id='root'>
         <Router>
           <Routes>
-            <Route path="/login-gui" element={<Login />} />
-            <Route path="/Gui" element={<Home_Gui />} />
-            <Route path="/home-institutions" element={<HomeInstitutions />} />
-            <Route path="/login-rol" element={<LoginRol />} />
-
+            <Route path="/gui" element={<Login />} />
+            <Route path="/gui_home" element={<Home_Gui />} />
+            <Route path="/institutions" element={<HomeInstitutions />} />
+            <Route path="/login" element={<LoginRol />} />
+            <Route path="/home_padres" element={<HomePadres />} />
           </Routes>
         </Router>
     </div>

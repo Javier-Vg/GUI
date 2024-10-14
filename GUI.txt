@@ -1,1 +1,31 @@
 Creado el 9/23/24
+npm install redux react-redux @reduxjs/toolkit
+npm install cors
+npm install axios 
+npm i react-router-dom
+npm install jsonwebtoken bcryptjs express
+npm install jwt-decode
+
+
+pip install django-cors-headers
+pip install djangorestframework
+pip install djangorestframework-simplejwt
+pip install path.py
+pip install attrs
+pip install auth
+pip install timedelta
+pip install "PyJWT==1.7.1"
+pip install --upgrade djangorestframework-simplejwt
+pip uninstall jwt
+pip uninstall pyjwt
+pip install pyjwt
+pip install --force PyJWT
+
+python manage.py drf_create_token root
+python manage.py createsuperuser
+
+Redux dependecias:
+npm i redux-thunk
+
+Alertas:
+npm i react-toastify

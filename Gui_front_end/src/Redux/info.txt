@@ -1,0 +1,8 @@
+Usa reducers separados para cada tabla.
+Combina reducers en un estado global.
+Crea acciones claras para cada operación CRUD.
+Organiza tu estructura de carpetas de manera lógica.
+Utiliza selectores para acceder al estado de manera eficiente.
+Implementa middleware para manejar efectos secundarios.
+Crea componentes reutilizables donde sea posible.
+Documenta tu código para mejorar la mantenibilidad.

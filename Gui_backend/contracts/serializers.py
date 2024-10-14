@@ -4,4 +4,4 @@ from .models import contracts
 class Contracts_Serializer(serializers.ModelSerializer):
     class Meta:
         model = contracts
-        fields = ['contract_type', 'start_date', 'end_date', 'salary']
+        fields = ['id','institution','contract_type', 'start_date', 'end_date', 'salary']
