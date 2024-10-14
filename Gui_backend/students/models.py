@@ -2,6 +2,8 @@ from django.db import models
 from Institucion.models import Institution  # Importa el modelo de Institution
 from groups.models import group  # Importa el modelo de Institution
 from django.contrib.auth.hashers import make_password
+from django.db.models.signals import pre_save
+from django.dispatch import receiver
 # Create your models here.
 class students(models.Model):
     
@@ -34,12 +36,11 @@ class students(models.Model):
     guardian_phone_number = models.CharField(max_length=15, blank=True, null=True)  # Nuevo campo opcional
     name_guardian = models.CharField(max_length=100, blank=False, null=False)  # Nuevo campo para el nombre del encargado
     institution = models.ForeignKey(Institution, on_delete=models.CASCADE, null=True, blank=True)
-    group = models.ForeignKey(group, on_delete=models.CASCADE, null=True, blank=True)   
+    group = models.BooleanField(default=False)
     imagen_url = models.URLField(blank=True, null=True)
     monthly_payent_students = models.CharField(max_length=15, blank=True, null=True)
     type_of_student = models.CharField(max_length=100, blank=False, choices=TYPE, default='private student')
     password = models.CharField(max_length=128, blank=False, null=True) 
-
     
     def save(self, *args, **kwargs):
         # Solo hacer hash si la contraseña ha sido modificada
@@ -48,6 +49,4 @@ class students(models.Model):
         super(students, self).save(*args, **kwargs)
     def __str__(self):
         return self.username
-    
-    #IMAGENEEEEE
-    
+

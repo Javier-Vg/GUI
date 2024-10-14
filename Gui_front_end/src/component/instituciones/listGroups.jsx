@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { getStudents } from '../../service/LoginGui';
 import { fetchGroups } from '../../Redux/Slices/SliceGroup';
 import { useDispatch, useSelector } from 'react-redux';
-import '../../css/list_group.css'
+import '../../css/list_group.css';
 
 function ListGroups() {
     const [groups, setGroups] = useState([]);
@@ -29,7 +29,6 @@ function ListGroups() {
               setGroups((prevFiltred) => [...prevFiltred, items[i]]);
             };
         }
-
     }, [items]);
 
     const openModal = (group) => {
