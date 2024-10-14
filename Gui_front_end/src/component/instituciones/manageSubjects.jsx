@@ -5,7 +5,7 @@ import { postSubjects } from '../../service/LoginGui';
 const ManageSubjects = () => {
     const [subjectName, setSubjectName] = useState('');
 
-    const InstitutionID = localStorage.getItem('InstitutionID'); // Obtener el ID de la institución del localStorage
+    const InstitutionID = sessionStorage.getItem('InstitutionID'); // Obtener el ID de la institución del localStorage
     
     const saveSubject = async () => {
         const subject = {

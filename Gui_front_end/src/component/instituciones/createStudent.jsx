@@ -105,7 +105,7 @@ function CreateStudent() {
         throw new Error('Error al subir la imagen');
       }
       const imageUrl = data.image_url;
-      const institution_id = localStorage.getItem('InstitutionID')
+      const institution_id = sessionStorage.getItem('InstitutionID')
       // Aquí agregamos el institutionId al postStudents
       await postStudents(nombre, apellido, identificacion, fechaNacimiento, grado, estadoAcademico, telefono, email, imageUrl, alergias, guardianTelefono, nameGuardian, mensualidadDelEstudiante, password, institution_id); // Añadir institutionId
       setFormMessage("Personal creado exitosamente"); // Mostrar mensaje de éxito
