@@ -10,7 +10,7 @@ function GroupsTeacher() {
     dispatch(fetchGroups()); // Llama a la acción para obtener productos al cargar el componente
   }, [dispatch]);
 
-  const grupos = useSelector((state) => state.group.items); 
+  const grupos = useSelector((state) => state.group.items);
 
   console.log(grupos);
   
