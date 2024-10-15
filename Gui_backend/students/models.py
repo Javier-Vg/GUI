@@ -1,6 +1,6 @@
 from django.db import models
-from Institucion.models import Institution  # Importa el modelo de Institution
-from groups.models import group  # Importa el modelo de Institution
+from Institucion.models import Institution 
+from groups.models import group  
 from django.contrib.auth.hashers import make_password
 from django.db.models.signals import pre_save
 from django.dispatch import receiver
@@ -20,10 +20,12 @@ class students(models.Model):
         ('Active', 'active'),
         ('Inactive', 'inactive')
     ]
+    
     TYPE=[
         ('private student','private student'),
         ('student care network','student care network')
     ]
+    
     username = models.CharField(max_length=100, blank=False, null=False)
     last_name = models.CharField(max_length=100, blank=False, null=False)
     identification_number = models.CharField(max_length=100, blank=False, null=False)
@@ -49,4 +51,3 @@ class students(models.Model):
         super(students, self).save(*args, **kwargs)
     def __str__(self):
         return self.username
-

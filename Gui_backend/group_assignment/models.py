@@ -10,20 +10,5 @@ class group_assignment(models.Model):  # Cambié el nombre de la clase a singula
     group = models.ForeignKey(group, on_delete=models.CASCADE, null=True, blank=True)
     def __str__(self):
         return self.group
-    
-#Señal
-@receiver(post_save, sender=students)
-def increment_current_students(sender, instance, created, **kwargs):
-    if created:  # Si el estudiante se ha creado
-        instance.group.current_students += 1  # Aumentar el conteo
-        instance.group.save()  # Guardar el grupo actualizado
 
-@receiver(post_delete, sender=students)
-def decrement_current_students(sender, instance, **kwargs):
-    instance.group.current_students -= 1  # Disminuir el conteo
-    instance.group.save()  # Guardar el grupo actualizado
-    
 
-#created es True: Esto indica que se ha creado una nueva instancia del modelo. 
-# En otras palabras, se está llamando a save() 
-# en una instancia que no existía en la base de datos antes.
