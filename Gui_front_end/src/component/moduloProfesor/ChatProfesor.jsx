@@ -6,13 +6,18 @@ const ChatProfesor = () => {
     const [message, setMessage] = useState('');
     const [messages, setMessages] = useState([]);
     const [students, setStudents] = useState([]);
-    const storedTeacherName = sessionStorage.getItem('TeacherName'); // Obtener el nombre del profesor
+
+    // Obtener el nombre del profesor y el ID de la institución desde sessionStorage
+    const storedTeacherName = sessionStorage.getItem('StaffID'); // Nombre del profesor
+    const storedInstitutionId = sessionStorage.getItem('InstitutionID'); // ID de la institución
+
     const [teacherName, setTeacherName] = useState(storedTeacherName || '');
+    const [institutionId, setInstitutionId] = useState(storedInstitutionId || '');
 
     useEffect(() => {
         const fetchStudents = async () => {
             try {
-                const studentList = await getStudents(); // Cambia a la función que obtiene la lista de estudiantes
+                const studentList = await getStudents(); // Obtener lista de estudiantes desde la API
                 setStudents(studentList);
             } catch (error) {
                 console.error('Error al cargar los estudiantes:', error);
@@ -28,7 +33,7 @@ const ChatProfesor = () => {
                 message: message,
                 receiver_student: selectedStudent,
                 transmitter_teacher: teacherName,
-                institution: '14',
+                institution: institutionId, // Usar institutionID del sessionStorage
                 date: new Date().toISOString(),
             };
             console.log(newMessage);

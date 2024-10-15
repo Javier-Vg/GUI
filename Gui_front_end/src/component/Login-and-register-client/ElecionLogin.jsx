@@ -63,8 +63,8 @@ function ElecionLogin() {
         
         dispatch(setStaffId(response.data.staff_id));
         dispatch(setInstitutionId(response.data.institution));
-        sessionStorage.setItem("InstitutionID", response.data.institutionID);
-        sessionStorage.setItem("StaffID", response.data.staff_id);
+        sessionStorage.setItem("InstitutionID", response.data.institution);
+        sessionStorage.setItem("StaffID", response.data.ID);
         sessionStorage.setItem("StudentID", response.data.StudentID); // Guardar el ID del estudiante
         sessionStorage.setItem("token", response.data.token);
         dispatch({ type: "LOGIN_SUCCESS", payload: response.data.token });
