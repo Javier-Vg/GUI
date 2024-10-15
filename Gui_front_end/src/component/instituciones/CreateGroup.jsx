@@ -50,7 +50,7 @@ function CreateGroup() {
 
     //Condicion para luego mostrar las materia y profesores segun el id de institucions
     itemsSubjects.forEach((i) => {
-      if (institutionId == i.institution) {
+      if (institution_id == i.institution) {
         setSubjectsFiltred((prevSubjectsFiltred) => [...prevSubjectsFiltred,i,]);
       }
     });

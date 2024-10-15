@@ -5,15 +5,26 @@ const Chat = () => {
     const [selectedTeacher, setSelectedTeacher] = useState(null);
     const [message, setMessage] = useState('');
     const [messages, setMessages] = useState([]);
+    
     const storedStudentId = sessionStorage.getItem('StudentID');
     const storedStudentName = sessionStorage.getItem('StudentName');
+    const storedInstitutionId = sessionStorage.getItem('institutionID'); // Obtener institutionID desde sessionStorage
+    
     const [studentName, setStudentName] = useState(storedStudentName || '');
     const [teachers, setTeachers] = useState([]);
+
+    // Log para verificar el ID del estudiante y la institución
+    console.log("StudentID almacenado en sessionStorage:", storedStudentId);
+    console.log("InstitutionID almacenado en sessionStorage:", storedInstitutionId);
 
     useEffect(() => {
         const fetchTeachers = async () => {
             try {
                 const staffList = await getStaff();
+
+                // Log para verificar los profesores obtenidos
+                console.log("Lista de profesores obtenida:", staffList);
+
                 const filteredTeachers = staffList.filter(teacher => teacher.position === 'Teacher');
                 setTeachers(filteredTeachers);
             } catch (error) {
@@ -25,18 +36,29 @@ const Chat = () => {
     }, []);
 
     const handleSendMessage = async () => {
+        // Log para verificar los valores antes de enviar el mensaje
+        console.log("Mensaje:", message);
+        console.log("Profesor seleccionado:", selectedTeacher);
+        console.log("Institution ID al enviar:", storedInstitutionId);
+        console.log("StudentID al enviar:", storedStudentId);
+
         if (message.trim() && selectedTeacher && storedStudentId) {
             const newMessage = {
                 message: message,
                 staff: selectedTeacher,
                 students: storedStudentId,
-                institution: '14',
+                institution: storedInstitutionId, // Usar institutionID desde sessionStorage
                 date: new Date().toISOString(),
             };
-            console.log(newMessage);
+            
+            console.log("Datos del mensaje a enviar:", newMessage);
             
             try {
                 const savedMessage = await sendMessage(newMessage);
+                
+                // Log para verificar la respuesta de la API al enviar el mensaje
+                console.log("Mensaje guardado:", savedMessage);
+
                 setMessages([...messages, { ...savedMessage, transmitterName: studentName || "Estudiante" }]);
                 setMessage('');
                 alert('Mensaje enviado correctamente');

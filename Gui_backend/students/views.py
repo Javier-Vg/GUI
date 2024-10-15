@@ -50,6 +50,7 @@ def LoginView(request):
             return Response({
                 'token': encoded,
                 'StudentID': Students.id,
+                'institutionID': Students.institution_id,
                 "imgInstitution": Students.imagen_url,
                 "Name": Students.username
             })
