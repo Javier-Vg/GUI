@@ -4,41 +4,39 @@ import RegisterFormGui from "../component/Login_and_Register_Gui/RegisterFormGui
 import Institucion_register from "../component/Gui/Institucion_register";
 import List_institutions from "../component/Gui/List_institutions";
 import "../css/Gui_list_institutions.css";
+import { useSelector } from "react-redux";
 
 function Home_Gui() {
   const [changeComponent, setChangeComponent] = useState("");
   const [isDeployed, setIsDeployed] = useState(false);
   const navigate = useNavigate(); // Inicializa el hook para redirección
-
-
-  // useEffect(() => {
-  //   // Verifica si hay un token en el local storage
-  //   const token = localStorage.getItem("token");
-  //   if (!token) {
-  //     // Si no hay token, redirige a la página de inicio de sesión
-  //     navigate("/gui"); // Cambia "/login" a la ruta de tu página de inicio de sesión
-  //   }
-  // }, [navigate]);
+  const userRole = useSelector((state) => state.infInstitution.role);
 
   useEffect(() => {
-    // Verifica si hay un token en el local storage
-    const token = localStorage.getItem("token");
-    if (!token) {
-      // Si no hay token, redirige a la página de inicio de sesión
-      navigate("/gui"); // Cambia "/gui" a la ruta de tu página de inicio de sesión
-    }
-  }, [navigate]);
+    // Verifica si hay un token en sessionStorage
+    const token = sessionStorage.getItem("token");
 
+    // Si no hay token, redirige a la página de inicio de sesión
+    if (!token) {
+      navigate("/login"); // Cambia "/login" a la ruta de tu página de inicio de sesión
+      return;
+    }
+
+    // Verifica si el rol no es "Admin" o "Gui"
+    if (userRole !== "Admin" && userRole !== "Gui") {
+      navigate("/error"); // Redirige a una página de error si el rol no es adecuado
+    }
+  }, [userRole, navigate]);
 
   const toggleAside = () => {
     setIsDeployed(!isDeployed);
   };
 
   const handleLogout = () => {
-    // Borra el token del local storage
-    localStorage.removeItem("token");
+    // Borra el token de sessionStorage
+    sessionStorage.removeItem("token");
     // Redirige a la página de inicio de sesión
-    navigate("/gui"); // Cambia "/gui" a la ruta de tu página de inicio de sesión
+    navigate("/login"); // Cambia "/login" a la ruta de tu página de inicio de sesión
   };
 
   return (
@@ -58,10 +56,11 @@ function Home_Gui() {
         </button>
         <img
           src="https://static.vecteezy.com/system/resources/previews/009/126/808/non_2x/gui-logo-gui-letter-gui-letter-logo-design-initials-gui-logo-linked-with-circle-and-uppercase-monogram-logo-gui-typography-for-technology-business-and-real-estate-brand-vector.jpg"
-          alt=""
+          alt="Logo"
         />
         <h2>Nombre de la institucion</h2>
       </nav>
+
       <aside id="aside" className={isDeployed ? "desplegar" : ""}>
         <div className="container-svg">
           <div>
@@ -110,3 +109,4 @@ function Home_Gui() {
 }
 
 export default Home_Gui;
+

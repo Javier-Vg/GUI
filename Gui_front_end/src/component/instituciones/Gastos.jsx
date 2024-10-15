@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import {postGastos} from '../../service/LoginGui';
-
+import { useSelector} from "react-redux";
 function GastosGanancias() {
   const [estado, setEstado] = useState({
     luz: '',
@@ -82,7 +82,7 @@ function GastosGanancias() {
     const datos = {
       ...estado,  // Incluye todos los campos del estado
       balance: estado.balance,
-      institution: localStorage.getItem('InstitutionID'),  // Asegúrate de que este campo sea el ID correcto
+      institution: useSelector((state) => state.ids.institutionId) // Obtén el ID de la institución
     };
     await postGastos(datos)
     try {

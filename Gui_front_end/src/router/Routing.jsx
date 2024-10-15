@@ -5,6 +5,7 @@ import Home_Gui from '../page/Home_Gui'
 import HomeInstitutions from '../page/HomeInstitutions';
 import LoginRol from '../page/LoginRol';
 import HomePadres from '../page/Homepadres';
+import Error from '../component/error/error'
 
 function Routing() {
 
@@ -18,6 +19,7 @@ function Routing() {
             <Route path="/institutions" element={<HomeInstitutions />} />
             <Route path="/login" element={<LoginRol />} />
             <Route path="/home_padres" element={<HomePadres />} />
+            <Route path="/error" element={<Error />} />
           </Routes>
         </Router>
     </div>

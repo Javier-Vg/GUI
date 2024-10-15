@@ -74,6 +74,7 @@ import taskReducer from '../Redux/Slices/SliceTask';
 import loginReducer from '../Redux/Slices/SliceLogin';
 import contractReducer from '../Redux/Slices/SliceContract';
 import eventReducer from '../Redux/Slices/SliceEvent';
+import idsReducer from './Slices/IdSlice';
 
 const isDev = process.env.NODE_ENV === 'development';
 
@@ -96,6 +97,7 @@ const rootReducer = combineReducers({
     contract: contractReducer,
     event: eventReducer,
     infInstitution: SliceInfInstitution,
+    ids: idsReducer,
 });
 
 // Aplicar persistencia al rootReducer

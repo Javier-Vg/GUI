@@ -6,7 +6,6 @@ import { fetchSubjects } from '../../Redux/Slices/SliceSubjects';
 import { fetchInstitution } from '../../Redux/Slices/SliceInstitution';
 import { fetchStaff } from '../../Redux/Slices/SliceStaff';
 import { toast } from "react-toastify";
-
 function CreateGroup() {
   
   //Redux
@@ -24,7 +23,7 @@ function CreateGroup() {
   }, [dispatch]);
 
   //Local Storage institucion id
-  const institutionId = sessionStorage.getItem("InstitutionID");
+  const institution_id = useSelector((state) => state.ids.institutionId); // Obtén el ID de la institución
 
   //Alamacena los inputs
   const [Name, setName] = useState();
@@ -58,7 +57,7 @@ function CreateGroup() {
 
      //Filtra los estudiantes:
      itemsStaff.forEach((i) => {
-      if (i.position == "Teacher" && institutionId == i.institution) { //MOSTRAR MENSAJE EN CASO DE QUE NO EXISTA PROFESOR DE ESA INSTITUCION. 
+      if (i.position == "Teacher" && institution_id == i.institution) { //MOSTRAR MENSAJE EN CASO DE QUE NO EXISTA PROFESOR DE ESA INSTITUCION. 
         setTeachersFiltred((prevTeachersFiltred) => [...prevTeachersFiltred,i,]);
       }
     }); 
@@ -74,7 +73,7 @@ const Post = () => {
     educational_level: educationLevel,
     capacity: capacity,
     classroom: classroom,
-    institution: institutionId,
+    institution: institution_id,
     communication_of_subjects_and_teacher: objectStudentsSubjects,
     current_students: 0
   };

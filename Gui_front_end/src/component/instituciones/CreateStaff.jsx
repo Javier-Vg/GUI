@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { postStaff, getContracts, getSchedule } from '../../service/LoginGui';
+import { postStaff } from '../../service/LoginGui';
 import { fetchContract } from '../../Redux/Slices/SliceContract';
 import { fetchSchedule } from '../../Redux/Slices/SliceSchedule';
 import { setID } from '../../Redux/Slices/SliceInstitution';
@@ -13,32 +13,28 @@ function CreateStaff() {
   const [changeNombre, setChangeNombre] = useState('');
   const [changeApellidos, setChangeApellidos] = useState('');
   const [changeIdentificacion, setChangeIdentificacion] = useState('');
-
   const [changeFechaNacimiento, setChangeFechaNacimiento] = useState('');
   const [changeDireccion, setChangeDireccion] = useState('');
   const [changeTelefono, setChangeTelefono] = useState('');
-
   const [changeEstadoTrabajador, setChangeEstadoTrabajador] = useState('');
   const [changeCorreo, setChangeCorreo] = useState('');
   const [changePuesto, setChangePuesto] = useState('');
   const [changeImagen, setChangeImagen] = useState(null);
-
   const [changeContratoId, setChangeContratoId] = useState('');
   const [changeHorarioId, setChangeHorarioId] = useState('');
   const [changePassword, setChangePassword] = useState('');
-  // const [InstitutionId, setInstitutionId] = useState(1);
-
-
   const [formMessage, setFormMessage] = useState('');
+  const [errors, setErrors] = useState({});
+  
+  // Estado para manejar la autorización
+  const [isAuthorized, setIsAuthorized] = useState(false);
 
-  //Estados de Staff:
+  // Estados de Staff:
   const itemsContracts = useSelector(state => state.contract.items); 
   const itemsSchedule = useSelector(state => state.schedule.items);  
   const dispatch = useDispatch();
 
-  const [errors, setErrors] = useState({});
-
-  const institution_id = sessionStorage.getItem('InstitutionID');
+  const institution_id = useSelector((state) => state.ids.institutionId); // Obtén el ID de la institución
 
   const handleFileChange = (e) => {
     const file = e.target.files[0];
@@ -99,11 +95,6 @@ function CreateStaff() {
       const data = await response.json();
       const imageUrl = data.image_url;
 
-      // Expresión regular para validar el formato del correo electrónico
-      const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-      const dateRegex = /^\d{4}-(0[1-9]|1[0-2])-(0[1-9]|[12]\d|3[01])$/;
-      let confimacion = true
-
       const staff = {
         username: changeNombre,
         last_name: changeApellidos,
@@ -118,37 +109,12 @@ function CreateStaff() {
         contract: changeContratoId,
         institution: institution_id,
         schedule: changeHorarioId,
-        password: changePassword
+        password: changePassword,
+        authorization: isAuthorized // Añadir el estado de autorización
       };
-
-      //Validaciones
-      for (const [key, value] of Object.entries(staff)) {
-        
-        // Validar el correo electrónico
-        if (key == "email"){
-          if (!emailRegex.test(changeCorreo)) {
-            alert('Por favor, ingrese un correo electrónico válido')
-            confimacion = false
-          } else {
-            console.log("correo validado correctamente");
-          }
-        }
-        // Validar la fecha
-        if (key == "birthdate_date"){
-          if (!dateRegex.test(changeFechaNacimiento)) {
-            alert('Por favor, ingrese una fecha válida')
-            confimacion = false
-          } else {
-            console.log("fecha validado correctamente");
-          }
-        }
-      }
-
-      if (confimacion){
-        await postStaff(staff); //Envia los datos
-      }
-
-      // setFormMessage("Personal creado exitosamente"); // Mostrar mensaje de éxito
+      
+      await postStaff(staff); // Envia los datos
+      setFormMessage("Personal creado exitosamente"); // Mostrar mensaje de éxito
     } catch (error) {
       console.error("Error al enviar los datos:", error);
       toast.error("Error.");
@@ -268,12 +234,23 @@ function CreateStaff() {
           {errors.horario && <p className="error">{errors.horario}</p>}
           {formMessage && <p>{formMessage}</p>}
         </label>
+        {/* Checkbox de autorización */}
+        <label>
+          Autorización:
+          <input
+            type="checkbox"
+            checked={isAuthorized}
+            onChange={(e) => setIsAuthorized(e.target.checked)} // Actualizar el estado al cambiar
+          />
+        </label>
         <br />
+
         <button type="submit">ENVIAR</button>
       </form>
-
     </div>
   );
 }
 
 export default CreateStaff;
+
+
