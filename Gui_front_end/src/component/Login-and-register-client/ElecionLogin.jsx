@@ -74,12 +74,13 @@ function ElecionLogin() {
           imgInstitution: response.data.imgInstitution,
           nameInstitution: response.data.Name,
         }));//
+        console.log(response.data)
         
         // Almacenar el token y el id de la institución en localStorage
 
         sessionStorage.setItem("InstitutionID", response.data.institution);
         sessionStorage.setItem("StaffID", response.data.staff_id);
-        sessionStorage.setItem("StudentID", response.data.estudiante); // Guardar el ID del estudiante
+        sessionStorage.setItem("StudentID", response.data.StudentID); // Guardar el ID del estudiante
         sessionStorage.setItem("token", response.data.token);
 
 

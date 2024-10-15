@@ -46,6 +46,6 @@ class staff(models.Model):
         super(staff, self).save(*args, **kwargs)
 
     def __str__(self):
-        return self.name
+        return self.username
 
 

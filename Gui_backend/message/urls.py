@@ -7,4 +7,5 @@ router.register(r'message', MessageViewSet)
 
 urlpatterns = [
     path('', include(router.urls)),
+    path('messages/teacher-messages/<int:teacher_id>/', MessageViewSet.as_view({'get': 'list_teacher_messages'}), name='teacher-messages'),
 ]
