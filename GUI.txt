@@ -29,3 +29,4 @@ npm i redux-thunk
 
 Alertas:
 npm i react-toastify
+
