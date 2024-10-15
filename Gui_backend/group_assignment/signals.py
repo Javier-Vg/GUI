@@ -5,13 +5,15 @@ from .models import group_assignment
 @receiver(post_save, sender=group_assignment)
 def incrementar_current_students(sender, instance, created, **kwargs):
     if created:
-        instance.group.current_students += 1
-        instance.group.save()
+        if instance.group.capacity != instance.group.current_students:
+            instance.group.current_students += 1
+            instance.group.save()
 
 @receiver(post_delete, sender=group_assignment)
 def decrementar_current_students(sender, instance, **kwargs):
     if instance.group.current_students > 0:
         instance.group.current_students -= 1
+        instance.group.group -= 1
     instance.group.save()
     # 'group' es la foranea de la tabla group_assignment
     
