@@ -8,7 +8,7 @@ const Chat = () => {
     
     const storedStudentId = sessionStorage.getItem('StudentID');
     const storedStudentName = sessionStorage.getItem('StudentName');
-    const storedInstitutionId = sessionStorage.getItem('institutionID'); // Obtener institutionID desde sessionStorage
+    const storedInstitutionId = sessionStorage.getItem('InstitutionID'); // Obtener institutionID desde sessionStorage
     
     const [studentName, setStudentName] = useState(storedStudentName || '');
     const [teachers, setTeachers] = useState([]);
