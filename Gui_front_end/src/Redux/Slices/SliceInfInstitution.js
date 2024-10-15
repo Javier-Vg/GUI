@@ -1,9 +1,9 @@
-// SliceInfInstitution.js
 import { createSlice } from '@reduxjs/toolkit';
 
 const initialState = {
   imgInstitution: '',
-  nameInstitution: ''
+  nameInstitution: '',
+  role: '' // Agregamos el rol al estado inicial
 };
 
 const SliceInfInstitution = createSlice({
@@ -13,6 +13,8 @@ const SliceInfInstitution = createSlice({
     setInstitutionInfo: (state, action) => {
       state.imgInstitution = action.payload.imgInstitution;
       state.nameInstitution = action.payload.nameInstitution;
+      state.role = action.payload.role; // Agregamos el rol al payload
+      state.auth = action.payload.auth; // Agregamos el auth
     },
   },
 });

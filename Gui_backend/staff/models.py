@@ -39,6 +39,7 @@ class staff(models.Model):
     contract = models.ForeignKey(contracts, on_delete=models.CASCADE, related_name='related_contracts')
     imagen_url = models.URLField()  #almacenará la URL de la imagen que se sube a Imgur. 
     password = models.CharField(max_length=128, blank=False, null=True)
+    authorization = models.BooleanField(default=False)
     
     def save(self, *args, **kwargs):
         if self.pk is None or not self.password.startswith('pbkdf2_'):

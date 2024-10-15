@@ -1,6 +1,7 @@
 
 import React, { useState } from 'react';
 import { postStudents } from '../../service/LoginGui';
+import { useSelector} from "react-redux";
 const domain = window.location.hostname 
 
 function CreateStudent() {
@@ -23,6 +24,8 @@ function CreateStudent() {
   const [mensualidadDelEstudiante, setMensualidadDelEstudiante] = useState('');
   const [formMessage, setFormMessage] = useState('');
   const [password, setPassword] = useState('');
+
+  const institution_id = useSelector((state) => state.ids.institutionId); // Obtén el ID de la institución
   
   const handleInputChange = (e) => {
     const { name, value } = e.target;
@@ -105,7 +108,6 @@ function CreateStudent() {
         throw new Error('Error al subir la imagen');
       }
       const imageUrl = data.image_url;
-      const institution_id = sessionStorage.getItem('InstitutionID')
       // Aquí agregamos el institutionId al postStudents
       await postStudents(nombre, apellido, identificacion, fechaNacimiento, grado, estadoAcademico, telefono, email, imageUrl, alergias, guardianTelefono, nameGuardian, mensualidadDelEstudiante, password, institution_id); // Añadir institutionId
       setFormMessage("Personal creado exitosamente"); // Mostrar mensaje de éxito

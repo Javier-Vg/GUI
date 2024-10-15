@@ -1,11 +1,13 @@
 import React, { useState } from 'react';
 import { toast } from 'react-toastify'; // Asegúrate de que tienes react-toastify instalado
+import { useSelector} from "react-redux";
 import { postSubjects } from '../../service/LoginGui';
 
 const ManageSubjects = () => {
     const [subjectName, setSubjectName] = useState('');
 
-    const InstitutionID = sessionStorage.getItem('InstitutionID'); // Obtener el ID de la institución del localStorage
+    const institution_id = useSelector((state) => state.ids.institutionId); // Obtén el ID de la institución
+
     
     const saveSubject = async () => {
         const subject = {
