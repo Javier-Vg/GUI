@@ -1,28 +1,30 @@
 import React, { useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
-import { setInstitutionInfo } from '../../Redux/Slices/SliceInfInstitution';  // Importa la acción
-
+import { setInstitutionInfo } from '../../Redux/Slices/SliceInfInstitution';
+import { setStaffId, setInstitutionId } from '../../Redux/Slices/IdSlice';
 import { useNavigate } from "react-router-dom";
 import LoginProfesor from "./LoginProfesor";
-
-import LoginInstitucion from "./LoginInstitucion";
+import LoginFormGui from '../Login_and_Register_Gui/LoginFormGui';
 import LoginPadres from "./LoginPadres";
-
 import "../../css/Eleccion_login.css";
 import axios from "axios";
 
 function ElecionLogin() {
-
-  const [changeComponent, setChangeComponent] = useState("institution");
-  const [message, setMessage] = useState("ㅤㅤㅤㅤㅤㅤ"); 
+  const [changeComponent, setChangeComponent] = useState('personal');
+  const [message, setMessage] = useState(""); 
 
   const username = useSelector((state) => state.login.username);
   const password = useSelector((state) => state.login.password); 
-
   const dispatch = useDispatch();
   const navigate = useNavigate();
-
   const domain = window.location.hostname;
+
+  // Mapeo de componentes y sus rutas/endpoint
+  const componentMap = {
+    gui: { component: <LoginFormGui />, endpoint: `http://${domain}:8000/api/gui/login/`, redirect: "/gui_home" },
+    personal: { component: <LoginProfesor />, endpoint: `http://${domain}:8000/api/staff/login/`, redirect: "/institutions" },
+    parents: { component: <LoginPadres />, endpoint: `http://${domain}:8000/api/students/login/`, redirect: "/home_padres" }
+  };
 
   // Validación de los campos
   const validateInputs = () => {
@@ -35,60 +37,41 @@ function ElecionLogin() {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    
     if (!validateInputs()) return;
-  
-    // Definir la URL en función del componente seleccionado
-    let redirectRoute;
-    let apiEndpoint;
-    switch (changeComponent) {
-      case "institution":
-        apiEndpoint = `http://${domain}:8000/api/institutions/login/`;
-        redirectRoute = "/institutions"; 
-        break;
-      case "teacher":
-        apiEndpoint = `http://${domain}:8000/api/staff/login/`; // Cambia este endpoint según tu backend
-        redirectRoute = "/institutions"; // Redirigir a la página de profesores
-        break;
-      case "parents":
-        apiEndpoint = `http://${domain}:8000/api/students/login/`; // Cambia este endpoint según tu backend
-        redirectRoute = "/home_padres"; // Redirigir a la página de padres
-        break;
-      default:
-        setMessage("Rol no válido");
-        return;
+
+    const { endpoint, redirect } = componentMap[changeComponent] || {};
+
+    if (!endpoint) {
+      setMessage("Rol no válido");
+      return;
     }
+
     try {
-      const response = await axios.post(
-        apiEndpoint,
-        { username, password },
-        {
-          headers: {
-            "Content-Type": "application/json",
-          },
-          
-        }
-      );
-  
+      const response = await axios.post(endpoint, { username, password }, {
+        headers: { "Content-Type": "application/json" },
+      });
+
       if (response.data.token) {
         dispatch(setInstitutionInfo({
           imgInstitution: response.data.imgInstitution,
           nameInstitution: response.data.Name,
-        }));//
+          role: response.data.rol,
+          auth: response.data.auth,
+        }));
+        console.log(response.data);
         
-        // Almacenar el token y el id de la institución en localStorage
-
-        sessionStorage.setItem("InstitutionID", response.data.institution);
+        dispatch(setStaffId(response.data.staff_id));
+        dispatch(setInstitutionId(response.data.institution));
+        sessionStorage.setItem("InstitutionID", response.data.institutionID);
         sessionStorage.setItem("StaffID", response.data.staff_id);
-        sessionStorage.setItem("StudentID", response.data.estudiante); // Guardar el ID del estudiante
+        sessionStorage.setItem("StudentID", response.data.StudentID); // Guardar el ID del estudiante
         sessionStorage.setItem("token", response.data.token);
-
-
         dispatch({ type: "LOGIN_SUCCESS", payload: response.data.token });
         setMessage("Login exitoso");
+
         // Redirigir según el rol seleccionado
-        setTimeout(() => {
-          navigate(redirectRoute);
-        }, 1000);
+        setTimeout(() => navigate(redirect), 1000);
       }
     } catch (error) {
       setMessage("Credenciales inválidas");
@@ -101,15 +84,15 @@ function ElecionLogin() {
     <div className="container">
       <div className="grid">
         <div className="flex-options">
-          <div onClick={() => setChangeComponent("institution")}>Institución</div>
-          <div onClick={() => setChangeComponent("teacher")}>Profesor</div>
-          <div onClick={() => setChangeComponent("parents")}>Padre</div>
+          {Object.keys(componentMap).map((role) => (
+            <div key={role} onClick={() => setChangeComponent(role)}>
+              {role.charAt(0).toUpperCase() + role.slice(1)} {/* Capitaliza el nombre del rol */}
+            </div>
+          ))}
         </div>
 
         <div className="grid-login">
-          {changeComponent === "teacher" && <LoginProfesor />}
-          {changeComponent === "institution" && <LoginInstitucion />}
-          {changeComponent === "parents" && <LoginPadres />}
+          {componentMap[changeComponent]?.component}
         </div>
         <div className="input-msg">
           <div className="div-inp-1">{message && <p>{message}</p>}</div>
@@ -125,4 +108,3 @@ function ElecionLogin() {
 }
 
 export default ElecionLogin;
-

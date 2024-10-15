@@ -10,8 +10,7 @@ function ListStaff() {
   const [staff, setStaff] = useState([]);
   const [modal, setModal] = useState(false);
   const [selectedStaff, setSelectedStaff] = useState(null);
-  const institution_id = sessionStorage.getItem('InstitutionID');  // Obtener el institution_id del localStorage
-
+  const institution_id = useSelector((state) => state.ids.institutionId); // Obtén el ID de la institución
   const dispatch = useDispatch();
 
   //Estados de Staff:

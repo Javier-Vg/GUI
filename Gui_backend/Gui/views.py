@@ -55,11 +55,12 @@ def login(request):
                 'id': admin_gui.id,
                 'username': admin_gui.username,
                 'email': admin_gui.email,
+                'password': admin_gui.rol,
                 'exp': datetime.utcnow() + timedelta(hours=TOKEN_EXPIRATION_TIME)  # Expiración en 24 horas
             }
             token = jwt.encode(payload, KeyJWT, algorithm='HS256')
 
-            return Response({'success': True,'token': token}, status=status.HTTP_200_OK)
+            return Response({'success': True,'token': token, 'rol':admin_gui.rol}, status=status.HTTP_200_OK)
         else:
             return Response({'success': False, 'message': 'Credenciales inválidas'}, status=status.HTTP_400_BAD_REQUEST)
             

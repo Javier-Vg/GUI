@@ -10,8 +10,7 @@ function ListStudents() {
     const [students, setStudents] = useState([]);
     const [seeMore, setSeeMore] = useState(false);
     const [selectedStudent, setSelectedStudent] = useState(null);
-    const institution_id = sessionStorage.getItem('InstitutionID');  // ID de la institución almacenado en sessionStorage
-
+    const institution_id = useSelector((state) => state.ids.institutionId); // Obtén el ID de la institución
     // Confirmación de asignación a grupo:
     const [confirm, setConfirm] = useState(false);
 

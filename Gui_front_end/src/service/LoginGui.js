@@ -270,3 +270,30 @@ export const postGastos = async (datos) => {
     throw error;
   }
 };
+
+// ///////////////////////////////////////////////////////////////////////////////
+
+
+// Enviar mensaje
+export const sendMessage = async (messageData) => {
+  try {
+    const response = await axios.post(`http://${domain}:8000/api/message/message/`, messageData, {
+      headers: {
+        'Content-Type': 'application/json',
+      },
+    });
+    return response.data; // Devuelve el mensaje guardado desde el backend
+  } catch (error) {
+    throw new Error('Error al enviar el mensaje');
+  }
+};
+
+// Obtener mensajes de un profesor específico
+// export const fetchMessagesForTeacher = async (teacherId) => {
+//   try {
+//     const response = await axios.get(`/api/messages/teacher-messages/${teacherId}/`);
+//     return response.data;
+//   } catch (error) {
+//     throw new Error('Error al obtener los mensajes');
+//   }
+// };

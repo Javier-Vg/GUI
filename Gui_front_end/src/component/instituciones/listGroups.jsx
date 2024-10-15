@@ -8,8 +8,7 @@ function ListGroups() {
     const [groups, setGroups] = useState([]);
     const [seeMore, setSeeMore] = useState(false);
     const [selectedGroup, setSelectedGroups] = useState(null);
-    const institution_id = sessionStorage.getItem('InstitutionID');  // ID de la institución almacenado en localStorage
-
+    const institution_id = useSelector((state) => state.ids.institutionId); // Obtén el ID de la institución
     const dispatch = useDispatch();
 
     //Estados de Staff:
