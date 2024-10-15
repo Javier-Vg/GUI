@@ -1,6 +1,6 @@
 from django.db.models.signals import post_save, post_delete
 from django.dispatch import receiver
-from .models import students, group_assignment
+from .models import group_assignment
 
 @receiver(post_save, sender=group_assignment)
 def incrementar_current_students(sender, instance, created, **kwargs):
@@ -10,7 +10,8 @@ def incrementar_current_students(sender, instance, created, **kwargs):
 
 @receiver(post_delete, sender=group_assignment)
 def decrementar_current_students(sender, instance, **kwargs):
-    instance.group.current_students -= 1
+    if instance.group.current_students > 0:
+        instance.group.current_students -= 1
     instance.group.save()
     # 'group' es la foranea de la tabla group_assignment
     
