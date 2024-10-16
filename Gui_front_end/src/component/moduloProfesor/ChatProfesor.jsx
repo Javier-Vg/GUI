@@ -6,26 +6,34 @@ const ChatProfesor = () => {
     const [message, setMessage] = useState('');
     const [messages, setMessages] = useState([]);
     const [students, setStudents] = useState([]);
-    const [studentId, setStudentId] = useState(null); // Estado para almacenar el ID del estudiante seleccionado
+    const [studentId, setStudentId] = useState(null);
 
     // Obtener el StaffID (nombre del profesor) y el ID de la institución desde sessionStorage
-    const storedStaffId = sessionStorage.getItem('StaffID'); // StaffID del profesor
-    const storedInstitutionId = sessionStorage.getItem('InstitutionID'); // ID de la institución
+    const storedStaffId = sessionStorage.getItem('StaffID'); 
+    const storedInstitutionId = sessionStorage.getItem('InstitutionID'); 
     
-    const [staffId, setStaffId] = useState(storedStaffId || '');  // Actualizar para usar StaffID
+    const [staffId, setStaffId] = useState(storedStaffId || '');  
     const [institutionId, setInstitutionId] = useState(storedInstitutionId || '');
     
     useEffect(() => {
         const fetchStudents = async () => {
             try {
                 const studentList = await getStudents(); // Obtener lista de estudiantes desde la API
-                setStudents(studentList);
+                console.log("Lista de estudiantes:", studentList); // Verifica la estructura de los datos
+                console.log("Institution IDpRUEBA:", institutionId); // Verifica el valor de institutionId
+        
+                // Filtrar estudiantes por el ID de la institución
+                const filteredStudents = studentList.filter(student => student.institution.toString() === institutionId);
+                setStudents(filteredStudents);
+                console.log("Estudiantes filtradosPRUEBA:", filteredStudents); // Verifica los estudiantes filtrados
+        
             } catch (error) {
                 console.error('Error al cargar los estudiantes:', error);
             }
         };
+        
         fetchStudents();
-    }, []);
+    }, [institutionId]);
 
     // useEffect para actualizar el ID del estudiante cuando cambie la selección
     useEffect(() => {
@@ -38,14 +46,14 @@ const ChatProfesor = () => {
         if (message.trim() && selectedStudent) {
             const newMessage = {
                 message: message,
-                students: studentId, // Usar el ID del estudiante seleccionado
-                staff: staffId,  // Usar StaffID en lugar de teacherName
-                institution: institutionId, // Usar institutionID del sessionStorage
+                students: studentId, 
+                staff: staffId, 
+                institution: institutionId, 
             };
             
             try {
                 const savedMessage = await sendMessage(newMessage);
-                setMessages([...messages, { ...savedMessage, transmitterName: staffId || "Profesor" }]); // Usar StaffID para el nombre del transmisor
+                setMessages([...messages, { ...savedMessage, transmitterName: staffId || "Profesor" }]);
                 setMessage('');
                 alert('Mensaje enviado correctamente');
             } catch (error) {
