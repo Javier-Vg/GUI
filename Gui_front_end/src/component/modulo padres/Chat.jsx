@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { sendMessage, getStaff } from '../../service/LoginGui'; // Asegúrate de que la ruta sea correcta
+import { sendMessage, getStaff, getMessages } from '../../service/LoginGui'; // Asegúrate de que la ruta sea correcta
 
 const Chat = () => {
     const [selectedTeacher, setSelectedTeacher] = useState(null);
@@ -33,6 +33,21 @@ const Chat = () => {
         };
 
         fetchTeachers();
+    }, []);
+
+    // Nueva función para obtener todos los mensajes
+    const fetchMessages = async () => {
+        try {
+            const allMessages = await getMessages(); // Obtener todos los mensajes desde la API
+            setMessages(allMessages); // Almacenar los mensajes en el estado
+        } catch (error) {
+            console.error('Error al cargar los mensajes:', error);
+        }
+    };
+
+    // Llamar a fetchMessages cuando se monte el componente
+    useEffect(() => {
+        fetchMessages();
     }, []);
 
     const handleSendMessage = async () => {
@@ -71,14 +86,10 @@ const Chat = () => {
         }
     };
 
-    const filteredMessages = selectedTeacher 
-        ? messages.filter(msg => msg.receiver_student === selectedTeacher)
-        : [];
-
     return (
-        <div>
-            <h2>Chat con Profesores</h2>
-            <div>
+        <div className="chat-container">
+            <div className="header">Chat con Profesores</div>
+            <div className="teacher-selector">
                 <label>Selecciona un Profesor:</label>
                 <select onChange={(e) => setSelectedTeacher(e.target.value)} defaultValue="">
                     <option value="" disabled>Selecciona un profesor</option>
@@ -87,7 +98,7 @@ const Chat = () => {
                     ))}
                 </select>
             </div>
-            <div>
+            <div className="message-input">
                 <textarea 
                     value={message}
                     onChange={(e) => setMessage(e.target.value)}
@@ -95,16 +106,16 @@ const Chat = () => {
                 />
                 <button onClick={handleSendMessage}>Enviar</button>
             </div>
-            <div>
+            <div className="messages">
                 <h3>Mensajes</h3>
-                {filteredMessages.length > 0 ? (
-                    filteredMessages.map(msg => (
-                        <div key={msg.id}>
-                            <p><strong>{msg.transmitterName}:</strong> {msg.message} <em>({new Date(msg.date).toLocaleString()})</em></p>
+                {messages.length > 0 ? (
+                    messages.map(msg => (
+                        <div className="message" key={msg.id}>
+                            <p><strong>{msg.transmitterName}:</strong> {msg.message} <span className="timestamp">({new Date(msg.date).toLocaleString()})</span></p>
                         </div>
                     ))
                 ) : (
-                    <p>No hay mensajes para este profesor.</p>
+                    <p>No hay mensajes en la conversación.</p>
                 )}
             </div>
         </div>

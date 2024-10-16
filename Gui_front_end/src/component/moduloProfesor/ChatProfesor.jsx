@@ -6,14 +6,15 @@ const ChatProfesor = () => {
     const [message, setMessage] = useState('');
     const [messages, setMessages] = useState([]);
     const [students, setStudents] = useState([]);
+    const [studentId, setStudentId] = useState(null); // Estado para almacenar el ID del estudiante seleccionado
 
-    // Obtener el nombre del profesor y el ID de la institución desde sessionStorage
-    const storedTeacherName = sessionStorage.getItem('StaffID'); // Nombre del profesor
+    // Obtener el StaffID (nombre del profesor) y el ID de la institución desde sessionStorage
+    const storedStaffId = sessionStorage.getItem('StaffID'); // StaffID del profesor
     const storedInstitutionId = sessionStorage.getItem('InstitutionID'); // ID de la institución
-
-    const [teacherName, setTeacherName] = useState(storedTeacherName || '');
+    
+    const [staffId, setStaffId] = useState(storedStaffId || '');  // Actualizar para usar StaffID
     const [institutionId, setInstitutionId] = useState(storedInstitutionId || '');
-
+    
     useEffect(() => {
         const fetchStudents = async () => {
             try {
@@ -23,24 +24,28 @@ const ChatProfesor = () => {
                 console.error('Error al cargar los estudiantes:', error);
             }
         };
-
         fetchStudents();
     }, []);
+
+    // useEffect para actualizar el ID del estudiante cuando cambie la selección
+    useEffect(() => {
+        if (selectedStudent) {
+            setStudentId(selectedStudent); // Actualiza el estado del ID del estudiante
+        }
+    }, [selectedStudent]);
 
     const handleSendMessage = async () => {
         if (message.trim() && selectedStudent) {
             const newMessage = {
                 message: message,
-                receiver_student: selectedStudent,
-                transmitter_teacher: teacherName,
+                students: studentId, // Usar el ID del estudiante seleccionado
+                staff: staffId,  // Usar StaffID en lugar de teacherName
                 institution: institutionId, // Usar institutionID del sessionStorage
-                date: new Date().toISOString(),
             };
-            console.log(newMessage);
             
             try {
                 const savedMessage = await sendMessage(newMessage);
-                setMessages([...messages, { ...savedMessage, transmitterName: teacherName || "Profesor" }]);
+                setMessages([...messages, { ...savedMessage, transmitterName: staffId || "Profesor" }]); // Usar StaffID para el nombre del transmisor
                 setMessage('');
                 alert('Mensaje enviado correctamente');
             } catch (error) {
