@@ -101,9 +101,22 @@ function HomeInstitutionsForm() {
                 <input type="radio" id="crearGrupo" name="changeComponent" style={{ display: "none" }} />
                 <label htmlFor="crearGrupo">Crear Grupo</label>
               </div>
-              <div onClick={() => setChangeComponent("materias")} className="inputBoton">
+              <div onClick={() => setChangeComponent("crear materias")} className="inputBoton">
                 <input type="radio" id="materias" name="changeComponent" style={{ display: "none" }} />
                 <label htmlFor="materias">Crear Materias</label>
+              </div>
+              <hr />
+              <div onClick={() => setChangeComponent("profesor")} className="inputBoton">
+                <input type="radio" id="crearPersonal" name="changeComponent" style={{ display: "none" }} />
+                <label htmlFor="personal">Personal</label>
+              </div>
+              <div onClick={() => setChangeComponent("estudiante")} className="inputBoton">
+                <input type="radio" id="estudiantes" name="changeComponent" style={{ display: "none" }} />
+                <label htmlFor="estudiantes">Estudiantes</label>
+              </div>
+              <div onClick={() => setChangeComponent("grupos")} className="inputBoton">
+                <input type="radio" id="grupos" name="changeComponent" style={{ display: "none" }} />
+                <label htmlFor="grupos">Grupos</label>
               </div>
               <div onClick={() => setChangeComponent("gastos")} className="inputBoton">
                 <input type="radio" id="gastos" name="changeComponent" style={{ display: "none" }} />
@@ -132,11 +145,12 @@ function HomeInstitutionsForm() {
         <div className="div-components">
           {changeComponent === "crear personal" && <CreateStaff />}
           {changeComponent === "crear estudiante" && <CreateStudent />}
+          {changeComponent === "Crear Grupo" && <CreateGroup />}
+          {changeComponent === "crear materias" && <ManageSubjects />}
+
           {changeComponent === "profesor" && <ListStaff />}
           {changeComponent === "estudiante" && <ListStudent />}
           {changeComponent === "gastos" && <Gastos />}
-          {changeComponent === "materias" && <ManageSubjects />}
-          {changeComponent === "Crear Grupo" && <CreateGroup />}
           {changeComponent === "grupos" && <ListGroups />}
           {changeComponent === "teacherStudents" && <StudentsTeacher />}
           {changeComponent === "teacherGrupos" && <GroupsTeacher />}

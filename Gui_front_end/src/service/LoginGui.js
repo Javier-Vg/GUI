@@ -129,6 +129,19 @@ export const getStaff = async () => {
       throw error;
     }
   };
+export const putStaff = async (staff) => {
+  try {
+    const response = await axios.put(`http://${domain}:8000/api/staff/staff/${staff.id}/`, staff, {
+      headers: {
+        'Content-Type': 'application/json',
+      },
+    });
+    return response.data;
+  } catch (error) {
+    console.error("Error haciendo la solicitud:", error);
+    throw error;
+  }
+};
   export const getStudents = async () => {
     try {
       const response = await axios.get(`http://${domain}:8000/api/students/students/`);
