@@ -1,68 +1,118 @@
-import React, { useEffect } from 'react'
-import { useDispatch, useSelector } from 'react-redux';
+import React, { useEffect, useState } from 'react';
 import { fetchGroups } from '../../../Redux/Slices/SliceGroup';
+import { useDispatch, useSelector } from 'react-redux';
 
-function GroupsTeacher() {
+function ListGroups() {
+    const [groups, setGroups] = useState([]);
+    const [seeMore, setSeeMore] = useState(false);
+    const [selectedGroup, setSelectedGroups] = useState(null);
+    const institution_id = useSelector((state) => state.ids.institutionId); // Obtén el ID de la institución
+    const dispatch = useDispatch();
 
-  const dispatch = useDispatch();
+    //Estados de Staff:
+    const items= useSelector(state => state.group.items);
+    const loading = useSelector(state => state.group.loading);
+    const error = useSelector(state => state.group.error); 
 
-  useEffect(() => {
-    dispatch(fetchGroups()); // Llama a la acción para obtener productos al cargar el componente
-  }, [dispatch]);
+    useEffect(() => {
+        dispatch(fetchGroups()); // Llama a la acción para obtener productos al cargar el componente
+    }, [dispatch]);
 
-  const grupos = useSelector((state) => state.group.items);
+    useEffect(() => {
+        setGroups([]);
+        for (let i = 0; i < items.length; i++) {      
+          
+            if (items[i].institution === parseInt(institution_id, 10)) {
+              // Actualiza el valor de la clave correspondiente
+              setGroups((prevFiltred) => [...prevFiltred, items[i]]);
+            };
+        }
+    }, [items]);
 
-  console.log(grupos);
-  const data = [
-    { name: 'John', age: 28, city: 'New York' },
-    { name: 'Jane', age: 34, city: 'Los Angeles' },
-    { name: 'Mike', age: 45, city: 'Chicago' },
-  ];
+    const itemJSON = items.communication_of_subjects_and_teacher;  
+        console.log(itemJSON);
 
-  const cellWidth = 100;
-  const cellHeight = 40;
-  
+    const openModal = (group) => {
+        setSelectedGroups(group);
+        setSeeMore(true);
+    };
 
-  return (
-    <div>
-      
-      {/* {grupos && (
-        Object.keys(grupos.communication_of_subjects_and_teacher).map((key, index) => (
-        <p>{grupos.communication_of_subjects_and_teacher[key]}</p>
-                                
-                                
-                                
-      ))
-      )} */}
+    const closeModal = () => {
+        setSeeMore(false);
+        setSelectedGroups(null);
+    };
 
-      <svg width={cellWidth * 3} height={cellHeight * (data.length + 1)}>
-      {/* Header */}
-      <rect x="0" y="0" width={cellWidth} height={cellHeight} fill="#ddd" />
-      <rect x={cellWidth} y="0" width={cellWidth} height={cellHeight} fill="#ddd" />
-      <rect x={cellWidth * 2} y="0" width={cellWidth} height={cellHeight} fill="#ddd" />
-      <text x={cellWidth / 2} y={cellHeight / 2} textAnchor="middle" dominantBaseline="middle" fontSize="16" fill="black">Name</text>
-      <text x={cellWidth * 1.5} y={cellHeight / 2} textAnchor="middle" dominantBaseline="middle" fontSize="16" fill="black">Age</text>
-      <text x={cellWidth * 2.5} y={cellHeight / 2} textAnchor="middle" dominantBaseline="middle" fontSize="16" fill="black">City</text>
+    // const listSubject = () => {
+    //     for (const key in data) {
+    //         if (data.hasOwnProperty(key)) {
+    //           console.log(`${key}: ${data[key]}`);
+    //         }
+    //     }
+    // }
+    
+    if (loading) {
+        return <div>Cargando...</div>; // Muestra un mensaje de carga
+      }
+    
+      if (error) {
+        return <div>Error: {error}</div>; // Muestra el error si ocurre
+      }
 
-      {/* Rows */}
-      {data.map((item, index) => (
-        <g key={index} transform={`translate(0, ${cellHeight * (index + 1)})`}>
-          <rect x="0" y="0" width={cellWidth} height={cellHeight} fill="#f9f9f9" />
-          <rect x={cellWidth} y="0" width={cellWidth} height={cellHeight} fill="#f9f9f9" />
-          <rect x={cellWidth * 2} y="0" width={cellWidth} height={cellHeight} fill="#f9f9f9" />
-          <text x={cellWidth / 2} y={cellHeight / 2} textAnchor="middle" dominantBaseline="middle" fontSize="14" fill="black">{item.name}</text>
-          <text x={cellWidth * 1.5} y={cellHeight / 2} textAnchor="middle" dominantBaseline="middle" fontSize="14" fill="black">{item.age}</text>
-          <text x={cellWidth * 2.5} y={cellHeight / 2} textAnchor="middle" dominantBaseline="middle" fontSize="14" fill="black">{item.city}</text>
-        </g>
-      ))}
-      </svg>
+    return (
+        <div className='container_list'>
+            <h1>Grupos</h1>
+            <div className='students'>
+                {groups.length > 0 ? (
+                    groups.map((group, i) => (
+                        <div className='container_students_list' key={i}>
+                            <div className='student_inf'>
+                                <h2>{group.name} {group.last_name}</h2>
+                                <h6>{group.educational_level}</h6>
+                                <input onClick={() => openModal(group)} type="button" value="Ver más" />
+                            </div>   
+                        </div>
+                    ))
+                ) : (
+                    <p>Todavia no se encuentra en ningun grupo.</p>
+                )}
+            </div>
+            
+            {seeMore && selectedGroup && (
+            <div className='modal'>
+              <h2>Información del Grupo</h2>
+              <h3>Nombre del grupo: {selectedGroup.group_name}</h3>
+              <h3>Nivel de educacion: {selectedGroup.educational_level}</h3>
+              <h3>Capacidad maxima: {selectedGroup.capacity}</h3>
+              <h3>Numero de clase: {selectedGroup.classroom}</h3>
+              <h3>Estudiantes activos: {selectedGroup.current_students}</h3>
+              <h3>Docentes asignados:</h3>
+              <br />
 
+              {selectedGroup.communication_of_subjects_and_teacher && (
+                <table className='table_json'>
+                  <tr>
+                    <th>Asignatura</th>
+                    <th>Docente</th>
+                  </tr>
 
+                  {Object.keys(selectedGroup.communication_of_subjects_and_teacher).map((key, index) => (
+                    <tr key={index}>
+                      <td>
+                        {key}
+                      </td>
+                      <td>
+                        {selectedGroup.communication_of_subjects_and_teacher[key]}
+                      </td>
+                    </tr>
+                  ))}
+                </table>
+              )}
 
-
-      <h1>Grupos aqui</h1>
-    </div>
-  )
+              <input onClick={closeModal} type="button" value="Cerrar" />
+            </div>
+        )}
+        </div>
+    );
 }
 
-export default GroupsTeacher
+export default ListGroups;

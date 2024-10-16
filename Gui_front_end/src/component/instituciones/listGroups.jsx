@@ -72,13 +72,13 @@ function ListGroups() {
                         </div>
                     ))
                 ) : (
-                    <p>No hay estudiantes en esta institución.</p>
+                    <p>No hay grupos registrados.</p>
                 )}
             </div>
             
             {seeMore && selectedGroup && (
                 <div className='modal'>
-                    <h2>Información del Estudiante</h2>
+                    <h2>Información del grupo</h2>
                     <h3>Nombre del grupo: {selectedGroup.group_name}</h3>
                     <h3>Nivel de educacion: {selectedGroup.educational_level}</h3>
                     <h3>Capacidad maxima: {selectedGroup.capacity}</h3>
