@@ -6,26 +6,27 @@ const Chat = () => {
     const [message, setMessage] = useState('');
     const [messages, setMessages] = useState([]);
     
+    // Obtener datos almacenados en sessionStorage
     const storedStudentId = sessionStorage.getItem('StudentID');
     const storedStudentName = sessionStorage.getItem('StudentName');
-    const storedInstitutionId = sessionStorage.getItem('InstitutionID'); // Obtener institutionID desde sessionStorage
-    
-    const [studentName, setStudentName] = useState(storedStudentName || '');
-    const [teachers, setTeachers] = useState([]);
+    const storedInstitutionId = sessionStorage.getItem('InstitutionID'); // Institution ID del estudiante
 
-    // Log para verificar el ID del estudiante y la institución
-    console.log("StudentID almacenado en sessionStorage:", storedStudentId);
+    const [teachers, setTeachers] = useState([]);
+    const [studentName, setStudentName] = useState(storedStudentName || '');
+
+    // Log para verificar los IDs almacenados
     console.log("InstitutionID almacenado en sessionStorage:", storedInstitutionId);
 
+    // Obtener profesores y mensajes al cargar el componente
     useEffect(() => {
         const fetchTeachers = async () => {
             try {
                 const staffList = await getStaff();
+                console.log("Lista completa de profesores obtenida:", staffList);
 
-                // Log para verificar los profesores obtenidos
-                console.log("Lista de profesores obtenida:", staffList);
-
-                const filteredTeachers = staffList.filter(teacher => teacher.position === 'Teacher');
+                // Filtrar profesores por el institution_id del estudiante
+                const filteredTeachers = staffList.filter(teacher => teacher.institution.toString() === storedInstitutionId);
+                console.log("Profesores filtrados:", filteredTeachers);
                 setTeachers(filteredTeachers);
             } catch (error) {
                 console.error('Error al cargar los profesores:', error);
@@ -33,25 +34,27 @@ const Chat = () => {
         };
 
         fetchTeachers();
-    }, []);
 
-    // Nueva función para obtener todos los mensajes
+        // Establecer un intervalo para actualizar los mensajes cada 5 segundos
+        const interval = setInterval(fetchMessages, 5000); // 5000 ms = 5 segundos
+
+        // Limpiar el intervalo al desmontar el componente
+        return () => clearInterval(interval);
+    }, [storedInstitutionId]);
+
     const fetchMessages = async () => {
         try {
-            const allMessages = await getMessages(); // Obtener todos los mensajes desde la API
-            setMessages(allMessages); // Almacenar los mensajes en el estado
+            const messagesList = await getMessages();
+            console.log("Lista completa de mensajes obtenida:", messagesList);
+
+            // Actualizar el estado de mensajes sin filtrar por institución
+            setMessages(messagesList);
         } catch (error) {
             console.error('Error al cargar los mensajes:', error);
         }
     };
 
-    // Llamar a fetchMessages cuando se monte el componente
-    useEffect(() => {
-        fetchMessages();
-    }, []);
-
     const handleSendMessage = async () => {
-        // Log para verificar los valores antes de enviar el mensaje
         console.log("Mensaje:", message);
         console.log("Profesor seleccionado:", selectedTeacher);
         console.log("Institution ID al enviar:", storedInstitutionId);
@@ -62,7 +65,7 @@ const Chat = () => {
                 message: message,
                 staff: selectedTeacher,
                 students: storedStudentId,
-                institution: storedInstitutionId, // Usar institutionID desde sessionStorage
+                institution: storedInstitutionId, 
                 date: new Date().toISOString(),
             };
             
@@ -70,11 +73,10 @@ const Chat = () => {
             
             try {
                 const savedMessage = await sendMessage(newMessage);
-                
-                // Log para verificar la respuesta de la API al enviar el mensaje
                 console.log("Mensaje guardado:", savedMessage);
 
-                setMessages([...messages, { ...savedMessage, transmitterName: studentName || "Estudiante" }]);
+                // Agregar el nuevo mensaje a la lista de mensajes, asegurando que el nombre del transmisor esté incluido
+                setMessages(prevMessages => [...prevMessages, { ...savedMessage, transmitterName: studentName || "Estudiante" }]);
                 setMessage('');
                 alert('Mensaje enviado correctamente');
             } catch (error) {
@@ -86,12 +88,22 @@ const Chat = () => {
         }
     };
 
+    // Filtrar mensajes por el profesor seleccionado
+    const filteredMessages = selectedTeacher 
+        ? messages.filter(msg => msg.staff.toString() === selectedTeacher) // Filtra los mensajes según el profesor seleccionado
+        : []; // Si no hay un profesor seleccionado, devuelve un array vacío
+
+    console.log("Mensajes filtrados:", filteredMessages); // Muestra los mensajes filtrados en la consola
+
     return (
         <div className="chat-container">
             <div className="header">Chat con Profesores</div>
             <div className="teacher-selector">
                 <label>Selecciona un Profesor:</label>
-                <select onChange={(e) => setSelectedTeacher(e.target.value)} defaultValue="">
+                <select onChange={(e) => {
+                    setSelectedTeacher(e.target.value);
+                    fetchMessages(); // Fetch messages cada vez que se selecciona un profesor
+                }} defaultValue="">
                     <option value="" disabled>Selecciona un profesor</option>
                     {teachers.map(teacher => (
                         <option key={teacher.id} value={teacher.id}>{teacher.username}</option>
@@ -108,8 +120,8 @@ const Chat = () => {
             </div>
             <div className="messages">
                 <h3>Mensajes</h3>
-                {messages.length > 0 ? (
-                    messages.map(msg => (
+                {filteredMessages.length > 0 ? (
+                    filteredMessages.map(msg => (
                         <div className="message" key={msg.id}>
                             <p><strong>{msg.transmitterName}:</strong> {msg.message} <span className="timestamp">({new Date(msg.date).toLocaleString()})</span></p>
                         </div>

@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { sendMessage, getStudents } from '../../service/LoginGui'; // Asegúrate de que la ruta sea correcta
+import { sendMessage, getStudents, getMessages } from '../../service/LoginGui'; // Asegúrate de que la ruta sea correcta
 
 const ChatProfesor = () => {
     const [selectedStudent, setSelectedStudent] = useState(null);
@@ -11,22 +11,21 @@ const ChatProfesor = () => {
     // Obtener el StaffID (nombre del profesor) y el ID de la institución desde sessionStorage
     const storedStaffId = sessionStorage.getItem('StaffID'); 
     const storedInstitutionId = sessionStorage.getItem('InstitutionID'); 
-    
+
     const [staffId, setStaffId] = useState(storedStaffId || '');  
     const [institutionId, setInstitutionId] = useState(storedInstitutionId || '');
-    
+
+    // Obtener estudiantes y filtrar por institución
     useEffect(() => {
         const fetchStudents = async () => {
             try {
                 const studentList = await getStudents(); // Obtener lista de estudiantes desde la API
-                console.log("Lista de estudiantes:", studentList); // Verifica la estructura de los datos
-                console.log("Institution IDpRUEBA:", institutionId); // Verifica el valor de institutionId
-        
+                
                 // Filtrar estudiantes por el ID de la institución
                 const filteredStudents = studentList.filter(student => student.institution.toString() === institutionId);
                 setStudents(filteredStudents);
-                console.log("Estudiantes filtradosPRUEBA:", filteredStudents); // Verifica los estudiantes filtrados
-        
+                console.log("Estudiantes filtrados:", filteredStudents);
+
             } catch (error) {
                 console.error('Error al cargar los estudiantes:', error);
             }
@@ -35,10 +34,27 @@ const ChatProfesor = () => {
         fetchStudents();
     }, [institutionId]);
 
+    // Cargar todos los mensajes sin filtrar por institución
+    useEffect(() => {
+        const fetchMessages = async () => {
+            try {
+                const messageList = await getMessages(); // Obtener mensajes desde la API
+                setMessages(messageList); // Guarda todos los mensajes
+                console.log("Todos los mensajes obtenidos:", messageList);
+
+            } catch (error) {
+                console.error('Error al cargar los mensajes:', error);
+            }
+        };
+
+        fetchMessages();
+    }, []);
+
     // useEffect para actualizar el ID del estudiante cuando cambie la selección
     useEffect(() => {
         if (selectedStudent) {
             setStudentId(selectedStudent); // Actualiza el estado del ID del estudiante
+            console.log("Estudiante seleccionado ID:", selectedStudent);
         }
     }, [selectedStudent]);
 
@@ -49,6 +65,7 @@ const ChatProfesor = () => {
                 students: studentId, 
                 staff: staffId, 
                 institution: institutionId, 
+                date: new Date().toISOString(),
             };
             
             try {
@@ -65,9 +82,12 @@ const ChatProfesor = () => {
         }
     };
 
+    // Filtrar mensajes por estudiante seleccionado
     const filteredMessages = selectedStudent 
-        ? messages.filter(msg => msg.receiver_student === selectedStudent)
+        ? messages.filter(msg => msg.students.toString() === selectedStudent)
         : [];
+
+    console.log("Mensajes filtrados por estudiante:", filteredMessages); // Verifica que existan mensajes filtrados
 
     return (
         <div>
