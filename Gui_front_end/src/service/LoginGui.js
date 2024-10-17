@@ -240,13 +240,31 @@ export const postGroups = async (group) => {
 
 };
 
-export const postGroupsAsiggnment = async (prop) => {
+export const postGroupsAssignment = async (assignments) => {
   try {
-    const response = await axios.post(`http://${domain}:8000/api/group_assignment/group_assignment/`, prop, {
+    const response = await axios.post(`http://${domain}:8000/api/group_assignment/group_assignment/`, assignments, {
       headers: {
         'Content-Type': 'application/json',
       }
     });
+    return response.data;
+  } catch (error) {
+    console.error("Error haciendo la solicitud:", error.response?.data || error);
+    throw error;
+  }
+};
+export const getGroupsAssignment = async () => {
+  try {
+    const response = await axios.get(`http://${domain}:8000/api/group_assignment/group_assignment/`);
+    return response.data
+  } catch (error) {
+    console.error('Error fetching user data:', error);
+    throw error;
+  }
+};
+export const deleteGroupsAssignment = async (assignmentId) => {
+  try {
+    const response = await axios.delete(`http://${domain}:8000/api/group_assignment/group_assignment/${assignmentId}/`);
     return response.data;
   } catch (error) {
     console.error("Error haciendo la solicitud:", error);

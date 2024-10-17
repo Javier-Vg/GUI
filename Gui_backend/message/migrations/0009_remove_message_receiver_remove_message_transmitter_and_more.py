@@ -9,7 +9,7 @@ class Migration(migrations.Migration):
     dependencies = [
         ('message', '0008_alter_message_receiver_alter_message_transmitter'),
         ('staff', '0008_alter_staff_password'),
-        ('students', '0004_alter_students_password'),
+      
     ]
 
     operations = [

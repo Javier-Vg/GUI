@@ -60,13 +60,10 @@ function ListStaff() {
   const saveChanges = async () => {
     try {
       const data = await putStaff(editedStaff); 
-      console.log('Success:');
-      setSelectedStaff(data);
-      setStaff((prevStaff) => 
-        prevStaff.map((member) => 
-          member.id === editedStaff.id ? { ...member, ...data } : member
-        )
-      );
+      // Despacha la acción fetchStaff para obtener los datos actualizados del personal
+      dispatch(fetchStaff());
+      
+      setSelectedStaff(data); // Actualiza el staff seleccionado
       setEditMode(false);
       closeModal();
     } catch (error) {
