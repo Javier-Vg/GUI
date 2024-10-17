@@ -12,6 +12,7 @@ import ManageSubjects from "./manageSubjects"; // Ajusta la ruta según sea nece
 import { useSelector } from "react-redux";
 import "../../css/home_institution.css";
 import { useNavigate } from "react-router-dom";
+import ChatProfesor from "../moduloProfesor/chatProfesor";
 
 function HomeInstitutionsForm() {
   const [changeComponent, setChangeComponent] = useState("");
@@ -81,6 +82,10 @@ function HomeInstitutionsForm() {
                 <input type="radio" id="teacherNotas" name="changeComponent" style={{ display: "none" }} />
                 <label htmlFor="teacherNotas">Notas</label>
               </div>
+              <div onClick={() => setChangeComponent("ChatEstudiante")} className="inputBoton">
+                <input type="radio" id="ChatEstudiante" name="changeComponent" style={{ display: "none" }} />
+                <label htmlFor="ChatEstudiante">Chat Estudiante</label>
+              </div>
             </>
           ) : (
             <>
@@ -149,6 +154,7 @@ function HomeInstitutionsForm() {
           {changeComponent === "grupos" && <ListGroups />}
           {changeComponent === "teacherStudents" && <StudentsTeacher />}
           {changeComponent === "teacherGrupos" && <GroupsTeacher />}
+          {changeComponent === "ChatEstudiante" && <ChatProfesor />}
         </div>
       </div>
     </div>

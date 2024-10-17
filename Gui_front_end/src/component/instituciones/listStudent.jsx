@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { postGroupsAsiggnment } from '../../service/LoginGui';
+import { postGroupsAssignment } from '../../service/LoginGui';
 import { fetchStudent } from '../../Redux/Slices/SliceStudent';
 import { fetchGroups } from '../../Redux/Slices/SliceGroup';
 import { useDispatch, useSelector } from 'react-redux';
@@ -52,6 +52,7 @@ function ListStudents() {
         setSeeMore(false);
         setSelectedStudent(null);
         setConfirm(!confirm);
+        setGroupId('');
     };
 
     // Setea el estado y muestra el div de asignación:
@@ -73,7 +74,7 @@ function ListStudents() {
             student: prop
         }
 
-        postGroupsAsiggnment(group); // manda los datos
+        postGroupsAssignment(group); // manda los datos
         setConfirm(!confirm);
     }
     
@@ -134,11 +135,16 @@ function ListStudents() {
                            <select onChange={((e) => setGroupId(e.target.value))}>
                             <option>-Seleccione el grupo-</option>
                                 {itemsGroups.map((group, i) => (
-                                    <option key={i} value={group.id}>
-                                        {group.group_name}
-                                    </option>
+                                    group.capacity > group.current_students ? (
+                                        <option key={i} value={group.id}>
+                                            {group.group_name}  ({group.current_students}/{group.capacity})
+                                        </option>
+                                    ) : (
+                                        <option key={i} value={group.id} disabled>
+                                            {group.group_name} (Lleno)
+                                        </option>
+                                    )
                                 ))}
-
                            </select>
                            
                            {GroupId && (

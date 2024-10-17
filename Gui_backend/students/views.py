@@ -47,7 +47,13 @@ def LoginView(request):
             encoded = jwt.encode(payload,KeyJWT, algorithm='HS256')
 
             # Retornar el token y el ID de la institución
-            return Response({'token': encoded, 'institution': Students.id, "imgInstitution": Students.imagen_url, "Name": Students.username})
+            return Response({
+                'token': encoded,
+                'StudentID': Students.id,
+                'institution': Students.institution_id,
+                "imgInstitution": Students.imagen_url,
+                "Name": Students.username
+            })
         else:
             return Response({'error': 'Credenciales inválidas'}, status=400)
     except students.DoesNotExist:

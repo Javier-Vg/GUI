@@ -12,7 +12,7 @@ const ManageSubjects = () => {
     const saveSubject = async () => {
         const subject = {
             name: subjectName,
-            institution: InstitutionID // Usar el ID de la institución del localStorage
+            institution: institution_id // Usar el ID de la institución del localStorage
         };
 
         try {

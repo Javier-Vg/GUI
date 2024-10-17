@@ -35,7 +35,7 @@ CORS_ALLOWED_ORIGINS = [
     "http://192.168.100.44:5173",
     "http://192.168.100.47:5173",
     "http://192.168.100.13:5173",
-    "http://192.168.0.10:5173"
+    "http://192.168.0.15:5173"
 ]
 
 #La que termina en 13 es la de la otra compu 

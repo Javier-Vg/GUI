@@ -29,6 +29,7 @@ def LoginView(request):
                 'exp': datetime.utcnow() + timedelta(hours=24),  # Expira en 24 horas
                 'iat': datetime.utcnow(),  # Hora de creación del token
                 'username': staff_member.username,
+                'id': staff_member.id,
                 'institution_id': staff_member.institution.id,
             }
             # Generar el JWT usando PyJWT
@@ -37,6 +38,7 @@ def LoginView(request):
             return Response({
                 'token': encoded,
                 'message': 'Login exitoso',
+                'ID':staff_member.id,
                 'institution': staff_member.institution.id,
                 'Name': staff_member.username,
                 'imgInstitution': staff_member.imagen_url,

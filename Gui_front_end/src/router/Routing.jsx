@@ -6,6 +6,7 @@ import HomeInstitutions from '../page/HomeInstitutions';
 import LoginRol from '../page/LoginRol';
 import HomePadres from '../page/Homepadres';
 import Error from '../component/error/error'
+import HomeProfe from '../page/HomeProfe';
 
 function Routing() {
 
@@ -19,6 +20,7 @@ function Routing() {
             <Route path="/institutions" element={<HomeInstitutions />} />
             <Route path="/login" element={<LoginRol />} />
             <Route path="/home_padres" element={<HomePadres />} />
+            <Route path="/home_profesores" element={<HomeProfe />} />
             <Route path="/error" element={<Error />} />
           </Routes>
         </Router>

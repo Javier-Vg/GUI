@@ -18,7 +18,7 @@ class Migration(migrations.Migration):
             name='students',
             fields=[
                 ('id', models.BigAutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
-                ('name', models.CharField(max_length=100)),
+                ('username', models.CharField(max_length=100)),
                 ('last_name', models.CharField(max_length=100)),
                 ('identification_number', models.CharField(max_length=100)),
                 ('birthdate_date', models.DateField()),
@@ -32,8 +32,9 @@ class Migration(migrations.Migration):
                 ('imagen_url', models.URLField(blank=True, null=True)),
                 ('monthly_payent_students', models.CharField(blank=True, max_length=15, null=True)),
                 ('type_of_student', models.CharField(choices=[('private student', 'private student'), ('student care network', 'student care network')], default='private student', max_length=100)),
-                ('group', models.ForeignKey(blank=True, null=True, on_delete=django.db.models.deletion.CASCADE, to='groups.group')),
+                ('group', models.BooleanField(default=False)),
                 ('institution', models.ForeignKey(blank=True, null=True, on_delete=django.db.models.deletion.CASCADE, to='Institucion.institution')),
+                ('password',models.CharField(max_length=128, blank=False, null=False)),
             ],
         ),
     ]
