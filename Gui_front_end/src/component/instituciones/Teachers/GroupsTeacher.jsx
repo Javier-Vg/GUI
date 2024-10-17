@@ -15,7 +15,6 @@ function ListGroups() {
     const itemStaff= useSelector(state => state.staff.items);
     const loading = useSelector(state => state.group.loading);
     const error = useSelector(state => state.group.error);
-    
 
     useEffect(() => {
         dispatch(fetchGroups()); // Llama a la acción para obtener productos al cargar el componente
