@@ -23,7 +23,6 @@ function StudentsTeacher() {
    const itemsAssignmentG = useSelector((state) => state.groupAssignment.items);
    const itemsGroups = useSelector((state) => state.group.items);
       
-
   useEffect(() => {
     setStudent([]);
     for (const group in itemsGroups) {
@@ -46,7 +45,7 @@ function StudentsTeacher() {
   },[]);
   
   //Ancho y alto de las columnas de la tabla
-  const cellWidth = 300;
+  const cellWidth = 290;
   const cellHeight = 45;
   
   return (
@@ -73,9 +72,6 @@ function StudentsTeacher() {
           <rect x={cellWidth * 8} y="0" width={cellWidth} height={cellHeight} fill="#ddd" />
           <rect x={cellWidth * 9} y="0" width={cellWidth} height={cellHeight} fill="#ddd" />
           <rect x={cellWidth * 11} y="0" width={cellWidth} height={cellHeight} fill="#ddd" />
-          <rect x={cellWidth * 12} y="0" width={cellWidth} height={cellHeight} fill="#ddd" />
-          <rect x={cellWidth * 13} y="0" width={cellWidth} height={cellHeight} fill="#ddd" />
-          <rect x={cellWidth * 14} y="0" width={cellWidth} height={cellHeight} fill="#ddd" />
           <text x={cellWidth / 2} y={cellHeight / 2} textAnchor="middle" dominantBaseline="middle" fontSize="16" fill="black">Nombre</text>
           <text x={cellWidth * 1.5} y={cellHeight / 2} textAnchor="middle" dominantBaseline="middle" fontSize="16" fill="black">Apellido</text>
           <text x={cellWidth * 2.5} y={cellHeight / 2} textAnchor="middle" dominantBaseline="middle" fontSize="16" fill="black">ID</text>
@@ -103,15 +99,16 @@ function StudentsTeacher() {
               <rect x={cellWidth * 9} y="0" width={cellWidth} height={cellHeight} fill="#f9f9f9" />
               <rect x={cellWidth * 10} y="0" width={cellWidth} height={cellHeight} fill="#f9f9f9" />
               <rect x={cellWidth * 11} y="0" width={cellWidth} height={cellHeight} fill="#f9f9f9" />
+              <rect x={cellWidth * 12} y="0" width={cellWidth} height={cellHeight} fill="#f9f9f9" />
               <text x={cellWidth / 2} y={cellHeight / 2} textAnchor="middle" dominantBaseline="middle" fontSize="14" fill="black">{item.username}</text>
               <text x={cellWidth * 1.5} y={cellHeight / 2} textAnchor="middle" dominantBaseline="middle" fontSize="14" fill="black">{item.last_name}</text>
               <text x={cellWidth * 2.5} y={cellHeight / 2} textAnchor="middle" dominantBaseline="middle" fontSize="14" fill="black">{item.identification_number}</text>
               <text x={cellWidth * 3.5} y={cellHeight / 2} textAnchor="middle" dominantBaseline="middle" fontSize="14" fill="black">{item.birthdate_date}</text>
               <text x={cellWidth * 4.5} y={cellHeight / 2} textAnchor="middle" dominantBaseline="middle" fontSize="14" fill="black">{item.grade}</text>
               <text x={cellWidth * 5.5} y={cellHeight / 2} textAnchor="middle" dominantBaseline="middle" fontSize="14" fill="black">{item.academic_status}</text>
+              <text x={cellWidth * 8.5} y={cellHeight / 2} textAnchor="middle" dominantBaseline="middle" fontSize="14" fill="black">{item.email}</text>
               <text x={cellWidth * 6.5} y={cellHeight / 2} textAnchor="middle" dominantBaseline="middle" fontSize="14" fill="black">{item.allergy_information}</text>
               <text x={cellWidth * 7.5} y={cellHeight / 2} textAnchor="middle" dominantBaseline="middle" fontSize="14" fill="black">{item.contact_information}</text>
-              <text x={cellWidth * 8.5} y={cellHeight / 2} textAnchor="middle" dominantBaseline="middle" fontSize="14" fill="black">{item.email}</text>
               <text x={cellWidth * 9.5} y={cellHeight / 2} textAnchor="middle" dominantBaseline="middle" fontSize="14" fill="black">{item.guardian_phone_number}</text>
               <text x={cellWidth * 10.5} y={cellHeight / 2} textAnchor="middle" dominantBaseline="middle" fontSize="14" fill="black">{item.monthly_payent_students}</text>
             </g>

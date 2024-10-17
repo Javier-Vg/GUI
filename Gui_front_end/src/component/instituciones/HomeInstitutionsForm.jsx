@@ -8,6 +8,7 @@ import CreateGroup from "./CreateGroup"; // Ajusta la ruta según sea necesario
 import ListGroups from "./listGroups";
 import StudentsTeacher from "./Teachers/StudentsTeacher";
 import GroupsTeacher from "./Teachers/GroupsTeacher";
+import GradesTeacher from "./Teachers/GradesTeacher";
 import ManageSubjects from "./manageSubjects"; // Ajusta la ruta según sea necesario
 import { useSelector } from "react-redux";
 import "../../css/home_institution.css";
@@ -140,6 +141,7 @@ function HomeInstitutionsForm() {
           {changeComponent === "grupos" && <ListGroups />}
           {changeComponent === "teacherStudents" && <StudentsTeacher />}
           {changeComponent === "teacherGrupos" && <GroupsTeacher />}
+          {changeComponent === "teacherNotas" && <GradesTeacher />}
           {changeComponent === "ChatEstudiante" && <ChatProfesor />}
         </div>
       </div>
