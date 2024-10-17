@@ -9,11 +9,7 @@ function GradesTeacher() {
 
     const [StudentId, setStudent] = useState([]);
     const [GroupId, setGroupId] = useState([]);
-
-    const combined = StudentId.reduce((acc, student, index) => { //Combina los estados, arrays.
-        acc.push({ student, group: GroupId[index] });
-        return acc;
-      }, []);
+    const [JSON, setJSON] = useState([]);
 
     const NameTeacher = useSelector( //Nombre de la institucion traigo de redux
         (state) => state.infInstitution.nameInstitution
@@ -32,6 +28,12 @@ function GradesTeacher() {
     }, [dispatch]);
 
     useEffect(() => {
+      setJSON((prevFiltred) => [...prevFiltred,  StudentId]);
+    },[]);
+
+    console.log(JSON);
+    
+    useEffect(() => {
         setStudent([]);
         for (const group in itemsGroups) {
           Object.values(itemsGroups[group].communication_of_subjects_and_teacher).forEach((value) => {
@@ -48,7 +50,7 @@ function GradesTeacher() {
                   };
                 };
               };
-            };  
+            };
           });
         };
     },[]);
@@ -57,21 +59,17 @@ function GradesTeacher() {
     <>
        <div>GradesTeacher</div>
 
-       {StudentId.length === 0 && GroupId.length === 0 ? (
+       {JSON.length === 0 && GroupId.length === 0 ? (
   <p>Not student.</p>
 ) : (
-  StudentId.map((item, i) => (
-    GroupId.map((u, o) => (
-      <div className='div-grades-students' key={`${i}-${o}`}>
-        <p>{u}</p>
+
+  JSON.map((item, i) => (
+      <div className='div-grades-students' key={`${i}`}>
         <p>{item.username}</p>
         <button>Calificar notas</button>
       </div>
-    ))
   ))
 )}
-
-    
     </>
   )
 }
