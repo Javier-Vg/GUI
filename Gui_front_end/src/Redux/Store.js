@@ -75,6 +75,7 @@ import loginReducer from '../Redux/Slices/SliceLogin';
 import contractReducer from '../Redux/Slices/SliceContract';
 import eventReducer from '../Redux/Slices/SliceEvent';
 import idsReducer from './Slices/IdSlice';
+import AssignmentGroup from '../Redux/Slices/sliceAssignmentGroup'
 
 const isDev = process.env.NODE_ENV === 'development';
 
@@ -96,6 +97,7 @@ const rootReducer = combineReducers({
     login: loginReducer,
     contract: contractReducer,
     event: eventReducer,
+    groupAssignment: AssignmentGroup,
     infInstitution: SliceInfInstitution,
     ids: idsReducer,
 });

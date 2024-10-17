@@ -256,10 +256,15 @@ function ListGroups() {
     dispatch(fetchGroups());
   }, [dispatch]);
 
-  useEffect(() => {
-    const filteredGroups = items.filter(item => item.institution === parseInt(institution_id, 10));
-    setGroups(filteredGroups);
-  }, [items, institution_id]);
+    useEffect(() => {
+        setGroups([]);
+        for (let i = 0; i < items.length; i++) {
+            if (items[i].institution === parseInt(institution_id, 10)) {
+              // Actualiza el valor de la clave correspondiente
+              setGroups((prevFiltred) => [...prevFiltred, items[i]]);
+            };
+        };
+    }, [items]);
 
   const openModal = (group) => {
     setSelectedGroup(group);
@@ -268,95 +273,26 @@ function ListGroups() {
     setSelectedStudents([]);
   };
 
-  const closeModal = () => {
-    setSeeMore(false);
-    setSelectedGroup(null);
-  };
-
-  const fetchStudents = async (groupId) => {
-    const studentsData = await getStudents(groupId);
-    
-    // Filtrar estudiantes que no están en el grupo
-    const unassignedStudents = studentsData.filter(
-      (student) => !GroupsAssignment.some(assignment => assignment.student === student.id)
-    );
-
-    setStudents(unassignedStudents); // Solo estudiantes no asignados
-    setShowStudents(true);
-  };
-
-  const getStudentsGroup = async (groupId) => {
-    const studentsData = await getGroupsAssignment(groupId);
-    setGroupsAssignment(studentsData); // Aquí cargamos los estudiantes asignados al grupo
-    setShowStudents2(true); // Mostramos el modal de estudiantes asignados
-  };
-
-  const toggleStudentSelection = (studentId) => {
-    setSelectedStudents((prevSelected) =>
-      prevSelected.includes(studentId)
-        ? prevSelected.filter(id => id !== studentId)
-        : [...prevSelected, studentId]
-    );
-  };
-
-  const cerrarShowStudents = () => {
-    setShowStudents2(false);
-    setSelectedStudents([]);
-  };
-
-  const addStudentsToGroup = async () => {
-    if (selectedStudents.length === 0) return;
-    const groupId = selectedGroup.id;
-
-    for (const studentId of selectedStudents) {
-      const assignment = {
-        student: studentId,
-        group: groupId,
-      };
-
-      try {
-        await postGroupsAssignment(assignment); 
-      } catch (error) {
-        console.error(`Error al asignar el estudiante ${studentId} al grupo ${groupId}`, error);
-      }
-    }
-
-    const updatedGroup = {
-      ...selectedGroup,
-      current_students: selectedGroup.current_students + selectedStudents.length,
+    const closeModal = () => {
+        setSeeMore(false);
+        setSelectedGroups(null);
     };
 
-    setSelectedGroup(updatedGroup);
-    // Actualizar la lista de estudiantes no asignados
-    const updatedStudents = students.filter(student => !selectedStudents.includes(student.id));
-    setStudents(updatedStudents); 
-    setSelectedStudents([]);
-  };
-
-  const removeStudentFromGroup = async (assignmentId) => {
-    try {
-      await deleteGroupsAssignment(assignmentId);
-      const updatedGroup = {
-        ...selectedGroup,
-        current_students: selectedGroup.current_students - 1,
-      };
-
-      setSelectedGroup(updatedGroup);
-      // Actualizar la lista de asignaciones de estudiantes en el grupo
-      const updatedAssignments = GroupsAssignment.filter(assignment => assignment.id !== assignmentId);
-      setGroupsAssignment(updatedAssignments);
-    } catch (error) {
-      console.error(`Error al eliminar el estudiante del grupo`, error);
+    const listSubject = () => {
+        for (const key in data) {
+            if (data.hasOwnProperty(key)) {
+              console.log(`${key}: ${data[key]}`);
+            }
+        }
     }
-  };
-
-  if (loading) {
-    return <div>Cargando...</div>;
-  }
-
-  if (error) {
-    return <div>Error: {error}</div>;
-  }
+    
+    if (loading) {
+        return <div>Cargando...</div>; // Muestra un mensaje de carga
+    };
+    
+    if (error) {
+        return <div>Error: {error}</div>; // Muestra el error si ocurre
+    };
 
   return (
     <div className="container_list">

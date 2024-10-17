@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { fetchGroups } from '../../../Redux/Slices/SliceGroup';
+import { fetchStaff } from '../../../Redux/Slices/SliceStaff';
 import { useDispatch, useSelector } from 'react-redux';
 
 function ListGroups() {
@@ -11,26 +12,33 @@ function ListGroups() {
 
     //Estados de Staff:
     const items= useSelector(state => state.group.items);
+    const itemStaff= useSelector(state => state.staff.items);
     const loading = useSelector(state => state.group.loading);
-    const error = useSelector(state => state.group.error); 
+    const error = useSelector(state => state.group.error);
 
     useEffect(() => {
         dispatch(fetchGroups()); // Llama a la acción para obtener productos al cargar el componente
+        dispatch(fetchStaff()); // Llama a la acción para obtener productos al cargar el componente
     }, [dispatch]);
 
     useEffect(() => {
         setGroups([]);
-        for (let i = 0; i < items.length; i++) {      
-          
-            if (items[i].institution === parseInt(institution_id, 10)) {
-              // Actualiza el valor de la clave correspondiente
-              setGroups((prevFiltred) => [...prevFiltred, items[i]]);
-            };
-        }
-    }, [items]);
 
-    const itemJSON = items.communication_of_subjects_and_teacher;  
-        console.log(itemJSON);
+        for (let i = 0; i < items.length; i++) {   
+             
+          Object.values(items[i].communication_of_subjects_and_teacher).forEach((value) => {
+            
+            for (const j in itemStaff) { //Itera el array de staff para conseguir el nombre del profesor
+              
+              if (items[i].institution === parseInt(institution_id, 10) && value == itemStaff[j].username) { //Valida nombre del profe y institucion
+                // Actualiza el valor de la clave correspondiente
+                
+                setGroups((prevFiltred) => [...prevFiltred, items[i]]);
+              }; 
+            };
+          });         
+        };
+    }, [items]);
 
     const openModal = (group) => {
         setSelectedGroups(group);
@@ -73,7 +81,7 @@ function ListGroups() {
                         </div>
                     ))
                 ) : (
-                    <p>Todavia no se encuentra en ningun grupo.</p>
+                    <p>Todavia usted no se encuentra en ningun grupo.</p>
                 )}
             </div>
             
