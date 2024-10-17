@@ -40,7 +40,7 @@ def LoginView(request):
                 'message': 'Login exitoso',
                 'ID':staff_member.id,
                 'institution': staff_member.institution.id,
-                'Name': staff_member.username,
+                'NameTeacher': staff_member.username,
                 'imgInstitution': staff_member.imagen_url,
                 'rol': staff_member.position, 
                 'auth': staff_member.authorization

@@ -11,6 +11,7 @@ class message(models.Model):
     students = models.ForeignKey(students, on_delete=models.CASCADE, null=True, blank=True, related_name="messages_sent_students")
     institution = models.ForeignKey(Institution, on_delete=models.CASCADE, null=True, blank=True)
     date = models.DateTimeField(default=timezone.now)
+    name = models.CharField(max_length=255, null=True, blank=True)
 
     def __str__(self):
         return f"Message from {self.get_transmitter()} to {self.get_receiver()}"

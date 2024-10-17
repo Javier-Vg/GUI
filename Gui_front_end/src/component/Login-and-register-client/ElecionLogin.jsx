@@ -67,6 +67,10 @@ function ElecionLogin() {
         sessionStorage.setItem("StaffID", response.data.ID);
         sessionStorage.setItem("StudentID", response.data.StudentID); // Guardar el ID del estudiante
         sessionStorage.setItem("token", response.data.token);
+        sessionStorage.setItem("nameStudent", response.data.Name);
+        sessionStorage.setItem("NameTeacher", response.data.NameTeacher);
+        
+        // sessionStorage.setItem("nameStudent", response.data.username);
         dispatch({ type: "LOGIN_SUCCESS", payload: response.data.token });
         setMessage("Login exitoso");
 
