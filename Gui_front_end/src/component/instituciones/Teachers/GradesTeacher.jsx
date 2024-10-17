@@ -3,12 +3,17 @@ import { fetchStudent } from '../../../Redux/Slices/SliceStudent';
 import { fetchGroups } from '../../../Redux/Slices/SliceGroup';
 import { fetchAssignmentGroup } from '../../../Redux/Slices/sliceAssignmentGroup';
 import { useDispatch, useSelector } from 'react-redux';
+import '../../../css/grades_teacher.css';
 
 function GradesTeacher() {
 
     const [StudentId, setStudent] = useState([]);
     const [GroupId, setGroupId] = useState([]);
-    const [Mix, setMix] = useState({ student_id: [], group_id: [] });
+
+    const combined = StudentId.reduce((acc, student, index) => { //Combina los estados, arrays.
+        acc.push({ student, group: GroupId[index] });
+        return acc;
+      }, []);
 
     const NameTeacher = useSelector( //Nombre de la institucion traigo de redux
         (state) => state.infInstitution.nameInstitution
@@ -48,27 +53,24 @@ function GradesTeacher() {
         };
     },[]);
 
-    useEffect(() => { //Une las 2 listas para luego mapearlas
-        Mix([]);//Setea el estado para que no renderize 2 veces.
-        setMix((prevMix) => ({
-            student_id: [...prevMix.student_id, StudentId],
-            group_id: [...prevMix.group_id, GroupId], // o como lo necesites
-        }));
-
-    },[StudentId]);
-
   return (
     <>
-      <div>GradesTeacher</div>
-        {StudentId.length === 0 ? (
-            <p>No students found.</p>
-        ) : (
-        <ul>
-            {Mix.map((student, i) => (
-            <li key={i}>{student}</li>
-            ))}
-        </ul>
-        )}
+       <div>GradesTeacher</div>
+
+       {StudentId.length === 0 && GroupId.length === 0 ? (
+  <p>Not student.</p>
+) : (
+  StudentId.map((item, i) => (
+    GroupId.map((u, o) => (
+      <div className='div-grades-students' key={`${i}-${o}`}>
+        <p>{u}</p>
+        <p>{item.username}</p>
+        <button>Calificar notas</button>
+      </div>
+    ))
+  ))
+)}
+
     
     </>
   )

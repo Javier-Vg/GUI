@@ -27,7 +27,7 @@ function ListGroups() {
               // Actualiza el valor de la clave correspondiente
               setGroups((prevFiltred) => [...prevFiltred, items[i]]);
             };
-        }
+        };
     }, [items]);
 
     const openModal = (group) => {
@@ -40,7 +40,6 @@ function ListGroups() {
         setSelectedGroups(null);
     };
 
-
     const listSubject = () => {
         for (const key in data) {
             if (data.hasOwnProperty(key)) {
@@ -51,11 +50,11 @@ function ListGroups() {
     
     if (loading) {
         return <div>Cargando...</div>; // Muestra un mensaje de carga
-      }
+    };
     
-      if (error) {
+    if (error) {
         return <div>Error: {error}</div>; // Muestra el error si ocurre
-      }
+    };
 
     return (
         <div className='container_list'>
