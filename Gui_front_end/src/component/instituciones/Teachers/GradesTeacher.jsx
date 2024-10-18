@@ -53,46 +53,43 @@ function GradesTeacher() {
                   
                     <div className='div1'>    
                       <div className='div-grades-students'>
+
                         <fieldset>
                           <legend>1° Semestre</legend>
-                         
                           <div class="info">
                             <button>Calificar notas</button>
                           </div>
-                         
                         </fieldset> 
+
                       </div>
 
                       <div className='div-grades-students'>
 
                         <fieldset>
                           <legend>2° Semestre</legend>
-                          
                           <div class="info">
                             <button>Calificar notas</button>
                           </div>
-                          
                         </fieldset>
+
                       </div>
                                       
                       <div className='div-grades-students'>
+
                         <fieldset>
                           <legend>3° Semestre</legend>
-                         
                           <div class="info">
                             <button>Calificar notas</button>
                           </div>
-                         
                         </fieldset>
-                      </div> 
 
+                      </div> 
                     </div>
                   
-                  
                 ))
-            )}
+            )};
         </>
     );
-}
+};
 
 export default GradesTeacher;
