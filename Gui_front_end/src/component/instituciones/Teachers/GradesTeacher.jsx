@@ -33,11 +33,11 @@ function GradesTeacher() {
                         const student = itemsStudent.find(s => s.id === assignment.student);
                         if (student) {
                             tempStudents.push({ ...student, groupId: group });
-                        }
-                    }
-                }
-            }
-        }
+                        };
+                    };
+                };
+            };
+        };
 
         setStudentsWithGroups(tempStudents);
     }, [itemsGroups, itemsAssignmentG, itemsStudent, NameTeacher]);
@@ -50,7 +50,6 @@ function GradesTeacher() {
                 <p>No hay estudiantes.</p>
             ) : (
                 studentsWithGroups.map((student, i) => (
-                  
                   
                     <div className='div1'>    
                       <div className='div-grades-students'>

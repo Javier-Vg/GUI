@@ -4,13 +4,13 @@
     padding: 15px;
     margin-top: 150px;
     overflow: auto;
-    width: 300px;
-    border-radius: 10px
+    width: 380px;
+    border-radius: 10px;
 };
 
 .div1{
     display: grid;
-    grid-template-columns: repeat(3, 100px);
+    grid-template-columns: repeat(3, 210px);
     background-color: aqua;
     grid-template-rows: 100px 100px;
     

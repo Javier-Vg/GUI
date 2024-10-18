@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { fetchGroups } from '../../../Redux/Slices/SliceGroup';
 import { fetchStaff } from '../../../Redux/Slices/SliceStaff';
 import { useDispatch, useSelector } from 'react-redux';
-import '../../../css/groups_teacher.css'
+import '../../../css/groups_teacher.css';
 
 function ListGroups() {
     const [groups, setGroups] = useState([]);
@@ -41,15 +41,15 @@ function ListGroups() {
         };
     }, [items]);
 
-    const openModal = (group) => {
-        setSelectedGroups(group);
-        setSeeMore(true);
-    };
+    // const openModal = (group) => {
+    //     setSelectedGroups(group);
+    //     setSeeMore(true);
+    // };
 
-    const closeModal = () => {
-        setSeeMore(false);
-        setSelectedGroups(null);
-    };
+    // const closeModal = () => {
+    //     setSeeMore(false);
+    //     setSelectedGroups(null);
+    // };
 
     // const listSubject = () => {
     //     for (const key in data) {
@@ -68,74 +68,72 @@ function ListGroups() {
       }
 
     return (
-        <div className='container_list'>
-            <h1>Grupos</h1>
-            {/* <p>Aqui estan los grupos en donde usted esta asignado:</p> */}
-            <br />
-            <br />
-            <div className='students'>
-                {groups.length > 0 ? (
-                    groups.map((group, i) => (
-
-                      <div className='divField'>
-                        
-                        <fieldset>
-                          <legend>Detalles del Grupo</legend>
-                          <div class="info">
-                              <span class="label">Nombre del grupo:</span> {group.group_name}
-                            
-                          </div>
-                          <div class="info">
-                              <span class="label">Nivel de educacion:</span> {group.educational_level}
-                          </div>
-                          <div class="info">
-                              <span class="label">Capacidad Maxima:</span> {group.capacity}
-                          </div>
-                          <div class="info">
-                              <span class="label">Numero de clase:</span> {group.classroom}
-                          </div>
-                          <div class="info">
-                              <span class="label">Estudiantes activos:</span>  {group.current_students}
-                          </div>
-                          <div class="info">
-                              <span class="label">Docentes asignados:</span>
-                        
-                              <br />
-                              <br />
-
-                              {group.communication_of_subjects_and_teacher && (
-                                <table className='table_json'>
-                                  <tr>
-                                    <th>Asignatura</th>
-                                    <th>Docente</th>
-                                  </tr>
-
-                                  {Object.keys(group.communication_of_subjects_and_teacher).map((key, index) => (
-                                    <tr key={index}>
-                                      <td>
-                                        {key}
-                                      </td>
-                                      <td>
-                                        {group.communication_of_subjects_and_teacher[key]}
-                                      </td>
-                                    </tr>
-                                  ))}
-                                </table>
-                              )}
-                          </div>
-                          
-                        </fieldset>
-                        
-                      </div>
-                     
-                    ))
-                ) : (
-                    <p>Todavia usted no se encuentra en ningun grupo.</p>
-                )}
-            </div>
+      <>
+      <h1>Grupos</h1>
+      <br />
+      <br />
+      <div className='container_list'>
             
-           
-        </div>
+            
+            {groups.length > 0 ? (
+                groups.map((group, i) => (
+
+                  <div className='divField'>
+                    
+                    <fieldset>
+                      <legend>Detalles del Grupo: {group.group_name}</legend>
+                      
+                      <div class="info">
+                          <span class="label">Nivel de educacion:</span> {group.educational_level}
+                      </div>
+                      <div class="info">
+                          <span class="label">Capacidad Maxima:</span> {group.capacity}
+                      </div>
+                      <div class="info">
+                          <span class="label">Numero de clase:</span> {group.classroom}
+                      </div>
+                      <div class="info">
+                          <span class="label">Estudiantes activos:</span>  {group.current_students}
+                      </div>
+                      <div class="info">
+                          <span class="label">Docentes asignados:</span>
+                    
+                          <br />
+                          <br />
+
+                          {group.communication_of_subjects_and_teacher && (
+                            <table className='table_json'>
+                              <tr>
+                                <th>Asignatura</th>
+                                <th>Docente</th>
+                              </tr>
+
+                              {Object.keys(group.communication_of_subjects_and_teacher).map((key, index) => (
+                                <tr key={index}>
+                                  <td>
+                                    {key}
+                                  </td>
+                                  <td>
+                                    {group.communication_of_subjects_and_teacher[key]}
+                                  </td>
+                                </tr>
+                              ))}
+                            </table>
+                          )}
+                      </div>
+                      
+                    </fieldset>
+                    
+                  </div>
+                 
+                ))
+            ) : (
+                <p>Todavia usted no se encuentra en ningun grupo.</p>
+            )}
+      
+      </div>
+      </>
+        
     );
 }
 
