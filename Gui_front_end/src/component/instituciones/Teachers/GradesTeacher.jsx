@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react'
+import React, { useEffect, useState } from 'react';
 import { fetchStudent } from '../../../Redux/Slices/SliceStudent';
 import { fetchGroups } from '../../../Redux/Slices/SliceGroup';
 import { fetchAssignmentGroup } from '../../../Redux/Slices/sliceAssignmentGroup';
@@ -6,74 +6,93 @@ import { useDispatch, useSelector } from 'react-redux';
 import '../../../css/grades_teacher.css';
 
 function GradesTeacher() {
+    const [studentsWithGroups, setStudentsWithGroups] = useState([]);
+    const NameTeacher = useSelector((state) => state.infInstitution.nameInstitution);
 
-    const [StudentId, setStudent] = useState([]);
-    const [GroupId, setGroupId] = useState([]);
-
-    const combined = StudentId.reduce((acc, student, index) => { //Combina los estados, arrays.
-        acc.push({ student, group: GroupId[index] });
-        return acc;
-      }, []);
-
-    const NameTeacher = useSelector( //Nombre de la institucion traigo de redux
-        (state) => state.infInstitution.nameInstitution
-    );
-
-    //Redux
-   const itemsStudent = useSelector((state) => state.student.items);
-   const itemsAssignmentG = useSelector((state) => state.groupAssignment.items);
-   const itemsGroups = useSelector((state) => state.group.items);
+    // Redux
+    const itemsStudent = useSelector((state) => state.student.items);
+    const itemsAssignmentG = useSelector((state) => state.groupAssignment.items);
+    const itemsGroups = useSelector((state) => state.group.items);
     const dispatch = useDispatch();
 
     useEffect(() => {
-        dispatch(fetchStudent()); // Llama a la acción para obtener productos al cargar el componente
+        dispatch(fetchStudent());
         dispatch(fetchAssignmentGroup());
         dispatch(fetchGroups());
     }, [dispatch]);
 
     useEffect(() => {
-        setStudent([]);
-        for (const group in itemsGroups) {
-          Object.values(itemsGroups[group].communication_of_subjects_and_teacher).forEach((value) => {
-            if (value == NameTeacher) { 
-              for (const key in itemsAssignmentG) {
-                //Comparo los ids de grupo de assignment y extraigo el id estudiante       
-                if (itemsAssignmentG[key].group == itemsGroups[group].id) { //Si el id de grupo es igual al de assignment, extrae el idEstudiante.
-                  for (const student in itemsStudent) {                
-                    if (itemsStudent[student].id == itemsAssignmentG[key].student) {
-                      // Actualiza el valor de la clave correspondiente
-                      setStudent((prevFiltred) => [...prevFiltred, itemsStudent[student]]);//Agrega al array el estudiante.
-                      setGroupId((prevFiltred) => [...prevFiltred,  itemsGroups[group].id]);//Obtiene el id del grupo donde pertenece ese estudiante.
+        const tempStudents = [];
+
+        for (const group of itemsGroups) {
+            const isTeacherGroup = Object.values(group.communication_of_subjects_and_teacher).includes(NameTeacher);
+
+            if (isTeacherGroup) {
+                for (const assignment of itemsAssignmentG) {
+                    if (assignment.group === group.id) {
+                        const student = itemsStudent.find(s => s.id === assignment.student);
+                        if (student) {
+                            tempStudents.push({ ...student, groupId: group });
+                        };
                     };
-                  };
                 };
-              };
-            };  
-          });
+            };
         };
-    },[]);
 
-  return (
-    <>
-       <div>GradesTeacher</div>
+        setStudentsWithGroups(tempStudents);
+    }, [itemsGroups, itemsAssignmentG, itemsStudent, NameTeacher]);
 
-       {StudentId.length === 0 && GroupId.length === 0 ? (
-  <p>Not student.</p>
-) : (
-  StudentId.map((item, i) => (
-    GroupId.map((u, o) => (
-      <div className='div-grades-students' key={`${i}-${o}`}>
-        <p>{u}</p>
-        <p>{item.username}</p>
-        <button>Calificar notas</button>
-      </div>
-    ))
-  ))
-)}
+    return (
+        <>
+            <div>GradesTeacher</div>
 
-    
-    </>
-  )
+            {studentsWithGroups.length === 0 ? (
+                <p>No hay estudiantes.</p>
+            ) : (
+                studentsWithGroups.map((student, i) => (
+                  
+                    <div className='div1'>    
+                      <div className='div-grades-students'>
+                        <fieldset>
+                          <legend>1° Semestre</legend>
+                         
+                          <div class="info">
+                            <button>Calificar notas</button>
+                          </div>
+                         
+                        </fieldset> 
+                      </div>
+
+                      <div className='div-grades-students'>
+
+                        <fieldset>
+                          <legend>2° Semestre</legend>
+                          
+                          <div class="info">
+                            <button>Calificar notas</button>
+                          </div>
+                          
+                        </fieldset>
+                      </div>
+                                      
+                      <div className='div-grades-students'>
+                        <fieldset>
+                          <legend>3° Semestre</legend>
+                         
+                          <div class="info">
+                            <button>Calificar notas</button>
+                          </div>
+                         
+                        </fieldset>
+                      </div> 
+
+                    </div>
+                  
+                  
+                ))
+            )}
+        </>
+    );
 }
 
-export default GradesTeacher
+export default GradesTeacher;

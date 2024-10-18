@@ -81,7 +81,7 @@ function HomeInstitutionsForm() {
               </div>
               <div onClick={() => setChangeComponent("teacherNotas")} className="inputBoton">
                 <input type="radio" id="teacherNotas" name="changeComponent" style={{ display: "none" }} />
-                <label htmlFor="teacherNotas">Notas</label>
+                <label htmlFor="teacherNotas">Control de Notas</label>
               </div>
               <div onClick={() => setChangeComponent("ChatEstudiante")} className="inputBoton">
                 <input type="radio" id="ChatEstudiante" name="changeComponent" style={{ display: "none" }} />

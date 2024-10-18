@@ -1,0 +1,18 @@
+.divField{
+    
+
+}
+
+.container_list{
+    overflow: auto;
+    max-height: 500px;
+    display: grid;
+    grid-template-columns: repeat(3, 400px);
+}
+
+fieldset{
+    max-width: 350px;
+}
+/* .students{
+    overflow: auto;
+} */

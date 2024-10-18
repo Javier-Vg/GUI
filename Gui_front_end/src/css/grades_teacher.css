@@ -1,5 +1,64 @@
 .div-grades-students{
+
     background-color: sandybrown;
+    padding: 15px;
+    margin-top: 150px;
+    overflow: auto;
+    width: 380px;
+    border-radius: 10px;
+};
+
+.div1{
+    display: grid;
+    grid-template-columns: repeat(3, 210px);
+    background-color: aqua;
+    grid-template-rows: 100px 100px;
+    
+}
+
+/* Fieldset */
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f4f4f4;
+    padding: 20px;
+}
+fieldset {
+    border: 2px solid #007BFF;
+    border-radius: 10px;
+    padding: 20px;
+    background-color: #fff;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    width: 400px;
+}
+legend {
+    font-size: 1.8em;
+    color: #fff;
+    background-color: #007BFF;
+    padding: 10px 15px;
+    border-radius: 5px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+    text-align: center;
+}
+.info {
+    margin-bottom: 15px;
     padding: 10px;
-    margin-top: 100px;
+    border: 1px solid #e0e0e0;
+    border-radius: 5px;
+    background-color: #f9f9f9;
+    transition: background-color 0.3s;
+}
+.info:hover {
+    background-color: #e9f7fe;
+}
+.label {
+    font-weight: bold;
+    color: #333;
+}
+
+.p1{
+    padding: 0;
+    margin: 0;
+    color: white;
+    font-size: 25px;
+    font-family:Georgia, 'Times New Roman', Times, serif;
 }
