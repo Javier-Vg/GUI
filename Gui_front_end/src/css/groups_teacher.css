@@ -1,0 +1,9 @@
+.divField{
+    display: grid;
+    grid-template-columns: repeat(3, 200px);
+
+}
+
+/* .students{
+    overflow: auto;
+} */

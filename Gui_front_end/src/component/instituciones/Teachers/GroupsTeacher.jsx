@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { fetchGroups } from '../../../Redux/Slices/SliceGroup';
 import { fetchStaff } from '../../../Redux/Slices/SliceStaff';
 import { useDispatch, useSelector } from 'react-redux';
+import '../../../css/groups_teacher.css'
 
 function ListGroups() {
     const [groups, setGroups] = useState([]);
@@ -69,56 +70,71 @@ function ListGroups() {
     return (
         <div className='container_list'>
             <h1>Grupos</h1>
+            {/* <p>Aqui estan los grupos en donde usted esta asignado:</p> */}
+            <br />
+            <br />
             <div className='students'>
                 {groups.length > 0 ? (
                     groups.map((group, i) => (
-                        <div className='container_students_list' key={i}>
-                            <div className='student_inf'>
-                                <h2>{group.name} {group.last_name}</h2>
-                                <h6>{group.educational_level}</h6>
-                                <input onClick={() => openModal(group)} type="button" value="Ver más" />
-                            </div>   
-                        </div>
+
+                      <div className='divField'>
+                        
+                        <fieldset>
+                          <legend>Detalles del Grupo</legend>
+                          <div class="info">
+                              <span class="label">Nombre del grupo:</span> {group.group_name}
+                            
+                          </div>
+                          <div class="info">
+                              <span class="label">Nivel de educacion:</span> {group.educational_level}
+                          </div>
+                          <div class="info">
+                              <span class="label">Capacidad Maxima:</span> {group.capacity}
+                          </div>
+                          <div class="info">
+                              <span class="label">Numero de clase:</span> {group.classroom}
+                          </div>
+                          <div class="info">
+                              <span class="label">Estudiantes activos:</span>  {group.current_students}
+                          </div>
+                          <div class="info">
+                              <span class="label">Docentes asignados:</span>
+                        
+                              <br />
+                              <br />
+
+                              {group.communication_of_subjects_and_teacher && (
+                                <table className='table_json'>
+                                  <tr>
+                                    <th>Asignatura</th>
+                                    <th>Docente</th>
+                                  </tr>
+
+                                  {Object.keys(group.communication_of_subjects_and_teacher).map((key, index) => (
+                                    <tr key={index}>
+                                      <td>
+                                        {key}
+                                      </td>
+                                      <td>
+                                        {group.communication_of_subjects_and_teacher[key]}
+                                      </td>
+                                    </tr>
+                                  ))}
+                                </table>
+                              )}
+                          </div>
+                          
+                        </fieldset>
+                        
+                      </div>
+                     
                     ))
                 ) : (
                     <p>Todavia usted no se encuentra en ningun grupo.</p>
                 )}
             </div>
             
-            {seeMore && selectedGroup && (
-            <div className='modal'>
-              <h2>Información del Grupo</h2>
-              <h3>Nombre del grupo: {selectedGroup.group_name}</h3>
-              <h3>Nivel de educacion: {selectedGroup.educational_level}</h3>
-              <h3>Capacidad maxima: {selectedGroup.capacity}</h3>
-              <h3>Numero de clase: {selectedGroup.classroom}</h3>
-              <h3>Estudiantes activos: {selectedGroup.current_students}</h3>
-              <h3>Docentes asignados:</h3>
-              <br />
-
-              {selectedGroup.communication_of_subjects_and_teacher && (
-                <table className='table_json'>
-                  <tr>
-                    <th>Asignatura</th>
-                    <th>Docente</th>
-                  </tr>
-
-                  {Object.keys(selectedGroup.communication_of_subjects_and_teacher).map((key, index) => (
-                    <tr key={index}>
-                      <td>
-                        {key}
-                      </td>
-                      <td>
-                        {selectedGroup.communication_of_subjects_and_teacher[key]}
-                      </td>
-                    </tr>
-                  ))}
-                </table>
-              )}
-
-              <input onClick={closeModal} type="button" value="Cerrar" />
-            </div>
-        )}
+           
         </div>
     );
 }
