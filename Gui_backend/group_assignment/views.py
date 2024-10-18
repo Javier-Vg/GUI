@@ -19,3 +19,11 @@ class GroupAssignmentViewSet(viewsets.ModelViewSet):
             serializer.save()
             return Response(serializer.data, status=status.HTTP_200_OK)
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+    def delete(self, request, pk):
+        try:
+            assignment = group_assignment.objects.get(pk=pk)
+            # Aquí, asegúrate de no referenciar 'assignment.group.group'
+            assignment.delete()
+            return Response(status=status.HTTP_204_NO_CONTENT)
+        except group_assignment.DoesNotExist:
+            return Response(status=status.HTTP_404_NOT_FOUND)

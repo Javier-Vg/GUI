@@ -1,18 +1,10 @@
-.div-grades-students{
 
-    background-color: sandybrown;
-    padding: 15px;
-    margin-top: 150px;
-    overflow: auto;
-    width: 380px;
-    border-radius: 10px;
-};
 
-.div1{
+.div2{
     display: grid;
-    grid-template-columns: repeat(3, 210px);
-    background-color: aqua;
-    grid-template-rows: 100px 100px;
+    grid-template-columns: repeat(3, 370px);
+    overflow: auto;
+    margin-left: 50px;
     
 }
 
@@ -28,7 +20,8 @@ fieldset {
     padding: 20px;
     background-color: #fff;
     box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
-    width: 400px;
+    width: 250px;
+    margin-left: 12px;
 }
 legend {
     font-size: 1.8em;
@@ -61,4 +54,107 @@ legend {
     color: white;
     font-size: 25px;
     font-family:Georgia, 'Times New Roman', Times, serif;
+}
+
+/* Select */
+
+.select-container {
+    width: 300px;
+    margin: 50px auto;
+}
+
+.custom-select {
+    width: 100%;
+    padding: 10px;
+    border: 2px solid #007BFF;
+    border-radius: 5px;
+    background-color: #fff;
+    font-size: 16px;
+    appearance: none; /* Elimina el estilo predeterminado */
+    background-image: url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAAy0lEQVR42mJ0M7q88GCAoB5KJgD5zA+oGACdAWIBP//oNBUhHkAyDiIwbggOBlYgwQABGykGICyH5AUBYDBhAQZkDAE0sBiAcDBMBG/gAj8k4r8p4ICAA1CggkA7w5GQAAAAABJRU5ErkJggg=='), 
+                      linear-gradient(to bottom, #f9f9f9, #eaeaea);
+    background-repeat: no-repeat, no-repeat;
+    background-position: right 10px top 50%, 0 0;
+    background-size: 12px, 100%;
+    cursor: pointer;
+}
+
+.custom-select:focus {
+    outline: none;
+    border-color: #0056b3;
+}
+
+/* Semestre */
+.div_semestre{
+    background-color: #48e;
+    border-radius: 5px;
+    text-align: left;
+    margin: 0;
+    padding: 0;
+}
+
+/* Div donde muestra el select (student) */
+
+.content-container {
+    max-width: 300px;
+    padding: 10px;
+    background-color: #ffffff;
+    border-radius: 10px;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+    border-left: 5px solid #007BFF;
+    margin-right: 0%;
+}
+
+.title {
+    font-size: 24px;
+    margin-bottom: 20px;
+    color: #007BFF;
+    text-align: center;
+}
+
+.paragraph {
+    font-size: 16px;
+    line-height: 1.6;
+    margin: 15px 0;
+    color: #555;
+}
+
+.custom-select {
+    width: 100%;
+    padding: 15px;
+    border: none;
+    border-radius: 8px;
+    background-color: #f1f1f1;
+    font-size: 16px;
+    color: #333;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    appearance: none; /* Elimina el estilo predeterminado */
+    cursor: pointer;
+    transition: all 0.3s ease;
+    margin-top: 20px;
+}
+
+.custom-select:focus {
+    outline: none;
+    box-shadow: 0 0 5px rgba(0, 123, 255, 0.5);
+}
+
+.custom-select::after {
+    content: '▼'; /* Flecha hacia abajo */
+    position: absolute;
+    right: 15px;
+    top: 50%;
+    transform: translateY(-50%);
+    color: #007BFF;
+    pointer-events: none;
+    font-size: 14px;
+}
+
+.custom-select option {
+    background-color: #fff;
+    color: #333;
+}
+
+.custom-select option:hover {
+    background-color: #f0f8ff; /* Color de fondo al pasar el mouse */
 }

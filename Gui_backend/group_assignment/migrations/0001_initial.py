@@ -10,7 +10,7 @@ class Migration(migrations.Migration):
 
     dependencies = [
         ('groups', '0006_alter_group_current_students'),
-        ('students', '0002_alter_students_group_alter_students_password'),
+        
     ]
 
     operations = [

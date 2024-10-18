@@ -129,6 +129,19 @@ export const getStaff = async () => {
       throw error;
     }
   };
+export const putStaff = async (staff) => {
+  try {
+    const response = await axios.put(`http://${domain}:8000/api/staff/staff/${staff.id}/`, staff, {
+      headers: {
+        'Content-Type': 'application/json',
+      },
+    });
+    return response.data;
+  } catch (error) {
+    console.error("Error haciendo la solicitud:", error);
+    throw error;
+  }
+};
   export const getStudents = async () => {
     try {
       const response = await axios.get(`http://${domain}:8000/api/students/students/`);
@@ -136,6 +149,19 @@ export const getStaff = async () => {
     } catch (error) {
       console.error("Error al obtener estudiantes:", error.response?.data || error);
       throw error; // Lanzar error para manejarlo en el componente
+    }
+  };
+  export const putStudent  = async () => {
+    try {
+      const response = await axios.put(`http://${domain}:8000/api/students/students/`, {
+        headers: {
+          'Content-Type': 'application/json',
+        },
+      });
+      return response.data;
+    } catch (error) {
+      console.error("Error haciendo la solicitud:", error);
+      throw error;
     }
   };
   // service/LoginGui.js
@@ -227,13 +253,31 @@ export const postGroups = async (group) => {
 
 };
 
-export const postGroupsAsiggnment = async (prop) => {
+export const postGroupsAssignment = async (assignments) => {
   try {
-    const response = await axios.post(`http://${domain}:8000/api/group_assignment/group_assignment/`, prop, {
+    const response = await axios.post(`http://${domain}:8000/api/group_assignment/group_assignment/`, assignments, {
       headers: {
         'Content-Type': 'application/json',
       }
     });
+    return response.data;
+  } catch (error) {
+    console.error("Error haciendo la solicitud:", error.response?.data || error);
+    throw error;
+  }
+};
+export const getGroupsAssignment = async () => {
+  try {
+    const response = await axios.get(`http://${domain}:8000/api/group_assignment/group_assignment/`);
+    return response.data
+  } catch (error) {
+    console.error('Error fetching user data:', error);
+    throw error;
+  }
+};
+export const deleteGroupsAssignment = async (assignmentId) => {
+  try {
+    const response = await axios.delete(`http://${domain}:8000/api/group_assignment/group_assignment/${assignmentId}/`);
     return response.data;
   } catch (error) {
     console.error("Error haciendo la solicitud:", error);
@@ -287,7 +331,18 @@ export const sendMessage = async (messageData) => {
     throw new Error('Error al enviar el mensaje');
   }
 };
-
+export const getMessages = async () => {
+  try {
+    const response = await axios.get(`http://${domain}:8000/api/message/message/`, {
+      headers: {
+        'Content-Type': 'application/json',
+      },
+    });
+    return response.data; // Devuelve los mensajes obtenidos desde el backend
+  } catch (error) {
+    throw new Error('Error al obtener los mensajes');
+  }
+};
 // Obtener mensajes de un profesor específico
 // export const fetchMessagesForTeacher = async (teacherId) => {
 //   try {

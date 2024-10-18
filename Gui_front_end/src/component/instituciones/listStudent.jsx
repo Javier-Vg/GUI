@@ -1,9 +1,10 @@
 import React, { useEffect, useState } from 'react';
-import { postGroupsAsiggnment } from '../../service/LoginGui';
+import { postGroupsAssignment } from '../../service/LoginGui';
 import { fetchStudent } from '../../Redux/Slices/SliceStudent';
 import { fetchGroups } from '../../Redux/Slices/SliceGroup';
 import { useDispatch, useSelector } from 'react-redux';
 import '../../css/list_student.css';
+import { putStudent } from '../../service/LoginGui'; // Importa el servicio para hacer el PUT
 
 function ListStudents() {
 
@@ -11,11 +12,10 @@ function ListStudents() {
     const [seeMore, setSeeMore] = useState(false);
     const [selectedStudent, setSelectedStudent] = useState(null);
     const institution_id = useSelector((state) => state.ids.institutionId); // Obtén el ID de la institución
-    // Confirmación de asignación a grupo:
-    const [confirm, setConfirm] = useState(false);
-
-    // Seteo de la opción de grupo:
-    const [GroupId, setGroupId] = useState(false);
+    const [confirm, setConfirm] = useState(false); // Confirmación de asignación a grupo
+    const [GroupId, setGroupId] = useState(false); // Seteo de la opción de grupo
+    const [editMode, setEditMode] = useState(false); // Controlar si estamos en modo edición
+    const [updatedStudent, setUpdatedStudent] = useState({}); // Estado para almacenar los datos actualizados del estudiante
 
     const dispatch = useDispatch();
 
@@ -37,7 +37,6 @@ function ListStudents() {
         setStudents([]);
         for (let i = 0; i < items.length; i++) {
             if (items[i].institution === parseInt(institution_id, 10)) {
-              // Actualiza el valor de la clave correspondiente
               setStudents((prevFiltred) => [...prevFiltred, items[i]]);
             }
         }
@@ -46,25 +45,24 @@ function ListStudents() {
     const openModal = (student) => {
         setSelectedStudent(student);
         setSeeMore(true);
+        setUpdatedStudent(student); // Inicializa los datos actualizados con los actuales
     };
 
     const closeModal = () => {
         setSeeMore(false);
         setSelectedStudent(null);
-        setConfirm(!confirm);
-        setGroupId('');
+        setConfirm(false);
+        setEditMode(false); // Asegúrate de salir del modo edición al cerrar el modal
     };
 
-    // Setea el estado y muestra el div de asignación:
     const handleChange = () => {
         setConfirm(!confirm);
-    }
+    };
 
-    // Añade el grupo al grupo:
     const handleSubmit = (prop) => {
         const fechaActual = new Date();
         const anio = fechaActual.getFullYear();
-        const mes = String(fechaActual.getMonth() + 1).padStart(2, '0'); // +1 porque los meses son de 0 a 11
+        const mes = String(fechaActual.getMonth() + 1).padStart(2, '0');
         const dia = String(fechaActual.getDate()).padStart(2, '0');
         const fechaFormateada = `${anio}/${mes}/${dia}`;
         
@@ -72,16 +70,35 @@ function ListStudents() {
             registration_day: fechaFormateada,
             group: GroupId,
             student: prop
-        }
+        };
 
-        postGroupsAsiggnment(group); // manda los datos
+        postGroupsAssignment(group); // manda los datos
         setConfirm(!confirm);
-    }
-    
-    
+    };
+
+    const handleInputChange = (e) => {
+        const { name, value } = e.target;
+        setUpdatedStudent({
+            ...updatedStudent,
+            [name]: value,
+        });
+    };
+
+    const handleUpdate = () => {
+        putStudent(updatedStudent)  // Realiza la solicitud PUT con los datos actualizados
+            .then(() => {
+                alert('Estudiante actualizado con éxito');
+                setEditMode(false);  // Salir del modo edición
+                setSeeMore(false);   // Cerrar el modal
+            })
+            .catch((error) => {
+                console.error('Error al actualizar el estudiante:', error);
+            });
+    };
+
     if (loading) {
         return <div>Cargando...</div>; // Muestra un mensaje de carga
-      }
+    }
     
     if (error) {
         return <div>Error: {error}</div>; // Muestra el error si ocurre
@@ -102,9 +119,9 @@ function ListStudents() {
                                 )}
                             </div>
                             <div className='student_inf'>
+                            <input onClick={() => openModal(student)} type="button" value="Ver más" />
                                 <h2>{student.name} {student.last_name}</h2>
                                 <h6>{student.grade}</h6>
-                                <input onClick={() => openModal(student)} type="button" value="Ver más" />
                             </div>   
                         </div>
                     ))
@@ -116,48 +133,70 @@ function ListStudents() {
             {seeMore && selectedStudent && (
                 <div className='modal'>
                     <h2>Información del Estudiante</h2>
-                    <h3>ID: {selectedStudent.identification_number}</h3>
-                    <h3>Nombre: {selectedStudent.name} {selectedStudent.last_name}</h3>
-                    <h3>Fecha de Nacimiento: {selectedStudent.birthdate_date}</h3>
-                    <h3>Grado: {selectedStudent.grade}</h3>
-                    <h3>Estado Académico: {selectedStudent.academic_status}</h3>
-                    <h3>Información de Alergias: {selectedStudent.allergy_information}</h3>
-                    <h3>Contacto: {selectedStudent.contact_information}</h3>
-                    <br />
-                    {!confirm ?(
-                        <button onClick={handleChange} className='btn-asign'>Asignar estudiante a grupo</button>
-                    ) : (
+                    {editMode ? (
+                        // Formulario de edición
                         <div>
-                           <h2>Asigne al estudiante entre estos grupos:</h2>
-                           <br />
-                           <button className='btn_volver' onClick={handleChange}>Volver</button>
-                           <br />
-                           <select onChange={((e) => setGroupId(e.target.value))}>
-                            <option>-Seleccione el grupo-</option>
-                                {itemsGroups.map((group, i) => (
-                                    group.capacity > group.current_students ? (
-                                        <option key={i} value={group.id}>
-                                            {group.group_name}  ({group.current_students}/{group.capacity})
-                                        </option>
-                                    ) : (
-                                        <option key={i} value={group.id} disabled>
-                                            {group.group_name} (Lleno)
-                                        </option>
-                                    )
-                                ))}
-                           </select>
-                           
-                           {GroupId && (
-                                <button onClick={(() => handleSubmit(selectedStudent.id))}>Añadir al grupo</button>
-                           )}
-                           <br />
-                            
+                            <input
+                                type="text"
+                                name="name"
+                                defaultValue={selectedStudent.username}
+                                onChange={handleInputChange}
+                            />
+                            <input
+                                type="text"
+                                name="last_name"
+                                defaultValue={selectedStudent.last_name}
+                                onChange={handleInputChange}
+                            />
+                            <input
+                                type="date"
+                                name="birthdate_date"
+                                defaultValue={selectedStudent.identification_number}
+                                onChange={handleInputChange}
+                            />
+                            <input
+                                type="text"
+                                name="grade"
+                                defaultValue={selectedStudent.birthdate_date}
+                                onChange={handleInputChange}
+                            />
+                            <input
+                                type="text"
+                                name="academic_status"
+                                defaultValue={selectedStudent.grade}
+                                onChange={handleInputChange}
+                            />
+                            <input
+                                type="text"
+                                name="allergy_information"
+                                defaultValue={selectedStudent.academic_status}
+                                onChange={handleInputChange}
+                            />
+                            <input
+                                type="text"
+                                name="contact_information"
+                                defaultValue={selectedStudent.allergy_information}
+                                onChange={handleInputChange}
+                            />
+
+                            <button onClick={handleUpdate}>Guardar cambios</button>
+                            <button onClick={() => setEditMode(false)}>Cancelar</button>
                         </div>
-                        
+                    ) : (
+                        // Muestra la información sin editar
+                        <div>
+                            <h3>ID: {selectedStudent.identification_number}</h3>
+                            <h3>Nombre: {selectedStudent.name} {selectedStudent.last_name}</h3>
+                            <h3>Fecha de Nacimiento: {selectedStudent.birthdate_date}</h3>
+                            <h3>Grado: {selectedStudent.grade}</h3>
+                            <h3>Estado Académico: {selectedStudent.academic_status}</h3>
+                            <h3>Información de Alergias: {selectedStudent.allergy_information}</h3>
+                            <h3>Contacto: {selectedStudent.contact_information}</h3>
+
+                            <button onClick={() => setEditMode(true)}>Actualizar Información</button>
+                            <input onClick={closeModal} type="button" value="Cerrar" />
+                        </div>
                     )}
-                    
-                    <br />
-                    <input onClick={closeModal} type="button" value="Cerrar" />
                 </div>
             )}
         </div>

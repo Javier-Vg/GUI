@@ -43,8 +43,6 @@ function StudentsTeacher() {
       });
     };
   },[]);
-  
-  //Ancho y alto de las columnas de la tabla
   const cellWidth = 290;
   const cellHeight = 45;
   

@@ -1,4 +1,4 @@
-.btn-asign{
+/* .btn-asign{
     color: aliceblue;
     background-color: #FE8e03;
     padding: 10px;
@@ -14,4 +14,170 @@
     border: 2px black solid;
     border-radius: 5px;
     margin-right: 170px;
+} */
+ /* Estilos generales */
+.container_list {
+    padding: 20px;
+    background-color: #f9f9f9;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    max-width: 1200px;
+    margin: 0 auto;
+    font-family: 'Arial', sans-serif;
+}
+
+.container_list h1 {
+    text-align: center;
+    color: #333;
+    font-size: 2.5rem;
+    margin-bottom: 30px;
+}
+
+/* Estilos para la lista de estudiantes */
+.students {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+    gap: 20px;
+}
+
+.container_students_list {
+    background-color: #fff;
+    border-radius: 8px;
+    overflow: hidden;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+    transition: transform 0.3s ease-in-out;
+}
+
+.container_students_list:hover {
+    transform: scale(1.03);
+}
+
+.div_img {
+    background-color: #e0e0e0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 200px;
+    overflow: hidden;
+}
+
+.Student_Image {
+    max-width: 100%;
+    height: auto;
+}
+
+.No_Image {
+    color: #888;
+    font-size: 1.2rem;
+}
+
+.student_inf {
+    padding: 15px;
+    text-align: center;
+}
+
+.student_inf h2 {
+    color: #333;
+    font-size: 1.8rem;
+    margin-bottom: 10px;
+}
+
+.student_inf h6 {
+    color: #666;
+    font-size: 1rem;
+    margin-bottom: 15px;
+}
+
+.student_inf input[type="button"] {
+    background-color: #007bff;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 1rem;
+    transition: background-color 0.3s ease;
+}
+
+.student_inf input[type="button"]:hover {
+    background-color: #0056b3;
+}
+
+/* Estilos para el modal */
+.modal {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 80%;
+    max-width: 800px;
+    background-color: #fff;
+    border-radius: 10px;
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+    padding: 30px;
+    z-index: 1000;
+}
+
+.modal h2 {
+    text-align: center;
+    color: #333;
+    margin-bottom: 20px;
+}
+
+.modal input[type="text"],
+.modal input[type="date"] {
+    width: 100%;
+    padding: 10px;
+    margin: 10px 0;
+    border-radius: 5px;
+    border: 1px solid #ccc;
+    font-size: 1rem;
+}
+
+.modal button {
+    background-color: #28a745;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 1rem;
+    transition: background-color 0.3s ease;
+    margin-right: 10px;
+}
+
+.modal button:hover {
+    background-color: #218838;
+}
+
+.modal button:last-child {
+    background-color: #dc3545;
+}
+
+.modal button:last-child:hover {
+    background-color: #c82333;
+}
+
+.modal input[type="button"] {
+    background-color: #6c757d;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 1rem;
+    margin-top: 20px;
+    transition: background-color 0.3s ease;
+}
+
+.modal input[type="button"]:hover {
+    background-color: #5a6268;
+}
+
+/* Estilo para el mensaje de "No hay estudiantes" */
+p {
+    text-align: center;
+    font-size: 1.2rem;
+    color: #555;
+    margin-top: 20px;
 }

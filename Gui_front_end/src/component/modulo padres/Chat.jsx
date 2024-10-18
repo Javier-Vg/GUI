@@ -1,31 +1,24 @@
 import React, { useState, useEffect } from 'react';
-import { sendMessage, getStaff } from '../../service/LoginGui'; // Asegúrate de que la ruta sea correcta
+import { sendMessage, getStaff, getMessages } from '../../service/LoginGui';
+import '../../css/Chat.css';
 
 const Chat = () => {
     const [selectedTeacher, setSelectedTeacher] = useState(null);
     const [message, setMessage] = useState('');
     const [messages, setMessages] = useState([]);
-    
     const storedStudentId = sessionStorage.getItem('StudentID');
-    const storedStudentName = sessionStorage.getItem('StudentName');
-    const storedInstitutionId = sessionStorage.getItem('InstitutionID'); // Obtener institutionID desde sessionStorage
-    
-    const [studentName, setStudentName] = useState(storedStudentName || '');
-    const [teachers, setTeachers] = useState([]);
+    const storedInstitutionId = sessionStorage.getItem('InstitutionID');
+    const storedStudentDisplayName = sessionStorage.getItem('nameStudent'); 
 
-    // Log para verificar el ID del estudiante y la institución
-    console.log("StudentID almacenado en sessionStorage:", storedStudentId);
-    console.log("InstitutionID almacenado en sessionStorage:", storedInstitutionId);
+    const [teachers, setTeachers] = useState([]);
+    const [studentName, setStudentName] = useState(storedStudentDisplayName || ''); 
+    const [isPolling, setIsPolling] = useState(false); 
 
     useEffect(() => {
         const fetchTeachers = async () => {
             try {
                 const staffList = await getStaff();
-
-                // Log para verificar los profesores obtenidos
-                console.log("Lista de profesores obtenida:", staffList);
-
-                const filteredTeachers = staffList.filter(teacher => teacher.position === 'Teacher');
+                const filteredTeachers = staffList.filter(teacher => teacher.institution.toString() === storedInstitutionId);
                 setTeachers(filteredTeachers);
             } catch (error) {
                 console.error('Error al cargar los profesores:', error);
@@ -33,33 +26,53 @@ const Chat = () => {
         };
 
         fetchTeachers();
-    }, []);
+    }, [storedInstitutionId]);
+
+    const fetchMessages = async () => {
+        try {
+            const messagesList = await getMessages();
+            setMessages(messagesList);
+        } catch (error) {
+            console.error('Error al cargar los mensajes:', error);
+        }
+    };
+
+    const startPolling = () => {
+        if (isPolling) return; 
+
+        setIsPolling(true);
+        const pollMessages = async () => {
+            await fetchMessages(); 
+            setTimeout(pollMessages, 5000);
+        };
+
+        pollMessages(); 
+    };
+
+    useEffect(() => {
+        if (selectedTeacher) {
+            startPolling();
+        }
+
+        return () => {
+            setIsPolling(false);
+        };
+    }, [selectedTeacher]);
 
     const handleSendMessage = async () => {
-        // Log para verificar los valores antes de enviar el mensaje
-        console.log("Mensaje:", message);
-        console.log("Profesor seleccionado:", selectedTeacher);
-        console.log("Institution ID al enviar:", storedInstitutionId);
-        console.log("StudentID al enviar:", storedStudentId);
-
         if (message.trim() && selectedTeacher && storedStudentId) {
             const newMessage = {
                 message: message,
                 staff: selectedTeacher,
                 students: storedStudentId,
-                institution: storedInstitutionId, // Usar institutionID desde sessionStorage
+                institution: storedInstitutionId, 
                 date: new Date().toISOString(),
+                name: storedStudentDisplayName,
             };
-            
-            console.log("Datos del mensaje a enviar:", newMessage);
-            
+
             try {
                 const savedMessage = await sendMessage(newMessage);
-                
-                // Log para verificar la respuesta de la API al enviar el mensaje
-                console.log("Mensaje guardado:", savedMessage);
-
-                setMessages([...messages, { ...savedMessage, transmitterName: studentName || "Estudiante" }]);
+                setMessages(prevMessages => [...prevMessages, { ...savedMessage, transmitterName: storedStudentDisplayName || "Estudiante" }]);
                 setMessage('');
                 alert('Mensaje enviado correctamente');
             } catch (error) {
@@ -72,22 +85,41 @@ const Chat = () => {
     };
 
     const filteredMessages = selectedTeacher 
-        ? messages.filter(msg => msg.receiver_student === selectedTeacher)
+        ? messages.filter(msg => msg.staff.toString() === selectedTeacher)
         : [];
 
+    const selectedTeacherData = teachers.find(teacher => teacher.id === selectedTeacher);
+
     return (
-        <div>
-            <h2>Chat con Profesores</h2>
-            <div>
+        <div className="chat-container">
+            <div className="header">Chat con Profesores</div>
+            <div className="teacher-selector">
                 <label>Selecciona un Profesor:</label>
-                <select onChange={(e) => setSelectedTeacher(e.target.value)} defaultValue="">
+                <select 
+                    onChange={(e) => {
+                        setSelectedTeacher(e.target.value);
+                        fetchMessages();
+                    }} 
+                    defaultValue=""
+                >
                     <option value="" disabled>Selecciona un profesor</option>
                     {teachers.map(teacher => (
-                        <option key={teacher.id} value={teacher.id}>{teacher.username}</option>
+                        <option key={teacher.id} value={teacher.id}>
+                            {teacher.username}
+                        </option>
                     ))}
                 </select>
+                {selectedTeacherData && (
+                    <div className="teacher-image-container">
+                        <img 
+                            src={selectedTeacherData.imagen_url} 
+                            alt={`${selectedTeacherData.username} - profesor`}
+                            className="teacher-image"
+                        />
+                    </div>
+                )}
             </div>
-            <div>
+            <div className="message-input">
                 <textarea 
                     value={message}
                     onChange={(e) => setMessage(e.target.value)}
@@ -95,20 +127,21 @@ const Chat = () => {
                 />
                 <button onClick={handleSendMessage}>Enviar</button>
             </div>
-            <div>
+            <div className="messages">
                 <h3>Mensajes</h3>
                 {filteredMessages.length > 0 ? (
                     filteredMessages.map(msg => (
-                        <div key={msg.id}>
-                            <p><strong>{msg.transmitterName}:</strong> {msg.message} <em>({new Date(msg.date).toLocaleString()})</em></p>
+                        <div className={`message ${msg.name === studentName ? 'sent' : 'received'}`} key={msg.id}>
+                            <p>
+                                <strong>{msg.name}:</strong> {msg.message}
+                            </p>
                         </div>
                     ))
                 ) : (
-                    <p>No hay mensajes para este profesor.</p>
+                    <p>No hay mensajes en la conversación.</p>
                 )}
             </div>
         </div>
     );
 };
-
 export default Chat;

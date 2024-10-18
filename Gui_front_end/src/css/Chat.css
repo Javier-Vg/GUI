@@ -1,0 +1,132 @@
+.chat-container {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    height: 100%;
+    max-width: 600px;
+    margin: 0 auto;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    padding: 16px;
+    background-color: #f9f9f9;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+}
+
+.header {
+    font-size: 20px;
+    font-weight: bold;
+    margin-bottom: 16px;
+    text-align: center;
+}
+
+.student-selector {
+    padding: 10px;
+    background-color: #fff;
+    border-bottom: 1px solid #ddd;
+    margin-bottom: 16px;
+}
+
+.student-selector select {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+}
+
+.message-input {
+    margin-bottom: 16px;
+}
+
+textarea {
+    width: 100%;
+    height: 60px;
+    border-radius: 4px;
+    border: 1px solid #ccc;
+    padding: 8px;
+    resize: none;
+}
+
+.message-input textarea {
+    padding: 10px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    resize: none;
+    min-height: 60px;
+}
+
+button {
+    margin-top: 8px;
+    padding: 8px 16px;
+    background-color: #28a745;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background 0.3s ease; /* Suaviza la transición */
+}
+
+button:hover {
+    background-color: #218838;
+}
+
+.messages {
+    max-height: 300px;
+    overflow-y: auto; /* Mantener el scroll por defecto */
+    margin-top: 16px;
+}
+
+.messages::-webkit-scrollbar {
+    width: 8px; /* Ancho del scrollbar */
+}
+
+.messages::-webkit-scrollbar-thumb {
+    background-color: #ccc; /* Color del "thumb" */
+    border-radius: 10px; /* Bordes redondeados del "thumb" */
+}
+
+.messages::-webkit-scrollbar-thumb:hover {
+    background-color: #aaa; /* Color del "thumb" al pasar el mouse */
+}
+
+.messages::-webkit-scrollbar-track {
+    background: transparent; /* Fondo del track */
+}
+
+.message {
+    clear: both;
+    margin: 10px 0;
+    padding: 10px;
+    border-radius: 5px;
+    max-width: 60%;
+}
+
+.sent {
+    background-color: #d1ffd1; /* Color de fondo para mensajes enviados */
+    float: right; /* Alinear a la derecha */
+    text-align: right; /* Alinear texto a la derecha */
+}
+
+
+.received {
+    margin-right: auto; /* Mueve los mensajes recibidos a la izquierda */
+    background-color: #f8d7da; /* Color para mensajes recibidos */
+    text-align: left; /* Alinear a la izquierda */
+}
+
+.message p {
+    margin: 0;
+    padding: 5px 10px;
+    color: white; /* Cambiado a blanco */
+}
+
+.message strong {
+    color: white; /* Cambiado a blanco */
+}
+
+.timestamp {
+    font-size: 12px;
+    color: #6c757d; /* Color para la marca de tiempo */
+    position: absolute;
+    bottom: 5px;
+    right: 10px;
+}

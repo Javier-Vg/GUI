@@ -8,4 +8,6 @@ class Message_Serializer(serializers.ModelSerializer):
             'institution',
             'message',
             'students',
-            'staff']
+            'staff',
+            'name',
+            ]
