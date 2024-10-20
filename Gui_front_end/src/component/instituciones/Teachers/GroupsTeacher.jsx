@@ -24,7 +24,6 @@ function ListGroups() {
 
     useEffect(() => {
         setGroups([]);
-
         for (let i = 0; i < items.length; i++) {   
              
           Object.values(items[i].communication_of_subjects_and_teacher).forEach((value) => {
@@ -72,16 +71,16 @@ function ListGroups() {
       <h1>Grupos</h1>
       <br />
       <br />
-      <div className='container_list'>
-            
+      <div >
             
             {groups.length > 0 ? (
-                groups.map((group, i) => (
+              <div className='container_list'>
+                {groups.map((group, i) => (
 
-                  <div className='divField'>
+                  <div key={i} className='divField'>
                     
                     <fieldset>
-                      <legend>Detalles del Grupo: {group.group_name}</legend>
+                      <legend>Detalles del Grupo: <br />{group.group_name}</legend>
                       
                       <div class="info">
                           <span class="label">Nivel de educacion:</span> {group.educational_level}
@@ -126,7 +125,9 @@ function ListGroups() {
                     
                   </div>
                  
-                ))
+                ))}
+              </div>
+                
             ) : (
                 <p>Todavia usted no se encuentra en ningun grupo.</p>
             )}

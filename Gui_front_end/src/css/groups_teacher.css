@@ -1,13 +1,9 @@
-.divField{
-    
-
-}
 
 .container_list{
     overflow: auto;
     max-height: 500px;
     display: grid;
-    grid-template-columns: repeat(3, 400px);
+    grid-template-columns: repeat(5, 300px);
 }
 
 fieldset{
@@ -16,3 +12,15 @@ fieldset{
 /* .students{
     overflow: auto;
 } */
+
+.table_json, tr, td, th{
+    border: 2px black solid;
+    border-radius: 2px;
+    padding: 3px;
+    margin: auto;
+}
+
+th{
+    font-size: 15px;
+    
+}
