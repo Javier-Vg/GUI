@@ -352,3 +352,18 @@ export const getMessages = async () => {
 //     throw new Error('Error al obtener los mensajes');
 //   }
 // };
+
+
+export const postGrades = async (grade) => {
+  try {
+    const response = await axios.post(`http://${domain}:8000/api/grades/grades/`, grade, {
+      headers: {
+        'Content-Type': 'application/json',
+      }
+    });
+    return response.data;
+  } catch (error) {
+    console.error("Error haciendo la solicitud grades:", error.response?.data || error);
+    throw error;
+  }
+};

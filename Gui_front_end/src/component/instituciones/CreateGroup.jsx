@@ -55,8 +55,8 @@ function CreateGroup() {
       }
     });
 
-     //Filtra los estudiantes:
-     itemsStaff.forEach((i) => {
+    //Filtra los estudiantes:
+    itemsStaff.forEach((i) => {
       if (i.position == "Teacher" && institution_id == i.institution) { //MOSTRAR MENSAJE EN CASO DE QUE NO EXISTA PROFESOR DE ESA INSTITUCION. 
         setTeachersFiltred((prevTeachersFiltred) => [...prevTeachersFiltred,i,]);
       }

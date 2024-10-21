@@ -46,10 +46,10 @@ function StudentsTeacher() {
                   // Filtrar los objetos omitiendo duplicados
                   const objetosFiltrados = studentsArray.filter(obj => {
                     if (usernamesUnicos.has(obj.username)) {
-                        return false; // Omitir si ya existe
+                      return false; // Omitir si ya existe
                     } else {
-                        usernamesUnicos.add(obj.username); // Agregar al conjunto
-                        return true; // Mantener si es único
+                      usernamesUnicos.add(obj.username); // Agregar al conjunto
+                      return true; // Mantener si es único
                     }
                   });
                   
@@ -64,7 +64,6 @@ function StudentsTeacher() {
     };
   }, []);
   
-
   const [isModalOpen, setModalOpen] = useState(false);
   const [ImgValue, setImgValue] = useState(false);
   const handleOpenModal = ((image) => {
@@ -77,7 +76,7 @@ function StudentsTeacher() {
 
   //Altura y ancho del svg.
   const cellWidth = 350;
-  const cellHeight = 45;
+  const cellHeight = 38;
 
   return (
     <>

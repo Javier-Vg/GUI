@@ -4,4 +4,4 @@ from .models import grades
 class Grades_Serializer(serializers.ModelSerializer):
     class Meta:
         model = grades
-        fields = ['institution','id','period', 'subject', 'grades', 'student']
+        fields = ['id','grade_results', 'period' ,'group', 'student', 'teacher']

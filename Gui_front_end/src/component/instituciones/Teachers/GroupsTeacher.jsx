@@ -16,7 +16,7 @@ function ListGroups() {
     const itemStaff= useSelector(state => state.staff.items);
     const loading = useSelector(state => state.group.loading);
     const error = useSelector(state => state.group.error);
-
+    
     useEffect(() => {
         dispatch(fetchGroups()); // Llama a la acción para obtener productos al cargar el componente
         dispatch(fetchStaff()); // Llama a la acción para obtener productos al cargar el componente
@@ -54,24 +54,6 @@ function ListGroups() {
           });         
         };
     }, [items]);
-
-    // const openModal = (group) => {
-    //     setSelectedGroups(group);
-    //     setSeeMore(true);
-    // };
-
-    // const closeModal = () => {
-    //     setSeeMore(false);
-    //     setSelectedGroups(null);
-    // };
-
-    // const listSubject = () => {
-    //     for (const key in data) {
-    //         if (data.hasOwnProperty(key)) {
-    //           console.log(`${key}: ${data[key]}`);
-    //         }
-    //     }
-    // }
     
     if (loading) {
         return <div>Cargando...</div>; // Muestra un mensaje de carga

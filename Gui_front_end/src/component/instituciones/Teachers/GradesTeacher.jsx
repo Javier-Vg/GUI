@@ -1,57 +1,87 @@
 import React, { useEffect, useState } from "react";
+import { postGrades } from "../../../service/LoginGui";
 import { fetchStudent } from "../../../Redux/Slices/SliceStudent";
 import { fetchGroups } from "../../../Redux/Slices/SliceGroup";
 import { fetchAssignmentGroup } from "../../../Redux/Slices/sliceAssignmentGroup";
 import { useDispatch, useSelector } from "react-redux";
+import { fetchGrades } from "../../../Redux/Slices/SliceGrades";
 import "../../../css/grades_teacher.css";
 
 function GradesTeacher() {
   const [studentsWithGroups, setStudentsWithGroups] = useState([]);
   const NameTeacher = sessionStorage.getItem("NameTeacher");
+  const IdTeacher = sessionStorage.getItem("StaffID");
 
   // Redux
   const itemsStudent = useSelector((state) => state.student.items);
   const itemsAssignmentG = useSelector((state) => state.groupAssignment.items);
   const itemsGroups = useSelector((state) => state.group.items);
+  const itemsGrades = useSelector((state) => state.grades.items);
   const dispatch = useDispatch();
 
   //Muestra el div del semestre seleccionado
-  const [RenderSemestre, setRenderSemestre] = useState("");
+  
+  const [RenderTrimestre, setRenderTrimestre] = useState("");
 
-  //Estado donde se almacenan las materias de ese especifico maestro.
-  const [SubjectsTeacher, setSubjectsTeacher] = useState([]);
-
-  //Modal
+  //Guardan estados para el objeto
+  const [StudentId, setStudentId] = useState("");
+  const [GroupId, setGroupId] = useState("");
+  const [Trimestre, setTrimestre] = useState("");
+  
+  //Modal calificaciones
   const openModal = () => setIsOpen(true);
   const closeModal = () => {
     setIsOpen(false);
-    //setSubjectsTeacher([]);//Se setean las materias
+    setObjectGrades([]);
+    // setSubjectsTeacher([]);//Se setean las materias
   }
+
+  //Modal registro calificaciones.
+  const openModalR = () => setIsOpenRegistro(true);
+  const closeModalR = () => {
+    setIsOpenRegistro(false);
+  }
+
+
   const [isOpen, setIsOpen] = useState(false);
+  const [isOpenRegistro, setIsOpenRegistro] = useState(false);//Estado de modal de registro
 
   //Crea el objeto con la vinculacion de la nota y asignaturas:
   const [ObjectGrades, setObjectGrades] = useState([]);
+
+  let [estadoBusqueda, setEstadoBusqueda] = useState("");
+
+  //Filtra por medio de las clases, ocultandolas segun sus caracteres o mostrandolas.
+  document.querySelectorAll(".keyDiv").forEach(card => {
+    card.textContent.toLowerCase().includes(estadoBusqueda.toLowerCase())
+    ? card.classList.remove("filtro")
+    : card.classList.add("filtro")
+  });
+
 
   useEffect(() => {
     dispatch(fetchStudent());
     dispatch(fetchAssignmentGroup());
     dispatch(fetchGroups());
+    dispatch(fetchGrades());
   }, [dispatch]);
 
-  const MostrarMaterias = (subjects) => {
+  const MostrarMaterias = (subjects, trimestre, idGroup) => {
+    setTrimestre(trimestre);
+    setGroupId(idGroup);
+    const filteredSubjects = [];
     openModal(!isOpen)
     for (const key in subjects) {
       if (subjects.hasOwnProperty(key)) {
         if (NameTeacher == subjects[key]) {
-          console.log(key);
-          setSubjectsTeacher((prevFiltred) => [...prevFiltred, key]);
+          filteredSubjects.push(key);
         };
       };
     };
 
     //Crea el objeto final:
-    SubjectsTeacher.forEach((i) => {
-      // Usar la versión anterior del estado con el callback
+    filteredSubjects.forEach((i) => {
+      //Usar la versión anterior del estado con el callback
       setObjectGrades((prevState) => ({
         ...prevState, // Mantener el estado previo
         [i]: "", // Agregar o modificar la nueva clave y valor
@@ -59,9 +89,26 @@ function GradesTeacher() {
     });
   };
 
-  //Renderiza el semestre
-  const handleSemesterChange = (studentId, semester) => {
-    setRenderSemestre((prev) => ({
+  const Post = (e) => {
+    e.preventDefault();
+    const teacherId = Number(IdTeacher); 
+
+    let json = {
+      grade_results: ObjectGrades,
+      student: StudentId,
+      group: GroupId,
+      teacher: teacherId,
+      period: Trimestre
+    }
+    
+    postGrades(json);
+  };
+
+  //Renderiza el trimestre
+  const handleTrimesterChange = (studentId, semester) => {
+    setStudentId(studentId);
+    
+    setRenderTrimestre((prev) => ({
         ...prev,
         [studentId]: semester,
     }));
@@ -83,7 +130,6 @@ function GradesTeacher() {
             );
             
             if (student) {
-              
               tempStudents.push({ ...student, group: group });
             };
           };
@@ -93,18 +139,6 @@ function GradesTeacher() {
     
     setStudentsWithGroups(tempStudents);
   }, [itemsGroups, itemsAssignmentG, itemsStudent, NameTeacher]);
-
-  //empieza a crear el objeto final del objeto
-  const asingGrade = () => {
-    SubjectsTeacher.forEach((i) => {
-      // Usar la versión anterior del estado con el callback
-      setObjectGrades((prevState) => ({
-        ...prevState, // Mantener el estado previo
-        [i]: "", // Agregar o modificar la nueva clave y valor
-      }));
-    });
-    // `setObjctFinish` es asincrónico.
-  };
 
   // Manejar cambios en los inputs
   const handleSelectChange = (e, materiaKey) => {
@@ -117,7 +151,6 @@ function GradesTeacher() {
     }));
   };
 
-
   return (
     <>
     <div className="tres-div">
@@ -127,11 +160,11 @@ function GradesTeacher() {
       <div>
         <label>
           Busqueda de alumnos:
-          <input type="text" placeholder="Ingrese el nombre del estudiante." />
+          <input type="text" onChange={((e) => setEstadoBusqueda(e.target.value))} placeholder="Ingrese el nombre del estudiante." />
         </label>
       </div>
       <div>
-        <button>Ver registro de Calificacion</button>
+        <button onClick={openModalR}>Ver registro de Calificacion</button>
       </div>
     </div>
       <br />
@@ -143,7 +176,7 @@ function GradesTeacher() {
         <div className="div2">
 
           {studentsWithGroups.map((student) => (
-            <div className="keyDiv" key={student.id} >
+            <div className="keyDiv" id="categoria" key={student.id} >
               <div className="content-container">
                 <h4 className="title">
                   Nombre del estudiante: <br />- {student.username} {student.last_name}.
@@ -155,33 +188,32 @@ function GradesTeacher() {
                   Nivel de educacion: {student.group.educational_level}.
                 </p>
                 <select
-                  onChange={(e) => handleSemesterChange(student.id, e.target.value)}
+                  onChange={(e) => handleTrimesterChange(student.id, e.target.value)}
                   className="custom-select"
                 >
                   <option value="null" disabled >
-                    Seleccione semestre para asignar nota{" "}
+                    Seleccione el trimestre para asignar nota
                   </option>
-                  <option value="1°Semestre">1°Semestre</option>
-                  <option value="2°Semestre">2°Semestre</option>
-                  <option value="3°Semestre">3°Semestre</option>
-                  {/* Ponerle una columna de semetre a grades */}
+                  <option value="1°Trimestre">1°Trimestre</option>
+                  <option value="2°Trimestre">2°Trimestre</option>
+                  <option value="3°Trimestre">3°Trimestre</option>
+                  {/* Ponerle una columna de trimetre a grades */}
                 </select>
                 <br />
                 <br />
 
-                {RenderSemestre[student.id] && (
+                {RenderTrimestre[student.id] && (
                   <div className="div-grades-students">
-                    <button className="buttonCalific" onClick={() => MostrarMaterias( student.group.communication_of_subjects_and_teacher)}
+                    <button className="buttonCalific" onClick={() => MostrarMaterias( student.group.communication_of_subjects_and_teacher, RenderTrimestre[student.id], student.group.id)} //json / trimestre / idGroup
                     >
-                      Calificar notas {RenderSemestre[student.id]}
+                      Calificar notas {RenderTrimestre[student.id]}
                     </button>
-                      
                   </div>
                 )}
               </div>
 
               {/*Muestra el modal para la calificacion de notas*/}
-              {isOpen && ObjectGrades && (
+              { isOpen && (
                 <div className="modal-overlay">
                   <div className="modal">
                     <h2>Formulario</h2>
@@ -195,32 +227,54 @@ function GradesTeacher() {
                               <label>{materiaKey}</label>
                               <input onChange={(e) => handleSelectChange(e, materiaKey)} placeholder="Ingrese la nota aqui..." type="number" />
                             </div>
-                          ))}
+                          ))};
                           <br />
                           <form >
-                            <button onClick={(()  => Post())} className="btn-save">Asignar Notas</button>
+                            <button onClick={Post} className="btn-save">Asignar Nota</button>
                           </form>
                       </div>
-                    )}
+                    )};
 
-                <div>
-                <button type="submit">Enviar</button>
-                <button type="button" onClick={closeModal}>Cerrar</button>
-              </div>
-
+                    <div>
+                      <button type="submit">Enviar</button>
+                      <button type="button" onClick={closeModal}>Cerrar</button>
+                    </div>
                   </div>
                 </div>
-              )}
+              )};
+
+
+              {/*Muestra el modal para la calificacion de notas*/}
+              { isOpenRegistro && (
+                <div className="modal-overlay">
+                  <div className="modal">
+                    <h2>Registro de calificaciones</h2>
+
+                    {itemsGrades && (
+                      itemsGrades.map((i, m) => (
+                        <div key={m}>
+                          <p>{i.period}</p>
+
+
+                        </div>
+                      ))
+                    )}
+
+
+                    <div>
+                      <button type="button" onClick={closeModalR}>Cerrar</button>
+                    </div>
+                   
+                  </div>
+                </div>
+              )};
 
             </div>
-          ))}
+          ))};
         </div>
-       
       )};
-      
-
     </>
   );
-}
+};
 
 export default GradesTeacher;

@@ -172,7 +172,14 @@ legend {
 .keyDiv{
     height: 500px;
     padding: 7px;
+
 }
+
+/* Oculta el div de calificacion notas, filrado */
+.filtro{
+    display: none; 
+}
+
 
 .buttonCalific{
     margin: auto;
