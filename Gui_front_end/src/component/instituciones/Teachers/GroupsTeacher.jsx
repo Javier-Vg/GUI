@@ -24,6 +24,7 @@ function ListGroups() {
 
     useEffect(() => {
         setGroups([]);
+        let arrayGroups = [];
         for (let i = 0; i < items.length; i++) {   
              
           Object.values(items[i].communication_of_subjects_and_teacher).forEach((value) => {
@@ -32,8 +33,22 @@ function ListGroups() {
               
               if (items[i].institution === parseInt(institution_id, 10) && value == itemStaff[j].username) { //Valida nombre del profe y institucion
                 // Actualiza el valor de la clave correspondiente
+
+                arrayGroups.push(items[i]);
+                // Crear un conjunto para rastrear usernames únicos
+                let usernamesUnicos = new Set();
+
+                // Filtrar los objetos omitiendo duplicados
+                const objetosFiltrados = arrayGroups.filter(obj => {
+                  if (usernamesUnicos.has(obj.group_name)) {
+                      return false; // Omitir si ya existe
+                  } else {
+                      usernamesUnicos.add(obj.group_name); // Agregar al conjunto
+                      return true; // Mantener si es único
+                  }
+                });
                 
-                setGroups((prevFiltred) => [...prevFiltred, items[i]]);
+                setGroups(objetosFiltrados);
               }; 
             };
           });         

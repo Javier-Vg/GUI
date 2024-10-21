@@ -2,10 +2,15 @@
 
 .div2{
     display: grid;
-    grid-template-columns: repeat(3, 370px);
-    overflow: auto;
-    margin-left: 50px;
-    
+    grid-template-columns: repeat(5, 240px);
+    overflow:scroll;
+    max-height: 500px;
+}
+
+.tres-div{
+    display: grid;
+    grid-template-columns: repeat(3, 380px);
+    text-align: left;
 }
 
 /* Fieldset */
@@ -17,14 +22,15 @@ body {
 fieldset {
     border: 2px solid #007BFF;
     border-radius: 10px;
-    padding: 20px;
+    padding: 10px;
     background-color: #fff;
     box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
-    width: 250px;
-    margin-left: 12px;
+    width: 100px;
+    margin-left: 32px;
+    
 }
 legend {
-    font-size: 1.8em;
+    font-size: 15px;
     color: #fff;
     background-color: #007BFF;
     padding: 10px 15px;
@@ -66,13 +72,10 @@ legend {
 .custom-select {
     width: 100%;
     padding: 10px;
-    border: 2px solid #007BFF;
+    border: 3px solid #007BFF;
     border-radius: 5px;
     background-color: #fff;
-    font-size: 16px;
-    appearance: none; /* Elimina el estilo predeterminado */
-    background-image: url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAAy0lEQVR42mJ0M7q88GCAoB5KJgD5zA+oGACdAWIBP//oNBUhHkAyDiIwbggOBlYgwQABGykGICyH5AUBYDBhAQZkDAE0sBiAcDBMBG/gAj8k4r8p4ICAA1CggkA7w5GQAAAAABJRU5ErkJggg=='), 
-                      linear-gradient(to bottom, #f9f9f9, #eaeaea);
+    font-size: 1px;
     background-repeat: no-repeat, no-repeat;
     background-position: right 10px top 50%, 0 0;
     background-size: 12px, 100%;
@@ -96,24 +99,24 @@ legend {
 /* Div donde muestra el select (student) */
 
 .content-container {
-    max-width: 300px;
-    padding: 10px;
+    max-width: 320px;
+    padding: 5px;
     background-color: #ffffff;
     border-radius: 10px;
     box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
-    border-left: 5px solid #007BFF;
+    border-left: 3px solid #007BFF;
     margin-right: 0%;
 }
 
 .title {
-    font-size: 24px;
-    margin-bottom: 20px;
+    font-size: 16px;
+    margin-bottom: 13px;
     color: #007BFF;
-    text-align: center;
+    text-align: left;
 }
 
 .paragraph {
-    font-size: 16px;
+    font-size: 14px;
     line-height: 1.6;
     margin: 15px 0;
     color: #555;
@@ -121,7 +124,7 @@ legend {
 
 .custom-select {
     width: 100%;
-    padding: 15px;
+    padding: 10px;
     border: none;
     border-radius: 8px;
     background-color: #f1f1f1;
@@ -131,7 +134,8 @@ legend {
     appearance: none; /* Elimina el estilo predeterminado */
     cursor: pointer;
     transition: all 0.3s ease;
-    margin-top: 20px;
+    margin-top: 13px;
+    text-align: center;
 }
 
 .custom-select:focus {
@@ -157,4 +161,21 @@ legend {
 
 .custom-select option:hover {
     background-color: #f0f8ff; /* Color de fondo al pasar el mouse */
+}
+
+.div-grades-students{
+    text-align: center;
+    padding: 10px;
+    margin-left: 0;
+}
+
+.keyDiv{
+    height: 500px;
+    padding: 7px;
+}
+
+.buttonCalific{
+    margin: auto;
+    font-size: 13px;
+
 }
