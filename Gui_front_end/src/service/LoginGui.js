@@ -151,19 +151,19 @@ export const putStaff = async (staff) => {
       throw error; // Lanzar error para manejarlo en el componente
     }
   };
-  export const putStudent  = async () => {
+  export const putStudent = async (studentId,data ) => {
     try {
-      const response = await axios.put(`http://${domain}:8000/api/students/students/`, {
-        headers: {
-          'Content-Type': 'application/json',
-        },
-      });
-      return response.data;
+        const response = await axios.put(`http://${domain}:8000/api/students/students/${studentId}/`, data, {
+            headers: {
+                'Content-Type': 'application/json',
+            },
+        });
+        return response.data;
     } catch (error) {
-      console.error("Error haciendo la solicitud:", error);
-      throw error;
+        console.error("Error haciendo la solicitud:", error);
+        throw error;
     }
-  };
+};
   // service/LoginGui.js
 export const postStudents = async (nombre, apellido, identificacion, fechaNacimiento, grado, estadoAcademico, telefono, email, imageUrl, alergias, guardianTelefono, nameGuardian, mensualidadDelEstudiante, password, institution_id) => {
   

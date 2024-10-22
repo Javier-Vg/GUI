@@ -5,7 +5,8 @@ import { fetchSchedule } from '../../Redux/Slices/SliceSchedule';
 import { setID } from '../../Redux/Slices/SliceInstitution';
 import { useDispatch, useSelector } from 'react-redux';
 import '../../css/create_staff.css';
-
+import Cookies from 'js-cookie';
+import { jwtDecode } from "jwt-decode";
 const domain = window.location.hostname;
 
 function CreateStaff() {
@@ -25,25 +26,36 @@ function CreateStaff() {
   const [changePassword, setChangePassword] = useState('');
   const [formMessage, setFormMessage] = useState('');
   const [errors, setErrors] = useState({});
-  
-  // Estado para manejar la autorización
+  const [institution_id, setInstitutionId] = useState(null); 
+
   const [isAuthorized, setIsAuthorized] = useState(false);
 
-  // Estados de Staff:
+
   const itemsContracts = useSelector(state => state.contract.items); 
   const itemsSchedule = useSelector(state => state.schedule.items);  
   const dispatch = useDispatch();
-
-  const institution_id = useSelector((state) => state.ids.institutionId); // Obtén el ID de la institución
-
   const handleFileChange = (e) => {
     const file = e.target.files[0];
     if (file) {
       setChangeImagen(file);
     }
   };
-
+  
   useEffect(() => {
+     // Extraer el token desde la cookie
+     const token = Cookies.get('AuthCookie');
+
+     if (token) {
+       try {
+         // Desencriptar el token
+         const decodedToken = jwtDecode(token);
+         const institutionIdFromToken = decodedToken.ID; 
+         
+         setInstitutionId(institutionIdFromToken);
+       } catch (error) {
+         console.error('Error al decodificar el token', error);
+       }
+     }
     dispatch(fetchContract());
     dispatch(fetchSchedule());
     dispatch(setID(Number(institution_id)));

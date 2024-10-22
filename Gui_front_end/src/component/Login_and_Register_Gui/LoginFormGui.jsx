@@ -92,37 +92,30 @@ function LoginFormGui() {
   }, [password, dispatch]);
 
   return (
-    <div className="login-body">
-      <div className="login-container">
-        <div className="container-letters-login">
-          <h4 className="login-title">INICIAR SESIÓN</h4>
-        </div>
-        
-        <form className="login-form">
-          <label htmlFor="nombre" className="login-label">Nombre</label>
+    <div className='container-login'>
+        <div className='div-1'>
+          <label htmlFor="username">Gui usuario:</label>
           <input
-          autoComplete="off"
+            autoComplete="off"
+           className='inp-username'
             type="text"
-            id="nombre"
-            name="nombre"
-            className="login-input"
+            id="username"
             value={username}
             onChange={(e) => setUsernameInput(e.target.value)}
           />
-          
-          <label htmlFor="contra" className="login-label">Contraseña</label>
-          <input
-          autoComplete="off"
+        </div>
 
+        <div className='div-2'>
+          <label htmlFor="password">Contraseña:</label>
+          <input
+           autoComplete="off"
+            className='inp-password'
             type="password"
-            id="contra"
-            name="contra"
-            className="login-input"
+            id="password"
             value={password}
             onChange={(e) => setPasswordInput(e.target.value)}
           />
-        </form>
-      </div>
+        </div>
     </div>
   );
 }

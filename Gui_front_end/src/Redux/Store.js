@@ -75,7 +75,7 @@ import loginReducer from '../Redux/Slices/SliceLogin';
 import contractReducer from '../Redux/Slices/SliceContract';
 import eventReducer from '../Redux/Slices/SliceEvent';
 import idsReducer from './Slices/IdSlice';
-
+import searchReducer from '../Redux/Slices/searchSlice'
 const isDev = process.env.NODE_ENV === 'development';
 
 // Configuración de persistencia
@@ -98,6 +98,7 @@ const rootReducer = combineReducers({
     event: eventReducer,
     infInstitution: SliceInfInstitution,
     ids: idsReducer,
+    search: searchReducer
 });
 
 // Aplicar persistencia al rootReducer

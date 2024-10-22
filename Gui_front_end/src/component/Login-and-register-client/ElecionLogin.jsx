@@ -1,13 +1,15 @@
-import React, { useState } from "react";
-import { useSelector, useDispatch } from "react-redux";
 import { setInstitutionInfo } from '../../Redux/Slices/SliceInfInstitution';
 import { setStaffId, setInstitutionId } from '../../Redux/Slices/IdSlice';
+import LoginFormGui from '../Login_and_Register_Gui/LoginFormGui';
+import { useSelector, useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import LoginProfesor from "./LoginProfesor";
-import LoginFormGui from '../Login_and_Register_Gui/LoginFormGui';
 import LoginPadres from "./LoginPadres";
+import React, { useState } from "react";
 import "../../css/Eleccion_login.css";
+import Cookies from 'js-cookie';
 import axios from "axios";
+
 
 function ElecionLogin() {
   const [changeComponent, setChangeComponent] = useState('personal');
@@ -53,21 +55,7 @@ function ElecionLogin() {
       });
 
       if (response.data.token) {
-        dispatch(setInstitutionInfo({
-          imgInstitution: response.data.imgInstitution,
-          nameInstitution: response.data.Name,
-          role: response.data.rol,
-          auth: response.data.auth,
-        }));
-        console.log(response.data);
-        
-        dispatch(setStaffId(response.data.staff_id));
-        dispatch(setInstitutionId(response.data.institution));
-        sessionStorage.setItem("InstitutionID", response.data.institution);
-        sessionStorage.setItem("StaffID", response.data.ID);
-        sessionStorage.setItem("StudentID", response.data.StudentID); // Guardar el ID del estudiante
-        sessionStorage.setItem("token", response.data.token);
-        dispatch({ type: "LOGIN_SUCCESS", payload: response.data.token });
+        Cookies.set('AuthCookie', response.data.token, { expires: 1 }, {path:'/'});
         setMessage("Login exitoso");
 
         // Redirigir según el rol seleccionado

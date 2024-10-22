@@ -1,8 +1,8 @@
+import { setUsername, setPassword } from '../../Redux/Slices/SliceLogin';
 import React, { useState, useEffect } from 'react';
 import { useDispatch } from 'react-redux';
-import { setUsername, setPassword } from '../../Redux/Slices/SliceLogin';
 import "../../css/Eleccion_login.css";
-import { postInstitutions } from '../../service/LoginGui';
+
 
 function LoginInstitucion() {
   const [username, setUsernameInput] = useState('');

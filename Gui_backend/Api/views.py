@@ -1,4 +1,4 @@
-
+# from .permissions import IsAuthenticatedWithCookie
 from rest_framework.decorators import api_view
 from rest_framework.response import Response
 from rest_framework.viewsets import ModelViewSet
@@ -8,11 +8,14 @@ import requests
 from .Key import clientId
 @api_view(['GET'])
 def helloworld(request):
+    
     return Response({"message": "Hello, World!"})
+
 
 class PostViewSet(ModelViewSet):
     queryset = Post.objects.all()
-    serializer_class=PostSerializer
+    serializer_class=PostSerializer,
+    # permission_classes = [IsAuthenticatedWithCookie]
     # authentication_classes = [TokenAuthentication]
     # permission_classes = [IsAuthenticated]
 

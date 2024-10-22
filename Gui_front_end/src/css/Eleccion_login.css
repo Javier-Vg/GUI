@@ -3,7 +3,7 @@
     margin: 0;
     width: 100%;
     height: 100vh;
-    background-color: #ffffff; /* Cambiar el color del background a E84B71 */
+    background-color: #ffffff; 
 }
 .grid{
     display: grid;

@@ -1,14 +1,31 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { toast } from 'react-toastify'; // Asegúrate de que tienes react-toastify instalado
 import { useSelector} from "react-redux";
 import { postSubjects } from '../../service/LoginGui';
+import Cookies from 'js-cookie';
+import { jwtDecode } from "jwt-decode";
 
 const ManageSubjects = () => {
     const [subjectName, setSubjectName] = useState('');
 
-    const institution_id = useSelector((state) => state.ids.institutionId); // Obtén el ID de la institución
+    const [institution_id, setInstitutionId] = useState(null);
 
-    
+    useEffect(() => {
+        const token = Cookies.get('AuthCookie');
+
+    if (token) {
+      try {
+        // Desencriptar el token
+        const decodedToken = jwtDecode(token);
+        
+        // Extraer el institution_id desde el token
+        const institutionIdFromToken = decodedToken.ID; 
+        setInstitutionId(institutionIdFromToken);
+      } catch (error) {
+        console.error('Error al decodificar el token', error);
+      }
+    }
+    }, []);
     const saveSubject = async () => {
         const subject = {
             name: subjectName,

@@ -26,7 +26,7 @@ SECRET_KEY = 'django-insecure--)w=hwu666smegfn6!7*9v=phhg9c5^*go-i$7x2b56o^&!6xk
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['localhost', '127.0.0.1', 'Gui_front_end', '192.168.100.42', '192.168.100.44','192.168.100.47', '192.168.100.13',"192.168.0.10"]
+ALLOWED_HOSTS = ['localhost', '127.0.0.1', 'Gui_front_end', '192.168.100.42', '192.168.100.44','192.168.100.47', '192.168.100.13',"192.168.0.10","172.20.10.2"]
 CORS_ALLOWED_ORIGINS = [
     "http://localhost:5173",
     "http://127.0.0.1:5173",
@@ -35,7 +35,8 @@ CORS_ALLOWED_ORIGINS = [
     "http://192.168.100.44:5173",
     "http://192.168.100.47:5173",
     "http://192.168.100.13:5173",
-    "http://192.168.0.15:5173"
+    "http://192.168.0.15:5173",
+    "http://172.20.10.2:5173",
 ]
 
 #La que termina en 13 es la de la otra compu 
@@ -165,13 +166,10 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 REST_FRAMEWORK = {
      "DEFAULT_AUTHENTICATION_CLASSES": [
         "rest_framework.authentication.BasicAuthentication",
-
-        # "rest_framework.authentication.TokenAuthentication"
-
         "rest_framework.authentication.TokenAuthentication",
         'rest_framework.authentication.SessionAuthentication',
         'rest_framework_simplejwt.authentication.JWTAuthentication',
-        #"rest_framework.authentication.TokenAuthentication"
+        # 'rest_framework.renderers.JSONRenderer',  # Solo JSON 
 
     ],
   
