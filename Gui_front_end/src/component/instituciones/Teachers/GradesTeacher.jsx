@@ -58,7 +58,6 @@ function GradesTeacher() {
     : card.classList.add("filtro")
   });
 
-
   useEffect(() => {
     dispatch(fetchStudent());
     dispatch(fetchAssignmentGroup());
@@ -223,43 +222,54 @@ function GradesTeacher() {
                         <p>Calificacion de notas</p>
                           {/* Mapeo de lista para generar los selects */}
                           {Object.keys(ObjectGrades).map((materiaKey, index) => (
-                            <div key={index}>
-                              <label>{materiaKey}</label>
+                            <div className="div-calific" key={index}>
+                              <label className="label-subject">{materiaKey}</label>
                               <input onChange={(e) => handleSelectChange(e, materiaKey)} placeholder="Ingrese la nota aqui..." type="number" />
                             </div>
-                          ))};
+                          ))}
                           <br />
-                          <form >
-                            <button onClick={Post} className="btn-save">Asignar Nota</button>
-                          </form>
                       </div>
-                    )};
+                    )}
 
                     <div>
-                      <button type="submit">Enviar</button>
-                      <button type="button" onClick={closeModal}>Cerrar</button>
+                      <form>
+                        <button onClick={Post} >Enviar</button>
+                        <button type="button" onClick={closeModal}>Cerrar</button>
+                      </form>
+                      
                     </div>
                   </div>
                 </div>
               )};
 
-
               {/*Muestra el modal para la calificacion de notas*/}
               { isOpenRegistro && (
-                <div className="modal-overlay">
-                  <div className="modal">
+                <div className="modal-overlayTwo">
+                  <div className="modalTwo">
                     <h2>Registro de calificaciones</h2>
+                    <table className="table-grades">
+                      <tr className="tr-grades">
+                        <th className="th-grades">Nombre de estudiante</th>
+                        <th className="th-grades">Nombre de grupo</th>
+                        <th className="th-grades">Perido que se califico</th>
+                        <th className="th-grades">Estatus</th>
+                      </tr>
 
-                    {itemsGrades && (
-                      itemsGrades.map((i, m) => (
-                        <div key={m}>
-                          <p>{i.period}</p>
-
-
-                        </div>
+                      {studentsWithGroups.map((studnt, i) => (
+                      itemsGrades.map((grad, m) => (
+                      
+                        studnt.id == grad.student && (
+                          
+                          <tr className="tr-grades" key={`${i}-${m}`}>
+                            <td className="td-grades">{studnt.username} {studnt.last_name}</td>
+                            <td className="td-grades">{studnt.group.group_name}</td>
+                            <td className="td-grades">{grad.period}</td>
+                            <td className="td-grades">Calificada✔️</td>
+                          </tr>
+                        )
                       ))
-                    )}
-
+                    ))}
+                    </table>
 
                     <div>
                       <button type="button" onClick={closeModalR}>Cerrar</button>

@@ -76,7 +76,7 @@ import contractReducer from '../Redux/Slices/SliceContract';
 import eventReducer from '../Redux/Slices/SliceEvent';
 import fetchGrades from './Slices/SliceGrades';
 import idsReducer from './Slices/IdSlice';
-import AssignmentGroup from '../Redux/Slices/sliceAssignmentGroup'
+import AssignmentGroup from '../Redux/Slices/sliceAssignmentGroup';
 
 const isDev = process.env.NODE_ENV === 'development';
 

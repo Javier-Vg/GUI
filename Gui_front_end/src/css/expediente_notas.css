@@ -1,0 +1,31 @@
+.div-core{
+    display: grid;
+    grid-template-columns: 300px 300px;
+    grid-template-rows: 200px 200px ;
+    border: 2px black solid;
+
+}
+
+.box1{
+    grid-column-start: 1;
+    grid-column-end: 2;
+    height: 300px;
+    width: 200px;
+    border: 2px black solid;
+}
+
+.box2{
+    grid-column-start: 1;
+    grid-row-start: 2;
+    height: 300px;
+    width: 200px;
+    border: 2px black solid;
+}
+
+.box3{
+    grid-column-start: 1;
+    grid-row-start: 2;
+    height: 300px;
+    width: 200px;
+    border: 2px black solid;
+}
