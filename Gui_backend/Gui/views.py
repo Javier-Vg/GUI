@@ -1,4 +1,4 @@
-from django.db import models
+
 from rest_framework import viewsets
 from rest_framework.response import Response
 from rest_framework import status
@@ -6,9 +6,8 @@ from rest_framework.decorators import api_view
 from .models import Admin_Gui
 from .serializers import AdminGuiSerializer
 from django.contrib.auth.hashers import make_password
-from Api.Key import KeyJWT
-import jwt
-from datetime import datetime, timedelta
+from .serializers import AdminLoginSerializer
+
 
 class AdminGuiViewSet(viewsets.ModelViewSet):
     queryset = Admin_Gui.objects.all()
@@ -38,34 +37,42 @@ class AdminGuiViewSet(viewsets.ModelViewSet):
             return Response(serializer.data, status=status.HTTP_200_OK)
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
-from django.contrib.auth.hashers import check_password
-TOKEN_EXPIRATION_TIME = 5
 @api_view(['POST'])
 def login(request):
-    username = request.data.get('username')
-    password = request.data.get('password')
+    serializer = AdminLoginSerializer(data=request.data)
+    
+    if serializer.is_valid():
+        return Response({'success': True, **serializer.validated_data}, status=status.HTTP_200_OK)
+    else:
+        return Response({'success': False, 'message': serializer.errors}, status=status.HTTP_400_BAD_REQUEST)
+# from django.contrib.auth.hashers import check_password
+# TOKEN_EXPIRATION_TIME = 5
+# @api_view(['POST'])
+# def login(request):
+#     username = request.data.get('username')
+#     password = request.data.get('password')
 
-    try:
-        # Validar credenciales con el modelo `Admin_Gui`
-        admin_gui = Admin_Gui.objects.get(username=username)
+#     try:
+#         # Validar credenciales con el modelo `Admin_Gui`
+#         admin_gui = Admin_Gui.objects.get(username=username)
         
-        # Verificar si la contraseña ingresada coincide con la hasheada
-        if check_password(password, admin_gui.password):
-            payload = {
-                'id': admin_gui.id,
-                'username': admin_gui.username,
-                'email': admin_gui.email,
-                'password': admin_gui.rol,
-                'exp': datetime.utcnow() + timedelta(hours=TOKEN_EXPIRATION_TIME)  # Expiración en 24 horas
-            }
-            token = jwt.encode(payload, KeyJWT, algorithm='HS256')
+#         # Verificar si la contraseña ingresada coincide con la hasheada
+#         if check_password(password, admin_gui.password):
+#             payload = {
+#                 'id': admin_gui.id,
+#                 'username': admin_gui.username,
+#                 'email': admin_gui.email,
+#                 'password': admin_gui.rol,
+#                 'exp': datetime.utcnow() + timedelta(hours=TOKEN_EXPIRATION_TIME)  # Expiración en 24 horas
+#             }
+#             token = jwt.encode(payload, KeyJWT, algorithm='HS256')
 
-            return Response({'success': True,'token': token, 'rol':admin_gui.rol}, status=status.HTTP_200_OK)
-        else:
-            return Response({'success': False, 'message': 'Credenciales inválidas'}, status=status.HTTP_400_BAD_REQUEST)
+#             return Response({'success': True,'token': token, 'rol':admin_gui.rol}, status=status.HTTP_200_OK)
+#         else:
+#             return Response({'success': False, 'message': 'Credenciales inválidas'}, status=status.HTTP_400_BAD_REQUEST)
             
-    except Admin_Gui.DoesNotExist:
-        return Response({'success': False, 'message': 'error en el sistema'}, status=status.HTTP_400_BAD_REQUEST)
+#     except Admin_Gui.DoesNotExist:
+#         return Response({'success': False, 'message': 'error en el sistema'}, status=status.HTTP_400_BAD_REQUEST)
 
 
 

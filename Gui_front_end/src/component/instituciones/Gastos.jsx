@@ -1,6 +1,7 @@
-import React, { useState } from 'react';
+import React, { useState,useEffect } from 'react';
 import {postGastos} from '../../service/LoginGui';
-import { useSelector} from "react-redux";
+import Cookies from 'js-cookie';
+import { jwtDecode } from "jwt-decode";
 function GastosGanancias() {
   const [estado, setEstado] = useState({
     luz: '',
@@ -27,12 +28,26 @@ function GastosGanancias() {
   const [totalGanancias, setTotalGanancias] = useState(0);
   const [balance, setBalance] = useState(null);
   const [resultadosGastos, setResultadosGastos] = useState({});
+  const [institution_id, setInstitutionId] = useState(null); 
 
   const handleChange = (e) => {
     const { name, value } = e.target;
     setEstado((prev) => ({ ...prev, [name]: value }));
   };
+  useEffect(() => {
+    const token = Cookies.get('AuthCookie'); 
 
+    if (token) {
+      try {
+        // Desencriptar el token
+        const decodedToken = jwtDecode(token);    
+        const institutionIdFromToken = decodedToken.ID; 
+        setInstitutionId(institutionIdFromToken);
+      } catch (error) {
+        console.error('Error al decodificar el token', error);
+      }
+    }
+  }, []);
   const aplicarOperaciones = () => {
     const gastos = calcularGastos();
     const ganancias = calcularGanancias();
@@ -82,7 +97,7 @@ function GastosGanancias() {
     const datos = {
       ...estado,  // Incluye todos los campos del estado
       balance: estado.balance,
-      institution: useSelector((state) => state.ids.institutionId) // Obtén el ID de la institución
+      institution: institution_id
     };
     await postGastos(datos)
     try {

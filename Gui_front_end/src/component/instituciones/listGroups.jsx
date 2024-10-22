@@ -8,6 +8,9 @@ import {
 import { fetchGroups } from "../../Redux/Slices/SliceGroup";
 import { useDispatch, useSelector } from "react-redux";
 import "../../css/list_group.css";
+import Cookies from 'js-cookie';
+import { jwtDecode } from "jwt-decode";
+
 
 function ListGroups() {
   const [groups, setGroups] = useState([]);
@@ -18,25 +21,40 @@ function ListGroups() {
   const [showStudents, setShowStudents] = useState(false);
   const [showStudents2, setShowStudents2] = useState(false);
   const [selectedStudents, setSelectedStudents] = useState([]);
-  const institution_id = useSelector((state) => state.ids.institutionId);
+  const [institution_id, setInstitutionId] = useState(null);
+  const searchTerm = useSelector((state) => state.search.searchTerm); // Obtén el término de búsqueda
+
   const dispatch = useDispatch();
 
   const items = useSelector((state) => state.group.items);
   const loading = useSelector((state) => state.group.loading);
   const error = useSelector((state) => state.group.error);
 
-  // Fetch groups on component mount
+
   useEffect(() => {
+    const token = Cookies.get('AuthCookie'); 
+    if (token) {
+      try {
+        // Desencriptar el token
+        const decodedToken = jwtDecode(token);
+        const institutionIdFromToken = decodedToken.ID; 
+        setInstitutionId(institutionIdFromToken);
+      } catch (error) {
+        console.error('Error al decodificar el token', error);
+      }
+    }
     dispatch(fetchGroups());
   }, [dispatch]);
 
   // Filter groups based on institution_id
   useEffect(() => {
-    const filteredGroups = items.filter(
-      (item) => item.institution === parseInt(institution_id, 10)
-    );
+    const filteredGroups = items
+      .filter((item) => item.institution === parseInt(institution_id, 10))
+      .filter((group) =>
+        group.group_name.toLowerCase().includes(searchTerm.toLowerCase()) // Filtrar por el término de búsqueda
+      );
     setGroups(filteredGroups);
-  }, [items, institution_id]);
+  }, [items, institution_id, searchTerm]);
 
   const openModal = (group) => {
     setSelectedGroup(group);
