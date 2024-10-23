@@ -69,7 +69,7 @@ function GradesTeacher() {
     setTrimestre(trimestre);
     setGroupId(idGroup);
     const filteredSubjects = [];
-    openModal(!isOpen)
+    openModal(!isOpen);
     for (const key in subjects) {
       if (subjects.hasOwnProperty(key)) {
         if (NameTeacher == subjects[key]) {
@@ -139,6 +139,8 @@ function GradesTeacher() {
     setStudentsWithGroups(tempStudents);
   }, [itemsGroups, itemsAssignmentG, itemsStudent, NameTeacher]);
 
+  console.log(studentsWithGroups);
+  
   // Manejar cambios en los inputs
   const handleSelectChange = (e, materiaKey) => {
     const value = e.target.value;

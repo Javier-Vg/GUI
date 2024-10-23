@@ -51,7 +51,7 @@ function ListGroups() {
                 setGroups(objetosFiltrados);
               }; 
             };
-          });         
+          });  
         };
     }, [items]);
     

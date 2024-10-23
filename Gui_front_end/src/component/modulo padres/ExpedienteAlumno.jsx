@@ -9,47 +9,92 @@ import '../../css/expediente_notas.css';
 function ExpedienteAlumno() {
   const dispatch = useDispatch();
 
+  const studentID = sessionStorage.getItem("StudentID");
+  
   //Redux
   const itemStudent= useSelector(state => state.student.items);
   const itemGrades= useSelector(state => state.grades.items);
+
+  //Une los objetos
+  const [studentWithGrades, setStudentWithGrades] = useState([]);
+
+  //Maneja los cambios de los periodos.
+  const [semestre, setSemestre] = useState("");
 
   useEffect(() => {
     dispatch(fetchGrades()); // Llama a la acción para obtener productos al cargar el componente
     dispatch(fetchStudent()); // Llama a la acción para obtener productos al cargar el componente
   }, [dispatch]);
 
+  useEffect(() => {
+    const objectStudentWithGroup = [];
+    for (const obj in itemGrades) {
+      
+      objectStudentWithGroup.push({ ...itemStudent[obj], grade: itemGrades[obj] });
+    }
+    setStudentWithGrades(objectStudentWithGroup);
+  },[itemGrades, itemStudent]);
 
   return (
     <div>
       <h2>Expediente</h2>
-        <div className="div-core">
-          <div className='box1'>
+      <Skeleton className="w-2/5 rounded-lg">
+        <div class="container2">
 
+          <div class="item1">
 
-          </div>
-          
-          <div className='box2'>
+            {itemStudent.map((std, k) => (
+              std.id == studentID && (
+                <div key={k}>
+                  <div></div>
+                </div>
+              )
+            ))}
 
-
-          </div>
-
-          <div className='box3'>
-
-
-          </div>
-          {/* <Skeleton className="w-2/5 rounded-lg">   */}
+            <h1 className='h1-info'>Informacion personal:</h1>
             
-            {/* {itemStudent.map((i, m) => (
-              <div key={m}>
-                <h4>{i.username}</h4>
-                <h4>{i.last_name}</h4>
-                <h4>{i.identification_number}</h4> 
-                <h4>{i.grade}</h4>
-              </div>
-            ))} */}
-          {/* </Skeleton> */}
+            
+          </div>
+
+          <div class="item2">
+            
+            info horarioS
+            
+          </div>
+
+          <div class="item3">
+            {/* <h1 className='h1-info'>Notas del estudiante:</h1> */}
+            <div className='div-btn-trimestre'>
+              <button onClick={(() => setSemestre("1°Trimestre"))}>1°Trimestre</button>
+              <button onClick={(() => setSemestre("2°Trimestre"))}>2°Trimestre</button>
+              <button onClick={(() => setSemestre("3°Trimestre"))}>3°Trimetre</button>
+            </div>
+            
+            {semestre == "" ? (
+              <p>No hay</p>
+            ) : (
+              itemGrades ? (
+                itemGrades.map((grad, k) => (
+                  grad.student == studentID && grad.period == semestre && (
+                   Object.keys(grad.grade_results).map((key, i) => (
+                      <div key={`${k} - ${i}`}>
+                        <p>Key: {key}</p>
+                        <p>Value: {grad.grade_results[key]}</p>
+                      </div>
+                    ))
+                  )
+                ))
+                
+              ) : (
+                <p>No existen notas revisadas.</p>
+              )
+            )}
+
+          
+          </div>
         </div>
-     
+      </Skeleton>
+            
     </div>
   )
 }

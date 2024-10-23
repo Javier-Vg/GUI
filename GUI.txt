@@ -29,3 +29,6 @@ npm i redux-thunk
 
 Alertas:
 npm i react-toastify
+
+NextUI / libreria de css:
+npm i @nextui-org/react
