@@ -1,6 +1,8 @@
 import React, { useEffect, useState } from 'react';
 import { fetchGroups } from '../../../Redux/Slices/SliceGroup';
+import { fetchStaff } from '../../../Redux/Slices/SliceStaff';
 import { useDispatch, useSelector } from 'react-redux';
+import '../../../css/groups_teacher.css';
 
 function ListGroups() {
     const [groups, setGroups] = useState([]);
@@ -11,36 +13,43 @@ function ListGroups() {
 
     //Estados de Staff:
     const items= useSelector(state => state.group.items);
+    const itemStaff= useSelector(state => state.staff.items);
     const loading = useSelector(state => state.group.loading);
-    const error = useSelector(state => state.group.error); 
+    const error = useSelector(state => state.group.error);
 
     useEffect(() => {
         dispatch(fetchGroups()); // Llama a la acción para obtener productos al cargar el componente
+        dispatch(fetchStaff()); // Llama a la acción para obtener productos al cargar el componente
     }, [dispatch]);
 
     useEffect(() => {
         setGroups([]);
-        for (let i = 0; i < items.length; i++) {      
-          
-            if (items[i].institution === parseInt(institution_id, 10)) {
-              // Actualiza el valor de la clave correspondiente
-              setGroups((prevFiltred) => [...prevFiltred, items[i]]);
+
+        for (let i = 0; i < items.length; i++) {   
+             
+          Object.values(items[i].communication_of_subjects_and_teacher).forEach((value) => {
+            
+            for (const j in itemStaff) { //Itera el array de staff para conseguir el nombre del profesor
+              
+              if (items[i].institution === parseInt(institution_id, 10) && value == itemStaff[j].username) { //Valida nombre del profe y institucion
+                // Actualiza el valor de la clave correspondiente
+                
+                setGroups((prevFiltred) => [...prevFiltred, items[i]]);
+              }; 
             };
-        }
+          });         
+        };
     }, [items]);
 
-    const itemJSON = items.communication_of_subjects_and_teacher;  
-        console.log(itemJSON);
+    // const openModal = (group) => {
+    //     setSelectedGroups(group);
+    //     setSeeMore(true);
+    // };
 
-    const openModal = (group) => {
-        setSelectedGroups(group);
-        setSeeMore(true);
-    };
-
-    const closeModal = () => {
-        setSeeMore(false);
-        setSelectedGroups(null);
-    };
+    // const closeModal = () => {
+    //     setSeeMore(false);
+    //     setSelectedGroups(null);
+    // };
 
     // const listSubject = () => {
     //     for (const key in data) {
@@ -59,59 +68,72 @@ function ListGroups() {
       }
 
     return (
-        <div className='container_list'>
-            <h1>Grupos</h1>
-            <div className='students'>
-                {groups.length > 0 ? (
-                    groups.map((group, i) => (
-                        <div className='container_students_list' key={i}>
-                            <div className='student_inf'>
-                                <h2>{group.name} {group.last_name}</h2>
-                                <h6>{group.educational_level}</h6>
-                                <input onClick={() => openModal(group)} type="button" value="Ver más" />
-                            </div>   
-                        </div>
-                    ))
-                ) : (
-                    <p>Todavia no se encuentra en ningun grupo.</p>
-                )}
-            </div>
+      <>
+      <h1>Grupos</h1>
+      <br />
+      <br />
+      <div className='container_list'>
             
-            {seeMore && selectedGroup && (
-            <div className='modal'>
-              <h2>Información del Grupo</h2>
-              <h3>Nombre del grupo: {selectedGroup.group_name}</h3>
-              <h3>Nivel de educacion: {selectedGroup.educational_level}</h3>
-              <h3>Capacidad maxima: {selectedGroup.capacity}</h3>
-              <h3>Numero de clase: {selectedGroup.classroom}</h3>
-              <h3>Estudiantes activos: {selectedGroup.current_students}</h3>
-              <h3>Docentes asignados:</h3>
-              <br />
+            
+            {groups.length > 0 ? (
+                groups.map((group, i) => (
 
-              {selectedGroup.communication_of_subjects_and_teacher && (
-                <table className='table_json'>
-                  <tr>
-                    <th>Asignatura</th>
-                    <th>Docente</th>
-                  </tr>
+                  <div className='divField'>
+                    
+                    <fieldset>
+                      <legend>Detalles del Grupo: {group.group_name}</legend>
+                      
+                      <div class="info">
+                          <span class="label">Nivel de educacion:</span> {group.educational_level}
+                      </div>
+                      <div class="info">
+                          <span class="label">Capacidad Maxima:</span> {group.capacity}
+                      </div>
+                      <div class="info">
+                          <span class="label">Numero de clase:</span> {group.classroom}
+                      </div>
+                      <div class="info">
+                          <span class="label">Estudiantes activos:</span>  {group.current_students}
+                      </div>
+                      <div class="info">
+                          <span class="label">Docentes asignados:</span>
+                    
+                          <br />
+                          <br />
 
-                  {Object.keys(selectedGroup.communication_of_subjects_and_teacher).map((key, index) => (
-                    <tr key={index}>
-                      <td>
-                        {key}
-                      </td>
-                      <td>
-                        {selectedGroup.communication_of_subjects_and_teacher[key]}
-                      </td>
-                    </tr>
-                  ))}
-                </table>
-              )}
+                          {group.communication_of_subjects_and_teacher && (
+                            <table className='table_json'>
+                              <tr>
+                                <th>Asignatura</th>
+                                <th>Docente</th>
+                              </tr>
 
-              <input onClick={closeModal} type="button" value="Cerrar" />
-            </div>
-        )}
-        </div>
+                              {Object.keys(group.communication_of_subjects_and_teacher).map((key, index) => (
+                                <tr key={index}>
+                                  <td>
+                                    {key}
+                                  </td>
+                                  <td>
+                                    {group.communication_of_subjects_and_teacher[key]}
+                                  </td>
+                                </tr>
+                              ))}
+                            </table>
+                          )}
+                      </div>
+                      
+                    </fieldset>
+                    
+                  </div>
+                 
+                ))
+            ) : (
+                <p>Todavia usted no se encuentra en ningun grupo.</p>
+            )}
+      
+      </div>
+      </>
+        
     );
 }
 

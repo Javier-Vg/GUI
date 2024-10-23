@@ -331,7 +331,18 @@ export const sendMessage = async (messageData) => {
     throw new Error('Error al enviar el mensaje');
   }
 };
-
+export const getMessages = async () => {
+  try {
+    const response = await axios.get(`http://${domain}:8000/api/message/message/`, {
+      headers: {
+        'Content-Type': 'application/json',
+      },
+    });
+    return response.data; // Devuelve los mensajes obtenidos desde el backend
+  } catch (error) {
+    throw new Error('Error al obtener los mensajes');
+  }
+};
 // Obtener mensajes de un profesor específico
 // export const fetchMessagesForTeacher = async (teacherId) => {
 //   try {
