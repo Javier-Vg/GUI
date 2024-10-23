@@ -22,7 +22,7 @@ function CreateStudent() {
   const [nameGuardian, setNameGuardian] = useState('');
   const [alergias, setAlergias] = useState('');
   const [imagen, setImagen] = useState(null);
-  
+   
   const [mensualidadDelEstudiante, setMensualidadDelEstudiante] = useState('');
   const [formMessage, setFormMessage] = useState('');
   const [password, setPassword] = useState('');

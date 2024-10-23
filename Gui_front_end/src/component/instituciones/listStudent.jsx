@@ -8,7 +8,7 @@ import Cookies from 'js-cookie';
 import { jwtDecode } from "jwt-decode";
 
 const domain = window.location.hostname;
-
+  
 function ListStudents() {
   const [students, setStudents] = useState([]);
   const [seeMore, setSeeMore] = useState(false);
