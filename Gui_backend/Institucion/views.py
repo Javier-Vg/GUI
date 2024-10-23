@@ -6,15 +6,35 @@ from .serializers import Institutions_Serializer, LoginSerializer
 from datetime import datetime, timedelta
 from django.conf import settings
 import jwt
-from permissions import IsAuthenticatedWithCookieGui
+# from permissions import IsAuthenticatedWithCookieGui
 from django.contrib.auth.hashers import check_password
 from Api.Key import KeyJWT
 
 class InstitutionViewSet(viewsets.ModelViewSet):
+    
     queryset = Institution.objects.all()
     serializer_class = Institutions_Serializer
     # permission_classes = [IsAuthenticatedWithCookieGui]
+    
+    #Gui
+    def create(self, request, *args, **kwargs):
+        serializer = self.get_serializer(data=request.data)
+        if serializer.is_valid():
+            serializer.save()
+            return Response(serializer.data, status=status.HTTP_201_CREATED)
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
+    #Los 4
+    def retrieve(self, request, pk=None):
+        try:
+            institution = self.get_object()
+        except Institution.DoesNotExist:
+            return Response({"error": "Institution not found"}, status=status.HTTP_404_NOT_FOUND)
+        
+        serializer = self.get_serializer(institution)
+        return Response(serializer.data, status=status.HTTP_200_OK)
+
+    #Gui
     def update(self, request, pk=None):
         try:
             institution = Institution.objects.get(pk=pk)
@@ -26,6 +46,30 @@ class InstitutionViewSet(viewsets.ModelViewSet):
             serializer.save()
             return Response(serializer.data, status=status.HTTP_200_OK)
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
+    #GUI
+    def destroy(self, request, pk=None):
+        try:
+            institution = self.get_object()
+            institution.delete()
+            return Response({"message": "Institution deleted successfully"}, status=status.HTTP_204_NO_CONTENT)
+        except Institution.DoesNotExist:
+            return Response({"error": "Institution not found"}, status=status.HTTP_404_NOT_FOUND)
+    # queryset = Institution.objects.all()
+    # serializer_class = Institutions_Serializer
+    # # permission_classes = [IsAuthenticatedWithCookieGui]
+
+    # def update(self, request, pk=None):
+    #     try:
+    #         institution = Institution.objects.get(pk=pk)
+    #     except Institution.DoesNotExist:
+    #         return Response({"error": "Institution not found"}, status=status.HTTP_404_NOT_FOUND)
+        
+    #     serializer = self.get_serializer(institution, data=request.data)
+    #     if serializer.is_valid():
+    #         serializer.save()
+    #         return Response(serializer.data, status=status.HTTP_200_OK)
+    #     return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
   
   
 

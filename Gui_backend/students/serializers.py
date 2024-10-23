@@ -29,6 +29,7 @@ class StudentLoginSerializer(serializers.Serializer):
                 'id': student.id,
                 'exp': datetime.utcnow() + timedelta(hours=24),  # Expira en 24 horas
                 'iat': datetime.utcnow(),  # Hora de creación del token
+                'type_of_student': student.type_of_student
             }
 
             # Generar el token
@@ -36,10 +37,6 @@ class StudentLoginSerializer(serializers.Serializer):
 
             return {
                 'token': token,
-                'StudentID': student.id,
-                'institution': student.institution_id,
-                'imgInstitution': student.imagen_url,
-                'Name': student.username,
             }
 
         except students.DoesNotExist:
