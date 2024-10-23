@@ -22,12 +22,8 @@ function HomeInstitutionsForm() {
   const [changeComponent, setChangeComponent] = useState("");
   const [isDeployed, setIsDeployed] = useState(false);
 
-  const NameInstitution = useSelector(
-    (state) => state.infInstitution.nameInstitution
-  );
-  const InfInstitution = useSelector(
-    (state) => state.infInstitution.imgInstitution
-  );
+  const [NameInstitution,setNameInstitution]=useState(null);
+  const [InfInstitution,setInfInstitution] = useState(null);
 
   const navigate = useNavigate();
   const dispatch = useDispatch();
@@ -51,6 +47,12 @@ function HomeInstitutionsForm() {
         // Extraer valores del token
         const auth = decodedToken.auth; 
         const rol = decodedToken.rol;  
+        const nameInstitution = decodedToken.Name;  
+        const imgurl = decodedToken.imgInstitution;  
+        setNameInstitution(nameInstitution)
+        setInfInstitution(imgurl)
+        
+
         if (!token || auth !== true) {
           navigate("/error");
         }
@@ -63,10 +65,6 @@ function HomeInstitutionsForm() {
   }, []);
   
   const Logout = async () => {
-    sessionStorage.removeItem("token");
-    sessionStorage.removeItem("StudentID");
-    sessionStorage.removeItem("persist:root");
-
     navigate("/login");
   };
 

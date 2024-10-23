@@ -63,7 +63,7 @@ import { thunk } from 'redux-thunk';
 import { persistStore, persistReducer } from 'redux-persist';
 import storage from 'redux-persist/lib/storage/session'; // Cambiado a sessionStorage
 import SliceInfInstitution from '../Redux/Slices/SliceInfInstitution';
-
+import AssignmentGroup from '../Redux/Slices/sliceAssignmentGroup'
 import institutionReducer from '../Redux/Slices/SliceInstitution';
 import staffReducer from '../Redux/Slices/SliceStaff';
 import groupReducer from '../Redux/Slices/SliceGroup';
@@ -96,7 +96,7 @@ const rootReducer = combineReducers({
     login: loginReducer,
     contract: contractReducer,
     event: eventReducer,
-    groupAssignment: AssignmentGroup,
+    groupAssignment: AssignmentGroup, 
     infInstitution: SliceInfInstitution,
     ids: idsReducer,
     search: searchReducer

@@ -7,8 +7,9 @@ import LoginProfesor from "./LoginProfesor";
 import LoginPadres from "./LoginPadres";
 import React, { useState } from "react";
 import "../../css/Eleccion_login.css";
-import Cookies from 'js-cookie';
 import axios from "axios";
+import Cookies from 'js-cookie';
+import { jwtDecode } from "jwt-decode";
 
 
 function ElecionLogin() {
@@ -53,13 +54,29 @@ function ElecionLogin() {
       const response = await axios.post(endpoint, { username, password }, {
         headers: { "Content-Type": "application/json" },
       });
+     
 
       if (response.data.token) {
         Cookies.set('AuthCookie', response.data.token, { expires: 1 }, {path:'/'});
         setMessage("Login exitoso");
 
-        // Redirigir según el rol seleccionado
-        setTimeout(() => navigate(redirect), 1000);
+        const Token = response.data.token
+        const Datos = jwtDecode(Token)
+        const IDInstitution = Datos.institution        
+
+        const institutionResponse = await axios.get(`http://${domain}:8000/api/institutions/institution/`);
+        const institutionData = institutionResponse.data;
+
+        // Filtrar la institución con el mismo ID
+        const institution = institutionData.filter(inst => inst.id === IDInstitution);
+        if (institution[0].payment_status == "Inactiva") {
+          setMessage("La institución está inactiva. Contacte al administrador.");
+          return;
+        }else{
+          setTimeout(() => navigate(redirect), 1000);   
+        }
+        
+        
       }
     } catch (error) {
       setMessage("Credenciales inválidas");

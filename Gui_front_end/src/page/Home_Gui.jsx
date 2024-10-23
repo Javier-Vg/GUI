@@ -12,21 +12,21 @@ function Home_Gui() {
   const navigate = useNavigate(); // Inicializa el hook para redirección
   const userRole = useSelector((state) => state.infInstitution.role);
 
-  useEffect(() => {
-    // Verifica si hay un token en sessionStorage
-    const token = sessionStorage.getItem("token");
+  // useEffect(() => {
+  //   // Verifica si hay un token en sessionStorage
+  //   const token = sessionStorage.getItem("token");
 
-    // Si no hay token, redirige a la página de inicio de sesión
-    if (!token) {
-      navigate("/login"); // Cambia "/login" a la ruta de tu página de inicio de sesión
-      return;
-    }
+  //   // Si no hay token, redirige a la página de inicio de sesión
+  //   if (!token) {
+  //     navigate("/login"); // Cambia "/login" a la ruta de tu página de inicio de sesión
+  //     return;
+  //   }
 
-    // Verifica si el rol no es "Admin" o "Gui"
-    if (userRole !== "Admin" && userRole !== "Gui") {
-      navigate("/error"); // Redirige a una página de error si el rol no es adecuado
-    }
-  }, [userRole, navigate]);
+  //   // Verifica si el rol no es "Admin" o "Gui"
+  //   if (userRole !== "Admin" && userRole !== "Gui") {
+  //     navigate("/error"); // Redirige a una página de error si el rol no es adecuado
+  //   }
+  // }, [userRole, navigate]);
 
   const toggleAside = () => {
     setIsDeployed(!isDeployed);

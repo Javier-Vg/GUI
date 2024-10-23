@@ -11,16 +11,16 @@
 //     const [students, setStudents] = useState([]);
 //     const storedStaffId = sessionStorage.getItem('StaffID');
 //     const storedInstitutionId = sessionStorage.getItem('InstitutionID');
-//     const storedTeacherName = sessionStorage.getItem('NameTeacher'); 
+//     const storedTeacherName = sessionStorage.getItem('NameTeacher');
 
-//     const [isPolling, setIsPolling] = useState(false); 
+//     const [isPolling, setIsPolling] = useState(false);
 
 //     useEffect(() => {
 //         const fetchStudents = async () => {
 //             console.log("profesor");
-            
+
 //             try {
-//                 const studentList = await getStudents(); 
+//                 const studentList = await getStudents();
 //                 const filteredStudents = studentList.filter(student => student.institution.toString() === storedInstitutionId);
 //                 setStudents(filteredStudents);
 //             } catch (error) {
@@ -34,27 +34,27 @@
 //     const fetchMessages = async () => {
 //         try {
 //             const messagesList = await getMessages();
-//             setMessages(messagesList); 
+//             setMessages(messagesList);
 //         } catch (error) {
 //             console.error('Error al cargar los mensajes:', error);
 //         }
 //     };
 
 //     const startPolling = () => {
-//         if (isPolling) return; 
+//         if (isPolling) return;
 
 //         setIsPolling(true);
 //         const pollMessages = async () => {
-//             await fetchMessages(); 
-//             setTimeout(pollMessages, 5000); 
+//             await fetchMessages();
+//             setTimeout(pollMessages, 5000);
 //         };
 
-//         pollMessages(); 
+//         pollMessages();
 //     };
 
 //     useEffect(() => {
 //         if (selectedStudent) {
-//             startPolling(); 
+//             startPolling();
 //         }
 
 //         return () => {
@@ -69,14 +69,14 @@
 //                 staff: storedStaffId,
 //                 students: selectedStudent,
 //                 institution: storedInstitutionId,
-//                 date: new Date().toISOString(), 
-//                 name: storedTeacherName, 
+//                 date: new Date().toISOString(),
+//                 name: storedTeacherName,
 //             };
 
 //             try {
 //                 const savedMessage = await sendMessage(newMessage);
 //                 setMessages(prevMessages => [...prevMessages, { ...savedMessage, transmitterName: storedTeacherName || "Profesor" }]);
-//                 setMessage(''); 
+//                 setMessage('');
 //                 alert('Mensaje enviado correctamente');
 //             } catch (error) {
 //                 console.error('No se pudo enviar el mensaje', error);
@@ -88,9 +88,9 @@
 //     };
 
 //     // Lógica para filtrar mensajes
-//     const filteredMessages = selectedStudent 
-//         ? messages.filter(msg => msg.students.toString() === selectedStudent.toString() && msg.institution.toString() === storedInstitutionId) 
-//         : []; 
+//     const filteredMessages = selectedStudent
+//         ? messages.filter(msg => msg.students.toString() === selectedStudent.toString() && msg.institution.toString() === storedInstitutionId)
+//         : [];
 
 //     return (
 //         <div className="chat-container">
@@ -99,7 +99,7 @@
 //                 <label>Selecciona un Estudiante:</label>
 //                 <select onChange={(e) => {
 //                     setSelectedStudent(e.target.value);
-//                     fetchMessages(); 
+//                     fetchMessages();
 //                 }} defaultValue="">
 //                     <option value="" disabled>Selecciona un estudiante</option>
 //                     {students.map(student => (
@@ -108,7 +108,7 @@
 //                 </select>
 //             </div>
 //             <div className="message-input">
-//                 <textarea 
+//                 <textarea
 //                     value={message}
 //                     onChange={(e) => setMessage(e.target.value)}
 //                     placeholder="Escribe tu mensaje aquí"
@@ -134,141 +134,183 @@
 // };
 
 // export default ChatProfesor;
-import React, { useState, useEffect } from 'react';
-import { getStudents, getMessages, sendMessage } from '../../service/LoginGui'; // Ajusta la ruta si es necesario
-import '../../css/ChatProfesor.css';
-
+import React, { useState, useEffect } from "react";
+import { getStudents, getMessages, sendMessage } from "../../service/LoginGui"; // Ajusta la ruta si es necesario
+import "../../css/ChatProfesor.css";
+import Cookies from "js-cookie";
+import { jwtDecode } from "jwt-decode";
 const ChatProfesor = () => {
-    const [selectedStudent, setSelectedStudent] = useState(null);
-    const [message, setMessage] = useState('');
-    const [messages, setMessages] = useState([]);
-    const [students, setStudents] = useState([]);
-    const storedStaffId = sessionStorage.getItem('StaffID');
-    const storedInstitutionId = sessionStorage.getItem('InstitutionID');
-    const storedTeacherName = sessionStorage.getItem('NameTeacher');
-    const [isPolling, setIsPolling] = useState(false);
+  const [selectedStudent, setSelectedStudent] = useState(null);
+  const [message, setMessage] = useState("");
+  const [messages, setMessages] = useState([]);
+  const [students, setStudents] = useState([]);
+  const [storedStaffId,setStaffID] = useState('');
+  const [storedInstitutionId, setInstitutionId] = useState('');
+  const [storedTeacherName,setNameTeacher] = useState('');
+  const [isPolling, setIsPolling] = useState(false);
 
-    useEffect(() => {
-        const fetchStudents = async () => {
-            try {
-                const allStudents = await getStudents();
-                const filteredStudents = allStudents.filter(student => student.institution.toString() === storedInstitutionId);
-                setStudents(filteredStudents);
-            } catch (error) {
-                console.error('Error al cargar los estudiantes:', error);
-            }
-        };
+  useEffect(() => {
+    // Extraer el token desde la cookie
+    const token = Cookies.get("AuthCookie");
 
-        fetchStudents();
-    }, [storedInstitutionId]);
+    if (token) {
+      try {
+        // Desencriptar el token
+        const decodedToken = jwtDecode(token);
+        const institutionIdFromToken = decodedToken.institution;
+        const NameTeacher = decodedToken.Name;
+        const staffID = decodedToken.ID;
+        setNameTeacher(NameTeacher)
+        setStaffID(staffID)
+        setInstitutionId(institutionIdFromToken);
+      } catch (error) {
+        console.error("Error al decodificar el token", error);
+      }
+    }
+  }, []);
 
-    const fetchMessages = async () => {
-        try {
-            const allMessages = await getMessages();
-            setMessages(allMessages);
-        } catch (error) {
-            console.error('Error al cargar los mensajes:', error);
-        }
+  useEffect(() => {        
+    const fetchStudents = async () => {
+      try {
+        const allStudents = await getStudents();
+        const filteredStudents = allStudents.filter(
+          (student) => student.institution === storedInstitutionId
+        );
+        setStudents(filteredStudents);
+      } catch (error) {
+        console.error("Error al cargar los estudiantes:", error);
+      }
     };
 
-    const startPolling = () => {
-        if (isPolling) return;
+    fetchStudents();
+  }, [storedInstitutionId]);
+  
+  const fetchMessages = async () => {
+    try {
+      const allMessages = await getMessages();
+      setMessages(allMessages);
+    } catch (error) {
+      console.error("Error al cargar los mensajes:", error);
+    }
+  };
 
-        setIsPolling(true);
-        const pollMessages = async () => {
-            await fetchMessages();
-            setTimeout(pollMessages, 5000);
-        };
+  const startPolling = () => {
+    if (isPolling) return;
 
-        pollMessages();
+    setIsPolling(true);
+    const pollMessages = async () => {
+      await fetchMessages();
+      setTimeout(pollMessages, 5000);
     };
 
-    useEffect(() => {
-        if (selectedStudent) {
-            startPolling();
-        }
+    pollMessages();
+  };
 
-        return () => {
-            setIsPolling(false);
-        };
-    }, [selectedStudent]);
+  useEffect(() => {
+    if (selectedStudent) {
+      startPolling();
+    }
 
-    const handleSendMessage = async () => {
-        if (message.trim() && selectedStudent && storedStaffId) {
-            const newMessage = {
-                message,
-                staff: storedStaffId,
-                students: selectedStudent,
-                institution: storedInstitutionId,
-                date: new Date().toISOString(),
-                name: storedTeacherName,
-            };
-
-            try {
-                const savedMessage = await sendMessage(newMessage);
-                setMessages(prevMessages => [...prevMessages, { ...savedMessage, transmitterName: storedTeacherName || "Profesor" }]);
-                setMessage('');
-                alert('Mensaje enviado correctamente');
-            } catch (error) {
-                console.error('No se pudo enviar el mensaje', error);
-                alert('Error al enviar el mensaje. Intenta nuevamente.');
-            }
-        } else {
-            alert('Por favor, selecciona un estudiante y escribe un mensaje.');
-        }
+    return () => {
+      setIsPolling(false);
     };
+  }, [selectedStudent]);
 
-    // Filtrado de mensajes por estudiante seleccionado
-    const filteredMessages = selectedStudent
-        ? messages.filter(msg => msg.students.toString() === selectedStudent.toString() && msg.institution.toString() === storedInstitutionId)
-        : [];
+  const handleSendMessage = async () => {
+    if (message.trim() && selectedStudent && storedStaffId) {
+      const newMessage = {
+        message,
+        staff: storedStaffId,
+        students: selectedStudent,
+        institution: storedInstitutionId,
+        date: new Date().toISOString(),
+        name: storedTeacherName,
+      };
 
-    return (
-        <div className="chat-profesor-container">
-            {/* Lista de estudiantes con imágenes */}
-            <div className="chat-bubbles-container">
-                {students.map(student => (
-                    <div key={student.id} className="student-bubble" onClick={() => {
-                        setSelectedStudent(student.id);
-                        fetchMessages(); 
-                    }}>
-                        <img src={student.imagen_url} alt={`${student.name} profile`} className="student-photo" />
-                        <p>{student.name}</p>
-                    </div>
-                ))}
-            </div>
+      try {
+        const savedMessage = await sendMessage(newMessage);
+        setMessages((prevMessages) => [
+          ...prevMessages,
+          { ...savedMessage, transmitterName: storedTeacherName || "Profesor" },
+        ]);
+        setMessage("");
+        alert("Mensaje enviado correctamente");
+      } catch (error) {
+        console.error("No se pudo enviar el mensaje", error);
+        alert("Error al enviar el mensaje. Intenta nuevamente.");
+      }
+    } else {
+      alert("Por favor, selecciona un estudiante y escribe un mensaje.");
+    }
+  };
 
-            {/* Contenedor del chat */}
-            <div className="chat-container">
-                {/* Mostrar los mensajes filtrados */}
-                <div className="messages-container">
-                    {filteredMessages.length > 0 ? (
-                        filteredMessages.map((msg, index) => (
-                            <div
-                                key={index}
-                                className={`message ${msg.staff.toString() === storedStaffId ? 'sent' : 'received'}`}
-                            >
-                                <strong>{msg.name}:</strong> {msg.message}
-                            </div>
-                        ))
-                    ) : (
-                        <p>No hay mensajes en la conversación.</p>
-                    )}
-                </div>
+  // Filtrado de mensajes por estudiante seleccionado
+  const filteredMessages = selectedStudent
+    ? messages.filter(
+        (msg) =>
+          msg.students=== selectedStudent &&
+          msg.institution === storedInstitutionId
+      )
+    : [];
 
-                {/* Input para enviar un mensaje */}
-                <div className="send-message-container">
-                    <textarea
-                        value={message}
-                        onChange={(e) => setMessage(e.target.value)}
-                        placeholder="Escribe tu mensaje aquí"
-                        className="message-input"
-                    />
-                    <button onClick={handleSendMessage} className="send-button">Enviar</button>
-                </div>
-            </div>
+  return (
+    <div className="chat-profesor-container">
+      {/* Lista de estudiantes con imágenes */}
+      <div className="chat-bubbles-container">
+        {students.map((student) => (
+          <div
+            key={student.id}
+            className="student-bubble"
+            onClick={() => {
+              setSelectedStudent(student.id);
+              fetchMessages();
+            }}
+          >
+            <img
+              src={student.imagen_url}
+              alt={`${student.name} profile`}
+              className="student-photo"
+            />
+            <p>{student.name}</p>
+          </div>
+        ))}
+      </div>
+
+      {/* Contenedor del chat */}
+      <div className="chat-container">
+        {/* Mostrar los mensajes filtrados */}
+        <div className="messages-container">
+          {filteredMessages.length > 0 ? (
+            filteredMessages.map((msg, index) => (
+              <div
+                key={index}
+                className={`message ${
+                  msg.staff === storedStaffId ? "sent" : "received"
+                }`}
+              >
+                <strong>{msg.name}:</strong> {msg.message}
+              </div>
+            ))
+          ) : (
+            <p>No hay mensajes en la conversación.</p>
+          )}
         </div>
-    );
+
+        {/* Input para enviar un mensaje */}
+        <div className="send-message-container">
+          <textarea
+            value={message}
+            onChange={(e) => setMessage(e.target.value)}
+            placeholder="Escribe tu mensaje aquí"
+            className="message-input"
+          />
+          <button onClick={handleSendMessage} className="send-button">
+            Enviar
+          </button>
+        </div>
+      </div>
+    </div>
+  );
 };
 
 export default ChatProfesor;
