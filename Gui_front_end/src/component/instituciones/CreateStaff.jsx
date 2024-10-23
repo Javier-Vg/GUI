@@ -8,6 +8,7 @@ import '../../css/create_staff.css';
 import Cookies from 'js-cookie';
 import { jwtDecode } from "jwt-decode";
 const domain = window.location.hostname;
+ 
 
 function CreateStaff() {
   // Estados para los campos del formulario

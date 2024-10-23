@@ -71,7 +71,7 @@ function CreateGroup() {
   const changeCommunication_of_subjects_and_teacher = (e) => {
     setObjctChosen([...objctChosen, e.target.value]);
   };
-
+ 
 const Post = () => {
   const group = {
     group_name: Name,

@@ -12,7 +12,7 @@ const ManageSubjects = () => {
 
     useEffect(() => {
         const token = Cookies.get('AuthCookie');
-
+ 
     if (token) {
       try {
         // Desencriptar el token
