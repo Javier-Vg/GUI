@@ -3,6 +3,8 @@ import { fetchStaff } from '../../Redux/Slices/SliceStaff';
 import { useDispatch, useSelector } from 'react-redux';
 import { putStaff } from '../../service/LoginGui.js'; // Importa la función putStaff
 import '../../css/list_staff.css';
+import Cookies from 'js-cookie';
+import { jwtDecode } from "jwt-decode";
 
 function ListStaff() {
   const [staff, setStaff] = useState([]);
@@ -11,7 +13,8 @@ function ListStaff() {
   const [editedStaff, setEditedStaff] = useState({});
   const [editMode, setEditMode] = useState(false);
   const [filterPosition, setFilterPosition] = useState('');
-  const institution_id = useSelector((state) => state.ids.institutionId);
+  const [institution_id, setInstitutionId] = useState(null);
+  const searchTerm = useSelector((state) => state.search.searchTerm); // Obtén el término de búsqueda
   const dispatch = useDispatch();
 
   const itemsStaff = useSelector(state => state.staff.items);
@@ -19,16 +22,30 @@ function ListStaff() {
   const error = useSelector(state => state.staff.error);
 
   useEffect(() => {
+    const token = Cookies.get('AuthCookie'); 
+
+    if (token) {
+      try {
+        // Desencriptar el token
+        const decodedToken = jwtDecode(token);
+        const institutionIdFromToken = decodedToken.ID; 
+
+        setInstitutionId(institutionIdFromToken);
+      } catch (error) {
+        console.error('Error al decodificar el token', error);
+      }
+    }
     dispatch(fetchStaff());
   }, [dispatch]);
 
   useEffect(() => {
     const filteredStaff = itemsStaff.filter(staffMember =>
       staffMember.institution === parseInt(institution_id, 10) &&
-      (!filterPosition || staffMember.position.toLowerCase() === filterPosition.toLowerCase())
+      (!filterPosition || staffMember.position.toLowerCase() === filterPosition.toLowerCase()) &&
+      (!searchTerm || staffMember.username.toLowerCase().includes(searchTerm.toLowerCase())) // Filtra por searchTerm
     );
     setStaff(filteredStaff);
-  }, [itemsStaff, institution_id, filterPosition]);
+  }, [itemsStaff, institution_id, filterPosition, searchTerm]);
 
   const openModal = (staffMember) => {
     setSelectedStaff(staffMember);

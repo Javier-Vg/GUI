@@ -17,6 +17,9 @@ function GradesTeacher() {
   const itemsAssignmentG = useSelector((state) => state.groupAssignment.items);
   const itemsGroups = useSelector((state) => state.group.items);
   const itemsGrades = useSelector((state) => state.grades.items);
+  console.log(itemsGrades);
+  
+
   const dispatch = useDispatch();
 
   //Muestra el div del semestre seleccionado

@@ -79,20 +79,20 @@ function ListGroups() {
                     <fieldset>
                       <legend>Detalles del Grupo: <br />{group.group_name}</legend>
                       
-                      <div class="info">
-                          <span class="label">Nivel de educacion:</span> {group.educational_level}
+                      <div className="info">
+                          <span className="label">Nivel de educacion:</span> {group.educational_level}
                       </div>
-                      <div class="info">
-                          <span class="label">Capacidad Maxima:</span> {group.capacity}
+                      <div className="info">
+                          <span className="label">Capacidad Maxima:</span> {group.capacity}
                       </div>
-                      <div class="info">
-                          <span class="label">Numero de clase:</span> {group.classroom}
+                      <div className="info">
+                          <span className="label">Numero de clase:</span> {group.classroom}
                       </div>
-                      <div class="info">
-                          <span class="label">Estudiantes activos:</span>  {group.current_students}
+                      <div className="info">
+                          <span className="label">Estudiantes activos:</span>  {group.current_students}
                       </div>
-                      <div class="info">
-                          <span class="label">Docentes asignados:</span>
+                      <div className="info">
+                          <span className="label">Docentes asignados:</span>
                     
                           <br />
                           <br />

@@ -5,15 +5,18 @@ import { fetchStudent } from '../../Redux/Slices/SliceStudent'
 import {Card, Skeleton} from "@nextui-org/react";
 import { useDispatch, useSelector } from 'react-redux';
 import '../../css/expediente_notas.css';
+import Cookies from 'js-cookie';
+import { jwtDecode } from "jwt-decode";
+
 
 function ExpedienteAlumno() {
   const dispatch = useDispatch();
 
-  const studentID = sessionStorage.getItem("StudentID");
+  const [studentID, setStudentID] = useState("")
   
-  //Redux
-  const itemStudent= useSelector(state => state.student.items);
-  const itemGrades= useSelector(state => state.grades.items);
+  
+  const itemStudent = useSelector(state => state.student.items);
+  const itemGrades = useSelector(state => state.grades.items);
 
   //Une los objetos
   const [studentWithGrades, setStudentWithGrades] = useState([]);
@@ -22,6 +25,19 @@ function ExpedienteAlumno() {
   const [semestre, setSemestre] = useState("");
 
   useEffect(() => {
+    const token = Cookies.get('AuthCookie'); 
+
+    if (token) {
+      try {
+        // Desencriptar el token
+        const decodedToken = jwtDecode(token);  
+        const idStudent = decodedToken.ID;
+        // Guardar el ID en una variable local
+        setStudentID(idStudent);
+      } catch (error) {
+        console.error('Error al decodificar el token', error);
+      }
+    }
     dispatch(fetchGrades()); // Llama a la acción para obtener productos al cargar el componente
     dispatch(fetchStudent()); // Llama a la acción para obtener productos al cargar el componente
   }, [dispatch]);

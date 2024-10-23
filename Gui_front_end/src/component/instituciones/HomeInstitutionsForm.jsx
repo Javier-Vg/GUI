@@ -10,41 +10,61 @@ import StudentsTeacher from "./Teachers/StudentsTeacher";
 import GroupsTeacher from "./Teachers/GroupsTeacher";
 import GradesTeacher from "./Teachers/GradesTeacher";
 import ManageSubjects from "./manageSubjects"; // Ajusta la ruta según sea necesario
-import { useSelector } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
+import { setSearchTerm } from "../../Redux/Slices/searchSlice";
 import "../../css/home_institution.css";
 import { useNavigate } from "react-router-dom";
 import ChatProfesor from "../moduloProfesor/chatProfesor";
+import Cookies from 'js-cookie';
+import { jwtDecode } from "jwt-decode";
 
 function HomeInstitutionsForm() {
   const [changeComponent, setChangeComponent] = useState("");
   const [isDeployed, setIsDeployed] = useState(false);
 
-  const NameInstitution = useSelector(
-    (state) => state.infInstitution.nameInstitution
-  );
-  const InfInstitution = useSelector(
-    (state) => state.infInstitution.imgInstitution
-  );
-  const userRole = useSelector((state) => state.infInstitution.role);
-  const auth = useSelector((state) => state.infInstitution.auth);
-  const navigate = useNavigate();
+  const [NameInstitution,setNameInstitution]=useState(null);
+  const [InfInstitution,setInfInstitution] = useState(null);
 
+  const navigate = useNavigate();
+  const dispatch = useDispatch();
+  const [userRole, setRole] = useState(null);
+  const [auth, setAuth] = useState(null);
+
+  const handleSearch = (e) => {
+    dispatch(setSearchTerm(e.target.value)); // Despacha la acción de búsqueda
+  };
   const toggleAside = () => {
     setIsDeployed(!isDeployed);
   };
-
   useEffect(() => {
-    // Verificar autenticación
-    if (!sessionStorage.getItem("token") || auth !== true) {
-      navigate("/error");
+    const token = Cookies.get('AuthCookie'); 
+  
+    if (token) {
+  
+      try {
+        // Desencriptar el token
+        const decodedToken = jwtDecode(token);    
+        // Extraer valores del token
+        const auth = decodedToken.auth; 
+        const rol = decodedToken.rol;  
+        const nameInstitution = decodedToken.Name;  
+        const imgurl = decodedToken.imgInstitution;  
+        setNameInstitution(nameInstitution)
+        setInfInstitution(imgurl)
+        
+
+        if (!token || auth !== true) {
+          navigate("/error");
+        }
+        setRole(rol);
+        setAuth(auth);
+      } catch (error) {
+        console.error('Error al decodificar el token', error);
+      }
     }
-  }, [auth, navigate]);
-
+  }, []);
+  
   const Logout = async () => {
-    sessionStorage.removeItem("token");
-    sessionStorage.removeItem("StudentID");
-    sessionStorage.removeItem("persist:root");
-
     navigate("/login");
   };
 
@@ -57,81 +77,193 @@ function HomeInstitutionsForm() {
         />
       </head>
 
-      <nav>
+      <nav className="navbar">
         <button id="open-close" onClick={toggleAside}>
           <span id="open-close">
             <i className="bx bx-menu"></i>
           </span>
         </button>
-        <img src={InfInstitution} alt="" />
-        <h2>{NameInstitution}</h2>
+        <div className="right-section">
+          <input type="text" placeholder="Buscar..." onChange={handleSearch} />
+          <h2>{NameInstitution}</h2>
+          <img src={InfInstitution} alt="Logo de la institución" />
+        </div>
       </nav>
 
       <aside id="aside" className={isDeployed ? "desplegar" : ""}>
         <div className="container-svg">
           {userRole === "Teacher" || userRole === "Profesor" ? (
             <>
-              <div onClick={() => setChangeComponent("teacherStudents")} className="inputBoton">
-                <input type="radio" id="teacherStudents" name="changeComponent" style={{ display: "none" }} />
+              <div
+                onClick={() => setChangeComponent("teacherStudents")}
+                className="inputBoton"
+              >
+                <input
+                  type="radio"
+                  id="teacherStudents"
+                  name="changeComponent"
+                  style={{ display: "none" }}
+                />
                 <label htmlFor="teacherStudents">Estudiantes</label>
               </div>
-              <div onClick={() => setChangeComponent("teacherGrupos")} className="inputBoton">
-                <input type="radio" id="teacherGrupos" name="changeComponent" style={{ display: "none" }} />
+              <div
+                onClick={() => setChangeComponent("teacherGrupos")}
+                className="inputBoton"
+              >
+                <input
+                  type="radio"
+                  id="teacherGrupos"
+                  name="changeComponent"
+                  style={{ display: "none" }}
+                />
                 <label htmlFor="teacherGrupos">Grupos</label>
               </div>
-              <div onClick={() => setChangeComponent("teacherNotas")} className="inputBoton">
-                <input type="radio" id="teacherNotas" name="changeComponent" style={{ display: "none" }} />
-                <label htmlFor="teacherNotas">Control de Notas</label>
+              <div
+                onClick={() => setChangeComponent("teacherNotas")}
+                className="inputBoton"
+              >
+                <input
+                  type="radio"
+                  id="teacherNotas"
+                  name="changeComponent"
+                  style={{ display: "none" }}
+                />
+                <label htmlFor="teacherNotas">Notas</label>
               </div>
-              <div onClick={() => setChangeComponent("ChatEstudiante")} className="inputBoton">
-                <input type="radio" id="ChatEstudiante" name="changeComponent" style={{ display: "none" }} />
+              <div
+                onClick={() => setChangeComponent("ChatEstudiante")}
+                className="inputBoton"
+              >
+                <input
+                  type="radio"
+                  id="ChatEstudiante"
+                  name="changeComponent"
+                  style={{ display: "none" }}
+                />
                 <label htmlFor="ChatEstudiante">Chat Estudiante</label>
               </div>
             </>
           ) : (
             <>
-              <div onClick={() => setChangeComponent("crear personal")} className="inputBoton">
-                <input type="radio" id="crearPersonal" name="changeComponent" style={{ display: "none" }} />
+              <div
+                onClick={() => setChangeComponent("crear personal")}
+                className="inputBoton"
+              >
+                <input
+                  type="radio"
+                  id="crearPersonal"
+                  name="changeComponent"
+                  style={{ display: "none" }}
+                />
                 <label htmlFor="crearPersonal">Crear Personal</label>
               </div>
-              <div onClick={() => setChangeComponent("crear estudiante")} className="inputBoton">
-                <input type="radio" id="crearEstudiante" name="changeComponent" style={{ display: "none" }} />
+              <div
+                onClick={() => setChangeComponent("crear estudiante")}
+                className="inputBoton"
+              >
+                <input
+                  type="radio"
+                  id="crearEstudiante"
+                  name="changeComponent"
+                  style={{ display: "none" }}
+                />
                 <label htmlFor="crearEstudiante">Crear Estudiante</label>
               </div>
-              <div onClick={() => setChangeComponent("Crear Grupo")} className="inputBoton">
-                <input type="radio" id="crearGrupo" name="changeComponent" style={{ display: "none" }} />
+              <div
+                onClick={() => setChangeComponent("Crear Grupo")}
+                className="inputBoton"
+              >
+                <input
+                  type="radio"
+                  id="crearGrupo"
+                  name="changeComponent"
+                  style={{ display: "none" }}
+                />
                 <label htmlFor="crearGrupo">Crear Grupo</label>
               </div>
-              <div onClick={() => setChangeComponent("crear materias")} className="inputBoton">
-                <input type="radio" id="materias" name="changeComponent" style={{ display: "none" }} />
+              <div
+                onClick={() => setChangeComponent("crear materias")}
+                className="inputBoton"
+              >
+                <input
+                  type="radio"
+                  id="materias"
+                  name="changeComponent"
+                  style={{ display: "none" }}
+                />
                 <label htmlFor="materias">Crear Materias</label>
               </div>
               <hr />
-              <div onClick={() => setChangeComponent("profesor")} className="inputBoton">
-                <input type="radio" id="crearPersonal" name="changeComponent" style={{ display: "none" }} />
+              <div
+                onClick={() => setChangeComponent("profesor")}
+                className="inputBoton"
+              >
+                <input
+                  type="radio"
+                  id="crearPersonal"
+                  name="changeComponent"
+                  style={{ display: "none" }}
+                />
                 <label htmlFor="personal">Personal</label>
               </div>
-              <div onClick={() => setChangeComponent("estudiante")} className="inputBoton">
-                <input type="radio" id="estudiantes" name="changeComponent" style={{ display: "none" }} />
+              <div
+                onClick={() => setChangeComponent("estudiante")}
+                className="inputBoton"
+              >
+                <input
+                  type="radio"
+                  id="estudiantes"
+                  name="changeComponent"
+                  style={{ display: "none" }}
+                />
                 <label htmlFor="estudiantes">Estudiantes</label>
               </div>
-              <div onClick={() => setChangeComponent("grupos")} className="inputBoton">
-                <input type="radio" id="grupos" name="changeComponent" style={{ display: "none" }} />
+              <div
+                onClick={() => setChangeComponent("grupos")}
+                className="inputBoton"
+              >
+                <input
+                  type="radio"
+                  id="grupos"
+                  name="changeComponent"
+                  style={{ display: "none" }}
+                />
                 <label htmlFor="grupos">Grupos</label>
               </div>
-              <div onClick={() => setChangeComponent("gastos")} className="inputBoton">
-                <input type="radio" id="gastos" name="changeComponent" style={{ display: "none" }} />
+              <div
+                onClick={() => setChangeComponent("gastos")}
+                className="inputBoton"
+              >
+                <input
+                  type="radio"
+                  id="gastos"
+                  name="changeComponent"
+                  style={{ display: "none" }}
+                />
                 <label htmlFor="gastos">Gastos</label>
               </div>
             </>
           )}
 
-          <div onClick={() => setChangeComponent("soporte de sistema")} className="inputBoton">
-            <input type="radio" id="soporteSistema" name="changeComponent" style={{ display: "none" }} />
+          <div
+            onClick={() => setChangeComponent("soporte de sistema")}
+            className="inputBoton"
+          >
+            <input
+              type="radio"
+              id="soporteSistema"
+              name="changeComponent"
+              style={{ display: "none" }}
+            />
             <label htmlFor="soporteSistema">Soporte de Sistema</label>
           </div>
           <div onClick={Logout}>
-            <input type="radio" id="cerrarSesion" name="changeComponent" style={{ display: "none" }} />
+            <input
+              type="radio"
+              id="cerrarSesion"
+              name="changeComponent"
+              style={{ display: "none" }}
+            />
             <label htmlFor="cerrarSesion">Cerrar Sesión</label>
           </div>
         </div>

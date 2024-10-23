@@ -1,7 +1,9 @@
 
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { postStudents } from '../../service/LoginGui';
 import { useSelector} from "react-redux";
+import Cookies from 'js-cookie';
+import { jwtDecode } from "jwt-decode";
 const domain = window.location.hostname 
 
 function CreateStudent() {
@@ -25,8 +27,23 @@ function CreateStudent() {
   const [formMessage, setFormMessage] = useState('');
   const [password, setPassword] = useState('');
 
-  const institution_id = useSelector((state) => state.ids.institutionId); // Obtén el ID de la institución
-  
+  const [institution_id, setInstitutionId] = useState(null); 
+ 
+  useEffect(() => {
+    const token = Cookies.get('AuthCookie'); 
+
+    if (token) {
+      try {
+        // Desencriptar el token
+        const decodedToken = jwtDecode(token);  
+        const institutionIdFromToken = decodedToken.ID;
+        // Guardar el ID en una variable local
+        setInstitutionId(institutionIdFromToken);
+      } catch (error) {
+        console.error('Error al decodificar el token', error);
+      }
+    }
+  }, []);
   const handleInputChange = (e) => {
     const { name, value } = e.target;
     switch (name) {

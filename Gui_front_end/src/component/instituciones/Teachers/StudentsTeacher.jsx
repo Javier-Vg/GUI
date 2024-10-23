@@ -4,17 +4,31 @@ import { fetchGroups } from "../../../Redux/Slices/SliceGroup";
 import { fetchAssignmentGroup } from "../../../Redux/Slices/sliceAssignmentGroup";
 import { useDispatch, useSelector } from "react-redux";
 import "../../../css/students_view_teacher.css";
+import Cookies from 'js-cookie';
+import { jwtDecode } from "jwt-decode";
 function StudentsTeacher() {
   const [Student, setStudent] = useState([{username: "juan"}]);
+  const [NameTeacher, setnameTeacher] = useState("")
 
   const dispatch = useDispatch();
   useEffect(() => {
+    const token = Cookies.get('AuthCookie'); 
+
+    if (token) {
+      try {
+        // Desencriptar el token
+        const decodedToken = jwtDecode(token);; 
+        const username = decodedToken.Name;
+
+        setnameTeacher(username);
+      } catch (error) {
+        console.error('Error al decodificar el token', error);
+      }
+    }
     dispatch(fetchStudent()); // Llama a la acción para obtener productos al cargar el componente
     dispatch(fetchAssignmentGroup());
     dispatch(fetchGroups());
   }, [dispatch]);
-
-  const NameTeacher = sessionStorage.getItem("NameTeacher");
 
   //Redux
   const itemsStudent = useSelector((state) => state.student.items);

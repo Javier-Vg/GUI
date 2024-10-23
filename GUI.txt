@@ -5,6 +5,12 @@ npm install axios
 npm i react-router-dom
 npm install jsonwebtoken bcryptjs express
 npm install jwt-decode
+npm install js-cookie
+npm install jwt-decode@latest
+npm audit fix
+npm i jwt-decode
+
+
 
 
 pip install django-cors-headers
