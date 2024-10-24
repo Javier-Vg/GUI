@@ -31,7 +31,7 @@ function CalificacionesEstudiante() {
       }
     }
     dispatch(fetchStudent()); // Llama a la acción para obtener productos al cargar el componente
-    dispatch(fetchGrades()); // Llama a la acción para obtener productos al cargar el componente
+    dispatch(fetchGrades()); // Llama a la acción para obtener productos al cargar el componentee
   }, [dispatch]);
 
   return (
