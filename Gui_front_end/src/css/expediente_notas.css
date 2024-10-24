@@ -2,47 +2,96 @@
 .container2 {
     display: grid;
     grid-template-columns: 1fr 1fr; /* Dos columnas */
-    grid-template-rows:250px 250px; /* Tres filas */
+    grid-template-rows:200px 200px; /* Tres filas */
     gap: 10px; /* Espaciado entre los elementos */
     width: 100%; /* Ancho del contenedor */
-    height: 100%; /* Alto del contenedor */
+    max-height: 100%; /* Alto del contenedor */
+    height: 100%;
     border-radius: 5px;
+
 }
 
-.item1 {
+.fade-in:nth-child(1) {
+    
     grid-column: 1 / 2; /* Ocupa la primera columna */
     grid-row: 1 / 4; /* Ocupa las tres filas */
     background-color: lightblue;
     padding: 20px;
     text-align: center;
     border-radius: 10px;
+    height: 100%;
+    max-height: 410px;
+    overflow: auto;
 }
 
-.item2 {
+.fade-in:nth-child(2) {
     grid-column: 2 / 3; /* Ocupa la segunda columna */
     grid-row: 1 / 2; /* Ocupa la primera fila */
     background-color: lightcoral;
     padding: 20px;
     text-align: center;
     border-radius: 10px;
+    height: 100%;
 }
 
-.item3 {
+.fade-in:nth-child(3) {
     grid-column: 2 / 3; /* Ocupa la segunda columna */
     grid-row: 2 / 3; /* Ocupa la segunda fila */
     background-color: lightgreen;
     padding: 20px;
     text-align: center;
     border-radius: 10px;
-    
+    height: 100%;
 }
+
+
+
+/* ---------------- */
 
 .h1-info{
     text-align: left;
-    font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
 }
 
 .div-btn-trimestre{
     display: flex;
     justify-content: space-around;
 }
+
+/* Scroll */
+::-webkit-scrollbar {
+    display: none; /* Para navegadores WebKit */
+}
+
+
+
+
+
+.img-student:hover {
+    transform: scale(1.1); /* Aumentar tamaño al pasar el mouse */
+ 
+}
+
+.img-student{
+    width: 170px;
+    height: 230px;
+    border-radius: 10px;
+    transition: transform 0.3s ease; /* Transición suave */
+}
+
+.div-student-show{
+    display: flex;
+    justify-content: space-around;
+}
+
+.box2{
+    text-align: left;
+    
+}
+
+p{
+    text-align: left;
+}
+
+
+

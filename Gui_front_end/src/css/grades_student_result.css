@@ -1,0 +1,75 @@
+/* Likert */
+
+body {
+    background-color: #e9ecef;
+    font-family: 'Arial', sans-serif;
+}
+
+.grades-container {
+    max-width: 100%;
+    max-height: 400px;
+    background: white;
+    border-radius: 12px;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+    padding: 14px;
+    transition: transform 0.3s;
+    overflow: auto;
+}
+
+.grades-container:hover {
+    transform: translateY(-5px);
+}
+
+h2 {
+    text-align: center;
+    color: #343a40;
+    margin-bottom: 20px;
+}
+
+.grades-table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+.grades-table th, .grades-table td {
+    padding: 15px;
+    text-align: left;
+    border-bottom: 1px solid #dee2e6;
+}
+
+.grades-table th {
+    background-color: #f8f9fa;
+    color: #495057;
+}
+
+.likert-scale {
+    display: flex;
+    justify-content: center;
+}
+
+.likert-option {
+    width: 40px;
+    height: 40px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border: 2px solid #ccc;
+    border-radius: 50%;
+    margin: 0 5px;
+    cursor: pointer;
+    font-size: 1.2rem;
+    transition: background 0.3s, border 0.3s;
+    color: #495057;
+}
+
+.likert-option.selected {
+    background: #4caf50;
+    color: white;
+    border: 2px solid #388e3c;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
+}
+
+.likert-option:hover {
+    background: #f1f1f1;
+    border: 2px solid #6c757d;
+}

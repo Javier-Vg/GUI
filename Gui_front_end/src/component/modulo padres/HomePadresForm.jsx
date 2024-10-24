@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import ExpedienteAlumno from "./ExpedienteAlumno";
 import Chat from "./Chat";
+import CalificacionesEstudiante from "./CalificacionesEstudiante";
 import "../../css/home_institution.css";
 import { useSelector, useDispatch } from "react-redux";
 
@@ -69,7 +70,7 @@ function HomePadresForm() {
             <div>
               <input
                 type="button"
-                value="Calificacion del Estudiante"
+                value="Calificaciones del Estudiante"
                 onClick={() =>
                   setChangeComponent("Calificacion del Estudiante")
                 }
@@ -82,6 +83,7 @@ function HomePadresForm() {
           <div className="div-components">
             {changeComponent === "Expediente de Alumno" && <ExpedienteAlumno />}
             {changeComponent === "Comunicacion" && <Chat />}
+            {changeComponent === "Calificacion del Estudiante" && <CalificacionesEstudiante />}
             {/* {changeComponent === "Estado de Cuenta" && <ExpedienteAlumno />} */}
           </div>
         </div>

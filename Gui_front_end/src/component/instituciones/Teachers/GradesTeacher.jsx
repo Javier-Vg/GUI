@@ -6,18 +6,21 @@ import { fetchAssignmentGroup } from "../../../Redux/Slices/sliceAssignmentGroup
 import { useDispatch, useSelector } from "react-redux";
 import { fetchGrades } from "../../../Redux/Slices/SliceGrades";
 import "../../../css/grades_teacher.css";
+import Cookies from 'js-cookie';
+import { jwtDecode } from "jwt-decode";
 
 function GradesTeacher() {
   const [studentsWithGroups, setStudentsWithGroups] = useState([]);
-  const NameTeacher = sessionStorage.getItem("NameTeacher");
-  const IdTeacher = sessionStorage.getItem("StaffID");
+  const [NameTeacher, setNameTeacher] = useState("")
+  const [IdTeacher, setIdTeacher] = useState("")
+  // const NameTeacher = sessionStorage.getItem("NameTeacher");
+  // const IdTeacher = sessionStorage.getItem("StaffID");
 
   // Redux
   const itemsStudent = useSelector((state) => state.student.items);
   const itemsAssignmentG = useSelector((state) => state.groupAssignment.items);
   const itemsGroups = useSelector((state) => state.group.items);
   const itemsGrades = useSelector((state) => state.grades.items);
-  console.log(itemsGrades);
   
 
   const dispatch = useDispatch();
@@ -62,6 +65,19 @@ function GradesTeacher() {
   });
 
   useEffect(() => {
+    const token = Cookies.get('AuthCookie');
+
+     if (token) {
+       try {
+         // Desencriptar el token
+         const decodedToken = jwtDecode(token);
+         setIdTeacher(decodedToken.ID)
+         setNameTeacher(decodedToken.Name)
+         
+       } catch (error) {
+         console.error('Error al decodificar el token', error);
+       }
+     }
     dispatch(fetchStudent());
     dispatch(fetchAssignmentGroup());
     dispatch(fetchGroups());
@@ -93,7 +109,7 @@ function GradesTeacher() {
 
   const Post = (e) => {
     e.preventDefault();
-    const teacherId = Number(IdTeacher); 
+    const teacherId = Number(IdTeacher);
 
     let json = {
       grade_results: ObjectGrades,
@@ -142,7 +158,7 @@ function GradesTeacher() {
     setStudentsWithGroups(tempStudents);
   }, [itemsGroups, itemsAssignmentG, itemsStudent, NameTeacher]);
 
-  console.log(studentsWithGroups);
+  // console.log(studentsWithGroups);
   
   // Manejar cambios en los inputs
   const handleSelectChange = (e, materiaKey) => {

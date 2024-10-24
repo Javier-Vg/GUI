@@ -6,6 +6,7 @@ import { useDispatch, useSelector } from "react-redux";
 import "../../../css/students_view_teacher.css";
 import Cookies from 'js-cookie';
 import { jwtDecode } from "jwt-decode";
+
 function StudentsTeacher() {
   const [Student, setStudent] = useState([{username: "juan"}]);
   const [NameTeacher, setnameTeacher] = useState("")
@@ -76,7 +77,7 @@ function StudentsTeacher() {
         };
       });
     };
-  }, []);
+  }, [NameTeacher]);
   
   const [isModalOpen, setModalOpen] = useState(false);
   const [ImgValue, setImgValue] = useState(false);

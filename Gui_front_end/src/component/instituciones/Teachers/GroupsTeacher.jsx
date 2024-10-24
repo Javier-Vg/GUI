@@ -3,21 +3,39 @@ import { fetchGroups } from '../../../Redux/Slices/SliceGroup';
 import { fetchStaff } from '../../../Redux/Slices/SliceStaff';
 import { useDispatch, useSelector } from 'react-redux';
 import '../../../css/groups_teacher.css';
+import Cookies from 'js-cookie';
+import { jwtDecode } from "jwt-decode";
 
 function ListGroups() {
     const [groups, setGroups] = useState([]);
     const [seeMore, setSeeMore] = useState(false);
     const [selectedGroup, setSelectedGroups] = useState(null);
-    const institution_id = useSelector((state) => state.ids.institutionId); // Obtén el ID de la institución
     const dispatch = useDispatch();
 
     //Estados de Staff:
-    const items= useSelector(state => state.group.items);
+    const itemsGroup= useSelector(state => state.group.items);
     const itemStaff= useSelector(state => state.staff.items);
     const loading = useSelector(state => state.group.loading);
     const error = useSelector(state => state.group.error);
+
+    //Setea la cookie
+    const [InstitutionId, setInstitutionId] = useState("");
+    const [NameTeacher, setNameTeacher] = useState("");
     
     useEffect(() => {
+      const token = Cookies.get('AuthCookie');
+
+      if (token) {
+        try {
+          // Desencriptar el token
+          const decodedToken = jwtDecode(token);
+          setInstitutionId(decodedToken.institution);
+          setNameTeacher(decodedToken.Name);
+          
+        } catch (error) {
+          console.error('Error al decodificar el token', error);
+        }
+      }
         dispatch(fetchGroups()); // Llama a la acción para obtener productos al cargar el componente
         dispatch(fetchStaff()); // Llama a la acción para obtener productos al cargar el componente
     }, [dispatch]);
@@ -25,16 +43,13 @@ function ListGroups() {
     useEffect(() => {
         setGroups([]);
         let arrayGroups = [];
-        for (let i = 0; i < items.length; i++) {   
+        for (let i = 0; i < itemsGroup.length; i++) {   
              
-          Object.values(items[i].communication_of_subjects_and_teacher).forEach((value) => {
-            
-            for (const j in itemStaff) { //Itera el array de staff para conseguir el nombre del profesor
-              
-              if (items[i].institution === parseInt(institution_id, 10) && value == itemStaff[j].username) { //Valida nombre del profe y institucion
+          Object.values(itemsGroup[i].communication_of_subjects_and_teacher).forEach((value) => {
+              if (itemsGroup[i].institution === InstitutionId && value == NameTeacher) { //Valida nombre del profe y institucion
                 // Actualiza el valor de la clave correspondiente
 
-                arrayGroups.push(items[i]);
+                arrayGroups.push(itemsGroup[i]);
                 // Crear un conjunto para rastrear usernames únicos
                 let usernamesUnicos = new Set();
 
@@ -50,10 +65,9 @@ function ListGroups() {
                 
                 setGroups(objetosFiltrados);
               }; 
-            };
           });  
         };
-    }, [items]);
+    }, [itemsGroup]);
     
     if (loading) {
         return <div>Cargando...</div>; // Muestra un mensaje de carga
