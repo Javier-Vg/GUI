@@ -17,6 +17,7 @@ import { useNavigate } from "react-router-dom";
 import ChatProfesor from "../moduloProfesor/chatProfesor";
 import Cookies from 'js-cookie';
 import { jwtDecode } from "jwt-decode";
+import Eventos from "./Eventos";
 
 function HomeInstitutionsForm() {
   const [changeComponent, setChangeComponent] = useState("");
@@ -193,7 +194,24 @@ function HomeInstitutionsForm() {
                 />
                 <label htmlFor="materias">Crear Materias</label>
               </div>
+              
               <hr />
+
+              <div
+                onClick={() => setChangeComponent("eventos")}
+                className="inputBoton"
+              >
+                <input
+                  type="radio"
+                  id="eventos"
+                  name="changeComponent"
+                  style={{ display: "none" }}
+                />
+                <label htmlFor="materias">Programar eventos</label>
+              </div>
+
+
+
               <div
                 onClick={() => setChangeComponent("profesor")}
                 className="inputBoton"
@@ -243,6 +261,7 @@ function HomeInstitutionsForm() {
                 <label htmlFor="gastos">Gastos</label>
               </div>
             </>
+            
           )}
 
           <div
@@ -280,7 +299,7 @@ function HomeInstitutionsForm() {
           {changeComponent === "crear estudiante" && <CreateStudent />}
           {changeComponent === "Crear Grupo" && <CreateGroup />}
           {changeComponent === "crear materias" && <ManageSubjects />}
-
+          {changeComponent === "eventos" && <Eventos />}
           {changeComponent === "profesor" && <ListStaff />}
           {changeComponent === "estudiante" && <ListStudent />}
           {changeComponent === "gastos" && <Gastos />}

@@ -343,6 +343,17 @@ export const getMessages = async () => {
     throw new Error('Error al obtener los mensajes');
   }
 };
+// /////////////////////////////////
+// Función para enviar un evento
+export const PostEvento = async (eventData) => {
+  try {
+    const response = await axios.post('http://192.168.100.44:8000/api/events/events/', eventData);
+    return response.data;
+  } catch (error) {
+    console.error("Error posting event data: ", error);
+    throw error;
+  }
+};
 // Obtener mensajes de un profesor específico
 // export const fetchMessagesForTeacher = async (teacherId) => {
 //   try {
