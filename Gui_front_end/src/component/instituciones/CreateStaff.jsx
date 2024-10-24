@@ -8,6 +8,7 @@ import '../../css/create_staff.css';
 import Cookies from 'js-cookie';
 import { jwtDecode } from "jwt-decode";
 const domain = window.location.hostname;
+ 
 
 function CreateStaff() {
   // Estados para los campos del formulario
@@ -49,7 +50,7 @@ function CreateStaff() {
        try {
          // Desencriptar el token
          const decodedToken = jwtDecode(token);
-         const institutionIdFromToken = decodedToken.ID; 
+         const institutionIdFromToken = decodedToken.institution; 
          
          setInstitutionId(institutionIdFromToken);
        } catch (error) {

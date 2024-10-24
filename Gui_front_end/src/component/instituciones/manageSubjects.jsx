@@ -12,14 +12,14 @@ const ManageSubjects = () => {
 
     useEffect(() => {
         const token = Cookies.get('AuthCookie');
-
+ 
     if (token) {
       try {
         // Desencriptar el token
         const decodedToken = jwtDecode(token);
-        
+
         // Extraer el institution_id desde el token
-        const institutionIdFromToken = decodedToken.ID; 
+        const institutionIdFromToken = decodedToken.institution        ; 
         setInstitutionId(institutionIdFromToken);
       } catch (error) {
         console.error('Error al decodificar el token', error);
@@ -31,7 +31,8 @@ const ManageSubjects = () => {
             name: subjectName,
             institution: institution_id // Usar el ID de la institución del localStorage
         };
-
+        console.log(subject);
+        
         try {
             await postSubjects(subject);
             toast.success("Materia agregada exitosamente.");
@@ -61,3 +62,4 @@ const ManageSubjects = () => {
 };
 
 export default ManageSubjects;
+

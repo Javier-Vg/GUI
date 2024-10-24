@@ -5,7 +5,7 @@ import { putStaff } from '../../service/LoginGui.js'; // Importa la función put
 import '../../css/list_staff.css';
 import Cookies from 'js-cookie';
 import { jwtDecode } from "jwt-decode";
-
+ 
 function ListStaff() {
   const [staff, setStaff] = useState([]);
   const [modal, setModal] = useState(false);
@@ -28,7 +28,8 @@ function ListStaff() {
       try {
         // Desencriptar el token
         const decodedToken = jwtDecode(token);
-        const institutionIdFromToken = decodedToken.ID; 
+        const institutionIdFromToken = decodedToken.institution
+        ; 
 
         setInstitutionId(institutionIdFromToken);
       } catch (error) {

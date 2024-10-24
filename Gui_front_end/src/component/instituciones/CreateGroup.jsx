@@ -35,7 +35,7 @@ function CreateGroup() {
         // Desencriptar el token
         const decodedToken = jwtDecode(token);
       
-        const institutionIdFromToken = decodedToken.ID;
+        const institutionIdFromToken = decodedToken.institution;
         setInstitutionId(institutionIdFromToken);
       } catch (error) {
         console.error('Error al decodificar el token', error);
@@ -71,7 +71,7 @@ function CreateGroup() {
   const changeCommunication_of_subjects_and_teacher = (e) => {
     setObjctChosen([...objctChosen, e.target.value]);
   };
-
+ 
 const Post = () => {
   const group = {
     group_name: Name,

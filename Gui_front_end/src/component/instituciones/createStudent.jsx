@@ -1,4 +1,3 @@
-
 import React, { useState, useEffect } from 'react';
 import { postStudents } from '../../service/LoginGui';
 import { useSelector} from "react-redux";
@@ -22,7 +21,7 @@ function CreateStudent() {
   const [nameGuardian, setNameGuardian] = useState('');
   const [alergias, setAlergias] = useState('');
   const [imagen, setImagen] = useState(null);
-  
+   
   const [mensualidadDelEstudiante, setMensualidadDelEstudiante] = useState('');
   const [formMessage, setFormMessage] = useState('');
   const [password, setPassword] = useState('');
@@ -36,7 +35,9 @@ function CreateStudent() {
       try {
         // Desencriptar el token
         const decodedToken = jwtDecode(token);  
-        const institutionIdFromToken = decodedToken.ID;
+        const institutionIdFromToken = decodedToken.institution  ;
+        console.log(decodedToken);
+        
         // Guardar el ID en una variable local
         setInstitutionId(institutionIdFromToken);
       } catch (error) {

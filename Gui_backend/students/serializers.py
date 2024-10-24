@@ -34,6 +34,7 @@ class StudentLoginSerializer(serializers.Serializer):
                 'last_name': student.last_name,
                 'imgURL': student.imagen_url,
                 'numberIdentification': student.identification_number,
+                'type_of_student': student.type_of_student
                 
             }
 

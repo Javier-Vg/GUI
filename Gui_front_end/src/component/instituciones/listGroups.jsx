@@ -10,7 +10,7 @@ import { useDispatch, useSelector } from "react-redux";
 import "../../css/list_group.css";
 import Cookies from 'js-cookie';
 import { jwtDecode } from "jwt-decode";
-
+ 
 
 function ListGroups() {
   const [groups, setGroups] = useState([]);
@@ -37,7 +37,8 @@ function ListGroups() {
       try {
         // Desencriptar el token
         const decodedToken = jwtDecode(token);
-        const institutionIdFromToken = decodedToken.ID; 
+        const institutionIdFromToken = decodedToken.institution
+        ; 
         setInstitutionId(institutionIdFromToken);
       } catch (error) {
         console.error('Error al decodificar el token', error);

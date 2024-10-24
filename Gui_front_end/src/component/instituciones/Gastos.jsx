@@ -41,7 +41,7 @@ function GastosGanancias() {
       try {
         // Desencriptar el token
         const decodedToken = jwtDecode(token);    
-        const institutionIdFromToken = decodedToken.ID; 
+        const institutionIdFromToken = decodedToken.institution; 
         setInstitutionId(institutionIdFromToken);
       } catch (error) {
         console.error('Error al decodificar el token', error);

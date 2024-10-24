@@ -8,7 +8,7 @@ import Cookies from 'js-cookie';
 import { jwtDecode } from "jwt-decode";
 
 const domain = window.location.hostname;
-
+  
 function ListStudents() {
   const [students, setStudents] = useState([]);
   const [seeMore, setSeeMore] = useState(false);
@@ -36,8 +36,9 @@ function ListStudents() {
       try {
         // Desencriptar el token
         const decodedToken = jwtDecode(token);
-        const institutionIdFromToken = decodedToken.ID;
-
+        const institutionIdFromToken = decodedToken.institution
+        ;
+        
         setInstitutionId(institutionIdFromToken);
       } catch (error) {
         console.error('Error al decodificar el token', error);

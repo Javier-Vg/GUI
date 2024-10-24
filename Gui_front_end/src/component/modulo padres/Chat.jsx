@@ -616,7 +616,6 @@ const Chat = () => {
           { ...savedMessage, transmitterName: storedTeacherName || "Profesor" },
         ]);
         setMessage("");
-        alert("Mensaje enviado correctamente");
       } catch (error) {
         console.error("No se pudo enviar el mensaje", error);
         alert("Error al enviar el mensaje. Intenta nuevamente.");
