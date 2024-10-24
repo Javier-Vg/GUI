@@ -4,10 +4,11 @@ from rest_framework import status
 from .models import tasks
 from .serializers import Tasks_Serializer
 
+# from permissions import IsAuthenticatedWithCookie
 class TasksViewSet(viewsets.ModelViewSet):
     queryset = tasks.objects.all()
     serializer_class = Tasks_Serializer
-
+    # permission_classes = [IsAuthenticatedWithCookie]
 #Gui, Institutions, teacher
     def create(self, request):
         serializer = self.get_serializer(data=request.data)
@@ -45,17 +46,7 @@ class TasksViewSet(viewsets.ModelViewSet):
             return Response({"message": "Task deleted successfully"}, status=status.HTTP_204_NO_CONTENT)
         except tasks.DoesNotExist:
             return Response({"error": "Task not found"}, status=status.HTTP_404_NOT_FOUND)
-    # queryset = tasks.objects.all()
-    # serializer_class = Tasks_Serializer
 
-    # def update(self, request, pk=None):
-    #     try:
-    #         institution = tasks.objects.get(pk=pk)
-    #     except tasks.DoesNotExist:
-    #         return Response({"error": "Institution not found"}, status=status.HTTP_404_NOT_FOUND)
-        
-    #     serializer = self.get_serializer(institution, data=request.data)
-    #     if serializer.is_valid():
-    #         serializer.save()
-    #         return Response(serializer.data, status=status.HTTP_200_OK)
-    #     return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
+
+

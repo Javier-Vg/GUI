@@ -4,10 +4,12 @@ from rest_framework import status
 from .models import grades
 from .serializers import Grades_Serializer
 
+# from permissions import IsAuthenticatedWithCookie
+
 class GroupsViewSet(viewsets.ModelViewSet):
     queryset = grades.objects.all()
     serializer_class = Grades_Serializer
-
+    # permission_classes = [IsAuthenticatedWithCookie]
     def update(self, request, pk=None):
         try:
             institution = grades.objects.get(pk=pk)

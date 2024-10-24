@@ -4,10 +4,11 @@ from rest_framework import status
 from .models import schedule
 from .serializers import Schedule_Serializer
 
+# from permissions import IsAuthenticatedWithCookie
 class ScheduleViewSet(viewsets.ModelViewSet):
     queryset = schedule.objects.all()
     serializer_class = Schedule_Serializer
-
+    # permission_classes = [IsAuthenticatedWithCookie]
 #Los 4
     def create(self, request):
         serializer = self.get_serializer(data=request.data)

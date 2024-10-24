@@ -4,10 +4,12 @@ from rest_framework import status
 from .models import payments
 from .serializers import Payments_Serializer
 
+# from permissions import IsAuthenticatedWithCookie
+
 class PaymentsViewSet(viewsets.ModelViewSet):
     queryset = payments.objects.all()
     serializer_class = Payments_Serializer
-
+    # permission_classes = [IsAuthenticatedWithCookie]
     #Institutions y GUi
     def create(self, request):
         serializer = self.get_serializer(data=request.data)

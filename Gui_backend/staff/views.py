@@ -1,4 +1,4 @@
-# from permissions import IsAuthenticatedWithCookieStaff
+
 from rest_framework.decorators import api_view
 from rest_framework.response import Response
 from rest_framework import viewsets, status
@@ -6,13 +6,23 @@ from .serializers import Staff_Serializer
 from .serializers import LoginSerializer
 from rest_framework import viewsets
 from .models import staff
+# from permissions import IsAuthenticatedWithCookie
+# from rest_framework.permissions import IsAuthenticated
+
 
 class StaffViewSet(viewsets.ModelViewSet):
     queryset = staff.objects.all()
     serializer_class = Staff_Serializer
-    # permission_classes = [IsAuthenticatedWithCookieStaff]
+    # permission_classes = [IsAuthenticatedWithCookie]
+    # permission_classes = [IsAuthenticated] #para que un endpoint requiera del token para usarse
 
-    #Institutions y GUi
+    # # Para proteger los métodos excepto retrieve
+    # def get_permissions(self):
+    #     if self.action == 'retrieve':
+    #         return []  # Sin permisos, accesible sin autenticación
+    #     return [IsAuthenticatedWithCookie()]  # Requiere autenticación para otros métodos
+
+    # create
     def create(self, request):
         serializer = self.get_serializer(data=request.data)
         if serializer.is_valid():
@@ -20,25 +30,27 @@ class StaffViewSet(viewsets.ModelViewSet):
             return Response(serializer.data, status=status.HTTP_201_CREATED)
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
-#Institutions GUi staff y student
+    # retrieve
     def retrieve(self, request, pk=None):
-        try:
-            staff_instance = self.get_object()
-        except staff.DoesNotExist:
-            return Response({"error": "Staff not found"}, status=status.HTTP_404_NOT_FOUND)
+        staff_instances = staff.objects.all()  # Obtener todos los objetos
 
-        serializer = self.get_serializer(staff_instance)
+        if not staff_instances.exists():
+            return Response({"error": "No staff found"}, status=status.HTTP_404_NOT_FOUND)
+
+        serializer = self.get_serializer(staff_instances, many=True)  # Usar many=True para serializar múltiples instancias
         return Response(serializer.data, status=status.HTTP_200_OK)
-#Institutions GUi
+
+    # update
     def update(self, request, *args, **kwargs):
-        partial = kwargs.pop('partial', False)  # Si se quiere hacer un update parcial
+        partial = kwargs.pop('partial', False)
         instance = self.get_object()
         serializer = self.get_serializer(instance, data=request.data, partial=partial)
-        serializer.is_valid(raise_exception=True)  # Valida los datos
-        self.perform_update(serializer)  # Actualiza el objeto
+        serializer.is_valid(raise_exception=True)
+        self.perform_update(serializer)
 
         return Response(serializer.data, status=status.HTTP_200_OK)
-#Institutions GUi
+
+    # destroy
     def destroy(self, request, pk=None):
         try:
             staff_instance = self.get_object()

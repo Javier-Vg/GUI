@@ -4,10 +4,11 @@ from rest_framework import status
 from .models import group
 from .serializers import Groups_Serializer
 
+# from permissions import IsAuthenticatedWithCookie
 class GroupsViewSet(viewsets.ModelViewSet):
     queryset = group.objects.all()
     serializer_class = Groups_Serializer
-
+    # permission_classes = [IsAuthenticatedWithCookie]
     # institutiones, Gui, teachers, students
     def retrieve(self, request, pk=None):
         try:

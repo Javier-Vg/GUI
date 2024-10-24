@@ -4,11 +4,13 @@ from rest_framework import status
 from .models import group_assignment
 from .serializers import GroupAssignment_Serializer
 
+# from permissions import IsAuthenticatedWithCookie
+
 
 class GroupAssignmentViewSet(viewsets.ModelViewSet):
     queryset = group_assignment.objects.all()
     serializer_class = GroupAssignment_Serializer
-
+    # permission_classes = [IsAuthenticatedWithCookie]
     
     #Institution Y GUi, Estudiantes, profesores
     def retrieve(self, request, pk=None):

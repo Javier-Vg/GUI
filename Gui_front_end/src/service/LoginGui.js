@@ -1,6 +1,15 @@
 import axios from "axios";
 const domain = window.location.hostname 
 
+const getCookie = (name) => {
+  const value = `; ${document.cookie}`;
+  const parts = value.split(`; ${name}=`);
+  if (parts.length === 2) return parts.pop().split(';').shift();
+};
+const token = getCookie('AuthCookie');
+console.log(token);
+
+
 export const getDatos = async () => {
     try { 
       const response = await axios.get(`http://${domain}:8000/api/gui/admins/`);
@@ -112,13 +121,18 @@ export const postInstitutions = async (username, address, estado, subscriptionTy
 /////////////////////////////////////////////////////////////////
 export const getStaff = async () => {
 
-    try {
-      const response = await axios.get(`http://${domain}:8000/api/staff/staff/`);
-      return response.data
-    } catch (error) {
+  try {
+       const response = await axios.get(`http://${domain}:8000/api/staff/staff/`, {
+          headers: {
+              Authorization: `Bearer ${token}` // Enviar el token en el encabezado de autorización
+          }
+      });
+
+      return response.data;
+  } catch (error) {
       console.error("Error fetching user data:", error);
       throw error;
-    }
+  }
 };
   export const postStaff = async (staff) => {
     try {
@@ -201,7 +215,6 @@ export const getContracts = async () => {
 };
 
 export const postSubjects = async (subject,institution) => {
-  const token = localStorage.getItem('token'); // Obtener el token del localStorage
   try {
       const response = await axios.post(
           `http://${domain}:8000/api/subjects/subjects/`, // Asegúrate de que esta sea la URL correcta de tu API

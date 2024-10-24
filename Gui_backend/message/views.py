@@ -4,10 +4,11 @@ from rest_framework import status
 from .models import message
 from .serializers import Message_Serializer
 
+# from permissions import IsAuthenticatedWithCookie
 class MessageViewSet(viewsets.ModelViewSet):
     queryset = message.objects.all()
     serializer_class = Message_Serializer
- 
+    # permission_classes = [IsAuthenticatedWithCookie]
     #Los 4
     def create(self, request):
         serializer = self.get_serializer(data=request.data)

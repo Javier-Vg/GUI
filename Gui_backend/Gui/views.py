@@ -8,12 +8,12 @@ from .serializers import AdminGuiSerializer
 from django.contrib.auth.hashers import make_password
 from .serializers import AdminLoginSerializer
 
+# from permissions import IsAuthenticatedWithCookie
 
 class AdminGuiViewSet(viewsets.ModelViewSet):
     queryset = Admin_Gui.objects.all()
     serializer_class = AdminGuiSerializer
-    permission_classes = []
-
+    # permission_classes = [IsAuthenticatedWithCookie]
     #Gui
     def create(self, request, *args, **kwargs):
         serializer = self.get_serializer(data=request.data)

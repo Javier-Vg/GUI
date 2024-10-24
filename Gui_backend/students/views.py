@@ -9,10 +9,12 @@ from django.contrib.auth.hashers import check_password
 from datetime import datetime, timedelta
 from Api.Key import KeyJWT
 
+# from permissions import IsAuthenticatedWithCookie
+
 class StudentsViewSet(viewsets.ModelViewSet):
     queryset = students.objects.all()
     serializer_class = Students_Serializer
-
+    # permission_classes = [IsAuthenticatedWithCookie]
     #Institutions y Gui
     def create(self, request):
         serializer = self.get_serializer(data=request.data)

@@ -4,10 +4,12 @@ from rest_framework import status
 from .models import student_assistance
 from .serializers import StudentAssistance_Serializer
 
+# from permissions import IsAuthenticatedWithCookie
+
 class StudentAssistanceViewSet(viewsets.ModelViewSet):
     queryset = student_assistance.objects.all()
     serializer_class = StudentAssistance_Serializer
-
+    # permission_classes = [IsAuthenticatedWithCookie]
 #los 4
     def create(self, request):
         serializer = self.get_serializer(data=request.data)
