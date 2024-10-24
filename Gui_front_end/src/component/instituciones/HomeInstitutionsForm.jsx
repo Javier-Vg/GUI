@@ -197,18 +197,7 @@ function HomeInstitutionsForm() {
               
               <hr />
 
-              <div
-                onClick={() => setChangeComponent("eventos")}
-                className="inputBoton"
-              >
-                <input
-                  type="radio"
-                  id="eventos"
-                  name="changeComponent"
-                  style={{ display: "none" }}
-                />
-                <label htmlFor="materias">Programar eventos</label>
-              </div>
+             
 
 
 
@@ -224,6 +213,26 @@ function HomeInstitutionsForm() {
                 />
                 <label htmlFor="personal">Personal</label>
               </div>
+
+
+              <div
+                onClick={() => setChangeComponent("eventos")}
+                className="inputBoton"
+              >
+                <input
+                  type="radio"
+                  id="eventos"
+                  name="changeComponent"
+                  style={{ display: "none" }}
+                />
+                <label htmlFor="eventos">Programar eventos</label>
+              </div>
+
+
+
+
+
+
               <div
                 onClick={() => setChangeComponent("estudiante")}
                 className="inputBoton"

@@ -369,6 +369,15 @@ export const PostEvento = async (eventData) => {
     throw error;
   }
 };
+export const GetEventos = async () => {
+  try {
+    const response = await axios.get('http://192.168.100.44:8000/api/events/events/');
+    return response.data; // Devuelve los datos de los eventos
+  } catch (error) {
+    console.error("Error fetching event data: ", error);
+    throw error; // Lanza el error para que pueda ser manejado donde se llame
+  }
+};
 // Obtener mensajes de un profesor específico
 // export const fetchMessagesForTeacher = async (teacherId) => {
 //   try {
