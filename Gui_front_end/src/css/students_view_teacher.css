@@ -1,6 +1,7 @@
 .div-svg{
-    width: 1500px;
-    overflow: scroll;
+    width: 950px;
+    overflow: auto;
+    
 }
 
 .aImg{
@@ -51,4 +52,3 @@
 .close-button:hover {
     background-color: #e84118;
 }
-  

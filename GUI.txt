@@ -38,3 +38,6 @@ npm i react-toastify
 
 NextUI / libreria de css:
 npm i @nextui-org/react
+
+Mapa :
+npm i @react-google-maps/api

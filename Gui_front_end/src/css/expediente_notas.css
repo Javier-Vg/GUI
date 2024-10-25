@@ -59,11 +59,9 @@
 }
 
 /* Scroll */
-::-webkit-scrollbar {
-    display: none; /* Para navegadores WebKit */
-}
-
-
+/* ::-webkit-scrollbar {
+    display: none; /* Para navegadores WebKit 
+} */
 
 
 

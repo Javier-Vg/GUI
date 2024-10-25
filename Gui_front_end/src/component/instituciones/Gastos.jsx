@@ -41,13 +41,15 @@ function GastosGanancias() {
       try {
         // Desencriptar el token
         const decodedToken = jwtDecode(token);    
-        const institutionIdFromToken = decodedToken.ID; 
+        const institutionIdFromToken = decodedToken.institution; 
         setInstitutionId(institutionIdFromToken);
       } catch (error) {
         console.error('Error al decodificar el token', error);
       }
     }
+
   }, []);
+
   const aplicarOperaciones = () => {
     const gastos = calcularGastos();
     const ganancias = calcularGanancias();
@@ -56,6 +58,7 @@ function GastosGanancias() {
   };
 
   const calcularGastos = () => {
+
     const gastos = {
       luz: parseFloat(estado.luz || 0),
       agua: parseFloat(estado.agua || 0),
@@ -74,6 +77,7 @@ function GastosGanancias() {
     setTotalGastos(total);
     setEstado((prev) => ({ ...prev, TotalGastos: total }));  // Guardar el total de gastos
     return { ...gastos, total };
+
   };
 
   const calcularGanancias = () => {

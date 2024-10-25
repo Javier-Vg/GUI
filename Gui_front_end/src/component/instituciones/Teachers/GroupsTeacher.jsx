@@ -1,6 +1,8 @@
 import React, { useEffect, useState } from 'react';
 import { fetchGroups } from '../../../Redux/Slices/SliceGroup';
 import { fetchStaff } from '../../../Redux/Slices/SliceStaff';
+import { fetchStudent } from '../../../Redux/Slices/SliceStudent';
+import { fetchAssignmentGroup } from '../../../Redux/Slices/sliceAssignmentGroup';
 import { useDispatch, useSelector } from 'react-redux';
 import '../../../css/groups_teacher.css';
 import Cookies from 'js-cookie';
@@ -14,7 +16,8 @@ function ListGroups() {
 
     //Estados de Staff:
     const itemsGroup= useSelector(state => state.group.items);
-    const itemStaff= useSelector(state => state.staff.items);
+    const itemsStudent= useSelector(state => state.student.items);
+    const itemsAssignmentG = useSelector((state) => state.groupAssignment.items);
     const loading = useSelector(state => state.group.loading);
     const error = useSelector(state => state.group.error);
 
@@ -38,6 +41,7 @@ function ListGroups() {
       }
         dispatch(fetchGroups()); // Llama a la acción para obtener productos al cargar el componente
         dispatch(fetchStaff()); // Llama a la acción para obtener productos al cargar el componente
+        dispatch(fetchStudent()); // Llama a la acción para obtener productos al cargar el componente
     }, [dispatch]);
 
     useEffect(() => {
@@ -130,22 +134,33 @@ function ListGroups() {
                               ))}
                             </table>
                           )}
+                          <br />
                       </div>
-                     
+                          <button onClick={(() => setSeeMore(true))} className='btn-asistencia'>Asignar asistencia de los estudiantes</button>
+                      
                     </fieldset>
-                    
+
+                    {/* Modal de asignar asistencia */}
+                    {seeMore && (
+                      <div className="modal-overlayTwo">
+                        <div className="modalTwo">
+                          <h2>Registro de calificaciones</h2>
+                          <p>{group.id}</p>
+                          <button className='btn-close-asistencia' onClick={(() => setSeeMore(false))}>volver</button>  
+                        </div>
+                      </div>
+                    )}
+
                   </div>
-                 
                 ))}
               </div>
-                
             ) : (
                 <p>Todavia usted no se encuentra en ningun grupo.</p>
             )}
       
       </div>
+     
       </>
-        
     );
 }
 

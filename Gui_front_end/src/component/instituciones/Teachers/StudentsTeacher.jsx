@@ -529,7 +529,7 @@ function StudentsTeacher() {
                     {item.monthly_payent_students}
                   </text>
                   <text
-                    x={cellWidth * 10.9}
+                    x={cellWidth * 11.5}
                     y={cellHeight / 2}
                     textAnchor="middle"
                     dominantBaseline="middle"

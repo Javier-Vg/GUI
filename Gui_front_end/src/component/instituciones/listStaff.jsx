@@ -22,13 +22,14 @@ function ListStaff() {
   const error = useSelector(state => state.staff.error);
 
   useEffect(() => {
+    
     const token = Cookies.get('AuthCookie'); 
 
     if (token) {
       try {
         // Desencriptar el token
         const decodedToken = jwtDecode(token);
-        const institutionIdFromToken = decodedToken.ID; 
+        const institutionIdFromToken = decodedToken.institution; 
 
         setInstitutionId(institutionIdFromToken);
       } catch (error) {

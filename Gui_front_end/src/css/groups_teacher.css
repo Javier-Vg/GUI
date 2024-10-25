@@ -3,15 +3,15 @@
     overflow: auto;
     max-height: 500px;
     display: grid;
-    grid-template-columns: repeat(3, 350px);
+    grid-template-columns: repeat(3, 320px);
 }
 
 fieldset{
-    max-width: 550px;
-    height: 450px;
+    max-width: 450px;
+    height: 300px;
     overflow: auto;
-    
 }
+
 /* .students{
     overflow: auto;
 } */
@@ -21,12 +21,26 @@ fieldset{
     border-radius: 2px;
     padding: 3px;
     margin: auto;
-    width: 250px;
-    
+    width: 220px;
     
 }
 
 th{
     font-size: 15px;
     
+}
+
+.btn-asistencia{
+    height: 50px;
+    background-color:coral  ;
+    width: 180px;
+    margin: auto;
+    font-family: Georgia, 'Times New Roman', Times, serif;
+}
+
+
+.btn-close-asistencia{
+    background-color: rgb(255, 215, 252);
+    color: black;
+    border: 2px black solid;
 }

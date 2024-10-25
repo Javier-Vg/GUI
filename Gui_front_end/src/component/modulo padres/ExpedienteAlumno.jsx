@@ -7,7 +7,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import '../../css/expediente_notas.css';
 import Cookies from 'js-cookie';
 import { jwtDecode } from "jwt-decode";
-
+import MapsContainer from '../map/Map';
 
 function ExpedienteAlumno() {
   const dispatch = useDispatch();
@@ -42,7 +42,6 @@ function ExpedienteAlumno() {
     dispatch(fetchStudent()); // Llama a la acción para obtener productos al cargar el componente
   }, [dispatch]);
 
-
   useEffect(() => {
     const objectStudentWithGroup = [];
     for (const obj in itemGrades) {
@@ -54,8 +53,6 @@ function ExpedienteAlumno() {
 
   return (
     <div>
-
-
 
       {/* <h2>Expediente</h2> */}
       <Skeleton className="w-2/5 rounded-lg">
@@ -76,7 +73,7 @@ function ExpedienteAlumno() {
                   </div>
 
                   <div className='box2'>
-                    
+                  
                     <p>birthdate_date: {st.birthdate_date}</p>
                     <p>grade: {st.grade}</p>
                     <p>academic_status: {st.academic_status}</p>
@@ -89,7 +86,7 @@ function ExpedienteAlumno() {
                     <p>group: {st.group}</p>
                     <p>monthly_payment_students: {st.monthly_payent_students}</p>
                     <p>type_of_student: {st.type_of_student}</p>
-
+                    
                   </div>
                 </div>
               )
@@ -99,13 +96,11 @@ function ExpedienteAlumno() {
 
           <div class="fade-in">
             
-            info horarioS
+            <MapsContainer/>
             
           </div>
 
           <div class="fade-in">
-            
-          
           </div>
 
           

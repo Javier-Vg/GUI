@@ -296,9 +296,7 @@ function CreateStaff() {
   const [formMessage, setFormMessage] = useState('');
   const [errors, setErrors] = useState({});
   const [institution_id, setInstitutionId] = useState(null); 
-
   const [isAuthorized, setIsAuthorized] = useState(false);
-
 
   const itemsContracts = useSelector(state => state.contract.items); 
   const itemsSchedule = useSelector(state => state.schedule.items);  
@@ -318,7 +316,7 @@ function CreateStaff() {
        try {
          // Desencriptar el token
          const decodedToken = jwtDecode(token);
-         const institutionIdFromToken = decodedToken.ID; 
+         const institutionIdFromToken = decodedToken.institution; 
          
          setInstitutionId(institutionIdFromToken);
        } catch (error) {
