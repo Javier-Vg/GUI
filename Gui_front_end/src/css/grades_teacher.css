@@ -2,7 +2,8 @@
 
 .div2{
     display: grid;
-    grid-template-columns: repeat(5, 240px);
+    grid-template-columns: repeat(4, 230px);
+    grid-template-rows: repeat(2, 230px);
     overflow:scroll;
     max-height: 500px;
 }

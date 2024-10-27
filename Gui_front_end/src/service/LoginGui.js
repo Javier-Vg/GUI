@@ -367,3 +367,17 @@ export const postGrades = async (grade) => {
     throw error;
   }
 };
+
+export const postStudentAssistence = async (grade) => {
+  try {
+    const response = await axios.post(`http://${domain}:8000/api/student_assistance/student_assistance/`, grade, {
+      headers: {
+        'Content-Type': 'application/json',
+      }
+    });
+    return response.data;
+  } catch (error) {
+    console.error("Error haciendo la solicitud asistencia estudiantes:", error.response?.data || error);
+    throw error;
+  }
+};

@@ -10,9 +10,6 @@ npm install jwt-decode@latest
 npm audit fix
 npm i jwt-decode
 
-
-
-
 pip install django-cors-headers
 pip install djangorestframework
 pip install djangorestframework-simplejwt
@@ -41,3 +38,13 @@ npm i @nextui-org/react
 
 Mapa :
 npm i @react-google-maps/api
+
+Iconos:
+npm install @mui/icons-material
+npm install @emotion/styled
+
+calendario:
+npm install react-datepicker
+
+grafico:
+npm install recharts

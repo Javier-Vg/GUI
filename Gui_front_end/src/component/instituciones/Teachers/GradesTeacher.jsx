@@ -196,111 +196,110 @@ function GradesTeacher() {
         <div className="div2">
 
           {studentsWithGroups.map((student) => (
-            <div className="keyDiv" id="categoria" key={student.id} >
-              <div className="content-container">
-                <h4 className="title">
-                  Nombre del estudiante: <br />- {student.username} {student.last_name}.
-                </h4>
-                <p className="paragraph">
-                  Grupo donde pertenece: {student.group.group_name}
-                </p>
-                <p className="paragraph">
-                  Nivel de educacion: {student.group.educational_level}.
-                </p>
-                <select
-                  onChange={(e) => handleTrimesterChange(student.id, e.target.value)}
-                  className="custom-select"
-                >
-                  <option value="null" disabled >
-                    Seleccione el trimestre para asignar nota
-                  </option>
-                  <option value="1°Trimestre">1°Trimestre</option>
-                  <option value="2°Trimestre">2°Trimestre</option>
-                  <option value="3°Trimestre">3°Trimestre</option>
-                  {/* Ponerle una columna de trimetre a grades */}
-                </select>
-                <br />
-                <br />
-
-                {RenderTrimestre[student.id] && (
-                  <div className="div-grades-students">
-                    <button className="buttonCalific" onClick={() => MostrarMaterias( student.group.communication_of_subjects_and_teacher, RenderTrimestre[student.id], student.group.id)} //json / trimestre / idGroup
-                    >
-                      Calificar notas {RenderTrimestre[student.id]}
-                    </button>
-                  </div>
-                )}
-              </div>
-
-              {/*Muestra el modal para la calificacion de notas*/}
-              { isOpen && (
-                <div className="modal-overlay">
-                  <div className="modal">
-                    <h2>Formulario</h2>
-
-                    {ObjectGrades.length != [] && (
-                      <div>
-                        <p>Calificacion de notas</p>
-                          {/* Mapeo de lista para generar los selects */}
-                          {Object.keys(ObjectGrades).map((materiaKey, index) => (
-                            <div className="div-calific" key={index}>
-                              <label className="label-subject">{materiaKey}</label>
-                              <input onChange={(e) => handleSelectChange(e, materiaKey)} placeholder="Ingrese la nota aqui..." type="number" />
-                            </div>
-                          ))}
-                          <br />
-                      </div>
-                    )}
-
+            <div className="keyDiv" id="categoria" key={student.id}>
+            <div className="content-container">
+              <h4 className="title">
+                Nombre del estudiante: <br />- {student.username} {student.last_name}.
+              </h4>
+              <p className="paragraph">
+                Grupo donde pertenece: {student.group.group_name}
+              </p>
+              <p className="paragraph">
+                Nivel de educación: {student.group.educational_level}
+              </p>
+              <select
+                onChange={(e) => handleTrimesterChange(student.id, e.target.value)}
+                className="custom-select"
+              >
+                <option value="null" disabled>
+                  Seleccione el trimestre para asignar nota
+                </option>
+                <option value="1°Trimestre">1°Trimestre</option>
+                <option value="2°Trimestre">2°Trimestre</option>
+                <option value="3°Trimestre">3°Trimestre</option>
+              </select>
+              <br />
+              <br />
+          
+              {RenderTrimestre[student.id] && (
+                <div className="div-grades-students">
+                  <button className="buttonCalific" onClick={() => MostrarMaterias(student.group.communication_of_subjects_and_teacher, RenderTrimestre[student.id], student.group.id)}>
+                    Calificar notas {RenderTrimestre[student.id]}
+                  </button>
+                </div>
+              )}
+            </div>
+          
+            {/* Muestra el modal para la calificación de notas */}
+            {isOpen && (
+              <div className="modal-overlay">
+                <div className="modal">
+                  <h2>Formulario</h2>
+          
+                  {ObjectGrades.length !== 0 && (
                     <div>
-                      <form>
-                        <button onClick={Post} >Enviar</button>
-                        <button type="button" onClick={closeModal}>Cerrar</button>
-                      </form>
-                      
+                      <p>Calificación de notas</p>
+                      {/* Mapeo de lista para generar los selects */}
+                      {Object.keys(ObjectGrades).map((materiaKey, index) => (
+                        <div className="div-calific" key={index}>
+                          <label className="label-subject">{materiaKey}</label>
+                          <input
+                            onChange={(e) => handleSelectChange(e, materiaKey)}
+                            placeholder="Ingrese la nota aquí..."
+                            type="number"
+                          />
+                        </div>
+                      ))}
+                      <br />
                     </div>
+                  )}
+          
+                  <div>
+                    <button onClick={Post}>Enviar</button>
+                    <button type="button" onClick={closeModal}>Cerrar</button>
                   </div>
                 </div>
-              )};
-
-              {/*Muestra el modal para la calificacion de notas*/}
-              { isOpenRegistro && (
-                <div className="modal-overlayTwo">
-                  <div className="modalTwo">
-                    <h2>Registro de calificaciones</h2>
-                    <table className="table-grades">
+              </div>
+            )}
+          
+            {/* Muestra el modal para el registro de calificaciones */}
+            {isOpenRegistro && (
+              <div className="modal-overlayTwo">
+                <div className="modalTwo">
+                  <h2>Registro de calificaciones</h2>
+                  <table className="table-grades">
+                    <thead>
                       <tr className="tr-grades">
                         <th className="th-grades">Nombre de estudiante</th>
                         <th className="th-grades">Nombre de grupo</th>
-                        <th className="th-grades">Perido que se califico</th>
+                        <th className="th-grades">Período que se calificó</th>
                         <th className="th-grades">Estatus</th>
                       </tr>
-
-                      {studentsWithGroups.map((studnt, i) => (
-                      itemsGrades.map((grad, m) => (
-                      
-                        studnt.id == grad.student && (
-                          
-                          <tr className="tr-grades" key={`${i}-${m}`}>
-                            <td className="td-grades">{studnt.username} {studnt.last_name}</td>
-                            <td className="td-grades">{studnt.group.group_name}</td>
-                            <td className="td-grades">{grad.period}</td>
-                            <td className="td-grades">Calificada✔️</td>
-                          </tr>
+                    </thead>
+                    <tbody>
+                      {studentsWithGroups.map((studnt, i) =>
+                        itemsGrades.map((grad, m) =>
+                          studnt.id === grad.student && (
+                            <tr className="tr-grades" key={`${i}-${m}`}>
+                              <td className="td-grades">{studnt.username} {studnt.last_name}</td>
+                              <td className="td-grades">{studnt.group.group_name}</td>
+                              <td className="td-grades">{grad.period}</td>
+                              <td className="td-grades">Calificada✔️</td>
+                            </tr>
+                          )
                         )
-                      ))
-                    ))}
-                    </table>
-
-                    <div>
-                      <button type="button" onClick={closeModalR}>Cerrar</button>
-                    </div>
-                   
+                      )}
+                    </tbody>
+                  </table>
+          
+                  <div>
+                    <button type="button" onClick={closeModalR}>Cerrar</button>
                   </div>
                 </div>
-              )};
-
-            </div>
+              </div>
+            )}
+          </div>
+          
           ))};
         </div>
       )};

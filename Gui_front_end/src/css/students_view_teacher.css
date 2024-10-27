@@ -35,7 +35,6 @@
     width: 400px;
     height: 330px;
     border-radius: 10px;
-    
 }
   
 .close-button {
@@ -52,3 +51,60 @@
 .close-button:hover {
     background-color: #e84118;
 }
+
+
+
+
+.student-svg-wrapper{
+    overflow: auto;
+}
+
+/* gpt */
+
+.student-svg-wrapper {
+    margin: 20px;
+    text-align: center;
+  }
+  
+  .no-students-message {
+    font-size: 18px;
+    color: #ff4444;
+    margin: 20px;
+  }
+  
+  .student-svg {
+    border: 2px solid #007bff;
+    border-radius: 8px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+  }
+  
+  .header-row rect {
+    fill: #007bff;
+  }
+  
+  .header-row text {
+    font-weight: bold;
+    fill: white;
+  }
+  
+  .student-row rect {
+    fill: #f9f9f9;
+    stroke: #ddd;
+    stroke-width: 1;
+    transition: fill 0.3s;
+  }
+  
+  .student-row:hover rect {
+    fill: #e0f7fa;
+  }
+  
+  .image-link {
+    fill: #007bff;
+    text-decoration: underline;
+    cursor: pointer;
+  }
+  
+  .image-link:hover {
+    fill: #0056b3;
+  }
+  

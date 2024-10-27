@@ -70,17 +70,12 @@ function HomeInstitutionsForm() {
 
   return (
     <div>
-      <head>
-        <link
-          href="https://unpkg.com/boxicons@2.0.7/css/boxicons.min.css"
-          rel="stylesheet"
-        />
-      </head>
+     
 
       <nav className="navbar">
         <button id="open-close" onClick={toggleAside}>
           <span id="open-close">
-            <i className="bx bx-menu"></i>
+            <i className="bx bx-menu">≡</i>
           </span>
         </button>
         <div className="right-section">
