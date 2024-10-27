@@ -42,6 +42,7 @@ class students(models.Model):
     imagen_url = models.URLField(blank=True, null=True)
     monthly_payent_students = models.CharField(max_length=15, blank=True, null=True)
     type_of_student = models.CharField(max_length=100, blank=False, choices=TYPE, default='private student')
+    is_student = models.BooleanField(default=True)
     password = models.CharField(max_length=128, blank=False, null=True) 
     
     def save(self, *args, **kwargs):

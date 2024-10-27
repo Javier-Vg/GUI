@@ -1,15 +1,31 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 const domain = window.location.hostname 
 
-// Thunk para realizar la llamada a la API
+const getCookie = (name) => {
+  const value = `; ${document.cookie}`;
+  const parts = value.split(`; ${name}=`);
+  if (parts.length === 2) return parts.pop().split(';').shift();
+};
+
 export const fetchStudent = createAsyncThunk(
   'student/fetchStudent',
   async () => {
-    const response = await fetch(`http://${domain}:8000/api/students/students/`); // Cambia esto por tu API
-    if (!response.ok) {
-      throw new Error('Failed to fetch student');
-    }
-    return response.json();
+      const token = getCookie('AuthCookie'); // Obtener el token de la cookie
+      console.log(token);
+
+      const response = await fetch(`http://${domain}:8000/api/students/students/`, {
+          headers: {
+              Authorization: `Bearer ${token}`, // Agregar el token al header
+              'Content-Type': 'application/json', // Especificar el tipo de contenido, si es necesario
+          },
+          withCredentials: true,
+          credentials: 'include', 
+      });
+
+      if (!response.ok) {
+          throw new Error('Failed to fetch student');
+      }
+      return response.json();
   }
 );
 

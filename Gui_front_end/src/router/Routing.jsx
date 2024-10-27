@@ -7,6 +7,7 @@ import LoginRol from '../page/LoginRol';
 import HomePadres from '../page/Homepadres';
 import Error from '../component/error/error'
 import HomeProfe from '../page/HomeProfe';
+import Login2 from '../component/prueba/login'
 
 function Routing() {
 
@@ -22,6 +23,7 @@ function Routing() {
             <Route path="/home_padres" element={<HomePadres />} />
             <Route path="/home_profesores" element={<HomeProfe />} />
             <Route path="/error" element={<Error />} />
+            <Route path="/login2" element={<Login2 />} />
           </Routes>
         </Router>
     </div>

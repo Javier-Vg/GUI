@@ -17,9 +17,11 @@ const ManageSubjects = () => {
       try {
         // Desencriptar el token
         const decodedToken = jwtDecode(token);
-        
+
         // Extraer el institution_id desde el token
-        const institutionIdFromToken = decodedToken.ID; 
+        const institutionIdFromToken = decodedToken.staff_info.institution;
+        console.log(institutionIdFromToken);
+         
         setInstitutionId(institutionIdFromToken);
       } catch (error) {
         console.error('Error al decodificar el token', error);
