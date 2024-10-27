@@ -505,10 +505,11 @@
 // export default Chat;
 import React, { useState, useEffect } from "react";
 import { getStaff, getMessages, sendMessage } from "../../service/LoginGui";
-import "../../css/ChatProfesor.css";
+import "../../css/Chat.css";
 import Cookies from "js-cookie";
 import { jwtDecode } from "jwt-decode";
-import { all } from "axios";
+
+// import { all } from "axios";
 
 const Chat = () => {
   const [selectedMember, setSelectedMember] = useState("");
@@ -518,7 +519,8 @@ const Chat = () => {
   const [storedStudent, setStudentID] = useState('');
   const [storedInstitutionId, setInstitutionId] = useState('');
   const [storedTeacherName, setNameTeacher] = useState('');
-  const [isPolling, setIsPolling] = useState(false);
+  const pollingInterval = 5000;
+  let pollingTimeout;
 
   useEffect(() => {
     const token = Cookies.get("AuthCookie");
@@ -529,8 +531,8 @@ const Chat = () => {
         const institutionIdFromToken = decodedToken.institution;
         const NameTeacher = decodedToken.username;
         const studentID = decodedToken.id;
-        console.log("NameTeacher: ", NameTeacher);
-        console.log("StudentID: ", studentID);
+        // console.log("NameTeacher: ", NameTeacher);
+        // console.log("StudentID: ", studentID);
 
         
         setNameTeacher(NameTeacher);
@@ -543,13 +545,18 @@ const Chat = () => {
   }, []);
 
   useEffect(() => {
+    // if (!storedInstitutionId) return; 
     const fetchStaff = async () => {
       try {
         const allStaff = await getStaff();
+        console.log("todos:",allStaff);
         const filteredStaff = allStaff.filter(
           (member) => member.institution === storedInstitutionId
+          
         );
+        console.log("Staff filtrado:", filteredStaff);
         setStaff(filteredStaff);
+        
       } catch (error) {
         console.error("Error al cargar el personal:", error);
       }
@@ -563,6 +570,7 @@ const Chat = () => {
     const allMessages = await getMessages();  
      const filteredMessages = allMessages.filter(message => 
       (message.staff === memberId) && (message.students === storedStudent)
+      
     );    
     setMessages(filteredMessages);
   } catch (error) {
@@ -572,14 +580,11 @@ const Chat = () => {
 
 
   const startPolling = () => {
-    if (isPolling) return;
-
-    setIsPolling(true);
     const pollMessages = async () => {
       if (selectedMember) {
         await fetchMessages(selectedMember);
       }
-      setTimeout(pollMessages, 5000);
+      pollingTimeout = setTimeout(pollMessages, pollingInterval);
     };
 
     pollMessages();
@@ -592,7 +597,7 @@ const Chat = () => {
     }
 
     return () => {
-      setIsPolling(false);
+      clearTimeout(pollingTimeout);
     };
   }, [selectedMember]);
 
@@ -640,11 +645,13 @@ const Chat = () => {
               fetchMessages(id);
             }}
           >
+            <div className="contendor-fotos">
            <img
               src={member.imagen_url}
               alt={`${member.name} profile`}
               className="student-photo"
             />
+            </div>
           </div>
         ))}
       </div>
@@ -659,10 +666,10 @@ const Chat = () => {
               <div
                 key={index}
                 className={`message ${
-                  msg.staff === storedStudent ? "sent" : "received"
+                  msg.name === storedTeacherName ? "sent" : "received"
                 }`}
               >
-                <strong>{msg.name}:</strong> {msg.message}
+                <strong> {msg.name}:</strong> {msg.message}
               </div>
             ))
           ) : (

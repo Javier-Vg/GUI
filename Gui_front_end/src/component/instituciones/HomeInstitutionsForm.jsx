@@ -18,6 +18,7 @@ import ChatProfesor from "../moduloProfesor/chatProfesor";
 import Cookies from 'js-cookie';
 import { jwtDecode } from "jwt-decode";
 import Eventos from "./Eventos";
+import ListaEventos from "../moduloProfesor/listaEventos";
 
 function HomeInstitutionsForm() {
   const [changeComponent, setChangeComponent] = useState("");
@@ -229,6 +230,21 @@ function HomeInstitutionsForm() {
               </div>
 
 
+              <div
+                onClick={() => setChangeComponent("listeventos")}
+                className="inputBoton"
+              >
+                <input
+                  type="radio"
+                  id="listeventos"
+                  name="changeComponent"
+                  style={{ display: "none" }}
+                />
+                <label htmlFor="listeventos">Calendario eventos</label>
+              </div>
+
+
+
 
 
 
@@ -309,6 +325,7 @@ function HomeInstitutionsForm() {
           {changeComponent === "Crear Grupo" && <CreateGroup />}
           {changeComponent === "crear materias" && <ManageSubjects />}
           {changeComponent === "eventos" && <Eventos />}
+          {changeComponent === "listeventos" && <ListaEventos />}
           {changeComponent === "profesor" && <ListStaff />}
           {changeComponent === "estudiante" && <ListStudent />}
           {changeComponent === "gastos" && <Gastos />}

@@ -1,16 +1,30 @@
-.chat-container {
+.chat-profesor-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100%; /* Ocupa toda la altura de la pantalla */
+    padding: 20px;
+    box-sizing: border-box;
+    background-color: #f2f2f2;
+    scroll-behavior: smooth;
+}
+
+  .chat-container {
     display: flex;
     flex-direction: column;
-    width: 100%;
-    height: 100%;
-    max-width: 600px;
-    margin: 0 auto;
-    border: 1px solid #ddd;
-    border-radius: 8px;
-    padding: 16px;
-    background-color: #f9f9f9;
-    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
-}
+    height: 100%; /* Asegúrate de que tenga una altura definida */
+  }
+  
+  .messages-container {
+    width: 100%;          
+    max-height: 400px;   
+    overflow-y: auto;     
+    padding: 10px;       
+    border: 1px solid #ccc; 
+    border-radius: 8px;  
+    background-color: #f9f9f9; 
+  }
+  
 
 .header {
     font-size: 20px;
@@ -18,7 +32,25 @@
     margin-bottom: 16px;
     text-align: center;
 }
+.contendor-fotos {
+    width: 100%;           /* Ocupa el 100% del ancho disponible */
+    height: 100%;          /* Ajusta automáticamente la altura */
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 10px;
+    border-right: 2px solid #000000; /* Borde derecho en color azul */
+    box-sizing: border-box;
+}
 
+.student-photo {
+    width: 80px;
+    height: 80px;
+    border-radius: 50%;
+    object-fit: cover;
+    border: 2px solid #000000;
+    margin-bottom: 10px;
+}
 .student-selector {
     padding: 10px;
     background-color: #fff;
@@ -26,38 +58,23 @@
     margin-bottom: 16px;
 }
 
-.student-selector select {
-    width: 100%;
-    padding: 10px;
-    border: 1px solid #ddd;
-    border-radius: 5px;
-}
 
-.message-input {
+/* .message-input {
     margin-bottom: 16px;
-}
+} */
 
-textarea {
-    width: 100%;
-    height: 60px;
-    border-radius: 4px;
-    border: 1px solid #ccc;
-    padding: 8px;
-    resize: none;
-}
-
-.message-input textarea {
+/* .message-input textarea {
     padding: 10px;
     border: 1px solid #ddd;
     border-radius: 5px;
     resize: none;
     min-height: 60px;
-}
+} */
 
 button {
     margin-top: 8px;
     padding: 8px 16px;
-    background-color: #28a745;
+    background-color: #0a40bd;
     color: white;
     border: none;
     border-radius: 4px;
@@ -65,9 +82,6 @@ button {
     transition: background 0.3s ease; /* Suaviza la transición */
 }
 
-button:hover {
-    background-color: #218838;
-}
 
 .messages {
     max-height: 300px;
@@ -79,14 +93,8 @@ button:hover {
     width: 8px; /* Ancho del scrollbar */
 }
 
-.messages::-webkit-scrollbar-thumb {
-    background-color: #ccc; /* Color del "thumb" */
-    border-radius: 10px; /* Bordes redondeados del "thumb" */
-}
 
-.messages::-webkit-scrollbar-thumb:hover {
-    background-color: #aaa; /* Color del "thumb" al pasar el mouse */
-}
+
 
 .messages::-webkit-scrollbar-track {
     background: transparent; /* Fondo del track */
@@ -101,22 +109,27 @@ button:hover {
 }
 
 .sent {
-    background-color: #d1ffd1; /* Color de fondo para mensajes enviados */
+    border: 1px solid #0a40bd; /* Color de fondo para mensajes enviados */
+    background-color: white;
     float: right; /* Alinear a la derecha */
-    text-align: right; /* Alinear texto a la derecha */
+    text-align: center; /* Alinear texto a la derecha */
+    color: #0a40bd;
+
 }
 
 
 .received {
+    border: 1px solid #0a40bd; 
     margin-right: auto; /* Mueve los mensajes recibidos a la izquierda */
-    background-color: #f8d7da; /* Color para mensajes recibidos */
+    background-color: white; /* Color para mensajes recibidos */
     text-align: left; /* Alinear a la izquierda */
+    color: #0a40bd;
 }
 
 .message p {
     margin: 0;
     padding: 5px 10px;
-    color: white; /* Cambiado a blanco */
+    color: #0a40bd; /* Cambiado a blanco */
 }
 
 .message strong {
@@ -129,4 +142,74 @@ button:hover {
     position: absolute;
     bottom: 5px;
     right: 10px;
+}
+
+.message strong {
+    color: #0a40bd; /* Cambiado a #0a40bd */
+}
+/* Media query para pantallas pequeñas, 600px o menos */
+@media (max-width: 600px) {
+    .chat-container {
+        padding: 10px;
+        max-width: 100%;
+    }
+
+    .header {
+        font-size: 18px;
+    }
+
+    .student-selector select, 
+    .message-input textarea {
+        padding: 8px;
+        font-size: 14px;
+    }
+
+    .messages {
+        max-height: 200px; /* Reduce la altura para pantallas pequeñas */
+    }
+
+    .message {
+        max-width: 80%; /* Ajusta el ancho de los mensajes */
+        font-size: 14px;
+    }
+
+    button {
+        padding: 6px 12px;
+        font-size: 14px;
+    }
+}
+
+/* Media query para pantallas medianas, entre 600px y 900px */
+@media (min-width: 600px) and (max-width: 900px) {
+    .chat-container {
+        padding: 12px;
+        max-width: 80%;
+    }
+
+    .header {
+        font-size: 19px;
+    }
+
+    .messages {
+        max-height: 250px;
+    }
+
+    .message {
+        max-width: 70%;
+    }
+
+    button {
+        padding: 7px 14px;
+    }
+}
+
+/* Media query para pantallas grandes, más de 900px */
+@media (min-width: 900px) {
+    .chat-container {
+        max-width: 700px;
+    }
+
+    .messages {
+        max-height: 400px;
+    }
 }

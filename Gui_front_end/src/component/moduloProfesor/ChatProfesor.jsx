@@ -316,7 +316,7 @@
 // export default ChatProfesor;
 import React, { useState, useEffect } from "react";
 import { getStudents, getMessages, sendMessage } from "../../service/LoginGui"; // Ajusta la ruta si es necesario
-import "../../css/ChatProfesor.css";
+import "../../css/Chat.css";
 import Cookies from "js-cookie";
 import { jwtDecode } from "jwt-decode";
 const ChatProfesor = () => {
@@ -327,7 +327,8 @@ const ChatProfesor = () => {
   const [storedStaffId,setStaffID] = useState('');
   const [storedInstitutionId, setInstitutionId] = useState('');
   const [storedTeacherName,setNameTeacher] = useState('');
-  const [isPolling, setIsPolling] = useState(false);
+  const pollingInterval = 5000;
+  let pollingTimeout;
 
   useEffect(() => {
     // Extraer el token desde la cookie
@@ -340,6 +341,11 @@ const ChatProfesor = () => {
         const institutionIdFromToken = decodedToken.institution;
         const NameTeacher = decodedToken.Name;
         const staffID = decodedToken.ID;
+        console.log("Datos decodificados del token:", {
+          institutionId: institutionIdFromToken,
+          name: NameTeacher,
+          staffID: staffID,
+        });
         setNameTeacher(NameTeacher)
         setStaffID(staffID)
         setInstitutionId(institutionIdFromToken);
@@ -375,12 +381,11 @@ const ChatProfesor = () => {
   };
 
   const startPolling = () => {
-    if (isPolling) return;
-
-    setIsPolling(true);
     const pollMessages = async () => {
-      await fetchMessages();
-      setTimeout(pollMessages, 5000);
+      if (selectedMember) {
+        await fetchMessages(selectedMember);
+      }
+      pollingTimeout = setTimeout(pollMessages, pollingInterval);
     };
 
     pollMessages();
@@ -392,7 +397,7 @@ const ChatProfesor = () => {
     }
 
     return () => {
-      setIsPolling(false);
+      clearTimeout(pollingTimeout);
     };
   }, [selectedStudent]);
 
@@ -432,7 +437,7 @@ const ChatProfesor = () => {
     : [];
 
   return (
-    <div className="chat-profesor-container">
+    <div className="div-components">
       {/* Lista de estudiantes con imágenes */}
       <div className="chat-bubbles-container">
         {students.map((student) => (
@@ -463,7 +468,7 @@ const ChatProfesor = () => {
               <div
                 key={index}
                 className={`message ${
-                  msg.staff === storedStaffId ? "sent" : "received"
+                  msg.name === storedTeacherName ? "sent" : "received"
                 }`}
               >
                 <strong>{msg.name}:</strong> {msg.message}

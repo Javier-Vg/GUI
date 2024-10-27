@@ -3,6 +3,7 @@ import ExpedienteAlumno from "./ExpedienteAlumno";
 import Chat from "./Chat";
 import "../../css/home_institution.css";
 import { useSelector, useDispatch } from "react-redux";
+import ListaEventos from "../moduloProfesor/listaEventos";
 
 function HomePadresForm() {
   const [changeComponent, setChangeComponent] = useState("");
@@ -84,6 +85,7 @@ function HomePadresForm() {
             )}
             {changeComponent === "Comunicacion" && <Chat />}
             {changeComponent === "Estado de Cuenta" && <ExpedienteAlumno />}
+            {changeComponent === "listaeventos" && <ListaEventos />}
           </div>
         </div>
       </div>

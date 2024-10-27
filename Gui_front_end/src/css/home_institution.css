@@ -2,7 +2,7 @@
     --fondo-color: #ffffff;
     --items-color: #ffffff;
     --border-color: #383838;
-    --text-color: #E84B71; /* Cambiar la variable text-color a E84B71 */
+    --text-color: #0a40bd; /* Cambiar la variable text-color a E84B71 */
 }
 
 label {
@@ -58,7 +58,7 @@ aside {
     bottom: 0;
     overflow-y: hidden;
     margin-top: 59px;
-    transition: 0.5s;
+    transition: background-olor 0.5s ease-out;
 }
 
 aside:hover {
@@ -93,14 +93,14 @@ aside::-webkit-scrollbar-thumb {
 }
 
 .container-svg div:hover {
-    background: linear-gradient(90deg, #EE1D52 52%, rgba(255, 255, 255, 0) 100%); /* Se vuelve transparente al final */
+    background: linear-gradient(90deg, #0a40bd 52%, rgba(255, 255, 255, 0) 100%); /* Se vuelve transparente al final */
     color: #FFFFFF; /* Cambia el color del texto a blanco */
-    border-radius: 5rem;
-    transition: 2s all ease;
+    /* border-radius: 5rem; */
+    transition: 2s backgroud-color ease;
 }
 .container-svg div:hover .inputBoton {
     color: #FFFFFF; /* Cambia el color del botón a blanco */
-    transition: 1s all ease;
+    
 }
 
 
@@ -112,7 +112,7 @@ aside::-webkit-scrollbar-thumb {
 
 h2 {
     padding: 10px 20px;
-    color: #E84B71; /* Cambiar el color del h2 a E84B71 */
+    color: #0a40bd; /* Cambiar el color del h2 a E84B71 */
 }
 
 img {
@@ -126,18 +126,11 @@ button {
     border: none;
 }
 
-.div-components {
-    text-align: center;
-    margin-top: 50px;
-    margin-left: 130px;
-    padding: 10px;
-    background-color: #FBF1F4;
-}
 
 .inputBoton {
     background-color: transparent;
     border: none;
-    color: #E84B71; /* Cambiar el color del texto del inputBoton a E84B71 */
+    color: #0a40bd; /* Cambiar el color del texto del inputBoton a E84B71 */
     text-align: left;
     padding: 5px;
 }

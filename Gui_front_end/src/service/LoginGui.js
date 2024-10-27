@@ -122,9 +122,9 @@ export const getStaff = async () => {
 
   try {
        const response = await axios.get(`http://${domain}:8000/api/staff/staff/`, {
-          headers: {
-              Authorization: `Bearer ${token}` // Enviar el token en el encabezado de autorización
-          }
+          // headers: {
+          //     Authorization: `Bearer ${token}` // Enviar el token en el encabezado de autorización
+          // }
       });
 
       return response.data;
@@ -369,15 +369,18 @@ export const PostEvento = async (eventData) => {
     throw error;
   }
 };
-export const GetEventos = async () => {
+
+
+export const GetEventos = async (institutionId) => {
   try {
-    const response = await axios.get('http://192.168.100.44:8000/api/events/events/');
-    return response.data; // Devuelve los datos de los eventos
+    const response = await axios.get(`http://192.168.100.44:8000/api/events/events/`,institutionId);
+    return response.data; // Devuelve los datos de los eventos filtrados por institutionId
   } catch (error) {
     console.error("Error fetching event data: ", error);
     throw error; // Lanza el error para que pueda ser manejado donde se llame
   }
 };
+
 // Obtener mensajes de un profesor específico
 // export const fetchMessagesForTeacher = async (teacherId) => {
 //   try {
