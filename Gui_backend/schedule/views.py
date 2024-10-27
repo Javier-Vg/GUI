@@ -3,12 +3,12 @@ from rest_framework.response import Response
 from rest_framework import status
 from .models import schedule
 from .serializers import Schedule_Serializer
+from rest_framework.permissions import IsAuthenticated, AllowAny
 
-# from permissions import IsAuthenticatedWithCookie
 class ScheduleViewSet(viewsets.ModelViewSet):
     queryset = schedule.objects.all()
     serializer_class = Schedule_Serializer
-    # permission_classes = [IsAuthenticatedWithCookie]
+    permission_classes = [IsAuthenticated]
 #Los 4
     def create(self, request):
         serializer = self.get_serializer(data=request.data)

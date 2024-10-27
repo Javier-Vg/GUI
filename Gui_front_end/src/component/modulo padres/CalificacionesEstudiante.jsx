@@ -21,7 +21,7 @@ function CalificacionesEstudiante() {
     if (token) {
       try {
         const decodedToken = jwtDecode(token);  
-        const idStudent = decodedToken.id;
+        const idStudent = decodedToken.info.id;
         setStudentID(idStudent);
       } catch (error) {
         console.error('Error al decodificar el token', error);

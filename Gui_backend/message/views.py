@@ -3,12 +3,11 @@ from rest_framework.response import Response
 from rest_framework import status
 from .models import message
 from .serializers import Message_Serializer
-
-# from permissions import IsAuthenticatedWithCookie
+from rest_framework.permissions import IsAuthenticated, AllowAny
 class MessageViewSet(viewsets.ModelViewSet):
     queryset = message.objects.all()
     serializer_class = Message_Serializer
-    # permission_classes = [IsAuthenticatedWithCookie]
+    permission_classes = [IsAuthenticated]
     #Los 4
     def create(self, request):
         serializer = self.get_serializer(data=request.data)

@@ -5,23 +5,13 @@ from .models import Institution
 from .serializers import Institutions_Serializer, LoginSerializer
 from users.serializers import UserCreateSerializer
 from rest_framework.exceptions import ValidationError
-# from permissions import IsAuthenticatedWithCookie
-from rest_framework.permissions import AllowAny
-
+from rest_framework.permissions import IsAuthenticated, AllowAny
 class InstitutionViewSet(viewsets.ModelViewSet):
     queryset = Institution.objects.all()
     serializer_class = Institutions_Serializer
-    # permission_classes = [IsAuthenticatedWithCookie]
+    # permission_classes = [IsAuthenticated]
     permission_classes = [AllowAny]
 
-    # def get_permissions(self):
-    #     if self.action in ['create', 'update', 'destroy']:
-    #         # Para 'create', 'update', 'destroy' se requiere autenticación
-    #         self.permission_classes = [IsAuthenticatedWithCookie]
-    #     # else:
-    #     #     # Para 'retrieve', se permiten todas las peticiones
-    #     #     # self.permission_classes = []  # Sin restricciones de permisos
-    #     #     return super().get_permissions()
 
     def create(self, request, *args, **kwargs):
         # Extraer la contraseña del request

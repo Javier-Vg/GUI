@@ -2,19 +2,6 @@ import axios from "axios"
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 const domain = window.location.hostname 
 
-// Thunk para realizar la llamada a la API
-// export const fetchStaff = createAsyncThunk(
-//   'staff/fetchstaff',
-//   async () => {
-//     const response = await fetch(`http://${domain}:8000/api/staff/staff/`); // Cambia esto por tu API
-//     if (!response.ok) {
-//       throw new Error('Failed to fetch staff');
-//     }
-//     return response.json();
-//   }
-// );
-
-
 const getCookie = (name) => {
     const value = `; ${document.cookie}`;
     const parts = value.split(`; ${name}=`);

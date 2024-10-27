@@ -3,12 +3,11 @@ from rest_framework.response import Response
 from rest_framework import status 
 from .models import teaching_assistance
 from .serializers import TeachingAssistance_Serializer
-
-# from permissions import IsAuthenticatedWithCookie
+from rest_framework.permissions import IsAuthenticated, AllowAny
 class TeachingAssistanceViewSet(viewsets.ModelViewSet):
     queryset = teaching_assistance.objects.all()
     serializer_class = TeachingAssistance_Serializer
-    # permission_classes = [IsAuthenticatedWithCookie]
+    permission_classes = [IsAuthenticated]
 #Gui, Institutions
     def create(self, request):
         serializer = self.get_serializer(data=request.data)

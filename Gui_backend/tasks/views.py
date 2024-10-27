@@ -3,12 +3,11 @@ from rest_framework.response import Response
 from rest_framework import status
 from .models import tasks
 from .serializers import Tasks_Serializer
-
-# from permissions import IsAuthenticatedWithCookie
+from rest_framework.permissions import IsAuthenticated, AllowAny
 class TasksViewSet(viewsets.ModelViewSet):
     queryset = tasks.objects.all()
     serializer_class = Tasks_Serializer
-    # permission_classes = [IsAuthenticatedWithCookie]
+    permission_classes = [IsAuthenticated]
 #Gui, Institutions, teacher
     def create(self, request):
         serializer = self.get_serializer(data=request.data)

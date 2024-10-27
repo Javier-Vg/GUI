@@ -11,19 +11,11 @@ from Api.Key import KeyJWT
 from users.serializers import UserCreateSerializer
 from rest_framework.permissions import IsAuthenticated, AllowAny
 
-
-
-# from permissions import IsAuthenticatedWithCookie
-
 class StudentsViewSet(viewsets.ModelViewSet):
     queryset = students.objects.all()
     serializer_class = Students_Serializer
     permission_classes = [IsAuthenticated]  # Permitir acceso solo si estás autenticado
 
-    
-    
-    
-    #Institutions y Gui
     def create(self, request):
         # Primero, obtener los datos necesarios para crear el usuario
         user_data = {

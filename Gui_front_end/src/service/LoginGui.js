@@ -554,15 +554,6 @@ export const getMessages = async () => {
     throw new Error('Error al obtener los mensajes');
   }
 };
-// Obtener mensajes de un profesor específico
-// export const fetchMessagesForTeacher = async (teacherId) => {
-//   try {
-//     const response = await axios.get(`/api/messages/teacher-messages/${teacherId}/`);
-//     return response.data;
-//   } catch (error) {
-//     throw new Error('Error al obtener los mensajes');
-//   }
-// };
 
 
 export const postGrades = async (grade) => {

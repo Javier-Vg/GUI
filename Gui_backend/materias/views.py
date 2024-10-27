@@ -3,12 +3,11 @@ from rest_framework.response import Response
 from rest_framework import status
 from .models import subjects
 from .serializers import Subjects_Serializer
-
-# from permissions import IsAuthenticatedWithCookie
+from rest_framework.permissions import IsAuthenticated, AllowAny
 class SubjectsViewSet(viewsets.ModelViewSet):
     queryset = subjects.objects.all()
     serializer_class = Subjects_Serializer
-    # permission_classes = [IsAuthenticatedWithCookie]
+    permission_classes = [IsAuthenticated]
     #Institutions
     def create(self, request):
         name = request.data.get('name')

@@ -64,9 +64,9 @@ class LoginSerializer(serializers.Serializer):
                         'imgInstitution': staff_instance.imagen_url,
                         'id': staff_instance.id
                     }
-                    token['staff_info'] = staff_info
+                    token['info'] = staff_info
                 except staff.DoesNotExist:
-                    token['staff_info'] = None
+                    token['info'] = None
 
             elif user.is_superuser:
                 try:
@@ -75,9 +75,9 @@ class LoginSerializer(serializers.Serializer):
                         "username": superuser_instance.username,
                         "email": superuser_instance.email,
                     }
-                    token['superuser_info'] = superuser_info
+                    token['info'] = superuser_info
                 except Admin_Gui.DoesNotExist:
-                    token['superuser_info'] = None
+                    token['info'] = None
 
             elif user.is_student:
                 try:
@@ -93,9 +93,9 @@ class LoginSerializer(serializers.Serializer):
                         'numberIdentification': student_instance.identification_number,
                         'type_of_student': student_instance.type_of_student
                     }
-                    token['student_info'] = student_info
+                    token['info'] = student_info
                 except students.DoesNotExist:
-                    token['student_info'] = None
+                    token['info'] = None
 
             data["token"] = str(token)  # Convertir el token a string
 

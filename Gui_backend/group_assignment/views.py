@@ -3,14 +3,12 @@ from rest_framework.response import Response
 from rest_framework import status
 from .models import group_assignment
 from .serializers import GroupAssignment_Serializer
-
-# from permissions import IsAuthenticatedWithCookie
-
+from rest_framework.permissions import IsAuthenticated, AllowAny
 
 class GroupAssignmentViewSet(viewsets.ModelViewSet):
     queryset = group_assignment.objects.all()
     serializer_class = GroupAssignment_Serializer
-    # permission_classes = [IsAuthenticatedWithCookie]
+    permission_classes = [IsAuthenticated]
     
     #Institution Y GUi, Estudiantes, profesores
     def retrieve(self, request, pk=None):

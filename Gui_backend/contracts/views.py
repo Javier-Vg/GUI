@@ -3,8 +3,7 @@ from rest_framework.response import Response
 from rest_framework import status
 from .models import contracts
 from .serializers import Contracts_Serializer
-# from permissions import IsAuthenticatedWithCookieDirectors
-# from permissions import IsAuthenticatedWithCookie
+from rest_framework.permissions import IsAuthenticated, AllowAny
 
 
 
@@ -13,6 +12,8 @@ from .serializers import Contracts_Serializer
 class Contracts_ViewSet(viewsets.ModelViewSet):
     queryset = contracts.objects.all()
     serializer_class = Contracts_Serializer
+    permission_classes = [IsAuthenticated]
+    
     # permission_classes = [IsAuthenticatedWithCookieDirectors]
     # permission_classes = [IsAuthenticatedWithCookie]
     

@@ -41,7 +41,7 @@ function GastosGanancias() {
       try {
         // Desencriptar el token
         const decodedToken = jwtDecode(token);    
-        const institutionIdFromToken = decodedToken.staff_info.institution; 
+        const institutionIdFromToken = decodedToken.info.institution; 
         setInstitutionId(institutionIdFromToken);
       } catch (error) {
         console.error('Error al decodificar el token', error);
@@ -106,8 +106,8 @@ function GastosGanancias() {
     await postGastos(datos)
     try {
       const response = await postGastos(datos);  // Envía los datos al backend
-      console.log('Datos enviados:', datos);
-      console.log('Respuesta del backend:', response);
+      console.log('Datos enviados');
+      console.log('Respuesta del backend');
     } catch (error) {
       console.error('Error al enviar datos:', error);
     }

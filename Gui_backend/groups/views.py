@@ -3,13 +3,12 @@ from rest_framework.response import Response
 from rest_framework import status
 from .models import group
 from .serializers import Groups_Serializer
-
-# from permissions import IsAuthenticatedWithCookie
+from rest_framework.permissions import IsAuthenticated, AllowAny
 class GroupsViewSet(viewsets.ModelViewSet):
     queryset = group.objects.all()
     serializer_class = Groups_Serializer
-    # permission_classes = [IsAuthenticatedWithCookie]
-    # institutiones, Gui, teachers, students
+    permission_classes = [IsAuthenticated]
+    
     def retrieve(self, request, pk=None):
         try:
             group_instance = group.objects.get(pk=pk)

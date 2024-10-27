@@ -3,14 +3,12 @@ from rest_framework.response import Response
 from rest_framework import status 
 from .models import events
 from .serializers import Events_Serializer
-# from permissions import IsAuthenticatedWithCookieDirectors, IsAuthenticatedWithCookieStaff,IsAuthenticatedWithCookieGui
-
-# from permissions import IsAuthenticatedWithCookie
+from rest_framework.permissions import IsAuthenticated, AllowAny
 class EventsViewSet(viewsets.ModelViewSet):
     queryset = events.objects.all()
     serializer_class = Events_Serializer
-    # permission_classes = [IsAuthenticatedWithCookie]
-    #  Estudiantes, Profesores, admins y Gui
+    permission_classes = [IsAuthenticated]
+    
     def retrieve(self, request, pk=None):
         try:
             event = events.objects.get(pk=pk)

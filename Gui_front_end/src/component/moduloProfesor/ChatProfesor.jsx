@@ -337,9 +337,11 @@ const ChatProfesor = () => {
       try {
         // Desencriptar el token
         const decodedToken = jwtDecode(token);
-        const institutionIdFromToken = decodedToken.staff_info.institution;
-        const NameTeacher = decodedToken.staff_info.Name;
-        const staffID = decodedToken.staff_info.ID;
+        console.log(decodedToken);
+        
+        const institutionIdFromToken = decodedToken.info.institution;
+        const NameTeacher = decodedToken.info.Name;
+        const staffID = decodedToken.info.ID;
         setNameTeacher(NameTeacher)
         setStaffID(staffID)
         setInstitutionId(institutionIdFromToken);
@@ -406,7 +408,8 @@ const ChatProfesor = () => {
         date: new Date().toISOString(),
         name: storedTeacherName,
       };
-
+      console.log(newMessage);
+      
       try {
         const savedMessage = await sendMessage(newMessage);
         setMessages((prevMessages) => [

@@ -3,14 +3,11 @@ from .models import parents
 from .serializers import Parents_Serializer
 from rest_framework import viewsets, status
 from rest_framework.response import Response
-
-# from permissions import IsAuthenticatedWithCookie
-#ESTA NO SE USA
-# Create your views here.
+from rest_framework.permissions import IsAuthenticated, AllowAny
 class ParentsViewSet(viewsets.ModelViewSet):
     queryset = parents.objects.all()
     serializer_class = Parents_Serializer
-    # permission_classes = [IsAuthenticatedWithCookie]
+    permission_classes = [IsAuthenticated]
     def create(self, request):
         serializer = self.get_serializer(data=request.data)
         if serializer.is_valid():

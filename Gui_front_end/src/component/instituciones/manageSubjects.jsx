@@ -39,7 +39,7 @@ const ManageSubjects = () => {
         const decodedToken = jwtDecode(token);
 
         // Extraer el institution_id desde el token
-        const institutionIdFromToken = decodedToken.staff_info.institution;
+        const institutionIdFromToken = decodedToken.info.institution;
         console.log(institutionIdFromToken);
          
         setInstitutionId(institutionIdFromToken);

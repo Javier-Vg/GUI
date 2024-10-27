@@ -45,10 +45,10 @@ function HomeInstitutionsForm() {
         // Desencriptar el token
         const decodedToken = jwtDecode(token);    
         // Extraer valores del token
-        const auth = decodedToken.staff_info.auth; 
-        const rol = decodedToken.staff_info.rol;  
-        const nameInstitution = decodedToken.staff_info.username;  
-        const imgurl = decodedToken.staff_info.imgInstitution; 
+        const auth = decodedToken.info.auth; 
+        const rol = decodedToken.info.rol;  
+        const nameInstitution = decodedToken.info.username;  
+        const imgurl = decodedToken.info.imgInstitution; 
         console.log(rol);
         console.log(decodedToken);
         setNameInstitution(nameInstitution)

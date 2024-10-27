@@ -8,7 +8,9 @@ import '../../css/expediente_notas.css';
 import Cookies from 'js-cookie';
 import { jwtDecode } from "jwt-decode";
 import { LineChart, Line, XAxis, YAxis, Tooltip, CartesianGrid, ResponsiveContainer } from 'recharts';
-import { key } from '../map/keyMap';
+// import { key } from '../map/keyMap';
+import { key } from '../../keys/keys.js';
+
 
 import { GoogleMap, LoadScript, Marker } from '@react-google-maps/api';
 
@@ -64,7 +66,7 @@ function ExpedienteAlumno() {
       try {
         // Desencriptar el token
         const decodedToken = jwtDecode(token);  
-        const idStudent = decodedToken.id;
+        const idStudent = decodedToken.info.id;
         
         // Guardar el ID en una variable local
         setStudentID(idStudent);
