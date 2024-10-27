@@ -1,0 +1,330 @@
+
+.container2 {
+    display: grid;
+    grid-template-columns: 1fr 1fr; /* Dos columnas */
+    grid-template-rows:200px 200px; /* Tres filas */
+    gap: 10px; /* Espaciado entre los elementos */
+    width: 100%; /* Ancho del contenedor */
+    max-height: 100%; /* Alto del contenedor */
+    height: 100%;
+    border-radius: 5px;
+
+}
+
+.fade-in:nth-child(1) {
+    
+    grid-column: 1 / 2; /* Ocupa la primera columna */
+    grid-row: 1 / 4; /* Ocupa las tres filas */
+    background-color: lightblue;
+    padding: 20px;
+    text-align: center;
+    border-radius: 10px;
+    height: 100%;
+    max-height: 410px;
+    overflow: auto;
+}
+
+.fade-in:nth-child(2) {
+    grid-column: 2 / 3; /* Ocupa la segunda columna */
+    grid-row: 1 / 2; /* Ocupa la primera fila */
+    background-color: lightcoral;
+    padding: 20px;
+    text-align: center;
+    border-radius: 10px;
+    height: 100%;
+}
+
+.fade-in:nth-child(3) {
+    grid-column: 2 / 3; /* Ocupa la segunda columna */
+    grid-row: 2 / 3; /* Ocupa la segunda fila */
+    background-color: rgb(73, 73, 73);
+    padding: 20px;
+    text-align: center;
+    border-radius: 10px;
+    height: 100%;
+}
+
+
+
+/* ---------------- */
+
+.h1-info{
+    text-align: left;
+    font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
+}
+
+.div-btn-trimestre{
+    display: flex;
+    justify-content: space-around;
+}
+
+/* Scroll */
+/* ::-webkit-scrollbar {
+    display: none; /* Para navegadores WebKit 
+} */
+
+
+
+.img-student:hover {
+    transform: scale(1.1); /* Aumentar tamaño al pasar el mouse */
+ 
+}
+
+.img-student{
+    width: 170px;
+    height: 230px;
+    border-radius: 10px;
+    transition: transform 0.3s ease; /* Transición suave */
+}
+
+.div-student-show{
+    display: flex;
+    justify-content: space-around;
+}
+
+.box2{
+    text-align: left;
+    
+}
+
+p{
+    text-align: left;
+}
+
+/* Diseño gpt */
+/* Estilos generales */
+.fade-in {
+    animation: fadeIn 0.5s ease-in;
+  }
+  
+  @keyframes fadeIn {
+    from {
+      opacity: 0;
+    }
+    to {
+      opacity: 1;
+    }
+  }
+  
+  /* Estilos del encabezado */
+  .h1-info {
+    text-align: center;
+    font-size: 2.5rem;
+    color: #2c3e50;
+    margin-bottom: 20px;
+    font-family: 'Georgia', serif;
+    text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.1);
+  }
+  
+  /* Contenedor de información del estudiante */
+  .div-student-show {
+    display: flex;
+    justify-content: space-around;
+    align-items: flex-start; /* Cambiado a flex-start para alinear la imagen arriba */
+    padding: 20px;
+    margin: 20px;
+    border-radius: 15px;
+    background: rgba(236, 240, 241, 0.9);
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
+    transition: transform 0.3s, box-shadow 0.3s;
+  }
+  
+  .div-student-show:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 12px 30px rgba(0, 0, 0, 0.3);
+  }
+  
+  .box1, .box2 {
+    flex: 1;
+    margin: 10px;
+  }
+  
+  /* Estilos de la imagen */
+  .img-student {
+    border-radius: 50%;
+    width: 135px; /* Tamaño reducido */
+    height: 135px; /* Tamaño reducido */
+    object-fit: cover;
+    border: 4px solid #2980b9;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+    margin-bottom: 15px; /* Espacio entre la imagen y el texto */
+  }
+  
+  /* Estilos para los textos */
+  span {
+    display: block; /* Para que cada elemento ocupe su propia línea */
+    font-size: 1rem;
+    line-height: 1.6;
+    color: #34495e;
+    font-family: 'Arial', sans-serif;
+    border-left: 4px solid #2980b9;
+    padding-left: 15px;
+    margin: 10px 0;
+    background-color: #f9f9f9;
+    border-radius: 8px;
+    transition: background-color 0.3s, transform 0.2s;
+    position: relative;
+    overflow: hidden;
+  }
+  
+  span:hover {
+    background-color: #d9e6f2;
+    transform: translateX(5px);
+  }
+  
+  /* Estilo de texto para destacar */
+  .student-name {
+    font-weight: bold;
+    font-size: 1.2rem;
+    color: #2980b9;
+    text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.1);
+  }
+  
+  .identification-number,
+  .birthdate,
+  .grade,
+  .academic-status,
+  .allergy-information,
+  .contact-information,
+  .email,
+  .guardian-phone,
+  .guardian-name,
+  .institution,
+  .group,
+  .monthly-payment,
+  .type-of-student {
+    font-style: italic;
+  }
+  
+  /* Media queries */
+  @media (max-width: 968px) {
+    .div-student-show {
+      flex-direction: column;
+      align-items: center;
+    }
+  
+    .box1, .box2 {
+      margin: 10px 0;
+      width: 90%;
+    }
+  
+    .h1-info {
+      font-size: 2rem;
+    }
+  
+    span {
+      font-size: 0.9rem;
+    }
+  }
+  
+  @media (max-width: 880px) {
+    .h1-info {
+      font-size: 1.8rem;
+    }
+  
+    span {
+      font-size: 0.8rem;
+    }
+  
+    .img-student {
+      width: 100px; /* Tamaño reducido aún más para pantallas pequeñas */
+      height: 100px; /* Tamaño reducido aún más para pantallas pequeñas */
+    }
+  }
+  
+
+/* Media queri */
+@media (max-width: 768px) {
+    .container2 {
+    display: flex;
+    flex-direction: column;
+    }
+
+    .div-core-expediente{
+        overflow: auto;
+        height: 500px;
+    }
+  
+   
+  }
+  
+
+
+
+
+
+/* Estilos generales para el tema claro */
+body.light {
+  background-color: #ffffff;
+  color: #000000;
+  transition: background-color 0.5s, color 0.5s;
+}
+
+body.light .content-div {
+  background-color: #f0f0f0;
+  border: 1px solid #ccc;
+  transition: background-color 0.5s, border-color 0.5s;
+}
+
+/* Estilos generales para el tema oscuro */
+body.dark {
+  background-color: #1a1a1a;
+  color: #ffffff;
+  transition: background-color 0.5s, color 0.5s;
+}
+
+body.dark .content-div {
+  background-color: #333;
+  border: 1px solid #555;
+  transition: background-color 0.5s, border-color 0.5s;
+}
+
+/* Estilos del botón de cambio de tema */
+.theme-toggle {
+  position: fixed;
+  top: 20px;
+  right: 20px;
+  z-index: 1000;
+}
+
+.theme-toggle button {
+  padding: 10px 20px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 16px;
+  transition: background-color 0.3s, color 0.3s;
+}
+
+.theme-toggle button:hover {
+  opacity: 0.8;
+}
+
+
+
+/* Grafico */
+
+.custom-x-axis{
+  font-size: 14px;
+  stroke: #2980b9;
+}
+
+.map{
+  height: 300px;
+  width: 300px;
+}
+
+.iframe{
+  position: absolute;
+  top: 0;
+  border: 0;
+  left: 0;
+}
+
+/* styles.css o el archivo CSS correspondiente */
+.fade-in {
+  position: relative;
+  width: 445px;
+  height: 180px; /* O el tamaño que desees */
+  
+}

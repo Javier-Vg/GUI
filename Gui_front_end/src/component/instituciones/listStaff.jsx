@@ -22,6 +22,7 @@ function ListStaff() {
   const error = useSelector(state => state.staff.error);
 
   useEffect(() => {
+    
     const token = Cookies.get('AuthCookie'); 
 
     if (token) {

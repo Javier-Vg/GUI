@@ -543,17 +543,58 @@ export const sendMessage = async (messageData) => {
 export const getMessages = async () => {
   const token = getTokenFromCookie(); // Obtener el token de la cookie
   try {
-    const response = await axios.get(
-      `http://${domain}:8000/api/message/message/`,
-      {
-        headers: {
-          "Content-Type": "application/json",
-          Authorization: `Bearer ${token}`, // Agregar el token en los headers
-        },
-      }
-    );
+    const response = await axios.get(`http://${domain}:8000/api/message/message/`, {
+      headers: {
+        'Content-Type': 'application/json',
+        Authorization: `Bearer ${token}`,
+      },
+    });
     return response.data; // Devuelve los mensajes obtenidos desde el backend
   } catch (error) {
-    throw new Error("Error al obtener los mensajes");
+    throw new Error('Error al obtener los mensajes');
+  }
+};
+// Obtener mensajes de un profesor específico
+// export const fetchMessagesForTeacher = async (teacherId) => {
+//   try {
+//     const response = await axios.get(`/api/messages/teacher-messages/${teacherId}/`);
+//     return response.data;
+//   } catch (error) {
+//     throw new Error('Error al obtener los mensajes');
+//   }
+// };
+
+
+export const postGrades = async (grade) => {
+  const token = getTokenFromCookie(); // Obtener el token de la cookie
+
+  try {
+    const response = await axios.post(`http://${domain}:8000/api/grades/grades/`, grade, {
+      headers: {
+        'Content-Type': 'application/json',
+        Authorization: `Bearer ${token}`,
+      }
+    });
+    return response.data;
+  } catch (error) {
+    console.error("Error haciendo la solicitud grades:", error.response?.data || error);
+    throw error;
+  }
+};
+
+export const postStudentAssistence = async (grade) => {
+  const token = getTokenFromCookie(); // Obtener el token de la cookie
+
+  try {
+    const response = await axios.post(`http://${domain}:8000/api/student_assistance/student_assistance/`, grade, {
+      headers: {
+        'Content-Type': 'application/json',
+        Authorization: `Bearer ${token}`,
+      }
+    });
+    return response.data;
+  } catch (error) {
+    console.error("Error haciendo la solicitud asistencia estudiantes:", error.response?.data || error);
+    throw error;
   }
 };

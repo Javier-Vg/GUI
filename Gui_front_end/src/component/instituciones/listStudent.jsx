@@ -156,6 +156,7 @@ function ListStudents() {
       setStudents(updatedStudents); // Actualiza el estado con los cambios
       setEditMode(false); // Salir del modo de edición
       setSeeMore(true); // Mantener el modal abierto para ver los cambios actualizados
+      
     } catch (error) {
       console.error("Error al actualizar el estudiante:", error);
     }
