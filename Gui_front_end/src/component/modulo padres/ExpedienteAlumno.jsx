@@ -134,20 +134,20 @@ function ExpedienteAlumno() {
     data.forEach((item) => {
       // Iterar sobre el JSON de 'daily_attendance'
       Object.keys(item.daily_attendance).map((value, i) => {
+      
         if (value == studentID) {
-          console.log(value);
           // Contar las ocurrencias
-          if (item.daily_attendance[value] === "Presente") {
+          if (item.daily_attendance[value] === "Puntual") {
             attendanceCount.presente += 1;
-          } else if (item.daily_attendance[value] === "Ausente") {
+          } else if (item.daily_attendance[value] === "Inpuntual") {
             attendanceCount.ausente += 1;
-          } else if (item.daily_attendance[value] === "Tardia") {
+          } else if (item.daily_attendance[value] === "Ausente") {
             attendanceCount.tardia += 1;
           };
         };
       });
     });
-    
+
 
     setGraficRender([
       { category: 'Puntualidades', count: attendanceCount.presente },
@@ -157,17 +157,17 @@ function ExpedienteAlumno() {
   }, [selectedButton]);
 
 
-
-
-
   return (
     <div className="div-core-expediente">
       {/* <h2>Expediente</h2> */}
       <Skeleton className="w-2/5 rounded-lg">
         <div className="container2">
+
           <div className="fade-in">
+          
             <div className="theme-toggle">
-              <button onClick={toggleTheme}>
+              <br />
+              <button className="btn-darkLight" onClick={toggleTheme}>
                 {isDarkMode ? "🌞 Modo Día" : "🌜 Modo Noche"}
               </button>
             </div>
@@ -229,9 +229,6 @@ function ExpedienteAlumno() {
             {/* <Mapa/> */}
             <iframe
               className="iframe"
-              width="100%"
-              height="100%"
-              frameBorder="0"
               style={{ border: 1 }}
               src={`https://www.google.com/maps/embed/v1/place?key=${key}&q=${9.981642851164809},${-84.75704310364125}&zoom=17`}
               allowFullScreen

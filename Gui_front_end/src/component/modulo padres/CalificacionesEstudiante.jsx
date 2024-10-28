@@ -7,7 +7,6 @@ import Cookies from 'js-cookie';
 import { jwtDecode } from "jwt-decode";
 
 function CalificacionesEstudiante() {
-  const [isHovered, setIsHovered] = useState(false);
 
   const dispatch = useDispatch();
   const itemStudent = useSelector(state => state.student.items);
@@ -15,6 +14,25 @@ function CalificacionesEstudiante() {
 
   const [studentID, setStudentID] = useState("");
   const [period, setPeriod] = useState("1°Trimestre"); // Valor inicial
+
+
+  const [isDarkMode, setIsDarkMode] = useState(false);
+  // Cambiar el tema basado en la preferencia del usuario
+  useEffect(() => {
+    const savedTheme = localStorage.getItem("theme");
+    if (savedTheme) {
+      setIsDarkMode(savedTheme === "dark");
+    }
+  }, []);
+
+  // Función para alternar el tema
+  const toggleTheme = () => {
+    setIsDarkMode((prevMode) => !prevMode);
+    const newTheme = !isDarkMode ? "dark" : "light";
+    localStorage.setItem("theme", newTheme);
+    document.body.className = newTheme; // Cambia la clase del body
+  };
+
 
   useEffect(() => {
     const token = Cookies.get('AuthCookie');
@@ -36,12 +54,19 @@ function CalificacionesEstudiante() {
 
   return (
     <div className="grades-container">
-      <h2>Resultados de Calificaciones del
-        <select onChange={(e) => setPeriod(e.target.value)} value={period}>
-          <option value="1°Trimestre">1°Trimestre</option>
-          <option value="2°Trimestre">2°Trimestre</option>
-          <option value="3°Trimestre">3°Trimestre</option>
+      <h2 className='h2-result'>Resultados de Calificaciones del
+        <select className='select-calisific' onChange={(e) => setPeriod(e.target.value)} value={period}>
+          <option className='select-calisific' value="1°Trimestre">1°Trimestre</option>
+          <option className='select-calisific' value="2°Trimestre">2°Trimestre</option>
+          <option className='select-calisific' value="3°Trimestre">3°Trimestre</option>
         </select>
+
+        <div className="theme-toggle">
+          <br />
+          <button className="btn-darkLight" onClick={toggleTheme}>
+            {isDarkMode ? "🌞 Modo Día" : "🌜 Modo Noche"}
+          </button>
+        </div>
       </h2>
       <table className="grades-table">
         <thead>
