@@ -1,9 +1,110 @@
-.chat-bubbles-container {
+/* .chat-container, .div-components {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    width: 100%;
+    max-width: 600px;
+    margin: 0 auto;
+    padding: 16px;
+    background-color: #f9f9f9;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+}
+
+.header {
+    font-size: 20px;
+    font-weight: bold;
+    margin-bottom: 16px;
+    text-align: center;
+}
+
+Selector de estudiante
+.student-selector {
+    padding: 10px;
+    background-color: #fff;
+    border-bottom: 1px solid #ddd;
+    margin-bottom: 16px;
+} */
+
+/* .student-selector select {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+} */
+
+/* Estilos para mensajes */
+/* .message-input, .textarea {
+    flex-grow: 1;
+    padding: 10px;
+    border-radius: 8px;
+    border: 1px solid #ccc;
+    margin-right: 10px;
+    resize: none;
+    min-height: 60px;
+}
+
+button, .send-button {
+    margin-top: 8px;
+    padding: 8px 16px;
+    background-color: #0a40bd;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background 0.3s ease;
+}
+
+button:hover, .send-button:hover {
+    background-color: #0056b3;
+}
+
+/* Estilos de mensajes en la ventana de mensajes */
+/* .messages {
+    max-height: 300px;
+    overflow-y: auto;
+    margin-top: 16px;
+}
+
+.messages::-webkit-scrollbar {
+    width: 8px;
+}
+
+.messages::-webkit-scrollbar-track {
+    background: transparent;
+}
+
+.message {
+    padding: 8px;
+    border-radius: 5px;
+    /* margin: 5px 0; */
+    /* max-width: 75%; */
+    /* word-wrap: break-word; */
+    /* margin: 10px 0; */
+/* }  */
+
+/* .sent {
+    background-color: rgba(0, 123, 255, 0.8);
+    color: white;
+    align-self: flex-end;
+    border: 1px solid #0a40bd;
+} */
+/* 
+.received {
+    background-color: #ffffff;
+    color: #0a40bd;
+    align-self: flex-start;
+    border: 1px solid #0a40bd;
+} */
+
+/* Burbuja de estudiante */
+/* .chat-bubbles-container {
     display: flex;
     flex-wrap: wrap;
     gap: 10px;
-}
-
+} */
+/* 
 .student-bubble {
     display: flex;
     flex-direction: column;
@@ -14,59 +115,85 @@
     width: 100px;
     height: 100px;
     text-align: center;
-}
+} */
 
-.student-photo {
+/* .student-photo {
     width: 60px;
     height: 60px;
     border-radius: 50%;
     margin-bottom: 5px;
+} */
+
+/* Marcas de tiempo */
+/* .timestamp {
+    font-size: 12px;
+    color: #6c757d;
+    position: absolute;
+    bottom: 5px;
+    right: 10px;
+} */
+
+/* Media queries */
+/* @media (max-width: 600px) {
+    .chat-container, .div-components {
+        padding: 10px;
+        max-width: 100%;
+    }
+
+    .header {
+        font-size: 18px;
+    }
+
+    .student-selector select, 
+    .message-input, .textarea {
+        padding: 8px;
+        font-size: 14px;
+    }
+
+    .messages {
+        max-height: 200px;
+    }
+
+    .message {
+        max-width: 80%;
+        font-size: 14px;
+    }
+
+    button, .send-button {
+        padding: 6px 12px;
+        font-size: 14px;
+    }
 }
 
-.chat-container {
-    display: flex;
-    flex-direction: column;
-    height: 100%;
-    justify-content: space-between;
+@media (min-width: 600px) and (max-width: 900px) {
+    .chat-container, .div-components {
+        padding: 12px;
+        max-width: 80%;
+    }
+
+    .header {
+        font-size: 19px;
+    }
+
+    .messages {
+        max-height: 250px;
+    }
+
+    .message {
+        max-width: 70%;
+    }
+
+    button, .send-button {
+        padding: 7px 14px;
+    }
 }
 
-.message-input {
-    flex-grow: 1;
-    padding: 10px;
-    border-radius: 8px;
-    border: 1px solid #ccc;
-    margin-right: 10px;
-}
+@media (min-width: 900px) {
+    .chat-container, .div-components {
+        max-width: 700px;
+    }
 
-.send-button {
-    padding: 10px 20px;
-    background-color: #007bff;
-    color: white;
-    border: none;
-    border-radius: 8px;
-    cursor: pointer;
-}
-
-.send-button:hover {
-    background-color: #0056b3;
-}
-
-.message {
-    padding: 8px;
-    border-radius: 5px;
-    margin: 5px 0;
-    max-width: 75%;
-    word-wrap: break-word;
-}
-
-.sent {
-    background-color: #007bff; /* Azul para mensajes enviados */
-    color: white; /* Texto blanco */
-    align-self: flex-end; /* Alineación a la derecha */
-}
-
-.received {
-    background-color: #f44336; /* Rojo para mensajes recibidos */
-    color: white; /* Texto blanco */
-    align-self: flex-start; /* Alineación a la izquierda */
-}
+    .messages {
+        max-height: 400px;
+    }
+} */

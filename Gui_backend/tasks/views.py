@@ -29,7 +29,11 @@ class TasksViewSet(viewsets.ModelViewSet):
     def update(self, request, pk=None):
         try:
             task_instance = tasks.objects.get(pk=pk)
+            task_instance = tasks.objects.get(pk=pk)
         except tasks.DoesNotExist:
+            return Response({"error": "Task not found"}, status=status.HTTP_404_NOT_FOUND)
+
+        serializer = self.get_serializer(task_instance, data=request.data)
             return Response({"error": "Task not found"}, status=status.HTTP_404_NOT_FOUND)
 
         serializer = self.get_serializer(task_instance, data=request.data)
@@ -37,6 +41,19 @@ class TasksViewSet(viewsets.ModelViewSet):
             serializer.save()
             return Response(serializer.data, status=status.HTTP_200_OK)
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+#Gui, Institutions, teacher
+    def destroy(self, request, pk=None):
+        try:
+            task_instance = self.get_object()
+            task_instance.delete()
+            return Response({"message": "Task deleted successfully"}, status=status.HTTP_204_NO_CONTENT)
+        except tasks.DoesNotExist:
+            return Response({"error": "Task not found"}, status=status.HTTP_404_NOT_FOUND)
+
+
+
+
+
 #Gui, Institutions, teacher
     def destroy(self, request, pk=None):
         try:

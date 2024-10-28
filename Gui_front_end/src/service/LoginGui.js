@@ -319,6 +319,7 @@ export const postStudents = async (
     );
 
     return response.data;
+    
   } catch (error) {
     console.error("Error haciendo la solicitud:", error);
     throw error;

@@ -1,4 +1,3 @@
-
 import React, { useState, useEffect } from 'react';
 import { postStudents } from '../../service/LoginGui';
 import { useSelector} from "react-redux";
@@ -22,6 +21,7 @@ function CreateStudent() {
   const [nameGuardian, setNameGuardian] = useState('');
   const [alergias, setAlergias] = useState('');
   const [imagen, setImagen] = useState(null);
+   
    
   const [mensualidadDelEstudiante, setMensualidadDelEstudiante] = useState('');
   const [formMessage, setFormMessage] = useState('');

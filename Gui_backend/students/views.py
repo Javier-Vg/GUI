@@ -57,7 +57,11 @@ class StudentsViewSet(viewsets.ModelViewSet):
     def update(self, request, pk=None):
         try:
             student_instance = students.objects.get(pk=pk)
+            student_instance = students.objects.get(pk=pk)
         except students.DoesNotExist:
+            return Response({"error": "Student not found"}, status=status.HTTP_404_NOT_FOUND)
+
+        serializer = self.get_serializer(student_instance, data=request.data)
             return Response({"error": "Student not found"}, status=status.HTTP_404_NOT_FOUND)
 
         serializer = self.get_serializer(student_instance, data=request.data)

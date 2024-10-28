@@ -55,6 +55,7 @@ class InstitutionViewSet(viewsets.ModelViewSet):
     def update(self, request, pk=None):
         try:
             institution = self.get_object()
+            institution = self.get_object()
         except Institution.DoesNotExist:
             return Response({"error": "Institution not found"}, status=status.HTTP_404_NOT_FOUND)
         
@@ -73,6 +74,15 @@ class InstitutionViewSet(viewsets.ModelViewSet):
             return Response({"error": "Institution not found"}, status=status.HTTP_404_NOT_FOUND)
         
 
+    def destroy(self, request, pk=None):
+        try:
+            institution = self.get_object()
+            institution.delete()
+            return Response({"message": "Institution deleted successfully"}, status=status.HTTP_204_NO_CONTENT)
+        except Institution.DoesNotExist:
+            return Response({"error": "Institution not found"}, status=status.HTTP_404_NOT_FOUND)
+        
+
 @api_view(['POST'])
 def LoginView(request):
     serializer = LoginSerializer(data=request.data)
@@ -81,4 +91,5 @@ def LoginView(request):
         return Response(serializer.validated_data)
     else:
         return Response(serializer.errors, status=400)  
+    
     

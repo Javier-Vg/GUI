@@ -30,14 +30,39 @@ class EventsViewSet(viewsets.ModelViewSet):
     def update(self, request, pk=None):
         try:
             event = events.objects.get(pk=pk)
+            event = events.objects.get(pk=pk)
         except events.DoesNotExist:
             return Response({"error": "Event not found"}, status=status.HTTP_404_NOT_FOUND)
+            return Response({"error": "Event not found"}, status=status.HTTP_404_NOT_FOUND)
         
+        serializer = self.get_serializer(event, data=request.data)
         serializer = self.get_serializer(event, data=request.data)
         if serializer.is_valid():
             serializer.save()
             return Response(serializer.data, status=status.HTTP_200_OK)
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
+    # Deelete: Profesores, administradores y Gui
+    def destroy(self, request, pk=None):
+        try:
+            event = events.objects.get(pk=pk)
+            event.delete()
+            return Response({"message": "Event deleted successfully"}, status=status.HTTP_204_NO_CONTENT)
+        except events.DoesNotExist:
+            return Response({"error": "Event not found"}, status=status.HTTP_404_NOT_FOUND)
+    # queryset = events.objects.all()
+    # serializer_class = Events_Serializer
+    # def update(self, request, pk=None):
+    #     try:
+    #         institution = events.objects.get(pk=pk)
+    #     except events.DoesNotExist:
+    #         return Response({"error": "Institution not found"}, status=status.HTTP_404_NOT_FOUND)
+        
+    #     serializer = self.get_serializer(institution, data=request.data)
+    #     if serializer.is_valid():
+    #         serializer.save()
+    #         return Response(serializer.data, status=status.HTTP_200_OK)
+    #     return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
     # Deelete: Profesores, administradores y Gui
     def destroy(self, request, pk=None):

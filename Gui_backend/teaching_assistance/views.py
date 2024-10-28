@@ -28,7 +28,11 @@ class TeachingAssistanceViewSet(viewsets.ModelViewSet):
     def update(self, request, pk=None):
         try:
             assistance_instance = teaching_assistance.objects.get(pk=pk)
+            assistance_instance = teaching_assistance.objects.get(pk=pk)
         except teaching_assistance.DoesNotExist:
+            return Response({"error": "Teaching assistance not found"}, status=status.HTTP_404_NOT_FOUND)
+
+        serializer = self.get_serializer(assistance_instance, data=request.data)
             return Response({"error": "Teaching assistance not found"}, status=status.HTTP_404_NOT_FOUND)
 
         serializer = self.get_serializer(assistance_instance, data=request.data)
@@ -36,6 +40,28 @@ class TeachingAssistanceViewSet(viewsets.ModelViewSet):
             serializer.save()
             return Response(serializer.data, status=status.HTTP_200_OK)
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+#Gui, Institutions
+    def destroy(self, request, pk=None):
+        try:
+            assistance_instance = self.get_object()
+            assistance_instance.delete()
+            return Response({"message": "Teaching assistance deleted successfully"}, status=status.HTTP_204_NO_CONTENT)
+        except teaching_assistance.DoesNotExist:
+            return Response({"error": "Teaching assistance not found"}, status=status.HTTP_404_NOT_FOUND)
+    # queryset = teaching_assistance.objects.all()
+    # serializer_class = TeachingAssistance_Serializer
+
+    # def update(self, request, pk=None):
+    #     try:
+    #         institution = teaching_assistance.objects.get(pk=pk)
+    #     except teaching_assistance.DoesNotExist:
+    #         return Response({"error": "Institution not found"}, status=status.HTTP_404_NOT_FOUND)
+        
+    #     serializer = self.get_serializer(institution, data=request.data)
+    #     if serializer.is_valid():
+    #         serializer.save()
+    #         return Response(serializer.data, status=status.HTTP_200_OK)
+    #     return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 #Gui, Institutions
     def destroy(self, request, pk=None):
         try:

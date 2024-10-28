@@ -72,6 +72,7 @@ function CreateGroup() {
     setObjctChosen([...objctChosen, e.target.value]);
   };
  
+ 
 const Post = () => {
   const group = {
     group_name: Name,

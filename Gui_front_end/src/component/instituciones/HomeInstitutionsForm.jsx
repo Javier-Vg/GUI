@@ -17,6 +17,8 @@ import { useNavigate } from "react-router-dom";
 import ChatProfesor from "../moduloProfesor/chatProfesor";
 import Cookies from 'js-cookie';
 import { jwtDecode } from "jwt-decode";
+import Eventos from "./Eventos";
+import ListaEventos from "../moduloProfesor/listaEventos";
 
 function HomeInstitutionsForm() {
   const [changeComponent, setChangeComponent] = useState("");
@@ -189,7 +191,13 @@ function HomeInstitutionsForm() {
                 />
                 <label htmlFor="materias">Crear Materias</label>
               </div>
+              
               <hr />
+
+             
+
+
+
               <div
                 onClick={() => setChangeComponent("profesor")}
                 className="inputBoton"
@@ -202,6 +210,41 @@ function HomeInstitutionsForm() {
                 />
                 <label htmlFor="personal">Personal</label>
               </div>
+
+
+              <div
+                onClick={() => setChangeComponent("eventos")}
+                className="inputBoton"
+              >
+                <input
+                  type="radio"
+                  id="eventos"
+                  name="changeComponent"
+                  style={{ display: "none" }}
+                />
+                <label htmlFor="eventos">Programar eventos</label>
+              </div>
+
+
+              <div
+                onClick={() => setChangeComponent("listeventos")}
+                className="inputBoton"
+              >
+                <input
+                  type="radio"
+                  id="listeventos"
+                  name="changeComponent"
+                  style={{ display: "none" }}
+                />
+                <label htmlFor="listeventos">Calendario eventos</label>
+              </div>
+
+
+
+
+
+
+
               <div
                 onClick={() => setChangeComponent("estudiante")}
                 className="inputBoton"
@@ -239,6 +282,7 @@ function HomeInstitutionsForm() {
                 <label htmlFor="gastos">Gastos</label>
               </div>
             </>
+            
           )}
 
           <div
@@ -276,7 +320,8 @@ function HomeInstitutionsForm() {
           {changeComponent === "crear estudiante" && <CreateStudent />}
           {changeComponent === "Crear Grupo" && <CreateGroup />}
           {changeComponent === "crear materias" && <ManageSubjects />}
-
+          {changeComponent === "eventos" && <Eventos />}
+          {changeComponent === "listeventos" && <ListaEventos />}
           {changeComponent === "profesor" && <ListStaff />}
           {changeComponent === "estudiante" && <ListStudent />}
           {changeComponent === "gastos" && <Gastos />}
