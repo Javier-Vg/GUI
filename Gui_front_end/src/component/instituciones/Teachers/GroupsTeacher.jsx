@@ -230,9 +230,9 @@ function ListGroups() {
                                 className="select-asis"
                               >
                                 <option value="" defaultValue={this}>Seleccionar estado</option>
-                                <option value="Presente">Presente</option>
+                                <option value="Puntual">Puntual</option>
+                                <option value="Inpuntual">Inpuntual</option>
                                 <option value="Ausente">Ausente</option>
-                                <option value="Tardía">Tardía</option>
                               </select>
                             </div>
                           )

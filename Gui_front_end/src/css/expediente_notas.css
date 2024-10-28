@@ -328,3 +328,34 @@ body.dark .content-div {
   height: 180px; /* O el tamaño que desees */
   
 }
+
+.div-grafic{
+  display: grid;
+  grid-template-columns: 50px 442px;
+  grid-template-rows: 170px;
+}
+
+
+
+.button-container-grafic {
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.btn-grafic {
+  font-size: 6px;
+  background-color: #2980b9;
+  text-align: center;
+  padding: 1px;
+  width: 40px;
+  margin-top: 2.5px;
+  border: none;
+  background-color: #3066c4;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+.btn-grafic.selected {
+  background-color: #faf9fd; /* Color para el botón seleccionado */
+  color: rgb(0, 0, 0); /* Color del texto para el botón seleccionado */
+}
