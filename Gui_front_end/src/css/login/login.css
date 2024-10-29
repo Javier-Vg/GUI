@@ -12,6 +12,9 @@
    display: grid;
    place-items: center;
 }
+
+/* //////////////////////////////////////7 */
+/* inputs styles */
 .wave-group {
     position: relative;
   }
@@ -30,7 +33,7 @@
     outline: none;
   }
   
-  .wave-group .label {
+  .wave-group .label-login-general {
     color: #999;
     font-size: 18px;
     font-weight: normal;
@@ -46,8 +49,8 @@
     transition-delay: calc(var(--index) * .05s);
   }
   
-  .wave-group .input-login-general:focus ~ .label .label-char,
-  .wave-group .input-login-general:valid ~ .label .label-char {
+  .wave-group .input-login-general:focus ~ .label-login-general .label-char,
+  .wave-group .input-login-general:valid ~ .label-login-general .label-char {
     transform: translateY(-20px);
     font-size: 14px;
     color: #5264AE;
@@ -81,3 +84,4 @@
   .wave-group .input-login-general:focus ~ .bar:after {
     width: 50%;
   }
+  /* //////////////////////////////////////7 */

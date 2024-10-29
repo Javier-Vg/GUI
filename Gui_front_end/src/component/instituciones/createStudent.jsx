@@ -2,7 +2,6 @@ import React, { useState, useEffect } from 'react';
 import { postStudents } from '../../service/LoginGui';
 import Cookies from 'js-cookie';
 import { jwtDecode } from "jwt-decode";
-import '../../css/Institutions/createStudent.css'
 const domain = window.location.hostname 
 
 function CreateStudent() {

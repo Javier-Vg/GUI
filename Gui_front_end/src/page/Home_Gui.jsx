@@ -3,7 +3,6 @@ import { useNavigate } from "react-router-dom"; // Importa useNavigate para la r
 import RegisterFormGui from "../component/Login_and_Register_Gui/RegisterFormGui";
 import Institucion_register from "../component/Gui/Institucion_register";
 import List_institutions from "../component/Gui/List_institutions";
-import "../css/Gui_list_institutions.css";
 import { useSelector } from "react-redux";
 
 function Home_Gui() {

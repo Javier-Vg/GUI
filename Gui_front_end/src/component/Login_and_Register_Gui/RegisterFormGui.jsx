@@ -1,6 +1,5 @@
 import React, { useState } from 'react';
 import { PostData, getDatos } from '../../service/LoginGui';
-import '../../css/RegisterFormGui.css';
 
 function RegisterFormGui() {
   const [nombre, setNombre] = useState('');

@@ -9,7 +9,7 @@ from rest_framework.permissions import IsAuthenticated, AllowAny
 class ScheduleViewSet(viewsets.ModelViewSet):
     queryset = schedule.objects.all()
     serializer_class = Schedule_Serializer
-    permission_classes = [IsAuthenticated]
+    permission_classes = [AllowAny]
 #Los 4
     def create(self, request):
         serializer = self.get_serializer(data=request.data)

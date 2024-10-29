@@ -1,7 +1,6 @@
 import { setUsername, setPassword } from '../../Redux/Slices/SliceLogin';
 import React, { useState, useEffect } from 'react';
 import { useDispatch } from 'react-redux';
-import "../../css/Eleccion_login.css";
 
 
 function LoginInstitucion() {
