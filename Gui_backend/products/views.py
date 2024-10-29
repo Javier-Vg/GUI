@@ -7,7 +7,10 @@ from django.views.decorators.csrf import csrf_exempt
 from django.http import JsonResponse, HttpResponse
 from django.views import View
 from .models import Product
-from Api.Key import STRIPE_KEY_SECRET,STRIPE_KEY_PUBLIC
+# from Api.Key import STRIPE_KEY_SECRET, STRIPE_KEY_PUBLIC
+from Api.Key import STRIPE_KEY_SECRET
+from Api.Key import STRIPE_KEY_PUBLIC
+
 
 stripe.api_key = STRIPE_KEY_SECRET
 

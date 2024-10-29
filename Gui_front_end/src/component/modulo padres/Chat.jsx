@@ -652,6 +652,7 @@ const Chat = () => {
               alt={`${member.name} profile`}
               className="student-photo"
             />
+            <p>{member.name}</p>
             </div>
           </div>
         ))}

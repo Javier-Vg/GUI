@@ -22,6 +22,7 @@ def enviar_correo(request):
     if serializer.is_valid():
         email_destino = serializer.validated_data.get('email')
         contenido_html = f"<p>Hola {serializer.validated_data.get('name')}, este es un correo de prueba.</p>"
+        
 
         email_origen = {
             "name": "Prueba",
