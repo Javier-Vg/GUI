@@ -26,4 +26,5 @@ urlpatterns = [
     path('tasks/', include('tasks.urls')),
     path('gastos/', include('Gastos.urls')),
     path('group_assignment/', include('group_assignment.urls')),
+    # path('products/', include('products.urls')),
 ]

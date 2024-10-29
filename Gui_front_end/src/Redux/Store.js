@@ -76,7 +76,8 @@ import contractReducer from '../Redux/Slices/SliceContract';
 import eventReducer from '../Redux/Slices/SliceEvent';
 import fetchGrades from './Slices/SliceGrades';
 import idsReducer from './Slices/IdSlice';
-import searchReducer from '../Redux/Slices/searchSlice'
+import searchReducer from '../Redux/Slices/searchSlice';
+import AssistenceStudent from '../Redux/Slices/SliceAssitenceStudent';
 // import AssignmentGroup from '../Redux/Slices/sliceAssignmentGroup';
 const isDev = process.env.NODE_ENV === 'development';
 
@@ -100,6 +101,7 @@ const rootReducer = combineReducers({
     event: eventReducer,
     grades: fetchGrades,
     groupAssignment: AssignmentGroup, 
+    assistenceStudent: AssistenceStudent,
     infInstitution: SliceInfInstitution,
     ids: idsReducer,
     search: searchReducer

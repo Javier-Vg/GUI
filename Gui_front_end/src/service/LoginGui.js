@@ -352,12 +352,13 @@ export const getContracts = async () => {
   }
 };
 
-export const postSubjects = async (subject, institution) => {
+export const postSubjects = async (subject) => {
   const token = getTokenFromCookie(); // Obtener el token de la cookie
+  
   try {
     const response = await axios.post(
       `http://${domain}:8000/api/subjects/subjects/`, // Asegúrate de que esta sea la URL correcta de tu API
-       subject, institution ,
+       subject,
       {
         headers: {
           Authorization: `Bearer ${token}`, // Añade el token en los encabezados

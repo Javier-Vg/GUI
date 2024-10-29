@@ -31,6 +31,12 @@ function ListGroups() {
   const [InstitutionId, setInstitutionId] = useState("");
   const [NameTeacher, setNameTeacher] = useState("");
   const [TeacherId, setTeacherId] = useState("");
+
+  //Cierra el modal:
+  const closeModal = () => {
+    setAttendance("");
+    setSeeMore(false);
+  }
   
   const handleAttendanceChange = (studentId, status) => {
     setAttendance(prev => ({
@@ -44,7 +50,6 @@ function ListGroups() {
   const [isOpen, setIsOpen] = useState(false);
 
   const saveAttendance = () => {
-  console.log(attendance); 
 
     // Obtener el año, mes y día
     const year = startDate.getFullYear();
@@ -60,9 +65,6 @@ function ListGroups() {
       dateToday: fechaFormateada,
       teacher: TeacherId
     }
-
-    console.log(json);
-    
 
     postStudentAssistence(json);
 
@@ -141,7 +143,6 @@ function ListGroups() {
       <h1>Grupos</h1>
       <p>Grupos donde usted se encuentra asignado:</p>
       <p>La asignacion de asistencia de estudiantes esta en este apartado.</p>
-      
       <br />
       <br />
       <div>
@@ -173,10 +174,8 @@ function ListGroups() {
                   </div>
                   
                     <span className="label">Docentes asignados:</span>
-
                     <br />
                     <br />
-                    
                     {group.communication_of_subjects_and_teacher && (
                       <table className="table_json">
                         <thead>
@@ -232,9 +231,9 @@ function ListGroups() {
                                 className="select-asis"
                               >
                                 <option value="" defaultValue={this}>Seleccionar estado</option>
-                                <option value="Presente">Presente</option>
+                                <option value="Puntual">Puntual</option>
+                                <option value="Inpuntual">Inpuntual</option>
                                 <option value="Ausente">Ausente</option>
-                                <option value="Tardía">Tardía</option>
                               </select>
                             </div>
                           )
@@ -246,7 +245,7 @@ function ListGroups() {
                         <div>
                           {isOpen && (
                               <DatePicker 
-                                  selected={startDate} 
+                                  selected={startDate}
                                   onChange={(date) => {
                                       setStartDate(date);
                                       setIsOpen(false); // Cierra el calendario al seleccionar una fecha
@@ -256,13 +255,13 @@ function ListGroups() {
                           )}
                         </div>
 
-                        <button onClick={saveAttendance} 
-                        className="button-asis">
+                        <button onClick={saveAttendance}
+                          className="button-asis">
                           Guardar Asistencia
                         </button>
                         <button
                           className="btn-close-asistencia"
-                          onClick={() => setSeeMore(false)}
+                          onClick={() => closeModal()}
                         >
                           volver
                         </button>

@@ -1,3 +1,6 @@
+body{
+  padding: 0;
+}
 
 .container2 {
     display: grid;
@@ -11,6 +14,12 @@
 
 }
 
+nav{
+  height: 72px;
+  width: 100%;
+  margin-top: 0;
+}
+
 .fade-in:nth-child(1) {
     
     grid-column: 1 / 2; /* Ocupa la primera columna */
@@ -19,19 +28,18 @@
     padding: 20px;
     text-align: center;
     border-radius: 10px;
-    height: 100%;
-    max-height: 410px;
-    overflow: auto;
-}
+    height: 414px;
+} 
 
 .fade-in:nth-child(2) {
     grid-column: 2 / 3; /* Ocupa la segunda columna */
     grid-row: 1 / 2; /* Ocupa la primera fila */
-    background-color: lightcoral;
     padding: 20px;
     text-align: center;
     border-radius: 10px;
-    height: 100%;
+    height: 300px;
+    border: 5px rgb(0, 0, 0) solid;
+    
 }
 
 .fade-in:nth-child(3) {
@@ -41,10 +49,8 @@
     padding: 20px;
     text-align: center;
     border-radius: 10px;
-    height: 100%;
+    border: 3px rgb(0, 0, 0) solid;
 }
-
-
 
 /* ---------------- */
 
@@ -63,8 +69,6 @@
     display: none; /* Para navegadores WebKit 
 } */
 
-
-
 .img-student:hover {
     transform: scale(1.1); /* Aumentar tamaño al pasar el mouse */
  
@@ -80,6 +84,8 @@
 .div-student-show{
     display: flex;
     justify-content: space-around;
+    border: 10px #1a1a1a solid;
+    height: 319px;
 }
 
 .box2{
@@ -130,7 +136,6 @@ p{
   }
   
   .div-student-show:hover {
-    transform: translateY(-5px);
     box-shadow: 0 12px 30px rgba(0, 0, 0, 0.3);
   }
   
@@ -197,7 +202,7 @@ p{
   }
   
   /* Media queries */
-  @media (max-width: 968px) {
+  @media (max-width: 668px) {
     .div-student-show {
       flex-direction: column;
       align-items: center;
@@ -215,9 +220,17 @@ p{
     span {
       font-size: 0.9rem;
     }
+
+    aside{
+      width: 120px;
+    }
+
+    .inputBoton{
+      font-size: 6px;
+    }
   }
   
-  @media (max-width: 880px) {
+  @media (max-width: 680px) {
     .h1-info {
       font-size: 1.8rem;
     }
@@ -231,27 +244,23 @@ p{
       height: 100px; /* Tamaño reducido aún más para pantallas pequeñas */
     }
   }
-  
 
 /* Media queri */
 @media (max-width: 768px) {
     .container2 {
-    display: flex;
-    flex-direction: column;
+      display: flex;
+      flex-direction: column;
     }
 
     .div-core-expediente{
-        overflow: auto;
-        height: 500px;
+      overflow-y: auto;
+      height: 100%;
     }
-  
-   
-  }
-  
 
-
-
-
+    .div-components{
+      height: 100%;
+    }
+}
 
 /* Estilos generales para el tema claro */
 body.light {
@@ -260,7 +269,7 @@ body.light {
   transition: background-color 0.5s, color 0.5s;
 }
 
-body.light .content-div {
+body.light .div-student-show {
   background-color: #f0f0f0;
   border: 1px solid #ccc;
   transition: background-color 0.5s, border-color 0.5s;
@@ -270,12 +279,32 @@ body.light .content-div {
 body.dark {
   background-color: #1a1a1a;
   color: #ffffff;
-  transition: background-color 0.5s, color 0.5s;
+  transition: background-color 0s, color 0.5s;
 }
 
-body.dark .content-div {
+body.dark .div-student-show,
+body.dark nav,
+body.dark .grades-container,
+body.dark .div-components,
+body.dark .h2-result,
+body.dark .select-calisific,
+body.dark th{
   background-color: #333;
-  border: 1px solid #555;
+  color: white;
+  transition: background-color 0.5s, border-color 0.5s;
+}
+
+body.dark .fade-in{
+  background-color: #1a1a1a;
+  border:3px white solid;
+}
+
+body.dark aside{
+  background-color: #333;
+  color: white;
+  border-right:  2px white solid;
+  border-top:  2px white solid;
+
   transition: background-color 0.5s, border-color 0.5s;
 }
 
@@ -300,8 +329,6 @@ body.dark .content-div {
   opacity: 0.8;
 }
 
-
-
 /* Grafico */
 
 .custom-x-axis{
@@ -319,12 +346,48 @@ body.dark .content-div {
   top: 0;
   border: 0;
   left: 0;
+  width: 100%;
+  height: 100%;
+  border: 1;
 }
 
 /* styles.css o el archivo CSS correspondiente */
 .fade-in {
   position: relative;
   width: 445px;
-  height: 180px; /* O el tamaño que desees */
-  
+  height: 100%;
+  max-height: 100%;
+}
+
+.div-grafic{
+  display: grid;
+  grid-template-columns: 50px 442px;
+  grid-template-rows: 170px;
+}
+
+.button-container-grafic {
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.btn-grafic {
+  font-size: 6px;
+  background-color: #2980b9;
+  text-align: center;
+  padding: 1px;
+  width: 40px;
+  margin-top: 2.5px;
+  border: none;
+  background-color: #3066c4;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+.btn-grafic.selected {
+  background-color: #faf9fd; /* Color para el botón seleccionado */
+  color: rgb(0, 0, 0); /* Color del texto para el botón seleccionado */
+}
+
+.btn-darkLight{
+  background-color: #2980b9;
 }

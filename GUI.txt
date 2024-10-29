@@ -48,3 +48,6 @@ npm install react-datepicker
 
 grafico:
 npm install recharts
+
+pagos:
+pip install python-stripe

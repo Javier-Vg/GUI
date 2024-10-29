@@ -16,6 +16,7 @@ body {
     overflow: auto;
     animation: fadeIn 0.5s ease-in;
 }
+
 @keyframes grades {
     from {
       opacity: 0;
@@ -24,10 +25,6 @@ body {
       opacity: 1;
     }
   }
-
-.grades-container:hover {
-    transform: translateY(-5px);
-}
 
 h2 {
     text-align: center;
@@ -88,9 +85,4 @@ h2 {
 .grade{
     opacity: 0.3; /* Cambia el valor de 0 (transparente) a 1 (opaco) */
     margin: auto;
-    
 }
-
-
-
-

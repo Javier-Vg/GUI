@@ -97,7 +97,8 @@ INSTALLED_APPS = [
     'rest_framework.authtoken',
     'rest_framework_simplejwt',
     'contact',
-    'users'
+    'users',
+    'products'
     
 ] # nombre de las apps
 CORS_ALLOW_ALL_ORIGINS = True
@@ -119,7 +120,7 @@ ROOT_URLCONF = 'Gui_backend.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [],
+        'DIRS': [BASE_DIR / 'templates'], #template de pasarela de pagos
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -227,3 +228,12 @@ SIMPLE_JWT = {
 MEDIA_URL = '/media/'
 MEDIA_ROOT = BASE_DIR / 'media' #Las imágenes cargadas se guardarán en media/images/.
 # MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
+
+
+
+# Stripe
+# STRIPE_PUBLIC_KEY = ''
+# STRIPE_SECRET_KEY = ''
+# STRIPE_WEBHOOK_SECRET = ""
+STRIPE_KEY_PUBLIC = 'pk_test_51QF3qDP2zsq6W5ryVO2jaoTmHXHJbwuogR4O9FqwhUwadmsIrZZYdsvxu9rQJSGOBDd2Msp3kQJC4HiitRE5PM5L00hKGgqhEy'
+STRIPE_KEY_SECRET =  'sk_test_51QF3qDP2zsq6W5rywnA96uV1tYYDtp584qgsFyj1vPeEndAVDAYIlfgQkoSFG8rYzCdFBuOUZNDkMFwhQdIR3jim00hj79lHjV'
