@@ -11,7 +11,6 @@ export const fetchStudent = createAsyncThunk(
   'student/fetchStudent',
   async () => {
       const token = getCookie('AuthCookie'); // Obtener el token de la cookie
-      console.log(token);
 
       const response = await fetch(`http://${domain}:8000/api/students/students/`, {
           headers: {

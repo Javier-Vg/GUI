@@ -32,8 +32,6 @@ class TeachingAssistanceViewSet(viewsets.ModelViewSet):
         except teaching_assistance.DoesNotExist:
             return Response({"error": "Teaching assistance not found"}, status=status.HTTP_404_NOT_FOUND)
 
-        serializer = self.get_serializer(assistance_instance, data=request.data)
-            return Response({"error": "Teaching assistance not found"}, status=status.HTTP_404_NOT_FOUND)
 
         serializer = self.get_serializer(assistance_instance, data=request.data)
         if serializer.is_valid():

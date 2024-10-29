@@ -1,0 +1,98 @@
+/* .container-gastos{
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+} */
+ /* Estilo de grid para organizar elementos en filas de 3 o 4 en pantallas de PC */
+.grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr); /* 4 columnas fijas */
+    gap: 15px;
+    width: 100%;
+    margin: 10px 0;
+  }
+  
+  /* Si prefieres filas de 3 en lugar de 4, cambia `repeat(4, 1fr)` a `repeat(3, 1fr)` */
+  
+  .container-gastos {
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    background-color: #f9f9f9;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    width: 80%;
+    max-width: 800px; /* Ensanchar el contenedor para pantallas de PC */
+    margin: auto;
+    font-family: Arial, sans-serif;
+  }
+  
+  /* Títulos */
+  .titulo-principal {
+    color: #333;
+    margin: 10px 0;
+  }
+  
+  .titulo-secundario {
+    color: #666;
+    margin: 8px 0;
+  }
+  
+  .total-gastos, .total-ganancias, .balance {
+    color: #555;
+    margin: 5px 0;
+  }
+  
+  /* Etiquetas y campos de entrada */
+  .etiqueta-gasto, .etiqueta-ganancia, .etiqueta-fecha {
+    display: flex;
+    flex-direction: column;
+    font-size: 0.9em;
+  }
+  
+  .input-gasto, .input-ganancia, .input-fecha {
+    padding: 8px;
+    margin-top: 3px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    font-size: 1em;
+    width: 100%;
+  }
+  
+  /* Botones */
+  .boton-operaciones, .boton-enviar {
+    padding: 10px 15px;
+    background-color: #007bff;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 1em;
+    margin: 10px 0;
+  }
+  
+  .boton-operaciones:hover, .boton-enviar:hover {
+    background-color: #0056b3;
+  }
+  
+  /* Lista de resultados detallados */
+  .lista-resultados {
+    list-style-type: none;
+    padding: 0;
+    margin: 10px 0;
+    width: 100%;
+    max-width: 300px;
+  }
+  
+  .item-resultado {
+    background-color: #eef;
+    padding: 5px 10px;
+    margin: 5px 0;
+    border-radius: 4px;
+  }
+      

@@ -19,7 +19,7 @@ function StudentsTeacher() {
       try {
         // Desencriptar el token
         const decodedToken = jwtDecode(token);; 
-        const username = decodedToken.Name;
+        const username = decodedToken.info.username;
 
         setnameTeacher(username);
       } catch (error) {

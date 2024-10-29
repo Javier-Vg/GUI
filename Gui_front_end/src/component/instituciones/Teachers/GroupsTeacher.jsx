@@ -79,9 +79,11 @@ function ListGroups() {
       try {
         // Desencriptar el token
         const decodedToken = jwtDecode(token);
-        setInstitutionId(decodedToken.institution);
-        setNameTeacher(decodedToken.Name);
-        setTeacherId(decodedToken.ID);
+        console.log(decodedToken);
+        
+        setInstitutionId(decodedToken.info.institution);
+        setNameTeacher(decodedToken.info.username);
+        setTeacherId(decodedToken.info.id);
       } catch (error) {
         console.error("Error al decodificar el token", error);
       }

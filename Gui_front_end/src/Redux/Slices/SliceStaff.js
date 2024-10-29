@@ -12,8 +12,6 @@ export const fetchStaff = createAsyncThunk(
     'staff/fetchstaff',
     async () => {
         const token = getCookie('AuthCookie');
-        console.log(token);
-
         try {
           
             const response = await axios.get(`http://${domain}:8000/api/staff/staff/`, {

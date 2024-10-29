@@ -5,7 +5,8 @@ import { fetchSubjects } from '../../Redux/Slices/SliceSubjects';
 import Cookies from 'js-cookie';
 import { jwtDecode } from "jwt-decode";
 import { useDispatch, useSelector } from 'react-redux';
-import '../../css/subjects.css';
+// import '../../css/subjects.css';
+import '../../css/Institutions/manageSubjects.css'
 
 const ManageSubjects = () => {
 
@@ -69,7 +70,8 @@ const ManageSubjects = () => {
     };
 
     return (
-        <div className='subject-form'>
+        // <div className='subject-form'>
+        <div className='container-manageSubjects'>
             <div>
                 <h2>Registro de Materia</h2>
                 <label htmlFor='subjectName'>Nombre de la Materia:</label>

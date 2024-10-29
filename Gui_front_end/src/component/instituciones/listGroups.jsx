@@ -203,7 +203,7 @@ function ListGroups() {
   }
 
   return (
-    <div className="container_list">
+    <div className="container_list-groups">
       <h1>Grupos</h1>
       <div className="students">
         {groups.length > 0 ? (

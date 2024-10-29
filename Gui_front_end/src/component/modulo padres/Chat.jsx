@@ -527,7 +527,6 @@ const Chat = () => {
     if (token) {
       try {
         const decodedToken = jwtDecode(token);
-        console.log(decodedToken.student_);
                 
         const institutionIdFromToken = decodedToken.info.institution;
 

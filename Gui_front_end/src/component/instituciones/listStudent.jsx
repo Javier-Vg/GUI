@@ -171,7 +171,7 @@ function ListStudents() {
     return <div>Error: {error}</div>;
   }
   return (
-    <div className="container_list">
+    <div className="container_list-students">
       <h1>Estudiantes</h1>
       <div className="students">
         {students.length > 0 ? (

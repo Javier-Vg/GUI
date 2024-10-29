@@ -32,12 +32,9 @@ class ScheduleViewSet(viewsets.ModelViewSet):
     def update(self, request, pk=None):
         try:
             schedule_instance = schedule.objects.get(pk=pk)
-            schedule_instance = schedule.objects.get(pk=pk)
         except schedule.DoesNotExist:
             return Response({"error": "Schedule not found"}, status=status.HTTP_404_NOT_FOUND)
 
-        serializer = self.get_serializer(schedule_instance, data=request.data)
-            return Response({"error": "Schedule not found"}, status=status.HTTP_404_NOT_FOUND)
 
         serializer = self.get_serializer(schedule_instance, data=request.data)
         if serializer.is_valid():

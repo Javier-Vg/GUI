@@ -19,6 +19,7 @@ import Cookies from 'js-cookie';
 import { jwtDecode } from "jwt-decode";
 import Eventos from "./Eventos";
 import ListaEventos from "../moduloProfesor/listaEventos";
+import '../../css/Institutions/HomeInstitutionsForm.css'
 
 function HomeInstitutionsForm() {
   const [changeComponent, setChangeComponent] = useState("");
@@ -76,11 +77,11 @@ function HomeInstitutionsForm() {
      
 
       <nav className="navbar">
-        <button id="open-close" onClick={toggleAside}>
-          <span id="open-close">
+        {/* <button id="open-close" onClick={toggleAside}> */}
+          <span id="open-close" onClick={toggleAside}>
             <i className="bx bx-menu">≡</i>
           </span>
-        </button>
+        {/* </button> */}
         <div className="right-section">
           <input type="text" placeholder="Buscar..." onChange={handleSearch} />
           <h2>{NameInstitution}</h2>
@@ -193,11 +194,6 @@ function HomeInstitutionsForm() {
               </div>
               
               <hr />
-
-             
-
-
-
               <div
                 onClick={() => setChangeComponent("profesor")}
                 className="inputBoton"
@@ -314,8 +310,7 @@ function HomeInstitutionsForm() {
         />
       </aside>
 
-      <div className="div-components">
-        <div className="div-components">
+      <div className="div_components_institutions">
           {changeComponent === "crear personal" && <CreateStaff />}
           {changeComponent === "crear estudiante" && <CreateStudent />}
           {changeComponent === "Crear Grupo" && <CreateGroup />}
@@ -330,7 +325,6 @@ function HomeInstitutionsForm() {
           {changeComponent === "teacherGrupos" && <GroupsTeacher />}
           {changeComponent === "teacherNotas" && <GradesTeacher />}
           {changeComponent === "ChatEstudiante" && <ChatProfesor />}
-        </div>
       </div>
     </div>
   );

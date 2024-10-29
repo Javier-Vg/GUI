@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { PostEvento } from "../../service/LoginGui";
 import { jwtDecode } from "jwt-decode";
 import Cookies from 'js-cookie';
+import '../../css/Institutions/Eventos.css'
 
 function Eventos() {
   const [eventName, setEventName] = useState('');
@@ -60,7 +61,6 @@ function Eventos() {
     try {
       const response = await PostEvento(eventData);
       setSuccess("Event created successfully!");
-      console.log("Response from backend:", response);
     } catch (err) {
       setError("Failed to create event.");
       console.error("Error:", err);
@@ -70,7 +70,8 @@ function Eventos() {
   };
 
   return (
-    <form onSubmit={handleSubmit}>
+    <div className='container-events'>
+        <form onSubmit={handleSubmit}>
       <div>
         <label>Event Name</label>
         <input
@@ -111,6 +112,7 @@ function Eventos() {
       {error && <p style={{ color: 'red' }}>{error}</p>}
       {success && <p style={{ color: 'green' }}>{success}</p>}
     </form>
+    </div>
   );
 }
 

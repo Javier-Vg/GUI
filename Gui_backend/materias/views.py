@@ -8,6 +8,7 @@ class SubjectsViewSet(viewsets.ModelViewSet):
     queryset = subjects.objects.all()
     serializer_class = Subjects_Serializer
     permission_classes = [IsAuthenticated]
+    
     #Institutions
     def create(self, request):
         name = request.data.get('name')
@@ -33,28 +34,12 @@ class SubjectsViewSet(viewsets.ModelViewSet):
         return Response(serializer.data, status=status.HTTP_200_OK)
 
     #Institutions y GUi
-    
-    #Los 4
-    def retrieve(self, request, pk=None):
-        try:
-            subject = self.get_object()
-        except subjects.DoesNotExist:
-            return Response({"error": "Subject not found"}, status=status.HTTP_404_NOT_FOUND)
-        
-        serializer = self.get_serializer(subject)
-        return Response(serializer.data, status=status.HTTP_200_OK)
-
-    #Institutions y GUi
     def update(self, request, pk=None):
         try:
             subject = subjects.objects.get(pk=pk)
-            subject = subjects.objects.get(pk=pk)
         except subjects.DoesNotExist:
             return Response({"error": "Subject not found"}, status=status.HTTP_404_NOT_FOUND)
-
-        serializer = self.get_serializer(subject, data=request.data)
-            return Response({"error": "Subject not found"}, status=status.HTTP_404_NOT_FOUND)
-
+        
         serializer = self.get_serializer(subject, data=request.data)
         if serializer.is_valid():
             serializer.save()

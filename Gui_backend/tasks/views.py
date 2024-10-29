@@ -34,9 +34,6 @@ class TasksViewSet(viewsets.ModelViewSet):
             return Response({"error": "Task not found"}, status=status.HTTP_404_NOT_FOUND)
 
         serializer = self.get_serializer(task_instance, data=request.data)
-            return Response({"error": "Task not found"}, status=status.HTTP_404_NOT_FOUND)
-
-        serializer = self.get_serializer(task_instance, data=request.data)
         if serializer.is_valid():
             serializer.save()
             return Response(serializer.data, status=status.HTTP_200_OK)

@@ -30,12 +30,9 @@ class EventsViewSet(viewsets.ModelViewSet):
     def update(self, request, pk=None):
         try:
             event = events.objects.get(pk=pk)
-            event = events.objects.get(pk=pk)
         except events.DoesNotExist:
             return Response({"error": "Event not found"}, status=status.HTTP_404_NOT_FOUND)
-            return Response({"error": "Event not found"}, status=status.HTTP_404_NOT_FOUND)
-        
-        serializer = self.get_serializer(event, data=request.data)
+    
         serializer = self.get_serializer(event, data=request.data)
         if serializer.is_valid():
             serializer.save()

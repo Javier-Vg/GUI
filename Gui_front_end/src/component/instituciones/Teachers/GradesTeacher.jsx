@@ -5,7 +5,8 @@ import { fetchGroups } from "../../../Redux/Slices/SliceGroup";
 import { fetchAssignmentGroup } from "../../../Redux/Slices/sliceAssignmentGroup";
 import { useDispatch, useSelector } from "react-redux";
 import { fetchGrades } from "../../../Redux/Slices/SliceGrades";
-import "../../../css/grades_teacher.css";
+// import "../../../css/grades_teacher.css";
+import '../../../css/Institutions/teachers/GradesTeacher.css'
 import Cookies from 'js-cookie';
 import { jwtDecode } from "jwt-decode";
 
@@ -71,8 +72,8 @@ function GradesTeacher() {
        try {
          // Desencriptar el token
          const decodedToken = jwtDecode(token);
-         setIdTeacher(decodedToken.ID)
-         setNameTeacher(decodedToken.Name)
+         setIdTeacher(decodedToken.info.id)
+         setNameTeacher(decodedToken.info.username)
          
        } catch (error) {
          console.error('Error al decodificar el token', error);
@@ -173,7 +174,9 @@ function GradesTeacher() {
 
   return (
     <>
-    <div className="tres-div">
+    {/* <div className="tres-div"> */}
+    <div className="container-grades-teacher">
+
       <div>
         <h2>Gestion de notas.</h2>
       </div>

@@ -1,11 +1,16 @@
 /* Estilos principales */
 .event-container {
     padding: 20px;
-    background-color: #00ccff; /* Color de fondo principal */
+    background-color: #00ccff; 
     color: white;
     font-family: Arial, sans-serif;
     max-width: 1200px;
     margin: auto;
+    /* height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column; */
   }
   
   .event-title {

@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { postGroups } from "../../service/LoginGui";
-import "../../css/create_group.css";
+// import "../../css/create_group.css";
+import '../../css/Institutions/CreateGroup.css'
 import { useDispatch, useSelector } from 'react-redux';
 import { fetchSubjects } from '../../Redux/Slices/SliceSubjects';
 import { fetchInstitution } from '../../Redux/Slices/SliceInstitution';
@@ -118,7 +119,7 @@ const Post = () => {
 
   return (
     
-    <div className="div-core">
+    <div className="container-CreateGroup">
       <h2>Creacion de grupos</h2>
       <br />
       <form action="" className="form1">

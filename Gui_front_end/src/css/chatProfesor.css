@@ -99,11 +99,11 @@ button:hover, .send-button:hover {
 } */
 
 /* Burbuja de estudiante */
-/* .chat-bubbles-container {
+.chat-bubbles-container {
     display: flex;
     flex-wrap: wrap;
     gap: 10px;
-} */
+}
 /* 
 .student-bubble {
     display: flex;

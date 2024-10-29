@@ -282,6 +282,7 @@ export const postStudents = async (
   estadoAcademico,
   telefono,
   email,
+  imageUrl,
   alergias,
   guardianTelefono,
   nameGuardian,
@@ -289,7 +290,11 @@ export const postStudents = async (
   password,
   institution_id
 ) => {
+  
   try {
+   
+    
+    
     const token = getTokenFromCookie(); // Obtener el token de la cookie
 
     const response = await axios.post(
@@ -313,8 +318,11 @@ export const postStudents = async (
       },
       {
         headers: {
+          "Content-Type": "application/json",
           Authorization: `Bearer ${token}`, // Agregar el token a los headers
         },
+        withCredentials: true,
+        
       }
     );
 
@@ -349,13 +357,12 @@ export const postSubjects = async (subject, institution) => {
   try {
     const response = await axios.post(
       `http://${domain}:8000/api/subjects/subjects/`, // Asegúrate de que esta sea la URL correcta de tu API
-      subject,
-      institution,
+       subject, institution ,
       {
         headers: {
-          "Content-Type": "application/json",
           Authorization: `Bearer ${token}`, // Añade el token en los encabezados
         },
+        withCredentials: true, // Si necesita enviar cookies con la solicitud
       }
     );
     return response.data; // Retornar la respuesta de la API si se requiere
@@ -588,5 +595,37 @@ export const postStudentAssistence = async (grade) => {
   } catch (error) {
     console.error("Error haciendo la solicitud asistencia estudiantes:", error.response?.data || error);
     throw error;
+  }
+};
+
+export const PostEvento = async (eventData) => {
+  const token = getTokenFromCookie(); // Obtener el token de la cookie
+  
+  try {
+    const response = await axios.post(`http://${domain}:8000/api/events/events/`, eventData,{
+      headers: {
+        'Content-Type': 'application/json',
+        'Authorization': `Bearer ${token}` // Agregar el token de autenticación
+      },
+    });
+    return response.data;
+  } catch (error) {
+    console.error("Error posting event data: ", error);
+    throw error;
+  }
+};
+export const GetEventos = async (institutionId) => {
+  const token = getTokenFromCookie(); // Obtener el token de la cookie
+  try {
+    const response = await axios.get(`http://${domain}:8000/api/events/events/`,institutionId,{
+      headers: {
+        'Content-Type': 'application/json',
+        'Authorization': `Bearer ${token}` // Agregar el token de autenticación
+      },
+    });
+    return response.data; // Devuelve los datos de los eventos filtrados por institutionId
+  } catch (error) {
+    console.error("Error fetching event data: ", error);
+    throw error; // Lanza el error para que pueda ser manejado donde se llame
   }
 };

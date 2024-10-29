@@ -33,12 +33,9 @@ class GroupAssignmentViewSet(viewsets.ModelViewSet):
     def update(self, request, pk=None):
         try:
             assignment = group_assignment.objects.get(pk=pk)
-            assignment = group_assignment.objects.get(pk=pk)
         except group_assignment.DoesNotExist:
             return Response({"error": "Assignment not found"}, status=status.HTTP_404_NOT_FOUND)
-            return Response({"error": "Assignment not found"}, status=status.HTTP_404_NOT_FOUND)
         
-        serializer = self.get_serializer(assignment, data=request.data)
         serializer = self.get_serializer(assignment, data=request.data)
         if serializer.is_valid():
             serializer.save()
@@ -47,13 +44,9 @@ class GroupAssignmentViewSet(viewsets.ModelViewSet):
 
         #profesor, institution y gui
     def destroy(self, request, pk=None):
-
-        #profesor, institution y gui
-    def destroy(self, request, pk=None):
         try:
             assignment = group_assignment.objects.get(pk=pk)
             assignment.delete()
-            return Response({"message": "Assignment deleted successfully"}, status=status.HTTP_204_NO_CONTENT)
             return Response({"message": "Assignment deleted successfully"}, status=status.HTTP_204_NO_CONTENT)
         except group_assignment.DoesNotExist:
             return Response({"error": "Assignment not found"}, status=status.HTTP_404_NOT_FOUND)

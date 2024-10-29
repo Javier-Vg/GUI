@@ -28,13 +28,9 @@ class StudentAssistanceViewSet(viewsets.ModelViewSet):
     def update(self, request, pk=None):
         try:
             assistance_instance = student_assistance.objects.get(pk=pk)
-            assistance_instance = student_assistance.objects.get(pk=pk)
         except student_assistance.DoesNotExist:
             return Response({"error": "Assistance record not found"}, status=status.HTTP_404_NOT_FOUND)
-
-        serializer = self.get_serializer(assistance_instance, data=request.data)
-            return Response({"error": "Assistance record not found"}, status=status.HTTP_404_NOT_FOUND)
-
+        
         serializer = self.get_serializer(assistance_instance, data=request.data)
         if serializer.is_valid():
             serializer.save()
