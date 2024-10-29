@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from 'react';
-import '../../css/grades_student_result.css';
 import { fetchStudent } from '../../Redux/Slices/SliceStudent';
 import { fetchGrades } from '../../Redux/Slices/SliceGrades';
 import { useSelector, useDispatch } from "react-redux";

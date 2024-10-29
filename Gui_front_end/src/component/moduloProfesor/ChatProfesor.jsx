@@ -502,7 +502,7 @@
 
 import React, { useState, useEffect } from "react";
 import { getStudents, getMessages, sendMessage } from "../../service/LoginGui"; // Ajusta la ruta si es necesario
-import "../../css/ChatProfesor.css";
+
 import Cookies from "js-cookie";
 import { jwtDecode } from "jwt-decode";
 import { useSelector } from "react-redux";

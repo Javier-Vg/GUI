@@ -1,7 +1,6 @@
 import React, { useState } from 'react';
 import ExpedienteAlumno from '../modulo padres/ExpedienteAlumno';
 import Notas from './Notas';
-import '../../css/home_institution.css';
 import ChatProfesor from './chatProfesor';
 
 function HomeProfesorFunc() {

@@ -51,3 +51,5 @@ npm install recharts
 
 pagos:
 pip install python-stripe
+
+pip install sib-api-v3-sdk

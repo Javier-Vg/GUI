@@ -1,7 +1,6 @@
 import React, { useState } from "react";
 import { clientId } from '../../keys/keys.js'; // Asegúrate de tener el clientId configurado
 import { postInstitutions } from "../../service/LoginGui"; // Asegúrate de que esta función maneje la subida de datos
-import '../../css/Register_institutions.css'
 const domain = window.location.hostname 
 function Institucion_register() {
   
@@ -42,7 +41,7 @@ function Institucion_register() {
   };
 
   return (
-    <div className="registration-form">
+    <div className="container-register-institutions">
       <div className="img_circle">
         {file && <img className="image-previsualizacion" src={URL.createObjectURL(file)} alt="Previsualización" />}
       </div>

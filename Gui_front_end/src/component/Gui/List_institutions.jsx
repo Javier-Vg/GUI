@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from 'react';
 import { getInstitutions, updateInstitutions } from '../../service/LoginGui';
-import "../../css/Gui_list_institutions.css";
 
 function ListInstitutions() { 
     const [instituciones, setInstituciones] = useState([]);

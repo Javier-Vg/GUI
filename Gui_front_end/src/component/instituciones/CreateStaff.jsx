@@ -273,7 +273,6 @@ import { fetchSchedule } from '../../Redux/Slices/SliceSchedule';
 import { setID } from '../../Redux/Slices/SliceInstitution';
 import { useDispatch, useSelector } from 'react-redux';
 // import '../../css/create_staff.css';
-import '../../css/Institutions/CreateStaff.css'
 import Cookies from 'js-cookie';
 import { jwtDecode } from "jwt-decode";
 const domain = window.location.hostname;
