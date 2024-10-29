@@ -6,7 +6,6 @@ import { useNavigate } from "react-router-dom";
 import LoginProfesor from "./LoginProfesor";
 import LoginPadres from "./LoginPadres";
 import React, { useState } from "react";
-import "../../css/Eleccion_login.css";
 import axios from "axios";
 import Cookies from 'js-cookie';
 import { jwtDecode } from "jwt-decode";

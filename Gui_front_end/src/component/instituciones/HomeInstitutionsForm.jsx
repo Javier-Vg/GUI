@@ -12,14 +12,13 @@ import GradesTeacher from "./Teachers/GradesTeacher";
 import ManageSubjects from "./manageSubjects"; // Ajusta la ruta según sea necesario
 import { useSelector, useDispatch } from "react-redux";
 import { setSearchTerm } from "../../Redux/Slices/searchSlice";
-import "../../css/home_institution.css";
 import { useNavigate } from "react-router-dom";
 import ChatProfesor from "../moduloProfesor/ChatProfesor";
 import Cookies from 'js-cookie';
 import { jwtDecode } from "jwt-decode";
 import Eventos from "./Eventos";
 import ListaEventos from "../moduloProfesor/listaEventos";
-import '../../css/Institutions/HomeInstitutionsForm.css'
+
 
 function HomeInstitutionsForm() {
   const [changeComponent, setChangeComponent] = useState("");

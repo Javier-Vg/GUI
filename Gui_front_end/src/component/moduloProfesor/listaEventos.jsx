@@ -3,7 +3,6 @@ import Cookies from 'js-cookie';
 import { jwtDecode } from "jwt-decode"; // jwtDecode no necesita destructuración
 import { GetEventos } from '../../service/LoginGui'; 
 
-import '../../css/ListEventos.css' // Importar el archivo CSS
 
 function ListaEventos() {
   const [institutionId, setInstitutionId] = useState(null);
