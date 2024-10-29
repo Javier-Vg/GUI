@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { useDispatch } from 'react-redux';
 import { setUsername, setPassword } from '../../Redux/Slices/SliceLogin'; // Importa las acciones desde el slice
+// import '../../css/Login_and_Register/LoginFormGui.css'
 
 function LoginFormGui() {
   const [username, setUsernameInput] = useState('');
