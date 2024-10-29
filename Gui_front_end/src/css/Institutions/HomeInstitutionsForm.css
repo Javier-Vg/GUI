@@ -4,9 +4,10 @@
     overflow: hidden;
     /* color: white !important; */
 }
-.div_components_institutions{
+/* .div_components_institutions{
     height: 100vh;
-}
+    background-color: blue;
+} */
 .navbar {
     display: flex;
     justify-content: space-between;

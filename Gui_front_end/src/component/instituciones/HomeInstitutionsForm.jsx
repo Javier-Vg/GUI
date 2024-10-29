@@ -14,7 +14,7 @@ import { useSelector, useDispatch } from "react-redux";
 import { setSearchTerm } from "../../Redux/Slices/searchSlice";
 import "../../css/home_institution.css";
 import { useNavigate } from "react-router-dom";
-import ChatProfesor from "../moduloProfesor/chatProfesor";
+import ChatProfesor from "../moduloProfesor/ChatProfesor";
 import Cookies from 'js-cookie';
 import { jwtDecode } from "jwt-decode";
 import Eventos from "./Eventos";
