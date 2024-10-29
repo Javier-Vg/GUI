@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import ExpedienteAlumno from "./ExpedienteAlumno";
 import Chat from "./Chat";
 import CalificacionesEstudiante from "./CalificacionesEstudiante";
+import "../../css/Institutions/HomeInstitutionsForm.css";
 import { useSelector, useDispatch } from "react-redux";
 import ListaEventos from "../moduloProfesor/listaEventos";
 

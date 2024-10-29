@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import ExpedienteAlumno from '../modulo padres/ExpedienteAlumno';
 import Notas from './Notas';
-import ChatProfesor from './chatProfesor';
+import ChatProfesor from './ChatProfesor';
 
 function HomeProfesorFunc() {
     const [changeComponent, setChangeComponent] = useState('');

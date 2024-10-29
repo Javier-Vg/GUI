@@ -18,6 +18,7 @@ import Cookies from 'js-cookie';
 import { jwtDecode } from "jwt-decode";
 import Eventos from "./Eventos";
 import ListaEventos from "../moduloProfesor/listaEventos";
+import '../../css/Institutions/HomeInstitutionsForm.css'
 
 
 function HomeInstitutionsForm() {
