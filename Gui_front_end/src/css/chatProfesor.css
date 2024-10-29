@@ -1,16 +1,21 @@
-.chat-container, .div-components {
+
+.div-profesor-messeges {
     display: flex;
     flex-direction: column;
     justify-content: space-between;
     width: 100%;
-    max-width: 600px;
+    /* max-width: 600px; */
     margin: 0 auto;
-    padding: 16px;
+    /* padding: 16px; */
     background-color: #f9f9f9;
     border: 1px solid #ddd;
     border-radius: 8px;
     box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+    margin-top: 20rem;
+    height: 100vh;
+    background-color: red;
 }
+
 
 .header {
     font-size: 20px;
@@ -18,20 +23,6 @@
     margin-bottom: 16px;
     text-align: center;
 }
-
-Selector de estudiante
-.student-selector {
-    padding: 10px;
-    background-color: #fff;
-    border-bottom: 1px solid #ddd;
-    margin-bottom: 16px;
-}  
-.student-selector select {
-    width: 100%;
-    padding: 10px;
-    border: 1px solid #ddd;
-    border-radius: 5px;
- } 
 
 .message-input, .textarea {
     flex-grow: 1;
@@ -43,7 +34,7 @@ Selector de estudiante
     min-height: 60px;
 }
 
-button, .send-button {
+.send-button {
     margin-top: 8px;
     padding: 8px 16px;
     background-color: #0a40bd;
@@ -54,7 +45,7 @@ button, .send-button {
     transition: background 0.3s ease;
 }
 
-button:hover, .send-button:hover {
+.send-button:hover {
     background-color: #0056b3;
 }
 
@@ -92,7 +83,7 @@ button:hover, .send-button:hover {
     background-color: #ffffff;
     color: #0a40bd;
     align-self: flex-start;
-    border: 1px solid #0a40bd;
+    border : 5px solid #0a40bd;
 } 
 
 /* Burbuja de estudiante */
@@ -100,6 +91,7 @@ button:hover, .send-button:hover {
     display: flex;
     flex-wrap: wrap;
     gap: 10px;
+    border-bottom: #0056b3 solid 1px;
 }
 /* 
 .student-bubble {
