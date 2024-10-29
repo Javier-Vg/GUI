@@ -8,20 +8,40 @@ import jwt
 from django.contrib.auth.hashers import check_password
 from datetime import datetime, timedelta
 from Api.Key import KeyJWT
-
-# from permissions import IsAuthenticatedWithCookie
+from users.serializers import UserCreateSerializer
+from rest_framework.permissions import IsAuthenticated, AllowAny
 
 class StudentsViewSet(viewsets.ModelViewSet):
     queryset = students.objects.all()
     serializer_class = Students_Serializer
-    # permission_classes = [IsAuthenticatedWithCookie]
-    #Institutions y Gui
+    permission_classes = [IsAuthenticated]  # Permitir acceso solo si estás autenticado
+
     def create(self, request):
-        serializer = self.get_serializer(data=request.data)
-        if serializer.is_valid():
-            serializer.save()
-            return Response(serializer.data, status=status.HTTP_201_CREATED)
-        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+        # Primero, obtener los datos necesarios para crear el usuario
+        user_data = {
+            'username': request.data.get('username'),
+            'email': request.data.get('email'),
+            'password': request.data.get('password'),
+            'is_staff': False,
+            'is_student': True,
+        }
+
+        # Crear el usuario
+        user_serializer = UserCreateSerializer(data=user_data)
+        
+        # Verificamos que el serializador del usuario es válido
+        user_serializer.is_valid(raise_exception=True)
+        user = user_serializer.save()  # Guardamos el usuario y obtenemos la instancia
+
+        # Ahora creamos el estudiante
+        student_data = request.data.copy()  # Copiamos los datos del request para incluir el usuario
+        student_data['user'] = user.id  # Asociamos el usuario creado al estudiante
+
+        serializer = self.get_serializer(data=student_data)
+        serializer.is_valid(raise_exception=True)
+        serializer.save()  # Guardamos el estudiante
+
+        return Response(serializer.data, status=status.HTTP_201_CREATED)
 
 #los 4
     def retrieve(self, request, pk=None):
@@ -36,6 +56,7 @@ class StudentsViewSet(viewsets.ModelViewSet):
 #Institutions y GUi
     def update(self, request, pk=None):
         try:
+            student_instance = students.objects.get(pk=pk)
             student_instance = students.objects.get(pk=pk)
         except students.DoesNotExist:
             return Response({"error": "Student not found"}, status=status.HTTP_404_NOT_FOUND)
@@ -54,6 +75,25 @@ class StudentsViewSet(viewsets.ModelViewSet):
             return Response({"message": "Student deleted successfully"}, status=status.HTTP_204_NO_CONTENT)
         except students.DoesNotExist:
             return Response({"error": "Student not found"}, status=status.HTTP_404_NOT_FOUND)
+
+from .serializers import StudentLoginSerializer
+
+@api_view(['POST'])
+def LoginView(request):
+    serializer = StudentLoginSerializer(data=request.data)
+    
+    if serializer.is_valid():
+        return Response(serializer.validated_data)
+    else:
+        return Response(serializer.errors, status=400)
+    
+    
+    
+    
+    
+    
+    
+    
     # queryset = students.objects.all()
     # serializer_class = Students_Serializer
 
@@ -68,17 +108,10 @@ class StudentsViewSet(viewsets.ModelViewSet):
     #         serializer.save()
     #         return Response(serializer.data, status=status.HTTP_200_OK)
     #     return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
-
-from .serializers import StudentLoginSerializer
-
-@api_view(['POST'])
-def LoginView(request):
-    serializer = StudentLoginSerializer(data=request.data)
     
-    if serializer.is_valid():
-        return Response(serializer.validated_data)
-    else:
-        return Response(serializer.errors, status=400)
+    
+    
+    
 # @api_view(['POST'])
 # def LoginView(request):
 #     username = request.data.get('username')

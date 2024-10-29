@@ -11,6 +11,7 @@ import "../../css/list_group.css";
 import Cookies from 'js-cookie';
 import { jwtDecode } from "jwt-decode";
  
+ 
 
 function ListGroups() {
   const [groups, setGroups] = useState([]);
@@ -37,8 +38,7 @@ function ListGroups() {
       try {
         // Desencriptar el token
         const decodedToken = jwtDecode(token);
-        const institutionIdFromToken = decodedToken.institution
-        ; 
+        const institutionIdFromToken = decodedToken.info.institution; 
         setInstitutionId(institutionIdFromToken);
       } catch (error) {
         console.error('Error al decodificar el token', error);
@@ -203,7 +203,7 @@ function ListGroups() {
   }
 
   return (
-    <div className="container_list">
+    <div className="container_list-groups">
       <h1>Grupos</h1>
       <div className="students">
         {groups.length > 0 ? (

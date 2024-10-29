@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { postGroups } from "../../service/LoginGui";
-import "../../css/create_group.css";
+// import "../../css/create_group.css";
+import '../../css/Institutions/CreateGroup.css'
 import { useDispatch, useSelector } from 'react-redux';
 import { fetchSubjects } from '../../Redux/Slices/SliceSubjects';
 import { fetchInstitution } from '../../Redux/Slices/SliceInstitution';
@@ -35,7 +36,7 @@ function CreateGroup() {
         // Desencriptar el token
         const decodedToken = jwtDecode(token);
       
-        const institutionIdFromToken = decodedToken.institution;
+        const institutionIdFromToken = decodedToken.info.institution;
         setInstitutionId(institutionIdFromToken);
       } catch (error) {
         console.error('Error al decodificar el token', error);
@@ -60,8 +61,8 @@ function CreateGroup() {
       }
     });
 
-     //Filtra los estudiantes:
-     itemsStaff.forEach((i) => {
+    //Filtra los estudiantes:
+    itemsStaff.forEach((i) => {
       if (i.position == "Teacher" && institution_id == i.institution) { //MOSTRAR MENSAJE EN CASO DE QUE NO EXISTA PROFESOR DE ESA INSTITUCION. 
         setTeachersFiltred((prevTeachersFiltred) => [...prevTeachersFiltred,i,]);
       }
@@ -71,6 +72,7 @@ function CreateGroup() {
   const changeCommunication_of_subjects_and_teacher = (e) => {
     setObjctChosen([...objctChosen, e.target.value]);
   };
+ 
  
 const Post = () => {
   const group = {
@@ -117,7 +119,7 @@ const Post = () => {
 
   return (
     
-    <div className="div-core">
+    <div className="container-CreateGroup">
       <h2>Creacion de grupos</h2>
       <br />
       <form action="" className="form1">

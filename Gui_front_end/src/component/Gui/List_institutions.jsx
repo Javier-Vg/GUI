@@ -73,7 +73,7 @@ function ListInstitutions() {
                             <img className='Logo_Institution' src={item.imagen_url} alt="No found" onError={() => console.log("Image failed to load:", item.imagen_url)} />
                         </div>
                         <div className='institution_inf'>
-                            <h6>{item.name}</h6>
+                            <h6>{item.username}</h6>
                             <input onClick={() => openModal(item)} type="button" value="Ver más" />
                         </div>   
                     </div>
@@ -92,7 +92,7 @@ function ListInstitutions() {
                             <input 
                                 type="text" 
                                 name="name" 
-                                value={editingInstitution.name} 
+                                value={editingInstitution.username} 
                                 onChange={handleInputChange} 
                             />
                         </div>

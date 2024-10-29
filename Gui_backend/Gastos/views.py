@@ -3,15 +3,12 @@ from .models import Gasto
 from .serializers import GastosSerializer
 from rest_framework import viewsets, status
 from rest_framework.response import Response
-# Create your views here.
-# from permissions import IsAuthenticatedWithCookieDirectors, IsAuthenticatedWithCookieStaff,IsAuthenticatedWithCookieGui
-
-# from permissions import IsAuthenticatedWithCookie
+from rest_framework.permissions import IsAuthenticated, AllowAny
 class GastoCreateView(viewsets.ModelViewSet):
     queryset = Gasto.objects.all()
     serializer_class = GastosSerializer
-    # permission_classes = [IsAuthenticatedWithCookie]
-    #Admin Institution, Gui
+    permission_classes = [IsAuthenticated]
+    
     def retrieve(self, request, pk=None):
         try:
             gasto = Gasto.objects.get(pk=pk)

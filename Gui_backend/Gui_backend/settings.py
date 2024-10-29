@@ -11,7 +11,7 @@ https://docs.djangoproject.com/en/5.1/ref/settings/
 """
 
 from pathlib import Path
-# import timedelta
+from datetime import timedelta
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -26,8 +26,9 @@ SECRET_KEY = 'django-insecure--)w=hwu666smegfn6!7*9v=phhg9c5^*go-i$7x2b56o^&!6xk
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['localhost', '127.0.0.1', 'Gui_front_end', '192.168.100.42', '192.168.100.44','192.168.100.47', '192.168.100.13',"192.168.0.10","172.20.10.2",'192.168.1.119','192.168.0.3']
+ALLOWED_HOSTS = ['localhost', '127.0.0.1', 'Gui_front_end', '192.168.100.42', '192.168.100.44','192.168.100.47', '192.168.100.13',"192.168.0.10","172.20.10.2",'192.168.1.119','192.168.100.39']
 CORS_ALLOWED_ORIGINS = [
+    #Frontend
     "http://localhost:5173",
     "http://127.0.0.1:5173",
     "http://Gui_front_end:5173",
@@ -38,11 +39,32 @@ CORS_ALLOWED_ORIGINS = [
     "http://192.168.0.15:5173",
     "http://172.20.10.2:5173",
     "http://192.168.1.119:5173",
-    "http://192.168.0.3:5173"
+    
+    
+    #Backend
+    "http://192.168.100.42:8000",
 ]
 
 #La que termina en 13 es la de la otra compu 
 # Application definition
+CORS_ORIGIN_WHITELIST = [
+ "http://localhost:5173",
+    "http://127.0.0.1:5173",
+    "http://Gui_front_end:5173",
+    "http://192.168.100.42:5173",
+    "http://192.168.100.44:5173",
+    "http://192.168.100.47:5173",
+    "http://192.168.100.13:5173",
+    "http://192.168.0.15:5173",
+    "http://172.20.10.2:5173",
+    "http://192.168.1.119:5173",
+    
+    
+    #Backend
+    "http://192.168.100.42:8000",
+    "http://192.168.100.39:8000",
+    
+]
 
 INSTALLED_APPS = [
     'django.contrib.admin',
@@ -74,10 +96,13 @@ INSTALLED_APPS = [
     'group_assignment',
     'rest_framework.authtoken',
     'rest_framework_simplejwt',
-    'contact'
+    'contact',
+    'users',
+    'products'
     
 ] # nombre de las apps
-
+CORS_ALLOW_ALL_ORIGINS = True
+CORS_ALLOW_CREDENTIALS = True
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
@@ -95,7 +120,7 @@ ROOT_URLCONF = 'Gui_backend.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [],
+        'DIRS': [BASE_DIR / 'templates'], #template de pasarela de pagos
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -144,7 +169,6 @@ AUTH_PASSWORD_VALIDATORS = [
     },
 ]
 
-
 # Internationalization
 # https://docs.djangoproject.com/en/5.1/topics/i18n/
 
@@ -156,7 +180,6 @@ USE_I18N = True
 
 USE_TZ = True
 
-
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/5.1/howto/static-files/
 
@@ -166,26 +189,51 @@ STATIC_URL = 'static/'
 # https://docs.djangoproject.com/en/5.1/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
-REST_FRAMEWORK = {
-     "DEFAULT_AUTHENTICATION_CLASSES": [
-        'rest_framework_simplejwt.authentication.JWTAuthentication',  
-        # "rest_framework.authentication.BasicAuthentication",
-        # "rest_framework.authentication.TokenAuthentication",
-        # 'rest_framework.authentication.SessionAuthentication',
-
-        # 'rest_framework.renderers.JSONRenderer',  # Solo JSON 
-
-    ],
-  
-
-}
-
+# REST_FRAMEWORK = {
+#      "DEFAULT_AUTHENTICATION_CLASSES": [
+#         'rest_framework_simplejwt.authentication.JWTAuthentication',  # Clase de autenticación para JWT
+#         'rest_framework.permissions.IsAuthenticated',  # Permitir acceso a usuarios autenticados solo
+#     ],
+#     #  'DEFAULT_PERMISSION_CLASSES': [
+#     #     'rest_framework.permissions.AllowAny',  # Permitir acceso a cualquier persona por defecto
+#     # ]
+# }
+# REST_FRAMEWORK = {
+#     'DEFAULT_AUTHENTICATION_CLASSES': [
+#         'rest_framework_simplejwt.authentication.JWTAuthentication',  # O la clase que estés usando
+#     ],
+#     'DEFAULT_PERMISSION_CLASSES': [
+#         'rest_framework.permissions.IsAuthenticated',  # Cambia según tus necesidades
+#     ],
+# }
 AUTHENTICATION_BACKENDS = [
     'django.contrib.auth.backends.ModelBackend',  # Mantén el backend por defecto para compatibilidad
 ]
 
+AUTH_USER_MODEL = 'users.User'
 
+REST_FRAMEWORK = {
+    'DEFAULT_AUTHENTICATION_CLASSES': (
+        'rest_framework_simplejwt.authentication.JWTAuthentication',
+    ),
+}
+SIMPLE_JWT = {
+    'ACCESS_TOKEN_LIFETIME': timedelta(minutes=60), #esto lo cambia a como quiera
+    'REFRESH_TOKEN_LIFETIME': timedelta(days=7), #esto lo cambia a como quiera
+    'ROTATE_REFRESH_TOKENS': True,
+    'BLACKLIST_AFTER_ROTATION': True,
+    'AUTH_HEADER_TYPES': ('Bearer',),
+}
 #-------------------------IMGUR
 MEDIA_URL = '/media/'
 MEDIA_ROOT = BASE_DIR / 'media' #Las imágenes cargadas se guardarán en media/images/.
 # MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
+
+
+
+# Stripe
+# STRIPE_PUBLIC_KEY = ''
+# STRIPE_SECRET_KEY = ''
+# STRIPE_WEBHOOK_SECRET = ""
+STRIPE_KEY_PUBLIC = 'pk_test_51QF3qDP2zsq6W5ryVO2jaoTmHXHJbwuogR4O9FqwhUwadmsIrZZYdsvxu9rQJSGOBDd2Msp3kQJC4HiitRE5PM5L00hKGgqhEy'
+STRIPE_KEY_SECRET =  'sk_test_51QF3qDP2zsq6W5rywnA96uV1tYYDtp584qgsFyj1vPeEndAVDAYIlfgQkoSFG8rYzCdFBuOUZNDkMFwhQdIR3jim00hj79lHjV'

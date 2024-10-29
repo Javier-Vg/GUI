@@ -5,6 +5,8 @@ from .views import upload_image
 
 urlpatterns = [
     path('urlResponse/',upload_image, name='upload_image'),
+    path('users/',include("users.urls")),
+    path('email/',include("contact.urls")),
     path('post/', include(router_post.urls)),
     path('gui/', include("Gui.urls")),
     path('institutions/', include('Institucion.urls')), #Institucion.urls es el nombre del app
@@ -24,4 +26,5 @@ urlpatterns = [
     path('tasks/', include('tasks.urls')),
     path('gastos/', include('Gastos.urls')),
     path('group_assignment/', include('group_assignment.urls')),
+    # path('products/', include('products.urls')),
 ]

@@ -1,53 +1,55 @@
-import React, { useState,useEffect } from 'react';
-import {postGastos} from '../../service/LoginGui';
-import Cookies from 'js-cookie';
+import React, { useState, useEffect } from "react";
+import { postGastos } from "../../service/LoginGui";
+import Cookies from "js-cookie";
 import { jwtDecode } from "jwt-decode";
+import "../../css/Institutions/Gastos.css";
 function GastosGanancias() {
   const [estado, setEstado] = useState({
-    luz: '',
-    agua: '',
-    internet: '',
-    comida: '',
-    materialDidactico: '',
-    patentes: '',
-    deduccionCaja: '',
-    polizas: '',
-    uniformesCompradosCantidad: '',
-    uniformeCostoInstitucion: '',
-    uniformesRegalados: '',
-    fechaRegistro: '',
-    mensualidadNinosPrivados: '',
-    mensualidadNinosRedCuido: '',
+    luz: "",
+    agua: "",
+    internet: "",
+    comida: "",
+    materialDidactico: "",
+    patentes: "",
+    deduccionCaja: "",
+    polizas: "",
+    uniformesCompradosCantidad: "",
+    uniformeCostoInstitucion: "",
+    uniformesRegalados: "",
+    fechaRegistro: "",
+    mensualidadNinosPrivados: "",
+    mensualidadNinosRedCuido: "",
     TotalGanancia: 0,
     TotalGastos: 0,
     total: 0,
-    alquilerLocal: '',
+    alquilerLocal: "",
   });
 
   const [totalGastos, setTotalGastos] = useState(0);
   const [totalGanancias, setTotalGanancias] = useState(0);
   const [balance, setBalance] = useState(null);
   const [resultadosGastos, setResultadosGastos] = useState({});
-  const [institution_id, setInstitutionId] = useState(null); 
+  const [institution_id, setInstitutionId] = useState(null);
 
   const handleChange = (e) => {
     const { name, value } = e.target;
     setEstado((prev) => ({ ...prev, [name]: value }));
   };
   useEffect(() => {
-    const token = Cookies.get('AuthCookie'); 
+    const token = Cookies.get("AuthCookie");
 
     if (token) {
       try {
         // Desencriptar el token
-        const decodedToken = jwtDecode(token);    
-        const institutionIdFromToken = decodedToken.institution; 
+        const decodedToken = jwtDecode(token);
+        const institutionIdFromToken = decodedToken.info.institution;
         setInstitutionId(institutionIdFromToken);
       } catch (error) {
-        console.error('Error al decodificar el token', error);
+        console.error("Error al decodificar el token", error);
       }
     }
   }, []);
+
   const aplicarOperaciones = () => {
     const gastos = calcularGastos();
     const ganancias = calcularGanancias();
@@ -66,103 +68,203 @@ function GastosGanancias() {
       deduccionCaja: parseFloat(estado.deduccionCaja || 0),
       polizas: parseFloat(estado.polizas || 0),
       alquilerLocal: parseFloat(estado.alquilerLocal || 0),
-      uniformesComprados: parseFloat(estado.uniformesCompradosCantidad || 0) * parseFloat(estado.uniformeCostoInstitucion || 0),
-      uniformesRegalados: parseFloat(estado.uniformesRegalados || 0) * parseFloat(estado.uniformeCostoInstitucion || 0),
+      uniformesComprados:
+        parseFloat(estado.uniformesCompradosCantidad || 0) *
+        parseFloat(estado.uniformeCostoInstitucion || 0),
+      uniformesRegalados:
+        parseFloat(estado.uniformesRegalados || 0) *
+        parseFloat(estado.uniformeCostoInstitucion || 0),
     };
 
     const total = Object.values(gastos).reduce((acc, curr) => acc + curr, 0);
     setTotalGastos(total);
-    setEstado((prev) => ({ ...prev, TotalGastos: total }));  // Guardar el total de gastos
+    setEstado((prev) => ({ ...prev, TotalGastos: total })); // Guardar el total de gastos
     return { ...gastos, total };
   };
 
   const calcularGanancias = () => {
     const ingresosPrivados = parseFloat(estado.mensualidadNinosPrivados || 0);
     const ingresosRedCuido = parseFloat(estado.mensualidadNinosRedCuido || 0);
-    const ingresosUniformesComprados = parseFloat(estado.uniformesCompradosCantidad || 0) * parseFloat(estado.uniformeCostoInstitucion || 0);
+    const ingresosUniformesComprados =
+      parseFloat(estado.uniformesCompradosCantidad || 0) *
+      parseFloat(estado.uniformeCostoInstitucion || 0);
 
-    const total = ingresosPrivados + ingresosRedCuido + ingresosUniformesComprados;
+    const total =
+      ingresosPrivados + ingresosRedCuido + ingresosUniformesComprados;
     setTotalGanancias(total);
-    setEstado((prev) => ({ ...prev, TotalGanancia: total }));  // Guardar las ganancias
+    setEstado((prev) => ({ ...prev, TotalGanancia: total })); // Guardar las ganancias
     return total;
   };
 
   const calcularBalance = (ganancias, gastosTotal) => {
     const resultado = ganancias - gastosTotal;
     setBalance(resultado);
-    setEstado((prev) => ({ ...prev, balance: resultado }));  // Guardar el balance
+    setEstado((prev) => ({ ...prev, balance: resultado })); // Guardar el balance
   };
 
-  const enviarDatosAlBackend = async () => {    
+  const enviarDatosAlBackend = async () => {
     const datos = {
-      ...estado,  // Incluye todos los campos del estado
+      ...estado, // Incluye todos los campos del estado
       balance: estado.balance,
-      institution: institution_id
+      institution: institution_id,
     };
-    await postGastos(datos)
+    await postGastos(datos);
     try {
-      const response = await postGastos(datos);  // Envía los datos al backend
-      console.log('Datos enviados:', datos);
-      console.log('Respuesta del backend:', response);
+      const response = await postGastos(datos); // Envía los datos al backend
+      console.log("Datos enviados");
+      console.log("Respuesta del backend");
     } catch (error) {
-      console.error('Error al enviar datos:', error);
+      console.error("Error al enviar datos:", error);
     }
   };
 
   return (
-    <div>
-      <h1>Gastos</h1>
-      {['luz', 'agua', 'internet', 'comida', 'materialDidactico', 'patentes', 'deduccionCaja', 'polizas', 'uniformesCompradosCantidad', 'uniformeCostoInstitucion', 'uniformesRegalados', 'alquilerLocal'].map((item) => (
-        <label key={item}>
-          {item.replace(/([A-Z])/g, ' $1').trim()}:
+    // <div className='container-gastos'>
+    //   <h1>Gastos</h1>
+    //   {['luz', 'agua', 'internet', 'comida', 'materialDidactico', 'patentes', 'deduccionCaja', 'polizas', 'uniformesCompradosCantidad', 'uniformeCostoInstitucion', 'uniformesRegalados', 'alquilerLocal'].map((item) => (
+    //     <label key={item}>
+    //       {item.replace(/([A-Z])/g, ' $1').trim()}:
+    //       <input
+    //         type="number"
+    //         name={item}
+    //         value={estado[item]}
+    //         onChange={handleChange}
+    //         step="0.01"
+    //       />
+    //     </label>
+    //   ))}
+    //   <br />
+    //   <label>
+    //     Fecha de Registro de Gastos:
+    //     <input type="date" name="fechaRegistro" value={estado.fechaRegistro} onChange={handleChange} />
+    //   </label>
+    //   <br />
+
+    //   <h2>Operaciones</h2>
+    //   <button onClick={aplicarOperaciones}>Aplicar Operaciones</button>
+    //   <h3>Total Gastos: ${totalGastos.toFixed(2)}</h3>
+
+    //   <h1>Ganancias</h1>
+    //   {['mensualidadNinosPrivados', 'mensualidadNinosRedCuido'].map((item) => (
+    //     <label key={item}>
+    //       {item.replace(/([A-Z])/g, ' $1').trim()}:
+    //       <input
+    //         type="number"
+    //         name={item}
+    //         value={estado[item]}
+    //         onChange={handleChange}
+    //         step="0.01"
+    //       />
+    //     </label>
+    //   ))}
+    //   <br />
+    //   <h3>Total Ganancias: ${totalGanancias.toFixed(2)}</h3>
+
+    //   {balance !== null && <h3>Balance: ${balance.toFixed(2)}</h3>}
+
+    //   <h2>Resultados Detallados</h2>
+    //   <ul>
+    //     {Object.entries(resultadosGastos).map(([key, value]) => (
+    //       <li key={key}>{key.replace(/([A-Z])/g, ' $1').trim()}: ${value?.toFixed(2) || 0}</li>
+    //     ))}
+    //   </ul>
+
+    //   <h2>Enviar Datos al Backend</h2>
+    //   <button onClick={enviarDatosAlBackend}>Enviar Datos</button>
+    // </div>
+    <>
+      <div className="container-gastos">
+        <h1 className="titulo-principal">Gastos</h1>
+        <div className="grid">
+          {[
+            "luz",
+            "agua",
+            "internet",
+            "comida",
+            "materialDidactico",
+            "patentes",
+            "deduccionCaja",
+            "polizas",
+            "uniformesCompradosCantidad",
+            "uniformeCostoInstitucion",
+            "uniformesRegalados",
+            "alquilerLocal",
+          ].map((item) => (
+            <label key={item} className="etiqueta-gasto">
+              {item.replace(/([A-Z])/g, " $1").trim()}:
+              <input
+                type="number"
+                name={item}
+                value={estado[item]}
+                onChange={handleChange}
+                step="0.01"
+                className="input-gasto"
+              />
+            </label>
+          ))}
+        </div>
+
+        <label className="etiqueta-fecha">
+          Fecha de Registro de Gastos:
           <input
-            type="number"
-            name={item}
-            value={estado[item]}
+            type="date"
+            name="fechaRegistro"
+            value={estado.fechaRegistro}
             onChange={handleChange}
-            step="0.01"
+            className="input-fecha"
           />
         </label>
-      ))}
-      <br />
-      <label>
-        Fecha de Registro de Gastos:
-        <input type="date" name="fechaRegistro" value={estado.fechaRegistro} onChange={handleChange} />
-      </label>
-      <br />
 
-      <h2>Operaciones</h2>
-      <button onClick={aplicarOperaciones}>Aplicar Operaciones</button>
-      <h3>Total Gastos: ${totalGastos.toFixed(2)}</h3>
+        <h2 className="titulo-secundario">Operaciones</h2>
+        <button onClick={aplicarOperaciones} className="boton-operaciones">
+          Aplicar Operaciones
+        </button>
+        <h3 className="total-gastos">
+          Total Gastos: ${totalGastos.toFixed(2)}
+        </h3>
 
-      <h1>Ganancias</h1>
-      {['mensualidadNinosPrivados', 'mensualidadNinosRedCuido'].map((item) => (
-        <label key={item}>
-          {item.replace(/([A-Z])/g, ' $1').trim()}:
-          <input
-            type="number"
-            name={item}
-            value={estado[item]}
-            onChange={handleChange}
-            step="0.01"
-          />
-        </label>
-      ))}
-      <br />
-      <h3>Total Ganancias: ${totalGanancias.toFixed(2)}</h3>
+        <h1 className="titulo-principal">Ganancias</h1>
+        <div className="grid">
+          {["mensualidadNinosPrivados", "mensualidadNinosRedCuido"].map(
+            (item) => (
+              <label key={item} className="etiqueta-ganancia">
+                {item.replace(/([A-Z])/g, " $1").trim()}:
+                <input
+                  type="number"
+                  name={item}
+                  value={estado[item]}
+                  onChange={handleChange}
+                  step="0.01"
+                  className="input-ganancia"
+                />
+              </label>
+            )
+          )}
+        </div>
 
-      {balance !== null && <h3>Balance: ${balance.toFixed(2)}</h3>}
+        <h3 className="total-ganancias">
+          Total Ganancias: ${totalGanancias.toFixed(2)}
+        </h3>
 
-      <h2>Resultados Detallados</h2>
-      <ul>
-        {Object.entries(resultadosGastos).map(([key, value]) => (
-          <li key={key}>{key.replace(/([A-Z])/g, ' $1').trim()}: ${value?.toFixed(2) || 0}</li>
-        ))}
-      </ul>
+        {balance !== null && (
+          <h3 className="balance">Balance: ${balance.toFixed(2)}</h3>
+        )}
 
-      <h2>Enviar Datos al Backend</h2>
-      <button onClick={enviarDatosAlBackend}>Enviar Datos</button>
-    </div>
+        <h2 className="titulo-secundario">Resultados Detallados</h2>
+        <ul className="lista-resultados">
+          {Object.entries(resultadosGastos).map(([key, value]) => (
+            <li key={key} className="item-resultado">
+              {key.replace(/([A-Z])/g, " $1").trim()}: ${value?.toFixed(2) || 0}
+            </li>
+          ))}
+        </ul>
+
+        <h2 className="titulo-secundario">Enviar Datos al Backend</h2>
+        <button onClick={enviarDatosAlBackend} className="boton-enviar">
+          Enviar Datos
+        </button>
+      </div>
+    </>
   );
 }
 

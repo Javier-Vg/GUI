@@ -6,7 +6,7 @@ from .models import Post
 from .serializers import PostSerializer
 import requests
 from .Key import clientId
-
+from rest_framework.permissions import AllowAny
 @api_view(['GET'])
 def helloworld(request):
     
@@ -22,6 +22,8 @@ class PostViewSet(ModelViewSet):
 
 @api_view(['POST'])
 def upload_image(request):
+    
+    
     # Obtener el archivo de la solicitud
     image = request.FILES.get('image')
 

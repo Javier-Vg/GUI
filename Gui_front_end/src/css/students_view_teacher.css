@@ -1,4 +1,110 @@
 .div-svg{
-    width: 1500px;
-    overflow: scroll;
+    width: 950px;
+    overflow: auto;
+    
 }
+
+.aImg{
+    cursor: pointer;
+    color: #48e;
+    text-decoration: dashed;
+}
+
+.modal-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: rgba(0, 0, 0, 0.8);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+  
+.modal-container {
+    background-color: white;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+    text-align: center;
+    max-width: 90%;
+}
+  
+.modal-image {
+    width: 400px;
+    height: 330px;
+    border-radius: 10px;
+}
+  
+.close-button {
+    margin-top: 10px;
+    padding: 10px;
+    background-color: #ff4757;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+  
+.close-button:hover {
+    background-color: #e84118;
+}
+
+
+
+
+.student-svg-wrapper{
+    overflow: auto;
+}
+
+/* gpt */
+
+.student-svg-wrapper {
+    margin: 20px;
+    text-align: center;
+  }
+  
+  .no-students-message {
+    font-size: 18px;
+    color: #ff4444;
+    margin: 20px;
+  }
+  
+  .student-svg {
+    border: 2px solid #007bff;
+    border-radius: 8px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+  }
+  
+  .header-row rect {
+    fill: #007bff;
+  }
+  
+  .header-row text {
+    font-weight: bold;
+    fill: white;
+  }
+  
+  .student-row rect {
+    fill: #f9f9f9;
+    stroke: #ddd;
+    stroke-width: 1;
+    transition: fill 0.3s;
+  }
+  
+  .student-row:hover rect {
+    fill: #e0f7fa;
+  }
+  
+  .image-link {
+    fill: #007bff;
+    text-decoration: underline;
+    cursor: pointer;
+  }
+  
+  .image-link:hover {
+    fill: #0056b3;
+  }
+  

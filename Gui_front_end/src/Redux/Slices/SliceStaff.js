@@ -1,17 +1,33 @@
-
+import axios from "axios"
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 const domain = window.location.hostname 
 
-// Thunk para realizar la llamada a la API
+const getCookie = (name) => {
+    const value = `; ${document.cookie}`;
+    const parts = value.split(`; ${name}=`);
+    if (parts.length === 2) return parts.pop().split(';').shift();
+};
+
 export const fetchStaff = createAsyncThunk(
-  'staff/fetchstaff',
-  async () => {
-    const response = await fetch(`http://${domain}:8000/api/staff/staff/`); // Cambia esto por tu API
-    if (!response.ok) {
-      throw new Error('Failed to fetch staff');
+    'staff/fetchstaff',
+    async () => {
+        const token = getCookie('AuthCookie');
+        try {
+          
+            const response = await axios.get(`http://${domain}:8000/api/staff/staff/`, {
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Authorization': `Bearer ${token}`,
+                },
+                withCredentials: true,
+                credentials: 'include', 
+            });            
+            return response.data; // Retornar los datos de la respuesta
+        } catch (error) {
+            console.error("Error fetching staff:", error.message); // Mostrar el mensaje de error
+            throw error; // Propaga el error para manejarlo en el llamador
+        }
     }
-    return response.json();
-  }
 );
 
 const staffSlice = createSlice({

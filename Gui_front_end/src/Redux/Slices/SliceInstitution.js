@@ -2,18 +2,32 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 const domain = window.location.hostname 
 
+const getCookie = (name) => {
+  const value = `; ${document.cookie}`;
+  const parts = value.split(`; ${name}=`);
+  if (parts.length === 2) return parts.pop().split(';').shift();
+};
 // Thunk para realizar la llamada a la API
 export const fetchInstitution = createAsyncThunk(
-  'institutions/fetchinstitutions',
+  'institutions/fetchInstitutions',
   async () => {
-    const response = await fetch(`http://${domain}:8000/api/institutions/institution/`); // Cambia esto por tu API
-    if (!response.ok) {
-      throw new Error('Failed to fetch institutions');
-    }
-    return response.json();
+      const token = getCookie('AuthCookie'); // Obtener el token de la cookie
+
+      const response = await fetch(`http://${domain}:8000/api/institutions/institution/`, {
+          headers: {
+              Authorization: `Bearer ${token}`, // Agregar el token en los headers
+              'Content-Type': 'application/json', // Especificar el tipo de contenido si es necesario
+          },
+          withCredentials: true,
+          credentials: 'include', 
+      });
+
+      if (!response.ok) {
+          throw new Error('Failed to fetch institutions');
+      }
+      return response.json();
   }
 );
-
 const institutionSlice = createSlice({
   name: 'institutions',
   initialState: {

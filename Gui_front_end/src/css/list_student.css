@@ -16,7 +16,7 @@
     margin-right: 170px;
 } */
  /* Estilos generales */
-.container_list {
+/* .container_list {
     padding: 20px;
     background-color: #f9f9f9;
     border-radius: 10px;
@@ -24,9 +24,16 @@
     max-width: 1200px;
     margin: 0 auto;
     font-family: 'Arial', sans-serif;
+} */
+.container_list-students{
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
 }
 
-.container_list h1 {
+.container_list-students h1 {
     text-align: center;
     color: #333;
     font-size: 2.5rem;

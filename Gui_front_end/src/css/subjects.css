@@ -1,0 +1,14 @@
+.subject-form{
+    display: grid;
+    grid-template-columns: 500px 500px;
+    justify-content: center;
+}
+
+.btn-materias{
+    background-color:blueviolet;
+    color: white;
+}
+
+.btn-save-materia{
+    background-color:tomato;
+}

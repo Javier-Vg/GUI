@@ -40,6 +40,7 @@ class staff(models.Model):
     imagen_url = models.URLField()  #almacenará la URL de la imagen que se sube a Imgur. 
     password = models.CharField(max_length=128, blank=False, null=True)
     authorization = models.BooleanField(default=False)
+    is_teacher = models.BooleanField(default=True)
     
     def save(self, *args, **kwargs):
         if self.pk is None or not self.password.startswith('pbkdf2_'):

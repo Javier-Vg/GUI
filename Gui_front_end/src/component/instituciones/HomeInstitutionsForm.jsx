@@ -19,6 +19,7 @@ import Cookies from 'js-cookie';
 import { jwtDecode } from "jwt-decode";
 import Eventos from "./Eventos";
 import ListaEventos from "../moduloProfesor/listaEventos";
+import '../../css/Institutions/HomeInstitutionsForm.css'
 
 function HomeInstitutionsForm() {
   const [changeComponent, setChangeComponent] = useState("");
@@ -47,13 +48,14 @@ function HomeInstitutionsForm() {
         // Desencriptar el token
         const decodedToken = jwtDecode(token);    
         // Extraer valores del token
-        const auth = decodedToken.auth; 
-        const rol = decodedToken.rol;  
-        const nameInstitution = decodedToken.Name;  
-        const imgurl = decodedToken.imgInstitution;  
+        const auth = decodedToken.info.auth; 
+        const rol = decodedToken.info.rol;  
+        const nameInstitution = decodedToken.info.username;  
+        const imgurl = decodedToken.info.imgInstitution; 
+        console.log(rol);
+        console.log(decodedToken);
         setNameInstitution(nameInstitution)
         setInfInstitution(imgurl)
-        
 
         if (!token || auth !== true) {
           navigate("/error");
@@ -72,19 +74,14 @@ function HomeInstitutionsForm() {
 
   return (
     <div>
-      <head>
-        <link
-          href="https://unpkg.com/boxicons@2.0.7/css/boxicons.min.css"
-          rel="stylesheet"
-        />
-      </head>
+     
 
       <nav className="navbar">
-        <button id="open-close" onClick={toggleAside}>
-          <span id="open-close">
-            <i className="bx bx-menu"></i>
+        {/* <button id="open-close" onClick={toggleAside}> */}
+          <span id="open-close" onClick={toggleAside}>
+            <i className="bx bx-menu">≡</i>
           </span>
-        </button>
+        {/* </button> */}
         <div className="right-section">
           <input type="text" placeholder="Buscar..." onChange={handleSearch} />
           <h2>{NameInstitution}</h2>
@@ -197,11 +194,6 @@ function HomeInstitutionsForm() {
               </div>
               
               <hr />
-
-             
-
-
-
               <div
                 onClick={() => setChangeComponent("profesor")}
                 className="inputBoton"
@@ -318,8 +310,7 @@ function HomeInstitutionsForm() {
         />
       </aside>
 
-      <div className="div-components">
-        <div className="div-components">
+      <div className="div_components_institutions">
           {changeComponent === "crear personal" && <CreateStaff />}
           {changeComponent === "crear estudiante" && <CreateStudent />}
           {changeComponent === "Crear Grupo" && <CreateGroup />}
@@ -334,7 +325,6 @@ function HomeInstitutionsForm() {
           {changeComponent === "teacherGrupos" && <GroupsTeacher />}
           {changeComponent === "teacherNotas" && <GradesTeacher />}
           {changeComponent === "ChatEstudiante" && <ChatProfesor />}
-        </div>
       </div>
     </div>
   );

@@ -9,6 +9,7 @@ import { jwtDecode } from "jwt-decode";
 
 const domain = window.location.hostname;
   
+  
 function ListStudents() {
   const [students, setStudents] = useState([]);
   const [seeMore, setSeeMore] = useState(false);
@@ -36,8 +37,7 @@ function ListStudents() {
       try {
         // Desencriptar el token
         const decodedToken = jwtDecode(token);
-        const institutionIdFromToken = decodedToken.institution
-        ;
+        const institutionIdFromToken = decodedToken.info.institution;
         
         setInstitutionId(institutionIdFromToken);
       } catch (error) {
@@ -157,6 +157,7 @@ function ListStudents() {
       setStudents(updatedStudents); // Actualiza el estado con los cambios
       setEditMode(false); // Salir del modo de edición
       setSeeMore(true); // Mantener el modal abierto para ver los cambios actualizados
+      
     } catch (error) {
       console.error("Error al actualizar el estudiante:", error);
     }
@@ -170,7 +171,7 @@ function ListStudents() {
     return <div>Error: {error}</div>;
   }
   return (
-    <div className="container_list">
+    <div className="container_list-students">
       <h1>Estudiantes</h1>
       <div className="students">
         {students.length > 0 ? (

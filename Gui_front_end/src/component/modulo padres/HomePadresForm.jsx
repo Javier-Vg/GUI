@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import ExpedienteAlumno from "./ExpedienteAlumno";
 import Chat from "./Chat";
+import CalificacionesEstudiante from "./CalificacionesEstudiante";
 import "../../css/home_institution.css";
 import { useSelector, useDispatch } from "react-redux";
 import ListaEventos from "../moduloProfesor/listaEventos";
@@ -11,7 +12,7 @@ function HomePadresForm() {
   // Definir el estado para controlar el despliegue del aside
   const [isDeployed, setIsDeployed] = useState(false);
   const NameInstitution = useSelector(
-    (state) => state.infInstitution.nameInstitution
+    (state) => state.infInstitution.nameInstitution 
   );
   const InfInstitution = useSelector(
     (state) => state.infInstitution.imgInstitution
@@ -42,6 +43,14 @@ function HomePadresForm() {
         </nav>
         <aside id="aside" className={isDeployed ? "desplegar" : ""}>
           <div className="container-svg">
+          <div>
+              <input
+                type="button"
+                value="Estado de Cuenta"
+                onClick={() => setChangeComponent("Estado de Cuenta")}
+                className="inputBoton"
+              />
+            </div>
             <div>
               <input
                 type="button"
@@ -58,18 +67,11 @@ function HomePadresForm() {
                 className="inputBoton"
               />
             </div>
+            
             <div>
               <input
                 type="button"
-                value="Estado de Cuenta"
-                onClick={() => setChangeComponent("Estado de Cuenta")}
-                className="inputBoton"
-              />
-            </div>
-            <div>
-              <input
-                type="button"
-                value="Calificacion del Estudiante"
+                value="Calificaciones del Estudiante"
                 onClick={() =>
                   setChangeComponent("Calificacion del Estudiante")
                 }
@@ -80,12 +82,10 @@ function HomePadresForm() {
         </aside>
         <div className="div-components">
           <div className="div-components">
-            {changeComponent === " Expediente de Alumno" && (
-              <ExpedienteAlumno />
-            )}
+            {changeComponent === "Expediente de Alumno" && <ExpedienteAlumno />}
             {changeComponent === "Comunicacion" && <Chat />}
-            {changeComponent === "Estado de Cuenta" && <ExpedienteAlumno />}
-            {changeComponent === "listaeventos" && <ListaEventos />}
+            {changeComponent === "Calificacion del Estudiante" && <CalificacionesEstudiante />}
+            {/* {changeComponent === "Estado de Cuenta" && <ExpedienteAlumno />} */}
           </div>
         </div>
       </div>

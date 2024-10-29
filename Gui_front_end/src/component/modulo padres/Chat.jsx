@@ -527,12 +527,13 @@ const Chat = () => {
     if (token) {
       try {
         const decodedToken = jwtDecode(token);
-        
-        const institutionIdFromToken = decodedToken.institution;
-        const NameTeacher = decodedToken.username;
-        const studentID = decodedToken.id;
-        // console.log("NameTeacher: ", NameTeacher);
-        // console.log("StudentID: ", studentID);
+                
+        const institutionIdFromToken = decodedToken.info.institution;
+
+        const NameTeacher = decodedToken.info.username;
+        const studentID = decodedToken.info.id;
+        console.log("NameTeacher: ", NameTeacher);
+        console.log("StudentID: ", studentID);
 
         
         setNameTeacher(NameTeacher);

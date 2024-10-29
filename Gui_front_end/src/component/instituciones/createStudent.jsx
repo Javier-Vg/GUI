@@ -1,8 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import { postStudents } from '../../service/LoginGui';
-import { useSelector} from "react-redux";
 import Cookies from 'js-cookie';
 import { jwtDecode } from "jwt-decode";
+import '../../css/Institutions/createStudent.css'
 const domain = window.location.hostname 
 
 function CreateStudent() {
@@ -22,6 +22,7 @@ function CreateStudent() {
   const [alergias, setAlergias] = useState('');
   const [imagen, setImagen] = useState(null);
    
+   
   const [mensualidadDelEstudiante, setMensualidadDelEstudiante] = useState('');
   const [formMessage, setFormMessage] = useState('');
   const [password, setPassword] = useState('');
@@ -35,8 +36,8 @@ function CreateStudent() {
       try {
         // Desencriptar el token
         const decodedToken = jwtDecode(token);  
-        const institutionIdFromToken = decodedToken.institution  ;
-        console.log(decodedToken);
+        const institutionIdFromToken = decodedToken.info.institution;
+        console.log(institutionIdFromToken);
         
         // Guardar el ID en una variable local
         setInstitutionId(institutionIdFromToken);
@@ -126,6 +127,8 @@ function CreateStudent() {
         throw new Error('Error al subir la imagen');
       }
       const imageUrl = data.image_url;
+      console.log(imageUrl);
+      
       // Aquí agregamos el institutionId al postStudents
       await postStudents(nombre, apellido, identificacion, fechaNacimiento, grado, estadoAcademico, telefono, email, imageUrl, alergias, guardianTelefono, nameGuardian, mensualidadDelEstudiante, password, institution_id); // Añadir institutionId
       setFormMessage("Personal creado exitosamente"); // Mostrar mensaje de éxito
@@ -152,7 +155,7 @@ function CreateStudent() {
   };
 
   return (
-    <div>
+    <div className='container-students'>
       <label>
         Nombre estudiante:
         <input type="text" name="nombre" value={nombre} onChange={handleInputChange} />
