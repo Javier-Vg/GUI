@@ -73,6 +73,7 @@ INSTALLED_APPS = [
     'group_assignment',
     'rest_framework.authtoken',
     'rest_framework_simplejwt',
+    'products'
     
 ] # nombre de las apps
 
@@ -93,7 +94,7 @@ ROOT_URLCONF = 'Gui_backend.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [],
+        'DIRS': [BASE_DIR / 'templates'], #template de pasarela de pagos
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -184,3 +185,10 @@ AUTHENTICATION_BACKENDS = [
 MEDIA_URL = '/media/'
 MEDIA_ROOT = BASE_DIR / 'media' #Las imágenes cargadas se guardarán en media/images/.
 # MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
+
+
+
+# Stripe
+STRIPE_PUBLIC_KEY = ''
+STRIPE_SECRET_KEY = ''
+STRIPE_WEBHOOK_SECRET = ""
