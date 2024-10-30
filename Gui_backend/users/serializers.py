@@ -67,6 +67,7 @@ class LoginSerializer(serializers.Serializer):
                     token['info'] = staff_info
                 except staff.DoesNotExist:
                     token['info'] = None
+                    
             elif user.is_staff:
                 try:
                     staff_instance = staff.objects.get(email=email)

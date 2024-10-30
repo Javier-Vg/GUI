@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState,useEffect } from "react";
 import axios from "axios";
 import { jwtDecode } from "jwt-decode";
 import Cookies from "js-cookie";
@@ -6,7 +6,7 @@ import { useNavigate } from "react-router-dom";
 import { useDispatch } from "react-redux";
 const domain = window.location.hostname;
 import "../../css/login/login.css";
-// import '../../css/img'
+// import '../../css/img/cafe.jfif'
 
 function Login2() {
   // Estado para almacenar el email y la contraseña
@@ -17,6 +17,16 @@ function Login2() {
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
+  useEffect(() => {
+    // Desactiva el clic derecho en toda la página
+    const disableRightClick = (e) => e.preventDefault();
+    document.addEventListener("contextmenu", disableRightClick);
+
+    // Limpia el evento al desmontar el componente
+    return () => {
+      document.removeEventListener("contextmenu", disableRightClick);
+    };
+  }, []);
   // Función para manejar el envío del formulario
   const handleSubmit = async (event) => {
     event.preventDefault(); // Evitar el comportamiento por defecto del formulario
@@ -31,7 +41,7 @@ function Login2() {
       );
 
       // Manejo de la respuesta
-      setResponseMessage("Inicio de sesión exitoso.");
+      setResponseMessage("Inicio Exitoso, por favor espere");
       console.log(response.data);
       Cookies.set(
         "AuthCookie",
@@ -56,13 +66,14 @@ function Login2() {
     } catch (error) {
       if (error.response) {
         // La solicitud se realizó y el servidor respondió con un código de estado fuera del rango de 2xx
-        setResponseMessage("Error: " + error.response.data.detail);
+        setResponseMessage("Datos incorrectos o no encontrados");
+        
       } else if (error.request) {
         // La solicitud se realizó pero no se recibió respuesta
         setResponseMessage("Error en la conexión.");
       } else {
         // Algo pasó al configurar la solicitud
-        setResponseMessage("Error: " + error.message);
+        setResponseMessage("Error de la app");
       }
     }
   };
@@ -70,24 +81,18 @@ function Login2() {
   return (
     <div className="container-login-general">
       <div className="container1-login-general">
-        <img src="../../" alt="" />
+        {/* <img src="https://i.imgur.com/0glpzb7.jpeg" alt="" /> */}
+        <img src="https://i.imgur.com/aEpUhS3.png" alt="" />
+
       </div>
+
       <div className="container2-login-general">
         <form onSubmit={handleSubmit}>
-          {/* <div>
-          <label htmlFor="email">Correo Electrónico:</label>
-          <input 
-            className='input-login-general'
-            type="email" 
-            id="email" 
-            value={email} 
-            onChange={(e) => setEmail(e.target.value)} 
-            required 
-          />
-        </div> */}
+          <div className="img-logo-inicio">{responseMessage}</div>
+          <div className="container-inputs-general">
           <div className="wave-group">
             <input
-              className="input-login-general input"
+              className="input-login-general"
               type="email"
               id="email"
               value={email}
@@ -115,7 +120,7 @@ function Login2() {
           </div>
           <div className="wave-group">
             <input
-              className="input-login-general input"
+              className="input-login-general"
               type="password"
               id="password"
               value={password}
@@ -156,14 +161,32 @@ function Login2() {
             </label>
             <span className="bar"></span>
           </div>
-          <button type="submit">Iniciar Sesión</button>
-        </form>
-        {responseMessage && <div>{responseMessage}</div>}
-        {userData && (
-          <div>
-            <h2>Datos del Usuario</h2>
           </div>
-        )}
+          <div className="container-input-start">
+            <button class="animated-button">
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              class="arr-2"
+              viewBox="0 0 24 24"
+            >
+              <path d="M16.1716 10.9999L10.8076 5.63589L12.2218 4.22168L20 11.9999L12.2218 19.778L10.8076 18.3638L16.1716 12.9999H4V10.9999H16.1716Z"></path>
+            </svg>
+            <span class="text">Iniciar</span>
+            <span class="circle"></span>
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              class="arr-1"
+              viewBox="0 0 24 24"
+            >
+              <path d="M16.1716 10.9999L10.8076 5.63589L12.2218 4.22168L20 11.9999L12.2218 19.778L10.8076 18.3638L16.1716 12.9999H4V10.9999H16.1716Z"></path>
+            </svg>
+          </button>
+          <a href="">Olvidó su contraseña?</a>
+          </div>
+        </form>
+        <div className="container-derechos-general">
+          <p className="derechos-general-foot" href="">@ 2024 Linc - Privacy & Terms / Contact support </p>
+        </div>
       </div>
     </div>
   );

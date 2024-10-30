@@ -6,6 +6,7 @@ from .serializers import Institutions_Serializer, LoginSerializer
 from users.serializers import UserCreateSerializer
 from rest_framework.exceptions import ValidationError
 from rest_framework.permissions import IsAuthenticated, AllowAny
+from users.models import User
 class InstitutionViewSet(viewsets.ModelViewSet):
     queryset = Institution.objects.all()
     serializer_class = Institutions_Serializer
@@ -50,34 +51,48 @@ class InstitutionViewSet(viewsets.ModelViewSet):
         
         serializer = self.get_serializer(institution)
         return Response(serializer.data, status=status.HTTP_200_OK)
-
-    def update(self, request, pk=None):
+    
+    def update(self, request, pk=None): 
         try:
-            institution = self.get_object()
-            institution = self.get_object()
+            institution = self.get_object()  # Obtener la instancia de Institution
         except Institution.DoesNotExist:
             return Response({"error": "Institution not found"}, status=status.HTTP_404_NOT_FOUND)
         
+        email = institution.email  # Guardar el email de la institución antes de actualizar
+
         serializer = self.get_serializer(institution, data=request.data)
         if serializer.is_valid():
-            serializer.save()
+            serializer.save()  # Actualizar la institución
+
+            # Actualizar el usuario asociado en la tabla User, si existe
+            user = User.objects.filter(email=email).first()
+            if user:
+                # Actualizar los datos en User si vienen en el request
+                user_fields = ['username', 'password', 'email']  # Campos relevantes de User que quieras actualizar
+                for field in user_fields:
+                    if field in request.data:
+                        setattr(user, field, request.data[field])
+                user.save()  # Guardar los cambios en User
+
             return Response(serializer.data, status=status.HTTP_200_OK)
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
-
+    
     def destroy(self, request, pk=None):
         try:
             institution = self.get_object()
-            institution.delete()
-            return Response({"message": "Institution deleted successfully"}, status=status.HTTP_204_NO_CONTENT)
-        except Institution.DoesNotExist:
-            return Response({"error": "Institution not found"}, status=status.HTTP_404_NOT_FOUND)
-        
 
-    def destroy(self, request, pk=None):
-        try:
-            institution = self.get_object()
+            # Obtén el email de la institución
+            email = institution.email
+
+            # Busca y elimina al usuario con el mismo email, si existe
+            user = User.objects.filter(email=email).first()
+            if user:
+                user.delete()  # Elimina el usuario asociado
+
+            # Elimina la institución
             institution.delete()
-            return Response({"message": "Institution deleted successfully"}, status=status.HTTP_204_NO_CONTENT)
+            return Response({"message": "Institution and associated user deleted successfully"}, status=status.HTTP_204_NO_CONTENT)
+
         except Institution.DoesNotExist:
             return Response({"error": "Institution not found"}, status=status.HTTP_404_NOT_FOUND)
         
