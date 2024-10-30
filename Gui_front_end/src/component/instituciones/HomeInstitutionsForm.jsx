@@ -51,8 +51,6 @@ function HomeInstitutionsForm() {
         const rol = decodedToken.info.rol;  
         const nameInstitution = decodedToken.info.username;  
         const imgurl = decodedToken.info.imgInstitution; 
-        console.log(rol);
-        console.log(decodedToken);
         setNameInstitution(nameInstitution)
         setInfInstitution(imgurl)
 
