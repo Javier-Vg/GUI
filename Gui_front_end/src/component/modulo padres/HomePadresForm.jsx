@@ -41,6 +41,8 @@ function HomePadresForm() {
           <img src={InfInstitution} alt="" />
           <h2>{NameInstitution}</h2>
         </nav>
+
+        
         <aside id="aside" className={isDeployed ? "desplegar" : ""}>
           <div className="container-svg">
           <div>
@@ -94,3 +96,15 @@ function HomePadresForm() {
 }
 
 export default HomePadresForm;
+
+
+
+
+
+
+
+
+
+
+
+

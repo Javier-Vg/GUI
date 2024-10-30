@@ -4,6 +4,7 @@ import { getStudents, getMessages, sendMessage } from "../../service/LoginGui"; 
 import Cookies from "js-cookie";
 import { jwtDecode } from "jwt-decode";
 import { useSelector } from "react-redux";
+import "../../css/chatProfesor.css";
 const ChatProfesor = () => {
   const [selectedStudent, setSelectedStudent] = useState(null);
   const [message, setMessage] = useState("");
@@ -134,7 +135,7 @@ const ChatProfesor = () => {
         <div className="messages-container">
           {filteredMessages.length > 0 ? (
             filteredMessages.map((msg, index) => (
-              <div
+              <div 
                 key={index}
                 className={`message ${
                   msg.name === storedTeacherName ? "sent" : "received"
