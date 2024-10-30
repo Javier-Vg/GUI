@@ -4,7 +4,7 @@ import { fetchStudent } from "../../Redux/Slices/SliceStudent";
 import { fetchAssistenceStudent } from "../../Redux/Slices/SliceAssitenceStudent";
 import {  Skeleton } from "@nextui-org/react";
 import { useDispatch, useSelector } from "react-redux";
-import "../../css/expediente_notas.css";
+import "../../css/parents/expediente_notas.css";
 import Cookies from "js-cookie";
 import { jwtDecode } from "jwt-decode";
 import { key } from '../../keys/keys.js';

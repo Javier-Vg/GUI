@@ -41,7 +41,6 @@ function HomePadresForm() {
           <img src={InfInstitution} alt="" />
           <h2>{NameInstitution}</h2>
         </nav>
-
         
         <aside id="aside" className={isDeployed ? "desplegar" : ""}>
           <div className="container-svg">
@@ -61,6 +60,7 @@ function HomePadresForm() {
                 className="inputBoton"
               />
             </div>
+
             <div>
               <input
                 type="button"
@@ -96,15 +96,4 @@ function HomePadresForm() {
 }
 
 export default HomePadresForm;
-
-
-
-
-
-
-
-
-
-
-
 
