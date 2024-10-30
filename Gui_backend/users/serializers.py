@@ -48,7 +48,7 @@ class LoginSerializer(serializers.Serializer):
             token['is_superuser'] = user.is_superuser
 
             # Verificar el rol del usuario y recuperar la información correspondiente
-            if user.is_teacher or user.is_staff:
+            if user.is_teacher :
                 try:
                     staff_instance = staff.objects.get(email=email)
                     staff_info = {
@@ -67,7 +67,25 @@ class LoginSerializer(serializers.Serializer):
                     token['info'] = staff_info
                 except staff.DoesNotExist:
                     token['info'] = None
-
+            elif user.is_staff:
+                try:
+                    staff_instance = staff.objects.get(email=email)
+                    staff_info = {
+                        "username": staff_instance.username,
+                        "last_name": staff_instance.last_name,
+                        "identification_number": staff_instance.identification_number,
+                        "birthdate_date": str(staff_instance.birthdate_date),
+                        "phone_number": staff_instance.phone_number,
+                        "rol": staff_instance.position,
+                        "institution": staff_instance.institution_id,
+                        "imagen_url": staff_instance.imagen_url,
+                        "auth": staff_instance.authorization,
+                        'imgInstitution': staff_instance.imagen_url,
+                        'id': staff_instance.id
+                    }
+                    token['info'] = staff_info
+                except staff.DoesNotExist:
+                    token['info'] = None 
             elif user.is_superuser:
                 try:
                     superuser_instance = Admin_Gui.objects.get(email=email)

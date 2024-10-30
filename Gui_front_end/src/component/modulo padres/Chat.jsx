@@ -82,27 +82,6 @@ useEffect(() => {
 }, [selectedMember]);
 
 
-  // const startPolling = () => {
-  //   const pollMessages = async () => {
-  //     if (selectedMember) {
-  //       await fetchMessages(selectedMember);
-  //     }
-  //     pollingTimeout = setTimeout(pollMessages, pollingInterval);
-  //   };
-
-  //   pollMessages();
-  // };
-
-  // useEffect(() => {
-  //   if (selectedMember) {
-  //     fetchMessages(selectedMember); 
-  //     startPolling();
-  //   }
-
-  //   return () => {
-  //     clearTimeout(pollingTimeout);
-  //   };
-  // }, [selectedMember]);
 
   const handleSendMessage = async () => {
     if (message.trim() && selectedMember && storedStudent) {

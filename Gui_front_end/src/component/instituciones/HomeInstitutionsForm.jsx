@@ -304,7 +304,7 @@ function HomeInstitutionsForm() {
         />
       </aside>
 
-      <div className="div_components_institutions">
+      <div className="  ">
           {changeComponent === "crear personal" && <CreateStaff />}
           {changeComponent === "crear estudiante" && <CreateStudent />}
           {changeComponent === "Crear Grupo" && <CreateGroup />}

@@ -39,11 +39,9 @@ function Login2() {
         { expires: 1 },
         { path: "/" }
       );
-
       const token = response.data.token;
       const decodedData = jwtDecode(token);
       console.log("Datos decodificados:", decodedData); // Ver los datos decodificado
-
       if (decodedData.is_teacher == true || decodedData.is_staff == true) {
         setTimeout(() => navigate("/institutions"), 1000);
       } else if (decodedData.is_superuser == true) {

@@ -54,6 +54,7 @@ const ChatProfesor = () => {
   const fetchMessages = async () => {
     try {
       const allMessages = await getMessages();
+      
       setMessages(allMessages);
     } catch (error) {
       console.error("Error al cargar los mensajes:", error);
@@ -107,6 +108,7 @@ const ChatProfesor = () => {
     : [];
 
   return (
+    
     <div className="div-profesor-messeges">
       {/* Lista de estudiantes con imágenes */}
       <div className="chat-bubbles-container">

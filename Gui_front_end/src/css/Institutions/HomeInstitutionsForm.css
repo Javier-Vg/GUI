@@ -152,6 +152,9 @@ aside::-webkit-scrollbar-thumb{
     padding: 10px 20px;
     cursor: pointer;
 }
+.div_components_institutions{
+  background-color: red;
+}
 .container-svg div:hover{
     background-color: #1d318b;
     color: #e7e7e7;
