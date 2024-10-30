@@ -4,6 +4,7 @@ import { fetchStudent } from "../../Redux/Slices/SliceStudent";
 import { fetchAssistenceStudent } from "../../Redux/Slices/SliceAssitenceStudent";
 import {  Skeleton } from "@nextui-org/react";
 import { useDispatch, useSelector } from "react-redux";
+import "../../css/expediente_notas.css";
 import Cookies from "js-cookie";
 import { jwtDecode } from "jwt-decode";
 import { key } from '../../keys/keys.js';
@@ -48,7 +49,6 @@ function ExpedienteAlumno() {
   //objto del grafico
   const [graficRender, setGraficRender] = useState([]);
 
-
   useEffect(() => {
     const token = Cookies.get("AuthCookie");
 
@@ -68,7 +68,6 @@ function ExpedienteAlumno() {
     dispatch(fetchStudent()); // Llama a la acción para obtener productos al cargar el componente
     dispatch(fetchAssistenceStudent()); // Llama a la acción para obtener productos al cargar el componente
   }, [dispatch]);
-
 
   const [selectedButton, setSelectedButton] = useState("");
 
@@ -269,6 +268,29 @@ function ExpedienteAlumno() {
               </div>
             </div>
           </div>
+          <br />
+          <br />
+          <br />
+          <br />
+          <br />
+          <br />
+          <br />
+          <br />
+          <br />
+          <br />
+          <br />
+          <br />
+          <br />
+          <br />
+          <br />
+          <br />
+          <br />
+          <br />
+          <br />
+          <br />
+          <br />
+          <br />
+          <br />
           <br />
         </div>
       </Skeleton>
