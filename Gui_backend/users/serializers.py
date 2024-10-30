@@ -3,6 +3,7 @@ from django.contrib.auth.hashers import check_password
 from .models import User
 from staff.models import staff  # Asegúrate de importar tu modelo Staf
 from Gui.models import Admin_Gui
+from Institucion.models import Institution
 from students.models import students
 from rest_framework_simplejwt.tokens import AccessToken
 
@@ -14,7 +15,7 @@ class UserSerializer(serializers.ModelSerializer):
 class UserCreateSerializer(serializers.ModelSerializer):
     class Meta:
         model = User
-        fields = ['username', 'email', 'password', 'is_teacher', 'is_student','is_staff','is_superuser']
+        fields = ['username', 'email', 'password', 'is_teacher', 'is_student','is_staff','is_superuser','staff']
         extra_kwargs = {'password': {'write_only': True}}
 
     def create(self, validated_data):
@@ -46,6 +47,7 @@ class LoginSerializer(serializers.Serializer):
             token['is_student'] = user.is_student
             token['is_staff'] = user.is_staff
             token['is_superuser'] = user.is_superuser
+            token['staff'] = user.staff
 
             # Verificar el rol del usuario y recuperar la información correspondiente
             if user.is_teacher:
@@ -116,7 +118,20 @@ class LoginSerializer(serializers.Serializer):
                     token['info'] = superuser_info
                 except Admin_Gui.DoesNotExist:
                     token['info'] = None
-
+            elif user.staff :
+                try:
+                    Institution_instance = Institution.objects.get(email=email)
+                    Institution_instance = {
+                        "username": Institution_instance.username,
+                        "email": Institution_instance.email,
+                        "imgUrl": Institution_instance.imagen_url,
+                        "suscription_type": Institution_instance.suscription_type,
+                        "auth": Institution_instance.authorization,
+                        'id': Institution_instance.id
+                    }
+                    token['info'] = Institution_instance
+                except Institution.DoesNotExist:
+                    token['info'] = None
             elif user.is_student:
                 try:
                     student_instance = students.objects.get(email=email)
