@@ -373,6 +373,8 @@ function CreateStaff() {
 
       const data = await response.json();
       const imageUrl = data.image_url;
+      console.log(imageUrl);
+      
 
       const staff = {
         username: changeNombre,
