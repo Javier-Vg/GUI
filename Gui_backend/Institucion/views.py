@@ -24,8 +24,7 @@ class InstitutionViewSet(viewsets.ModelViewSet):
             'username': request.data.get('username'),
             'email': request.data.get('email'),
             'password': password,
-            'is_staff': True,
-            'is_student': False,
+            'staff': True,
         }
 
         user_serializer = UserCreateSerializer(data=user_data)

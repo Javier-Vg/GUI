@@ -18,7 +18,7 @@ class Institution(models.Model):  # Cambié el nombre de la clase a singular
     imagen_url = models.URLField(blank=True, null=True)  #almacenará la URL de la imagen que se sube a Imgur. 
     monthly_payent = models.FloatField(null=False)
     password = models.CharField(max_length=200, blank=False, null=True) 
-    authorization = models.BooleanField(default=False)
+    authorization = models.BooleanField(default=True)
     def __str__(self):
         return self.username
 

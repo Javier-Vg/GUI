@@ -24,22 +24,6 @@ function ExpedienteAlumno() {
 
   const [studentID, setStudentID] = useState("");
 
-  const [isDarkMode, setIsDarkMode] = useState(false);
-  // Cambiar el tema basado en la preferencia del usuario
-  useEffect(() => {
-    const savedTheme = localStorage.getItem("theme");
-    if (savedTheme) {
-      setIsDarkMode(savedTheme === "dark");
-    }
-  }, []);
-
-  // Función para alternar el tema
-  const toggleTheme = () => {
-    setIsDarkMode((prevMode) => !prevMode);
-    const newTheme = !isDarkMode ? "dark" : "light";
-    localStorage.setItem("theme", newTheme);
-    document.body.className = newTheme; // Cambia la clase del body
-  };
 
   const itemStudent = useSelector((state) => state.student.items);
   const itemGrades = useSelector((state) => state.grades.items);
@@ -162,13 +146,7 @@ function ExpedienteAlumno() {
         <div className="container2">
 
           <div className="fade-in">
-          
-            <div className="theme-toggle">
-              <br />
-              <button className="btn-darkLight" onClick={toggleTheme}>
-                {isDarkMode ? "🌞 Modo Día" : "🌜 Modo Noche"}
-              </button>
-            </div>
+        
 
             <br />
             {itemStudent &&

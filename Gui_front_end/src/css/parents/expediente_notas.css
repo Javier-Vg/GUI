@@ -28,7 +28,7 @@ nav{
     text-align: center;
     border-radius: 10px;
     height: 414px;
-    width: 700px;
+    /* width: 700px; */
 } 
 
 .fade-in:nth-child(2) {
@@ -84,13 +84,12 @@ nav{
 .div-student-show{
     display: flex;
     justify-content: space-around;
-    border: 10px #1a1a1a solid;
     height: 319px;
+    
 }
 
 .box2{
     text-align: left;
-    
 }
 
 p{
@@ -101,6 +100,7 @@ p{
 /* Estilos generales */
 .fade-in {
     animation: fadeIn 0.5s ease-in;
+    z-index: -1;
   }
   
   @keyframes fadeIn {
@@ -201,12 +201,18 @@ p{
     font-style: italic;
   }
   
+  @media (max-width: 100%) {
+    .fade-in:nth-child(1){
+      width: 700px;
+    }
+  }
+
   /* Media queries */
-  @media (max-width: 768px) {
+  @media (max-width: 680px) {
     .div-student-show {
       flex-direction: column;
       align-items: center;
-      overflow: auto;
+     
     }
   
     .box1, .box2 {
@@ -222,16 +228,14 @@ p{
       font-size: 0.9rem;
     }
 
-    aside{
+    .aside{
       width: 120px;
     }
 
     .inputBoton{
       font-size: 6px;
     }
-  }
-  
-  @media (max-width: 680px) {
+
     .h1-info {
       font-size: 1.8rem;
     }
@@ -244,24 +248,33 @@ p{
       width: 100px; /* Tamaño reducido aún más para pantallas pequeñas */
       height: 100px; /* Tamaño reducido aún más para pantallas pequeñas */
     }
-  }
 
-/* Media queri */
-@media (max-width: 768px) {
     .container2 {
       display: flex;
       flex-direction: column;
     }
 
+    aside{
+      width: 128px;
+    }
+
     .div-core-expediente{
-      overflow-y: auto;
+     overflow-y: auto; 
       height: 100%;
     }
 
     .div-components{
       height: 100%;
     }
-}
+
+    .fade-in:nth-child(1){
+      width: 400px;
+      max-height: 300px;
+    
+    }
+  }
+  
+
 
 /* Estilos generales para el tema claro */
 body.light {
@@ -300,7 +313,7 @@ body.dark .fade-in{
   border:3px white solid;
 }
 
-body.dark aside{
+body.dark .aside{
   background-color: #333;
   color: white;
   border-right:  2px white solid;
@@ -312,9 +325,10 @@ body.dark aside{
 /* Estilos del botón de cambio de tema */
 .theme-toggle {
   position: fixed;
-  top: 20px;
+  top: 70px;
   right: 20px;
   z-index: 1000;
+
 }
 
 .theme-toggle button {
@@ -355,7 +369,7 @@ body.dark aside{
 /* styles.css o el archivo CSS correspondiente */
 .fade-in {
   position: relative;
-  width: 445px;
+ 
   height: 100%;
   max-height: 100%;
 }
@@ -391,6 +405,8 @@ body.dark aside{
 
 .btn-darkLight{
   background-color: #2980b9;
+
 }
+
 
 
