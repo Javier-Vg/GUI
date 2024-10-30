@@ -4,10 +4,7 @@
     overflow: hidden;
     /* color: white !important; */
 }
-/* .div_components_institutions{
-    height: 100vh;
-    background-color: blue;
-} */
+
 .navbar {
     display: flex;
     justify-content: space-between;
@@ -15,7 +12,8 @@
     background-color: #f8f9fa;
     padding: 10px 20px;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-    height: 10vh;
+    height: 8vh;
+    position: relative; 
   }
 
 .Sidebar input[type="button"] {
@@ -45,7 +43,15 @@
     font-size: 18px;
     
   }
-  
+  .label-home-inst{
+    color: #1d318b;
+  }
+  .label-home-inst:hover {
+    background-color: #1d318b; /* Color de fondo al hacer hover */
+    color: white; /* Color del texto al hacer hover */
+    padding: 5px; /* Agrega padding si lo deseas para mejorar la apariencia */
+    border-radius: 4px; /* Bordes redondeados si lo deseas */
+}
   
   .right-section {
     display: flex;
@@ -70,5 +76,29 @@
     width: 50px;
     height: 50px;
     border-radius: 50%;
+  }
+  #aside {
+    position: fixed;
+    top: 0;
+    left: 0;
+    margin-top: 4.2rem;
+    height: 90vh;
+    width: 200px;
+    background-color: #0d0d0d;
+    color: #fff;
+    display: flex;
+    flex-direction: column;
+    padding: 20px;
+    box-shadow: 2px 0 5px rgba(0, 0, 0, 0.2);
+    transform: translateX(-250px); /* Oculto inicialmente */
+    transition: transform 0.3s ease;
+  }
+  #aside.desplegar {
+    transform: translateX(0); /* Mostrar aside cuando está desplegado */
+  }
+  .container-svg {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
   }
   

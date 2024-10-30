@@ -18,6 +18,7 @@ import Cookies from 'js-cookie';
 import { jwtDecode } from "jwt-decode";
 import Eventos from "./Eventos";
 import ListaEventos from "../moduloProfesor/listaEventos";
+import '../../css/Institutions/HomeInstitutionsForm.css'
 
 
 function HomeInstitutionsForm() {
@@ -102,7 +103,7 @@ function HomeInstitutionsForm() {
                   name="changeComponent"
                   style={{ display: "none" }}
                 />
-                <label htmlFor="teacherStudents">Estudiantes</label>
+                <label className="label-home-inst"  htmlFor="teacherStudents">Estudiantes</label>
               </div>
               <div
                 onClick={() => setChangeComponent("teacherGrupos")}
@@ -114,7 +115,7 @@ function HomeInstitutionsForm() {
                   name="changeComponent"
                   style={{ display: "none" }}
                 />
-                <label htmlFor="teacherGrupos">Grupos</label>
+                <label className="label-home-inst"   htmlFor="teacherGrupos">Grupos</label>
               </div>
               <div
                 onClick={() => setChangeComponent("teacherNotas")}
@@ -126,7 +127,7 @@ function HomeInstitutionsForm() {
                   name="changeComponent"
                   style={{ display: "none" }}
                 />
-                <label htmlFor="teacherNotas">Notas</label>
+                <label className="label-home-inst"   htmlFor="teacherNotas">Notas</label>
               </div>
               <div
                 onClick={() => setChangeComponent("ChatEstudiante")}
@@ -138,7 +139,7 @@ function HomeInstitutionsForm() {
                   name="changeComponent"
                   style={{ display: "none" }}
                 />
-                <label htmlFor="ChatEstudiante">Chat Estudiante</label>
+                <label className="label-home-inst"   htmlFor="ChatEstudiante">Chat Estudiante</label>
               </div>
             </>
           ) : (
@@ -153,7 +154,7 @@ function HomeInstitutionsForm() {
                   name="changeComponent"
                   style={{ display: "none" }}
                 />
-                <label htmlFor="crearPersonal">Crear Personal</label>
+                <label className="label-home-inst"   htmlFor="crearPersonal">Crear Personal</label>
               </div>
               <div
                 onClick={() => setChangeComponent("crear estudiante")}
@@ -165,7 +166,7 @@ function HomeInstitutionsForm() {
                   name="changeComponent"
                   style={{ display: "none" }}
                 />
-                <label htmlFor="crearEstudiante">Crear Estudiante</label>
+                <label className="label-home-inst"  htmlFor="crearEstudiante">Crear Estudiante</label>
               </div>
               <div
                 onClick={() => setChangeComponent("Crear Grupo")}
@@ -177,7 +178,7 @@ function HomeInstitutionsForm() {
                   name="changeComponent"
                   style={{ display: "none" }}
                 />
-                <label htmlFor="crearGrupo">Crear Grupo</label>
+                <label className="label-home-inst"  htmlFor="crearGrupo">Crear Grupo</label>
               </div>
               <div
                 onClick={() => setChangeComponent("crear materias")}
@@ -189,7 +190,7 @@ function HomeInstitutionsForm() {
                   name="changeComponent"
                   style={{ display: "none" }}
                 />
-                <label htmlFor="materias">Crear Materias</label>
+                <label className="label-home-inst"  htmlFor="materias">Crear Materias</label>
               </div>
               
               <hr />
@@ -203,7 +204,7 @@ function HomeInstitutionsForm() {
                   name="changeComponent"
                   style={{ display: "none" }}
                 />
-                <label htmlFor="personal">Personal</label>
+                <label className="label-home-inst"  htmlFor="personal">Personal</label>
               </div>
 
 
@@ -217,7 +218,7 @@ function HomeInstitutionsForm() {
                   name="changeComponent"
                   style={{ display: "none" }}
                 />
-                <label htmlFor="eventos">Programar eventos</label>
+                <label className="label-home-inst"  htmlFor="eventos">Programar eventos</label>
               </div>
 
 
@@ -231,14 +232,8 @@ function HomeInstitutionsForm() {
                   name="changeComponent"
                   style={{ display: "none" }}
                 />
-                <label htmlFor="listeventos">Calendario eventos</label>
+                <label className="label-home-inst"  htmlFor="listeventos">Calendario eventos</label>
               </div>
-
-
-
-
-
-
 
               <div
                 onClick={() => setChangeComponent("estudiante")}
@@ -250,7 +245,7 @@ function HomeInstitutionsForm() {
                   name="changeComponent"
                   style={{ display: "none" }}
                 />
-                <label htmlFor="estudiantes">Estudiantes</label>
+                <label className="label-home-inst"  htmlFor="estudiantes">Estudiantes</label>
               </div>
               <div
                 onClick={() => setChangeComponent("grupos")}
@@ -262,7 +257,7 @@ function HomeInstitutionsForm() {
                   name="changeComponent"
                   style={{ display: "none" }}
                 />
-                <label htmlFor="grupos">Grupos</label>
+                <label className="label-home-inst"  htmlFor="grupos">Grupos</label>
               </div>
               <div
                 onClick={() => setChangeComponent("gastos")}
@@ -274,7 +269,7 @@ function HomeInstitutionsForm() {
                   name="changeComponent"
                   style={{ display: "none" }}
                 />
-                <label htmlFor="gastos">Gastos</label>
+                <label className="label-home-inst"  htmlFor="gastos">Gastos</label>
               </div>
             </>
             
@@ -290,7 +285,7 @@ function HomeInstitutionsForm() {
               name="changeComponent"
               style={{ display: "none" }}
             />
-            <label htmlFor="soporteSistema">Soporte de Sistema</label>
+            <label className="label-home-inst"  htmlFor="soporteSistema">Soporte de Sistema</label>
           </div>
           <div onClick={Logout}>
             <input
@@ -299,7 +294,7 @@ function HomeInstitutionsForm() {
               name="changeComponent"
               style={{ display: "none" }}
             />
-            <label htmlFor="cerrarSesion">Cerrar Sesión</label>
+            <label className="label-home-inst"  htmlFor="cerrarSesion">Cerrar Sesión</label>
           </div>
         </div>
 

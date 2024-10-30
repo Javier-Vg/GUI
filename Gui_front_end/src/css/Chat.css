@@ -9,7 +9,7 @@
     scroll-behavior: smooth;
 }
 
-  .chat-container {
+.chat-container {
     display: flex;
     flex-direction: column;
     height: 100%; /* Asegúrate de que tenga una altura definida */
