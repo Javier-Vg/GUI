@@ -19,7 +19,6 @@ import {
 } from "recharts";
 import { GoogleMap, LoadScript, Marker } from '@react-google-maps/api';
 
-
 function ExpedienteAlumno() {
   const dispatch = useDispatch();
 
@@ -147,7 +146,6 @@ function ExpedienteAlumno() {
         };
       });
     });
-
 
     setGraficRender([
       { category: 'Puntualidades', count: attendanceCount.presente },

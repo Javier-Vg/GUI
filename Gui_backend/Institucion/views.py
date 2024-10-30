@@ -12,7 +12,6 @@ class InstitutionViewSet(viewsets.ModelViewSet):
     # permission_classes = [IsAuthenticated]
     permission_classes = [AllowAny]
 
-
     def create(self, request, *args, **kwargs):
         # Extraer la contraseña del request
         password = request.data.get('password')
@@ -24,8 +23,8 @@ class InstitutionViewSet(viewsets.ModelViewSet):
             'username': request.data.get('username'),
             'email': request.data.get('email'),
             'password': password,
-            'is_staff': False,
-            'is_student': True,
+            'is_staff': True,
+            'is_student': False,
         }
 
         user_serializer = UserCreateSerializer(data=user_data)
