@@ -147,6 +147,7 @@ aside::-webkit-scrollbar-thumb{
     border-bottom: 1px solid var(--border-color);
     padding: 10px 1px;
     color: var(--text-color);
+    background-color: #801515;
 }
 .container-svg div{
     display: flex;
@@ -154,6 +155,7 @@ aside::-webkit-scrollbar-thumb{
     width: 100%;
     padding: 10px 20px;
     cursor: pointer;
+    background-color: #801515;
 }
 .div_components_institutions{
   background-color: red;
@@ -184,10 +186,14 @@ button{
 .div-components{
     text-align: center;
     margin-top: 100px;
-    margin-left: 150px;
+
     padding: 10px;
     overflow: auto;
-    max-height: 800px;
+    margin-left: 40rem;
+    
+}
+div{
+    background-color: white;
 }
 
 .inputBoton{
