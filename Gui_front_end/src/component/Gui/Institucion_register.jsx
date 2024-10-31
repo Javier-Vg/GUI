@@ -41,15 +41,22 @@ function Institucion_register() {
   };
 
   return (
-    <div className="container-register-institutions">
-      <div className="img_circle">
-        {file && <img className="image-previsualizacion" src={URL.createObjectURL(file)} alt="Previsualización" />}
+  <>
+    <div className="container-createInst">
+      <div className="img_circle-createInst">
+        {file && (
+          <img
+            className="image-preview-createInst"
+            src={URL.createObjectURL(file)}
+            alt="Previsualización"
+          />
+        )}
       </div>
-      <div className="container_inputs">
-        <div className="divsInputs">
+      <div className="container-inputs-createInst">
+        <div className="divsInputs-createInst">
           <input
             placeholder="Nombre de la Institución:"
-            className="inpts"
+            className="inputs-createInst"
             type="text"
             id="name_institution"
             value={username}
@@ -57,10 +64,10 @@ function Institucion_register() {
             required
           />
         </div>
-        <div className="divsInputs">
+        <div className="divsInputs-createInst">
           <input
             placeholder="Dirección de la Institución:"
-            className="inpts"
+            className="inputs-createInst"
             type="text"
             id="address_institution"
             value={address}
@@ -68,7 +75,7 @@ function Institucion_register() {
             required
           />
         </div>
-        <div className="divsInputs">
+        <div className="divsInputs-createInst">
           <label htmlFor="state_institution">Estado de la Institución:</label>
           <select
             id="state_institution"
@@ -81,7 +88,7 @@ function Institucion_register() {
             <option value="Inactiva">Inactiva</option>
           </select>
         </div>
-        <div className="divsInputs">
+        <div className="divsInputs-createInst">
           <label htmlFor="subscription_type">Tipo de Suscripción:</label>
           <select
             id="subscription_type"
@@ -94,10 +101,10 @@ function Institucion_register() {
             <option value="Anual">Anual</option>
           </select>
         </div>
-        <div className="divsInputs">
+        <div className="divsInputs-createInst">
           <input
-            placeholder="Numero de telefono"
-            className="inpts"
+            placeholder="Número de teléfono"
+            className="inputs-createInst"
             type="number"
             id="phone_number"
             value={phoneNumber}
@@ -105,9 +112,9 @@ function Institucion_register() {
             required
           />
         </div>
-        <div className="divsInputs">
+        <div className="divsInputs-createInst">
           <input
-            className="inpts"
+            className="inputs-createInst"
             type="email"
             id="email"
             placeholder="Correo de la Institución"
@@ -116,9 +123,9 @@ function Institucion_register() {
             required
           />
         </div>
-        <div className="divsInputs">
+        <div className="divsInputs-createInst">
           <input
-            className="inpts"
+            className="inputs-createInst"
             type="number"
             id="monthly_payment"
             placeholder="monthly_payment"
@@ -127,10 +134,10 @@ function Institucion_register() {
             required
           />
         </div>
-        <div className="divsInputs">
+        <div className="divsInputs-createInst">
           <input
-            placeholder="Date"
-            className="inpts"
+            placeholder="Fecha"
+            className="inputs-createInst"
             type="date"
             id="date"
             value={date}
@@ -138,13 +145,18 @@ function Institucion_register() {
             required
           />
         </div>
-        <div className="divsInputs">
-          <input placeholder="Contraseña" type="password"value={password} name="" id="" onChange={(e) => setPassword(e.target.value)}/>
-        </div>
-        <div className="divsInputs">
+        <div className="divsInputs-createInst">
           <input
-            placeholder="file"
-            className="inpts"
+            placeholder="Contraseña"
+            type="password"
+            value={password}
+            onChange={(e) => setPassword(e.target.value)}
+          />
+        </div>
+        <div className="divsInputs-createInst">
+          <input
+            placeholder="Archivo"
+            className="inputs-createInst"
             type="file"
             id="file"
             onChange={(e) => setFile(e.target.files[0])}
@@ -154,6 +166,7 @@ function Institucion_register() {
       </div>
       <input onClick={send_data} type="submit" value="Guardar" />
     </div>
+  </>
   );
 }
 export default Institucion_register;

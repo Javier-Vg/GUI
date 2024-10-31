@@ -1,4 +1,4 @@
-.container-login-general{
+/* .container-login-general{
     overflow: hidden;
     background-color: rgb(255, 255, 255);
     height: 100vh;
@@ -16,28 +16,21 @@
     height: 100vh;
     width: 100vh;
     object-fit: cover;
-    opacity: 0.8; /* Ajuste de transparencia para suavizar */
+    opacity: 0.8; 
     filter: brightness(0.9) contrast(1.1) sepia(0.2) saturate(1.2);
 }
 
 
 .container2-login-general{
    display: grid;
-   /* place-items: center; */
    grid-template-columns: repeat(1,1fr);
 }
 
 
 
-
-
-
-
-/* //////////////////////////////////////7 */
-/* inputs styles */
 .wave-group {
     position: relative;
-    margin-top: 20px; /* Espacio entre los grupos de inputs */
+    margin-top: 20px;
 }
 
 .wave-group .input-login-general {
@@ -81,8 +74,8 @@
 .wave-group .bar {
     position: relative;
     display: block;
-    width: 90%; /* También ajustado para que coincida con el input */
-    max-width: 200px; /* Asegura que la barra tenga el mismo tamaño que el input */
+    width: 90%; 
+    max-width: 200px;
 }
 
 .wave-group .bar:before,
@@ -107,13 +100,13 @@
 .wave-group .input-login-general:focus ~ .bar:after {
     width: 50%;
 }
-  /* //////////////////////////////////////7 */
+
   .animated-button {
     position: relative;
     display: flex;
     align-items: center;
-    gap: 2px; /* Espacio más pequeño entre el texto y el ícono */
-    padding: 8px 24px; /* Incrementa el padding horizontal para alargar el botón */
+    gap: 2px; 
+    padding: 8px 24px;
     border: 2px solid;
     border-color: transparent;
     font-size: 12px;
@@ -138,7 +131,7 @@
   }
   
   .animated-button .arr-1 {
-    right: 12px; /* Ajusta la distancia del ícono derecho */
+    right: 12px; 
   }
   
   .animated-button .arr-2 {
@@ -191,6 +184,7 @@
     height: 180px;
     opacity: 1;
   }
+  
   .img-logo-inicio{
     height: 15vh;
     display: grid;
@@ -206,17 +200,424 @@
     display: flex;
     flex-direction: row;
     justify-content: space-between; 
-    row-gap: 1em;
-    align-items: flex-start; /* Alinea los elementos al inicio en la horizontal */
-    justify-content: flex-start; /* Alinea los elementos al inicio en la vertical */
-    padding-top: 8px; /* Un pequeño padding si quieres un poco de separación del borde */
-    gap: 4px; /* Espacio mínimo entre los elementos */
-    width: 100%; /* Asegura que los elementos ocupen todo el ancho */
+    align-items: flex-start; 
+    justify-content: flex-start; 
+    padding-top: 8px; 
+    width: 100%; 
     place-content: center;
-    column-gap: 15em;
+    column-gap: 40vh;
   }
   .container-derechos-general{
     height: 10vh;
     display: grid;
     place-items: center;
+  } */
+
+.container-login-general {
+  overflow: hidden;
+  background-color: rgb(255, 255, 255);
+  height: 100vh;
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+}
+
+.container1-login-general {
+  height: 100vh;
+}
+
+.container1-login-general img {
+  height: 100vh;
+  width: 100vh;
+  object-fit: cover;
+  opacity: 0.8; /* Ajuste de transparencia para suavizar */
+  filter: brightness(0.9) contrast(1.1) sepia(0.2) saturate(1.2);
+}
+
+.container2-login-general {
+  display: grid;
+  grid-template-columns: repeat(1, 1fr);
+}
+
+/* Estilos para inputs */
+.wave-group {
+  position: relative;
+  margin-top: 20px; /* Espacio entre los grupos de inputs */
+}
+
+.wave-group .input-login-general {
+  font-size: 16px;
+  padding: 10px 10px 10px 5px;
+  display: block;
+  max-width: 100vh; /* Cambiado a un porcentaje para que sea más responsivo */
+  border: none;
+  border-bottom: 1px solid #515151;
+  background: transparent;
+  width: 60vh; /* Cambiado para que ocupe el 100% del contenedor */
+}
+
+.wave-group .input-login-general:focus {
+  outline: none;
+}
+
+.wave-group .label-login-general {
+  color: #1d318b;
+  font-size: 18px;
+  font-weight: normal;
+  position: absolute;
+  pointer-events: none;
+  left: 5px;
+  top: 10px;
+  display: flex;
+  padding-bottom: 1em;
+}
+
+.wave-group .label-char {
+  transition: 0.2s ease all;
+  transition-delay: calc(var(--index) * 0.05s);
+}
+
+.wave-group .input-login-general:focus ~ .label-login-general .label-char,
+.wave-group .input-login-general:valid ~ .label-login-general .label-char {
+  transform: translateY(-20px);
+  font-size: 14px;
+}
+
+.wave-group .bar {
+  position: relative;
+  display: block;
+  width: 90%; /* También ajustado para que coincida con el input */
+  max-width: 200px; /* Asegura que la barra tenga el mismo tamaño que el input */
+}
+
+.wave-group .bar:before,
+.wave-group .bar:after {
+  content: "";
+  height: 2px;
+  width: 0;
+  bottom: 1px;
+  position: absolute;
+  transition: 0.2s ease all;
+}
+
+.wave-group .bar:before {
+  left: 50%;
+}
+
+.wave-group .bar:after {
+  right: 50%;
+}
+
+.wave-group .input-login-general:focus ~ .bar:before,
+.wave-group .input-login-general:focus ~ .bar:after {
+  width: 50%;
+}
+
+/* Estilos del botón animado */
+.animated-button {
+  position: relative;
+  display: flex;
+  align-items: center;
+  gap: 2px; /* Espacio más pequeño entre el texto y el ícono */
+  padding: 8px 24px; /* Incrementa el padding horizontal para alargar el botón */
+  border: 2px solid;
+  border-color: transparent;
+  font-size: 12px;
+  border-radius: 50px;
+  font-weight: 500;
+  box-shadow: 0 0 0 2px #ffffff;
+  cursor: pointer;
+  overflow: hidden;
+  transition: all 0.6s cubic-bezier(0.23, 1, 0.32, 1);
+}
+
+.animated-button:hover {
+  background-color: #c5e5e4;
+  color: #212121;
+}
+
+.animated-button svg {
+  position: absolute;
+  width: 16px;
+  z-index: 9;
+  transition: all 0.8s cubic-bezier(0.23, 1, 0.32, 1);
+}
+
+.animated-button .arr-1 {
+  right: 12px; /* Ajusta la distancia del ícono derecho */
+}
+
+.animated-button .arr-2 {
+  left: -20%;
+}
+
+.animated-button .circle {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 10px;
+  height: 10px;
+  background-color: #c5e5e4;
+  border-radius: 50%;
+  opacity: 0;
+  transition: all 0.8s cubic-bezier(0.23, 1, 0.32, 1);
+}
+
+.animated-button .text {
+  position: relative;
+  z-index: 1;
+  transform: translateX(-8px);
+  transition: all 0.8s cubic-bezier(0.23, 1, 0.32, 1);
+}
+
+.animated-button:hover {
+  box-shadow: 0 0 0 12px transparent;
+}
+
+.animated-button:hover .arr-1 {
+  right: -20%;
+}
+
+.animated-button:hover .arr-2 {
+  left: 12px;
+}
+
+.animated-button:hover .text {
+  transform: translateX(8px);
+}
+
+.animated-button:active {
+  scale: 0.95;
+  box-shadow: 0 0 0 4px rgb(192, 192, 191);
+}
+
+.animated-button:hover .circle {
+  width: 180px;
+  height: 180px;
+  opacity: 1;
+}.animated-button {
+  position: relative;
+  display: flex;
+  align-items: center;
+  gap: 2px; /* Espacio más pequeño entre el texto y el ícono */
+  padding: 8px 24px; /* Incrementa el padding horizontal para alargar el botón */
+  border: 2px solid;
+  border-color: transparent;
+  font-size: 12px;
+  border-radius: 50px;
+  font-weight: 500;
+  box-shadow: 0 0 0 2px #ffffff;
+  cursor: pointer;
+  overflow: hidden;
+  transition: all 0.6s cubic-bezier(0.23, 1, 0.32, 1);
+}
+
+.animated-button:hover {
+  background-color: #c5e5e4;
+  color: #212121;
+}
+
+.animated-button svg {
+  position: absolute;
+  width: 16px;
+  z-index: 9;
+  transition: all 0.8s cubic-bezier(0.23, 1, 0.32, 1);
+}
+
+.animated-button .arr-1 {
+  right: 12px; /* Ajusta la distancia del ícono derecho */
+}
+
+.animated-button .arr-2 {
+  left: -20%;
+}
+
+.animated-button .circle {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 10px;
+  height: 10px;
+  background-color: #c5e5e4;
+  border-radius: 50%;
+  opacity: 0;
+  transition: all 0.8s cubic-bezier(0.23, 1, 0.32, 1);
+}
+
+.animated-button .text {
+  position: relative;
+  z-index: 1;
+  transform: translateX(-8px);
+  transition: all 0.8s cubic-bezier(0.23, 1, 0.32, 1);
+}
+
+.animated-button:hover {
+  box-shadow: 0 0 0 12px transparent;
+}
+
+.animated-button:hover .arr-1 {
+  right: -20%;
+}
+
+.animated-button:hover .arr-2 {
+  left: 12px;
+}
+
+.animated-button:hover .text {
+  transform: translateX(8px);
+}
+
+.animated-button:active {
+  scale: 0.95;
+  box-shadow: 0 0 0 4px rgb(192, 192, 191);
+}
+
+.animated-button:hover .circle {
+  width: 180px;
+  height: 180px;
+  opacity: 1;
+}
+
+.img-logo-inicio {
+  height: 15vh;
+  display: grid;
+  place-items: center;
+}
+
+.container-inputs-general {
+  height: 45vh;
+  display: grid;
+  place-items: center;
+}
+
+.container-input-start {
+  height: 30vh;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: flex-start; /* Alinea los elementos al inicio en la horizontal */
+  justify-content: flex-start; /* Alinea los elementos al inicio en la vertical */
+  padding-top: 8px; /* Un pequeño padding si quieres un poco de separación del borde */
+  width: 100%; /* Asegura que los elementos ocupen todo el ancho */
+  place-content: center;
+  column-gap: 40vh;
+}
+
+.container-derechos-general {
+  height: 10vh;
+  display: grid;
+  place-items: center;
+}
+
+/* Media Queries para responsividad */
+@media (max-width: 1200px) {
+  .container-login-general {
+    grid-template-columns: 1fr; /* Un solo column layout */
   }
+
+  .container1-login-general {
+    display: none;
+  }
+
+  .container-inputs-general {
+    max-width: 100%; /* Aumentar el ancho máximo para que se vea bien en pantallas pequeñas */
+  }
+
+  .wave-group .input-login-general {
+    max-width: 70vh; /* Aumentar el ancho máximo para que ocupe más espacio en pantallas pequeñas */
+  }
+
+  .container-input-start {
+    flex-direction: column; /* Cambiar a column layout */
+    align-items: center; /* Centrar elementos */
+    column-gap: 0; /* Quitar espacio entre columnas */
+  }
+}
+
+@media (max-width: 768px) {
+  .img-logo-inicio {
+    height: 10vh; /* Ajustar altura para pantallas más pequeñas */
+  }
+
+  .animated-button {
+    font-size: 10px; /* Reducir tamaño de fuente en botones */
+    padding: 6px 12px; /* Reducir padding */
+  }
+
+  .wave-group .input-login-general {
+    max-width: 100vh; /* Permitir que el input use todo el espacio disponible */
+  }
+      .container-inputs-general {
+    max-width: 100%; /* Aumentar el ancho máximo para que se vea bien en pantallas pequeñas */
+  }
+
+  .wave-group .input-login-general {
+    max-width: 40vh; /* Aumentar el ancho máximo para que ocupe más espacio en pantallas pequeñas */
+  }
+  
+}
+
+@media (max-width: 480px) {
+  .wave-group .label-login-general {
+    font-size: 16px;
+  }
+
+  .container-input-start {
+    display: grid;
+    place-items: center;
+    padding-top: 4px;
+    gap: 1em;
+    height: 20vh;
+  }
+
+  .container-inputs-general {
+    max-width: 100%;
+  }
+
+  .wave-group .input-login-general {
+    font-size: 14px;
+    max-width: 60vw; /* Tamaño restaurado */
+    padding: 10px 15px;
+    border: none; /* Quitar cualquier borde */
+    box-shadow: none; /* Eliminar sombra de contorno */
+    border-bottom: 1px solid black;
+    border-radius: 0px;
+  }
+
+  /* Estilos para un botón "Iniciar" más largo */
+  .animated-button {
+    padding: 14px 50px; /* Botón más largo */
+    font-size: 16px;
+    border-radius: 50px;
+    gap: 6px;
+  }
+
+  .animated-button .circle {
+    width: 220px;
+    height: 220px;
+  }
+
+  .animated-button svg {
+    width: 24px;
+  }
+
+  .animated-button .arr-1 {
+    right: 16px;
+  }
+
+  .animated-button .arr-2 {
+    left: 0px; /* Ajustar la flecha un poco hacia la derecha */
+  }
+
+  .animated-button:hover .circle {
+    width: 240px;
+    height: 240px;
+    opacity: 1;
+  }
+
+  .container-derechos-general {
+    height: 10vh;
+    margin-bottom: 10vh;
+  }
+}

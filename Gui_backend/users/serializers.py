@@ -127,7 +127,7 @@ class LoginSerializer(serializers.Serializer):
                         "imgUrl": Institution_instance.imagen_url,
                         "suscription_type": Institution_instance.suscription_type,
                         "auth": Institution_instance.authorization,
-                        'id': Institution_instance.id
+                        'institution': Institution_instance.id
                     }
                     token['info'] = Institution_instance
                 except Institution.DoesNotExist:

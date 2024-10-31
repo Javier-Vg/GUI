@@ -38,6 +38,8 @@ function ListGroups() {
       try {
         // Desencriptar el token
         const decodedToken = jwtDecode(token);
+        console.log(decodedToken);
+        
         const institutionIdFromToken = decodedToken.info.institution; 
         setInstitutionId(institutionIdFromToken);
       } catch (error) {

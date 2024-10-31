@@ -45,9 +45,9 @@
     font-size: 18px;
     
   }
-  .label-home-inst{
+  /* .label-home-inst{
     color: #1d318b;
-  }
+  } */
   
   
   .right-section {
@@ -75,9 +75,9 @@
     border-radius: 50%;
   }
   :root{
-    --fondo-color:#181818;
-    --items-color:#202020;
-    --border-color:#080808;
+    --fondo-color:#833c3c;
+    --items-color:#801515;
+    --border-color:#d65050;
     --text-color:#e7e7e7;
 }
 /* :root{
@@ -126,7 +126,8 @@ aside{
     left: 0;
     bottom:0;
     overflow-y: hidden;
-    margin-top: 59px;
+    /* margin-top: 62.5px; */
+    margin-top: 8vh;
     transition: 0.5s;
 }
 aside:hover{

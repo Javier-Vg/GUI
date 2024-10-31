@@ -4,6 +4,7 @@ import RegisterFormGui from "../component/Login_and_Register_Gui/RegisterFormGui
 import Institucion_register from "../component/Gui/Institucion_register";
 import List_institutions from "../component/Gui/List_institutions";
 import { useSelector } from "react-redux";
+import '../css/page/Home_Gui.css'
 
 function Home_Gui() {
   const [changeComponent, setChangeComponent] = useState("");
@@ -97,7 +98,7 @@ function Home_Gui() {
         </div>
       </aside>
 
-      <div className="div-components">
+      <div className="div-components-gui-home">
         {/* Cambia los componentes dependiendo del estado */}
         {changeComponent === "Registrar Admin" && <RegisterFormGui />}
         {changeComponent === "Crear Instituciones" && <Institucion_register />}
