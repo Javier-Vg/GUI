@@ -35,7 +35,7 @@ function HomeInstitutionsForm() {
   const handleSearch = (e) => {
     dispatch(setSearchTerm(e.target.value)); // Despacha la acción de búsqueda
   };
-  const toggleAside = () => {
+  const toggle  = () => {
     setIsDeployed(!isDeployed);
   };
   useEffect(() => {

@@ -23,11 +23,12 @@ function ExpedienteAlumno() {
   const dispatch = useDispatch();
 
   const [studentID, setStudentID] = useState("");
+  const [institutionID, setInstitutionID] = useState("");
 
   const itemStudent = useSelector((state) => state.student.items);
   const itemGrades = useSelector((state) => state.grades.items);
   const itemAssistence = useSelector((state) => state.assistenceStudent.items);
-
+    
   //objto del grafico
   const [graficRender, setGraficRender] = useState([]);
 
@@ -38,10 +39,12 @@ function ExpedienteAlumno() {
       try {
         // Desencriptar el token
         const decodedToken = jwtDecode(token);  
-        const idStudent = decodedToken.info.id;
+        const idStudent = decodedToken.info.id; 
+        const idInstitution = decodedToken.info.institution;        
         
         // Guardar el ID en una variable local
         setStudentID(idStudent);
+        setInstitutionID(idInstitution);
       } catch (error) {
         console.error("Error al decodificar el token", error);
       }
@@ -51,7 +54,7 @@ function ExpedienteAlumno() {
     dispatch(fetchAssistenceStudent()); // Llama a la acción para obtener productos al cargar el componente
   }, [dispatch]);
 
-  const [selectedButton, setSelectedButton] = useState("");
+  const [selectedButton, setSelectedButton] = useState("Enero");
 
   const buttons = [
     "Enero",
@@ -68,30 +71,28 @@ function ExpedienteAlumno() {
     "Diciembre",
   ];
 
-  const handleButtonClick = (button) => {
+  const handleButtonClick = (button) => { //nombre del mes    
     setSelectedButton(button);
   };
 
-  //tranforma de mes a numero
-  const monthNameToNumber = (monthName) => {
-    const monthMap = {
-      Enero: "01",
-      Febrero: "02",
-      Marzo: "03",
-      Abril: "04",
-      Mayo: "05",
-      Junio: "06",
-      Julio: "07",
-      Agosto: "08",
-      Septiembre: "09",
-      Octubre: "10",
-      Noviembre: "11",
-      Diciembre: "12",
-    };
-
-    return monthMap[monthName];
+ const monthNameToNumber = (monthName) => {
+  
+  const monthMap = {
+    Enero: "01",
+    Febrero: "02",
+    Marzo: "03",
+    Abril: "04",
+    Mayo: "05",
+    Junio: "06",
+    Julio: "07",
+    Agosto: "08",
+    Setiembre: "09",
+    Octubre: "10",
+    Noviembre: "11",
+    Diciembre: "12",
   };
-
+  return monthMap[monthName] || "Invalid month";
+};
 
   //Cambia la grafica:
   useEffect(() => {
@@ -100,22 +101,21 @@ function ExpedienteAlumno() {
       presente: 0,
       ausente: 0,
       tardia: 0,
-    };
+    };    
 
-    const targetInstitutionId = 1; // ID de la institución que deseas filtrar
     const mes = monthNameToNumber(selectedButton);
 
     // Filtrar y sobrescribir la misma variable
     let data = itemAssistence.filter((item) => {
       const [year, month, day] = item.dateToday.split("/");
 
-      return month === mes && item.institution === targetInstitutionId;
-    });
-
+      return month === mes && item.institution === institutionID;
+    });    
+    
     // Iterar sobre el array de datos
     data.forEach((item) => {
       // Iterar sobre el JSON de 'daily_attendance'
-      Object.keys(item.daily_attendance).map((value, i) => {
+      Object.keys(item.daily_attendance).map((value, i) => {        
       
         if (value == studentID) {
           // Contar las ocurrencias
@@ -135,13 +135,13 @@ function ExpedienteAlumno() {
       { category: 'Inpuntualidades', count: attendanceCount.tardia },
       { category: 'Ausencias', count: attendanceCount.ausente },
     ]);
-  }, [selectedButton]);
+  }, [selectedButton, institutionID]);
 
 
   return (
     <div className="div-core-expediente">
       {/* <h2>Expediente</h2> */}
-      <Skeleton className="w-2/5 rounded-lg">
+      <Skeleton className="">
         <div className="container2">
 
           <div className="fade-in">
@@ -227,7 +227,7 @@ function ExpedienteAlumno() {
 
               <div>
                 <BarChart
-                  width={500}
+                  width={410}
                   height={240}
                   data={graficRender}
                   margin={{ top: 20, right: 50, bottom: 5 }}

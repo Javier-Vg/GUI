@@ -14,7 +14,7 @@
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
     height: 8vh;
     position: relative; 
-  }
+}
 
 .Sidebar input[type="button"] {
     background-color: #007BFF; 
@@ -51,7 +51,7 @@
   .right-section {
     display: flex;
     align-items: center;
-  }
+  } 
   
   .right-section input {
     padding: 8px 12px;
@@ -89,6 +89,7 @@
     box-sizing: border-box;
     margin: 0;
 }
+
 html{
     font-size: 62.5%;
     font-family: sans-serif;
@@ -108,9 +109,11 @@ nav{
     position: fixed;
     border-bottom: 1px solid var(--border-color);
 }
+
 nav img{
     margin-left: 20px;
 }
+
 nav span i{
     color: #fff;
     font-size: 2.7rem;
@@ -125,7 +128,7 @@ aside{
     left: 0;
     bottom:0;
     overflow-y: hidden;
-    margin-top: 59px;
+    margin-top: 72.5px;
     transition: 0.5s;
 }
 
@@ -214,4 +217,11 @@ button{
     .div-components{
         margin-left: 60px;
     }
+}
+
+
+.div-nav-{
+    display: flex;
+    justify-content: space-around;
+    
 }

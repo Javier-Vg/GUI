@@ -125,6 +125,7 @@ h2 {
     display: flex;
     justify-content: center;
     align-items: center;
+    
   }
   
   .modal-content {
@@ -133,6 +134,7 @@ h2 {
     background-color: #fff;
     max-width: 500px;
     margin: auto;
+    margin-top: 50px;
   }
   
   .modal-title {

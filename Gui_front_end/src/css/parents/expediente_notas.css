@@ -2,6 +2,24 @@ body{
   padding: 0;
 }
 
+aside{
+  z-index: 5;
+}
+
+.btn-hook{
+  border: 0.1px black solid;
+  background-color: #3066c4;
+  color: white;
+  border-radius: 5px;
+  padding: 10px;
+  transition: all 0.5 ease-in;
+}
+
+.btn-hook:hover{
+  background-color: #faf9fd;
+  color: #000000;
+}
+
 .container2 {
     display: grid;
     grid-template-columns: 1fr 1fr; /* Dos columnas */
@@ -11,23 +29,17 @@ body{
     max-height: 100%; /* Alto del contenedor */
     height: 100%;
     border-radius: 5px;
-}
-
-nav{
-  height: 72px;
-  width: 100%;
-  margin-top: 0;
+    z-index: -1;
 }
 
 .fade-in:nth-child(1) {
-    
     grid-column: 1 / 2; /* Ocupa la primera columna */
     grid-row: 1 / 4; /* Ocupa las tres filas */
     background-color: lightblue;
     padding: 20px;
     text-align: center;
     border-radius: 10px;
-    height: 495px;
+    height: 475px;
     /* width: 700px; */
 } 
 
@@ -39,7 +51,6 @@ nav{
     border-radius: 10px;
     height: 240px;
     border: 5px rgb(0, 0, 0) solid;
-    
 }
 
 .fade-in:nth-child(3) {
@@ -49,6 +60,7 @@ nav{
     padding: 20px;
     text-align: center;
     border-radius: 10px;
+    height: 220px;
     border: 3px rgb(0, 0, 0) solid;
 }
 
@@ -71,7 +83,6 @@ nav{
 
 .img-student:hover {
     transform: scale(1.1); /* Aumentar tamaño al pasar el mouse */
- 
 }
 
 .img-student{
@@ -81,12 +92,6 @@ nav{
     transition: transform 0.3s ease; /* Transición suave */
 }
 
-.div-student-show{
-    display: flex;
-    justify-content: space-around;
-    height: 400px;
-    
-}
 
 .box2{
     text-align: left;
@@ -100,8 +105,8 @@ p{
 /* Estilos generales */
 .fade-in {
     animation: fadeIn 0.5s ease-in;
-    z-index: -1;
-  }
+    z-index: 1;
+    }
   
   @keyframes fadeIn {
     from {
@@ -133,6 +138,7 @@ p{
     background: rgba(236, 240, 241, 0.9);
     box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
     transition: transform 0.3s, box-shadow 0.3s;
+    height: 400px;
   }
   
   .div-student-show:hover {
@@ -187,7 +193,6 @@ p{
   
   .identification-number,
   .birthdate,
-  .grade,
   .academic-status,
   .allergy-information,
   .contact-information,
@@ -201,10 +206,10 @@ p{
     font-style: italic;
   }
   
-  @media (max-width: 100%) {
+  @media (max-width: 1000px) {
     .fade-in:nth-child(1){
       width: 700px;
-    }
+    } 
   }
 
   /* Media queries */
@@ -212,9 +217,7 @@ p{
     .div-student-show {
       flex-direction: column;
       align-items: center;
-      height: 550px;
-    
-     
+      height: 650px; 
     }
   
     .box1, .box2 {
@@ -230,8 +233,8 @@ p{
       font-size: 0.9rem;
     }
 
-    .aside{
-      width: 120px;
+    aside{
+      width: 160px;
     }
 
     .inputBoton{
@@ -256,10 +259,6 @@ p{
       flex-direction: column;
     }
 
-    aside{
-      width: 128px;
-    }
-
     .div-core-expediente{
      overflow-y: auto; 
       height: 100%;
@@ -271,7 +270,7 @@ p{
 
     .fade-in:nth-child(1){
       width: 500px;
-      height: 660px;
+      height: 690px;
     }
 
     .div-components{
@@ -304,7 +303,6 @@ body.dark {
 body.dark .div-student-show,
 body.dark nav,
 body.dark .grades-container,
-
 body.dark .h2-result,
 body.dark .select-calisific,
 body.dark th{
@@ -323,16 +321,14 @@ body.dark .aside{
   color: white;
   border-right:  2px white solid;
   border-top:  2px white solid;
-
   transition: background-color 0.5s, border-color 0.5s;
 }
 
 /* Estilos del botón de cambio de tema */
 .theme-toggle {
-  position: fixed;
   top: 70px;
   right: 20px;
-  z-index: 1000;
+  z-index: 100;
 
 }
 
@@ -374,7 +370,6 @@ body.dark .aside{
 /* styles.css o el archivo CSS correspondiente */
 .fade-in {
   position: relative;
-
 }
 
 .div-grafic{
@@ -399,14 +394,29 @@ body.dark .aside{
   background-color: #3066c4;
   cursor: pointer;
   transition: background-color 0.3s;
+  
 }
 
-.btn-grafic.hover {
-  background-color: #faf9fd; /* Color para el botón seleccionado */
-  color: rgb(0, 0, 0); /* Color del texto para el botón seleccionado */
+.btn-grafic:hover {
+  background-color: #f9f9f9;
+  color: #000000;
 }
 
 .btn-darkLight{
   background-color: #2980b9;
+  z-index: 10;
+}
 
+.select-calisific{
+  border: none;
+}
+
+.div-core-expediente{
+  margin-right: 35px;
+}
+
+.div-components{
+  margin: 0;
+  margin-top:40px;
+  margin-left: 135px;
 }
