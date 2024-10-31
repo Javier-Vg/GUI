@@ -155,6 +155,12 @@ function CreateStudent() {
 
   return (
     <div className='container-students'>
+    <br />
+    <br />
+    <br />
+    <br />
+    <br />
+    <br />
       <label>
         Nombre estudiante:
         <input type="text" name="nombre" value={nombre} onChange={handleInputChange} />

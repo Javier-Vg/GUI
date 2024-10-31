@@ -401,6 +401,16 @@ function CreateStaff() {
 
   return (
     <div className='container-create-staff'>
+      <br />
+      <br />
+      <br />
+      <br />
+      <br />
+      <br />
+      <br />
+      <br />
+      <br />
+      <br />
       <form className='form-staff' onSubmit={handleSubmit}>
         <label>
           Nombre:
