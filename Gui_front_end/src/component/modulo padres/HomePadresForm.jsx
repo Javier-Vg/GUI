@@ -5,7 +5,7 @@ import CalificacionesEstudiante from "./CalificacionesEstudiante";
 import "../../css/Institutions/HomeInstitutionsForm.css";
 import { useSelector, useDispatch } from "react-redux";
 import ListaEventos from "../moduloProfesor/listaEventos";
-
+import '../../css/ModuloPadres/HomePadresForm.css'
 function HomePadresForm() {
   const [changeComponent, setChangeComponent] = useState("");
 
@@ -80,14 +80,14 @@ function HomePadresForm() {
             </div>
           </div>
         </aside>
-        <div className="div-components">
+        {/* <div className="div-components"> */}
           <div className="div-components">
             {changeComponent === "Expediente de Alumno" && <ExpedienteAlumno />}
             {changeComponent === "Comunicacion" && <Chat />}
             {changeComponent === "Calificacion del Estudiante" && <CalificacionesEstudiante />}
             {/* {changeComponent === "Estado de Cuenta" && <ExpedienteAlumno />} */}
           </div>
-        </div>
+        
       </div>
     </div>
   );

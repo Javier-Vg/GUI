@@ -1,218 +1,134 @@
+/* Contenedor principal */
+.container-principal-derecknecio {
+    display: flex;
+    height: 100vh;
+    box-sizing: border-box;
+}
+
+/* Contenedor del chat y lista de miembros */
 .chat-profesor-container {
     display: flex;
-    width: 100vh;
-    justify-content: center;
-    align-items: center;
-    height: 100%; /* Ocupa toda la altura de la pantalla */
-    padding: 20px;
+    flex-direction: column;
+    width: 100%;
+    height: 100rem;
     box-sizing: border-box;
-    background-color: #f2f2f2;
-    scroll-behavior: smooth;
 }
 
-.chat-container {
+/* Contenedor de burbujas de miembros del staff en fila arriba */
+.chat-bubbles-container {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    gap: 15px;
+    padding: 10px;
+    background-color: #f0f0f0;
+    overflow-x: auto;
+    white-space: nowrap;
+    border-bottom: 2px solid #ddd;
+}
+
+/* Estilo de cada burbuja de miembro */
+.student-bubble {
     display: flex;
     flex-direction: column;
-    height: 100%; /* Asegúrate de que tenga una altura definida */
-  }
-  
-  .messages-container {
-    width: 100%;          
-    max-height: 400px;   
-    overflow-y: auto;     
-    padding: 10px;       
-    border: 1px solid #ccc; 
-    border-radius: 8px;  
-    background-color: #f9f9f9; 
-  }
-  
+    align-items: center;
+    cursor: pointer;
+    padding: 8px;
 
-.header {
-    font-size: 20px;
-    font-weight: bold;
-    margin-bottom: 16px;
-    text-align: center;
 }
-.chat-bubbles-container {
-    width: 100%;           /* Ocupa el 100% del ancho disponible */
-    height: 100%; 
-    /* gap: 10px;
-    width: 100vh; */
-    /* height: 20vh;        */
+
+.student-bubble:hover {
+    transform: scale(1.05);
+}
+
+/* Imagen y nombre del miembro */
+.contendor-fotos {
     display: flex;
-    /* flex-direction: column; */
-    padding: 10px;
-    border-right: 2px solid #000000; /* Borde derecho en color azul */
-    box-sizing: border-box;
+    flex-direction: column;
+    align-items: center;
 }
 
-.student-photo {
-    width: 80px;
-    height: 80px;
+.staff-photo {
+    width: 50px;
+    height: 50px;
     border-radius: 50%;
-    object-fit: cover;
-    border: 2px solid #000000;
-    margin-bottom: 10px;
-}
-.student-selector {
-    padding: 10px;
-    background-color: #fff;
-    border-bottom: 1px solid #ddd;
-    margin-bottom: 16px;
+    margin-bottom: 5px;
 }
 
+/* Contenedor del chat */
+.chat-container-staf {
+    display: flex;
+    flex-direction: column;
+    
+    background-color: #ffffff;
+}
 
-/* .message-input {
-    margin-bottom: 16px;
-} */
-
-/* .message-input textarea {
-    padding: 10px;
+/* Contenedor de los mensajes */
+.messages-container-staff {
+    display: grid;
+    grid-auto-rows: min-content; /* Ajusta la altura de cada mensaje al contenido */
+    gap: 5px;                    /* Espacio entre los mensajes */
+    padding: 10px;               /* Reduce el espacio interno */
+    max-height: 300px;           /* Altura fija y más pequeña */
+    overflow-y: auto;            /* Permite scroll vertical si se supera la altura */
+    background-color: #f5f5f5;
     border: 1px solid #ddd;
-    border-radius: 5px;
-    resize: none;
-    min-height: 60px;
-} */
+    border-radius: 4px;
+}
 
-/* button {
-    margin-top: 8px;
-    padding: 8px 16px;
+
+/* Mensajes enviados y recibidos */
+.message {
+    max-width: 80%;
+    margin: 5px 0;
+    padding: 10px;
+    border-radius: 8px;
+    font-size: 14px;
+}
+
+.sent-estudiante {
+  
+    color: rgb(15, 0, 67);
+    
+    border: 1px solid #0a40bd;
+}
+
+.received-estudiante {
+    color: rgb(15, 0, 67);
+    
+    border: 1px solid #0a40bd;
+}
+
+/* Contenedor de envío de mensajes */
+.send-message-container {
+    display: flex;
+    padding: 10px;
+    border-top: 2px solid #ddd;
+    background-color: #f9f9f9;
+}
+
+.message-input {
+    flex: 1;
+    padding: 10px;
+    font-size: 14px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    resize: none;
+}
+
+.send-button {
+    margin-left: 10px;
+    padding: 10px 20px;
+    font-size: 14px;
     background-color: #0a40bd;
     color: white;
     border: none;
     border-radius: 4px;
     cursor: pointer;
-    transition: background 0.3s ease; 
-} */
-
-
-.messages {
-    max-height: 300px;
-    overflow-y: auto; /* Mantener el scroll por defecto */
-    margin-top: 16px;
+    transition: background-color 0.3s ease;
 }
 
-.messages::-webkit-scrollbar {
-    width: 8px; /* Ancho del scrollbar */
-}
-
-
-
-
-.messages::-webkit-scrollbar-track {
-    background: transparent; /* Fondo del track */
-}
-
-.message {
-    clear: both;
-    margin: 10px 0;
-    padding: 10px;
-    border-radius: 5px;
-    max-width: 60%;
-}
-
-.sent {
-    border: 1px solid #0a40bd; /* Color de fondo para mensajes enviados */
-    background-color: white;
-    float: right; /* Alinear a la derecha */
-    text-align: center; /* Alinear texto a la derecha */
-    color: #0a40bd;
-
-}
-
-
-.received {
-    border: 1px solid #0a40bd; 
-    margin-right: auto; /* Mueve los mensajes recibidos a la izquierda */
-    background-color: white; /* Color para mensajes recibidos */
-    text-align: left; /* Alinear a la izquierda */
-    color: #0a40bd;
-}
-
-.message p {
-    margin: 0;
-    padding: 5px 10px;
-    color: #0a40bd; /* Cambiado a blanco */
-}
-
-.message strong {
-    color: white; /* Cambiado a blanco */
-}
-
-.timestamp {
-    font-size: 12px;
-    color: #6c757d; /* Color para la marca de tiempo */
-    position: absolute;
-    bottom: 5px;
-    right: 10px;
-}
-
-.message strong {
-    color: #0a40bd; /* Cambiado a #0a40bd */
-}
-/* Media query para pantallas pequeñas, 600px o menos */
-@media (max-width: 600px) {
-    .chat-container {
-        padding: 10px;
-        max-width: 100%;
-    }
-
-    .header {
-        font-size: 18px;
-    }
-
-    .student-selector select, 
-    .message-input textarea {
-        padding: 8px;
-        font-size: 14px;
-    }
-
-    .messages {
-        max-height: 200px; /* Reduce la altura para pantallas pequeñas */
-    }
-
-    .message {
-        max-width: 80%; /* Ajusta el ancho de los mensajes */
-        font-size: 14px;
-    }
-
-    button {
-        padding: 6px 12px;
-        font-size: 14px;
-    }
-}
-
-/* Media query para pantallas medianas, entre 600px y 900px */
-@media (min-width: 600px) and (max-width: 900px) {
-    .chat-container {
-        padding: 12px;
-        max-width: 80%;
-    }
-
-    .header {
-        font-size: 19px;
-    }
-
-    .messages {
-        max-height: 250px;
-    }
-
-    .message {
-        max-width: 70%;
-    }
-
-    button {
-        padding: 7px 14px;
-    }
-}
-
-/* Media query para pantallas grandes, más de 900px */
-@media (min-width: 900px) {
-    .chat-container {
-        max-width: 700px;
-    }
-
-    .messages {
-        max-height: 400px;
-    }
+.send-button:hover {
+    background-color: #083a99;
 }

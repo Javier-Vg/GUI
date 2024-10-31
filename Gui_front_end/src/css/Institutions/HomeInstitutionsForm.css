@@ -2,9 +2,11 @@
     margin: 0;
     padding: 0;
     overflow: hidden;
-    /* color: white !important; */
 }
-
+.div-component-institutions {
+    background-color: #f8f9fa;
+    height: 100vh;
+}
 .navbar {
     display: flex;
     justify-content: space-between;
@@ -58,7 +60,7 @@
     border-radius: 5px;
     border: 1px solid #ddd;
     font-size: 16px;
-    margin-right: 20px; /* Espacio entre el input y el nombre */
+    margin-right: 20px; 
   }
   
   .right-section h2 {
@@ -75,7 +77,7 @@
   :root{
     --fondo-color:#181818;
     --items-color:#202020;
-    --border-color:#383838;
+    --border-color:#080808;
     --text-color:#e7e7e7;
 }
 /* :root{

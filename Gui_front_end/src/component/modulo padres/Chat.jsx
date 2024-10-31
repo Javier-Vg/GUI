@@ -114,8 +114,10 @@ useEffect(() => {
 
   // Filtrado de mensajes por miembro seleccionado
   return (
+    <div className="container-principal-derecknecio">
     <div className="chat-profesor-container">
       {/* Lista de miembros del staff con imágenes */}
+
       <div className="chat-bubbles-container">
         {staff.map((member) => (
           <div
@@ -131,7 +133,7 @@ useEffect(() => {
            <img
               src={member.imagen_url}
               alt={`${member.name} profile`}
-              className="student-photo"
+              className="staff-photo"
             />
             <p>{member.name}</p>
             </div>
@@ -140,16 +142,16 @@ useEffect(() => {
       </div>
 
       {/* Contenedor del chat */}
-      <div className="chat-container">
+      <div className="chat-container-staf">
         {/* Mostrar los mensajes filtrados */}
-        <div className="messages-container">
+        <div className="messages-container-staff">
         
           {messages.length > 0 ? (
             messages.map((msg, index) => (
               <div
                 key={index}
                 className={`message ${
-                  msg.name === storedTeacherName ? "sent" : "received"
+                  msg.name === storedTeacherName ? "sent-estudiante" : "received-estudiante"
                 }`}
               >
                 <strong> {msg.name}:</strong> {msg.message}
@@ -161,7 +163,9 @@ useEffect(() => {
         </div>
 
         {/* Input para enviar un mensaje */}
-        <div className="send-message-container">
+        
+      </div>
+      <div className="send-message-container">
           <textarea
             value={message}
             onChange={(e) => setMessage(e.target.value)}
@@ -172,9 +176,10 @@ useEffect(() => {
             Enviar
           </button>
         </div>
-      </div>
+    </div>
     </div>
   );
+  
 };
 
 export default Chat;

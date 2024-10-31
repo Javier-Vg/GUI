@@ -111,7 +111,7 @@ const ChatProfesor = () => {
     
     <div className="div-profesor-messeges">
       {/* Lista de estudiantes con imágenes */}
-      <div className="chat-bubbles-container">
+      <div className="chat-bubbles-container-students">
         {students.map((student) => (
           <div
             key={student.id}
@@ -152,7 +152,9 @@ const ChatProfesor = () => {
         </div>
 
         {/* Input para enviar un mensaje */}
-        <div className="send-message-container">
+       
+      </div>
+      <div className="send-message-container">
           <textarea
             value={message}
             onChange={(e) => setMessage(e.target.value)}
@@ -163,7 +165,6 @@ const ChatProfesor = () => {
             Enviar
           </button>
         </div>
-      </div>
     </div>
   );
 };
