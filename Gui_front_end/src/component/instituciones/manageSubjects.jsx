@@ -42,7 +42,7 @@ const ManageSubjects = () => {
 
 
         // Extraer el institution_id desde el token
-        const institutionIdFromToken = decodedToken.info.institution;
+        const institutionIdFromToken = decodedToken.info.id;
         console.log(institutionIdFromToken);
          
         setInstitutionId(institutionIdFromToken);

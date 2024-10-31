@@ -12,33 +12,17 @@ function CalificacionesEstudiante() {
   const itemStudent = useSelector(state => state.student.items);
   const itemGrades = useSelector(state => state.grades.items);
 
+  console.log(itemGrades);
+  
+
   const [studentID, setStudentID] = useState("");
   const [period, setPeriod] = useState("1°Trimestre"); // Valor inicial
-
-
-  const [isDarkMode, setIsDarkMode] = useState(false);
-  // Cambiar el tema basado en la preferencia del usuario
-  useEffect(() => {
-    const savedTheme = localStorage.getItem("theme");
-    if (savedTheme) {
-      setIsDarkMode(savedTheme === "dark");
-    }
-  }, []);
-
-  // Función para alternar el tema
-  const toggleTheme = () => {
-    setIsDarkMode((prevMode) => !prevMode);
-    const newTheme = !isDarkMode ? "dark" : "light";
-    localStorage.setItem("theme", newTheme);
-    document.body.className = newTheme; // Cambia la clase del body
-  };
-
 
   useEffect(() => {
     const token = Cookies.get('AuthCookie');
     if (token) {
       try {
-        const decodedToken = jwtDecode(token);  
+        const decodedToken = jwtDecode(token);    
         const idStudent = decodedToken.info.id;
         setStudentID(idStudent);
       } catch (error) {
@@ -52,22 +36,36 @@ function CalificacionesEstudiante() {
   // Filtrar calificaciones para el periodo seleccionado
   const filteredGrades = itemGrades.filter(item => item.student === studentID && item.period === period);
 
+  const [modalIsOpen, setModalIsOpen] = useState(false);
+
+  const abrirModal = () => {
+    setModalIsOpen(true);
+  };
+
+  const cerrarModal = () => {
+    setModalIsOpen(false);
+  };
+
   return (
     <div className="grades-container">
-      <h2 className='h2-result'>Resultados de Calificaciones del
-        <select className='select-calisific' onChange={(e) => setPeriod(e.target.value)} value={period}>
-          <option className='select-calisific' value="1°Trimestre">1°Trimestre</option>
-          <option className='select-calisific' value="2°Trimestre">2°Trimestre</option>
-          <option className='select-calisific' value="3°Trimestre">3°Trimestre</option>
-        </select>
+      <div className='div-grades-with-modal'>
+        <div>
+           <h2 className='h2-result'>Resultados de Calificaciones del
+              <select className='select-calisific' onChange={(e) => setPeriod(e.target.value)} value={period}>
+                <option className='select-calisific' value="1°Trimestre">1°Trimestre</option>
+                <option className='select-calisific' value="2°Trimestre">2°Trimestre</option>
+                <option className='select-calisific' value="3°Trimestre">3°Trimestre</option>
+              </select>
+            </h2>
+        </div>
 
-        <div className="theme-toggle">
-          <br />
-          <button className="btn-darkLight" onClick={toggleTheme}>
-            {isDarkMode ? "🌞 Modo Día" : "🌜 Modo Noche"}
+        <div>
+          <button className="open-modal-button" onClick={abrirModal}>
+            ¿Cómo se evalúa la calificación?
           </button>
         </div>
-      </h2>
+      </div>
+     
       <table className="grades-table">
         <thead>
           <tr>
@@ -149,6 +147,29 @@ function CalificacionesEstudiante() {
           )}
         </tbody>
       </table>
+
+      {modalIsOpen && (
+        <div className="modal-overlay">
+          <div className="modal-content">
+            <h2 className="modal-title">Evaluación de la Calificación según la Emoción</h2>
+            <p className="modal-description">
+              La calificación del niño se evalúa considerando las emociones que refleja su rostro.
+              A continuación, se detallan algunas emociones y su correspondiente impacto en la evaluación:
+            </p>
+            <ul className="emotion-list">
+              <li className="emotion excellent">😁 Excelente - Calificación Excelente</li>
+              <li className="emotion good">😊 Buena - Calificación Alta</li>
+              <li className="emotion neutral">😐 Neutral - Calificación Regular</li>
+              <li className="emotion bad">😟 Mala - Calificación Baja</li>
+              <li className="emotion poor">😞 Muy Mala - Calificación Muy Baja</li>
+            </ul>
+            <button className="close-modal-button" onClick={cerrarModal}>
+              Cerrar
+            </button>
+          </div>
+        </div>
+      )}
+
     </div>
   )
 }

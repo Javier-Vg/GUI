@@ -5,8 +5,8 @@ body{
 .container2 {
     display: grid;
     grid-template-columns: 1fr 1fr; /* Dos columnas */
-    grid-template-rows:200px 200px; /* Tres filas */
-    gap: 10px; /* Espaciado entre los elementos */
+    grid-template-rows:240px 240px; /* Tres filas */
+    gap: 15px; /* Espaciado entre los elementos */
     width: 100%; /* Ancho del contenedor */
     max-height: 100%; /* Alto del contenedor */
     height: 100%;
@@ -27,7 +27,8 @@ nav{
     padding: 20px;
     text-align: center;
     border-radius: 10px;
-    height: 414px;
+    height: 495px;
+    /* width: 700px; */
 } 
 
 .fade-in:nth-child(2) {
@@ -36,7 +37,7 @@ nav{
     padding: 20px;
     text-align: center;
     border-radius: 10px;
-    height: 300px;
+    height: 240px;
     border: 5px rgb(0, 0, 0) solid;
     
 }
@@ -83,13 +84,12 @@ nav{
 .div-student-show{
     display: flex;
     justify-content: space-around;
-    border: 10px #1a1a1a solid;
-    height: 319px;
+    height: 400px;
+    
 }
 
 .box2{
     text-align: left;
-    
 }
 
 p{
@@ -100,6 +100,7 @@ p{
 /* Estilos generales */
 .fade-in {
     animation: fadeIn 0.5s ease-in;
+    z-index: -1;
   }
   
   @keyframes fadeIn {
@@ -155,8 +156,8 @@ p{
   }
   
   /* Estilos para los textos */
-  span {
-    display: block; /* Para que cada elemento ocupe su propia línea */
+  .span-alumno {
+    display: block; 
     font-size: 1rem;
     line-height: 1.6;
     color: #34495e;
@@ -171,7 +172,7 @@ p{
     overflow: hidden;
   }
   
-  span:hover {
+  .span-alumno:hover {
     background-color: #d9e6f2;
     transform: translateX(5px);
   }
@@ -200,11 +201,20 @@ p{
     font-style: italic;
   }
   
+  @media (max-width: 100%) {
+    .fade-in:nth-child(1){
+      width: 700px;
+    }
+  }
+
   /* Media queries */
-  @media (max-width: 768px) {
+  @media (max-width: 680px) {
     .div-student-show {
       flex-direction: column;
       align-items: center;
+      height: 550px;
+    
+     
     }
   
     .box1, .box2 {
@@ -220,16 +230,14 @@ p{
       font-size: 0.9rem;
     }
 
-    aside{
+    .aside{
       width: 120px;
     }
 
     .inputBoton{
       font-size: 6px;
     }
-  }
-  
-  @media (max-width: 680px) {
+
     .h1-info {
       font-size: 1.8rem;
     }
@@ -242,24 +250,36 @@ p{
       width: 100px; /* Tamaño reducido aún más para pantallas pequeñas */
       height: 100px; /* Tamaño reducido aún más para pantallas pequeñas */
     }
-  }
 
-/* Media queri */
-@media (max-width: 768px) {
     .container2 {
       display: flex;
       flex-direction: column;
     }
 
+    aside{
+      width: 128px;
+    }
+
     .div-core-expediente{
-      overflow-y: auto;
+     overflow-y: auto; 
       height: 100%;
     }
 
     .div-components{
       height: 100%;
     }
-}
+
+    .fade-in:nth-child(1){
+      width: 500px;
+      height: 660px;
+    }
+
+    .div-components{
+      overflow: auto;
+    }
+  }
+  
+
 
 /* Estilos generales para el tema claro */
 body.light {
@@ -284,7 +304,7 @@ body.dark {
 body.dark .div-student-show,
 body.dark nav,
 body.dark .grades-container,
-body.dark .div-components,
+
 body.dark .h2-result,
 body.dark .select-calisific,
 body.dark th{
@@ -298,7 +318,7 @@ body.dark .fade-in{
   border:3px white solid;
 }
 
-body.dark aside{
+body.dark .aside{
   background-color: #333;
   color: white;
   border-right:  2px white solid;
@@ -310,9 +330,10 @@ body.dark aside{
 /* Estilos del botón de cambio de tema */
 .theme-toggle {
   position: fixed;
-  top: 20px;
+  top: 70px;
   right: 20px;
   z-index: 1000;
+
 }
 
 .theme-toggle button {
@@ -353,9 +374,7 @@ body.dark aside{
 /* styles.css o el archivo CSS correspondiente */
 .fade-in {
   position: relative;
-  width: 445px;
-  height: 100%;
-  max-height: 100%;
+
 }
 
 .div-grafic{
@@ -382,11 +401,12 @@ body.dark aside{
   transition: background-color 0.3s;
 }
 
-.btn-grafic.selected {
+.btn-grafic.hover {
   background-color: #faf9fd; /* Color para el botón seleccionado */
   color: rgb(0, 0, 0); /* Color del texto para el botón seleccionado */
 }
 
 .btn-darkLight{
   background-color: #2980b9;
+
 }

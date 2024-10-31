@@ -4,10 +4,7 @@
     overflow: hidden;
     /* color: white !important; */
 }
-/* .div_components_institutions{
-    height: 100vh;
-    background-color: blue;
-} */
+
 .navbar {
     display: flex;
     justify-content: space-between;
@@ -15,7 +12,8 @@
     background-color: #f8f9fa;
     padding: 10px 20px;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-    height: 10vh;
+    height: 8vh;
+    position: relative; 
   }
 
 .Sidebar input[type="button"] {
@@ -45,6 +43,9 @@
     font-size: 18px;
     
   }
+  .label-home-inst{
+    color: #1d318b;
+  }
   
   
   .right-section {
@@ -71,14 +72,6 @@
     height: 50px;
     border-radius: 50%;
   }
-  
-
-
-  
-
-
-
-
   :root{
     --fondo-color:#181818;
     --items-color:#202020;
@@ -123,6 +116,7 @@ nav span i{
     font-size: 2.7rem;
     cursor: pointer;
 }
+
 aside{
     background-color: var(--items-color);
     width: 260px;
@@ -134,24 +128,35 @@ aside{
     margin-top: 59px;
     transition: 0.5s;
 }
+
 aside:hover{
     overflow-y: auto;
+
 }
+
 .desplegar{
     transform: translateX(-100%);
 }
+
 aside::-webkit-scrollbar{
     width: 8px;
 }
+
 aside::-webkit-scrollbar-thumb{
     background-color: #909090;
     border-radius: 5px;
 }
+
 .container-svg{
     border-bottom: 1px solid var(--border-color);
     padding: 10px 1px;
     color: var(--text-color);
 }
+
+.inputBoton:hover .label-home-inst{
+    color: white;
+}
+
 .container-svg div{
     display: flex;
     align-items: center;
@@ -159,8 +164,10 @@ aside::-webkit-scrollbar-thumb{
     padding: 10px 20px;
     cursor: pointer;
 }
+
 .container-svg div:hover{
-    background-color: #303030;
+    background-color: #1d318b;
+    color: #e7e7e7;
 }
 .container-svg div span{
     margin-left: 15px;
@@ -171,6 +178,7 @@ h2{
     padding: 10px 20px;
     color: #aaaaaa;
 }
+
 img{
     width: 50px;
     height: 50px;
@@ -183,21 +191,23 @@ button{
 
 .div-components{
     text-align: center;
-    margin-top: 100px;
+    margin-top: 80px;
     margin-left: 150px;
     padding: 10px;
-    overflow: auto;
+    /* overflow: auto; */
     max-height: 800px;
 }
 
-.inputBoton{
+/* .inputBoton{
     background-color: transparent;
     border: none;
     color: white;
     text-align: left;
     padding: 5px;
+    transition: color 0.5 ease-in;
     
-}
+} */
+
 
 /* Media queri */
 @media (max-width: 768px) {

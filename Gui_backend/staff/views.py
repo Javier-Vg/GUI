@@ -22,9 +22,9 @@ class StaffViewSet(viewsets.ModelViewSet):
 
         # Preparamos los datos del usuario
         user_data = {
-            'username': request.data['username'],
-            'password': request.data['password'],
-            'email': request.data['email'],
+            'username': request.data.get('username'),
+            'password': request.data.get('password'),
+            'email': request.data.get('email'),
         }
 
         # Establecer is_staff según la posición
@@ -56,31 +56,53 @@ class StaffViewSet(viewsets.ModelViewSet):
         return Response(serializer.data, status=status.HTTP_201_CREATED)
 
     def retrieve(self, request, pk=None):
-        staff_instances = staff.objects.all()  # Obtener todos los objetos
-
-        if not staff_instances.exists():
-            return Response({"error": "No staff found"}, status=status.HTTP_404_NOT_FOUND)
-
-        serializer = self.get_serializer(staff_instances, many=True) 
-        return Response(serializer.data, status=status.HTTP_200_OK)
+        try:
+            staff_instance = self.get_object()  # Utiliza el método get_object de ModelViewSet
+            serializer = self.get_serializer(staff_instance)
+            return Response(serializer.data, status=status.HTTP_200_OK)
+        except staff.DoesNotExist:
+            return Response({"error": "Staff not found"}, status=status.HTTP_404_NOT_FOUND)
 
     def update(self, request, *args, **kwargs):
         partial = kwargs.pop('partial', False)
-        partial = kwargs.pop('partial', False)
-        instance = self.get_object()
-        serializer = self.get_serializer(instance, data=request.data, partial=partial)
+        staff_instance = self.get_object()
+        
+        # Obtener el email de la instancia de Staff antes de actualizarla
+        email = staff_instance.email
+
+        # Crear el serializer con los datos nuevos
+        serializer = self.get_serializer(staff_instance, data=request.data, partial=partial)
         serializer.is_valid(raise_exception=True)
         self.perform_update(serializer)
-        serializer.is_valid(raise_exception=True)
-        self.perform_update(serializer)
+        
+        # Actualizar el usuario asociado en la tabla User, si existe y si el email no cambia
+        user = User.objects.filter(email=email).first()
+        if user:
+            # Actualizar los datos en User si vienen en el request
+            user_fields = ['username', 'password', 'email']  # Campos relevantes de User que quieras actualizar
+            for field in user_fields:
+                if field in request.data:
+                    setattr(user, field, request.data[field])
+            user.save()  # Guarda los cambios en User
 
         return Response(serializer.data, status=status.HTTP_200_OK)
-
     def destroy(self, request, pk=None):
         try:
+            # Obtener la instancia de Staff
             staff_instance = self.get_object()
+
+            # Obtener el email de la instancia de Staff
+            email = staff_instance.email
+
+            # Buscar y eliminar el usuario con el mismo email, si existe
+            user = User.objects.filter(email=email).first()
+            if user:
+                user.delete()  # Elimina el usuario asociado
+
+            # Eliminar la instancia de Staff
             staff_instance.delete()
-            return Response({"message": "Staff deleted successfully"}, status=status.HTTP_204_NO_CONTENT)
+            return Response({"message": "Staff and associated user deleted successfully"}, status=status.HTTP_204_NO_CONTENT)
+
         except staff.DoesNotExist:
             return Response({"error": "Staff not found"}, status=status.HTTP_404_NOT_FOUND)
 

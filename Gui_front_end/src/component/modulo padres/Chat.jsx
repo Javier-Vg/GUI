@@ -40,7 +40,7 @@ const Chat = () => {
         const allStaff = await getStaff();
         console.log("todos:",allStaff);
         const filteredStaff = allStaff.filter(
-          (member) => member.institution === storedInstitutionId
+          (member) => member.institution === storedInstitutionId && member.position ==="Teacher"
           
         );
         console.log("Staff filtrado:", filteredStaff);

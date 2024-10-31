@@ -28,7 +28,7 @@ function ListStaff() {
       try {
         // Desencriptar el token
         const decodedToken = jwtDecode(token);
-        const institutionIdFromToken = decodedToken.info.institution;
+        const institutionIdFromToken = decodedToken.info.id;
 
         setInstitutionId(institutionIdFromToken);
       } catch (error) {

@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import ExpedienteAlumno from "./ExpedienteAlumno";
 import Chat from "./Chat";
 import CalificacionesEstudiante from "./CalificacionesEstudiante";
@@ -8,6 +8,8 @@ import ListaEventos from "../moduloProfesor/listaEventos";
 
 function HomePadresForm() {
   const [changeComponent, setChangeComponent] = useState("");
+
+  const [isDarkMode, setIsDarkMode] = useState(false);
 
   // Definir el estado para controlar el despliegue del aside
   const [isDeployed, setIsDeployed] = useState(false);
@@ -21,6 +23,23 @@ function HomePadresForm() {
   const toggleAside = () => {
     setIsDeployed(!isDeployed);
   };
+
+  // Cambiar el tema basado en la preferencia del usuario
+  useEffect(() => {
+    const savedTheme = localStorage.getItem("theme");
+    if (savedTheme) {
+      setIsDarkMode(savedTheme === "dark");
+    }
+  }, []);
+
+  // Función para alternar el tema
+  const toggleTheme = () => {
+    setIsDarkMode((prevMode) => !prevMode);
+    const newTheme = !isDarkMode ? "dark" : "light";
+    localStorage.setItem("theme", newTheme);
+    document.body.className = newTheme; // Cambia la clase del body
+  };
+
 
   return (
     <div>
@@ -40,43 +59,72 @@ function HomePadresForm() {
           </button>
           <img src={InfInstitution} alt="" />
           <h2>{NameInstitution}</h2>
+
+          <div className="theme-toggle">
+            <button className="btn-darkLight" onClick={toggleTheme}>
+              {isDarkMode ? "🌞 Modo Día" : "🌜 Modo Noche"}
+            </button>
+          </div>
         </nav>
+        
         <aside id="aside" className={isDeployed ? "desplegar" : ""}>
           <div className="container-svg">
-          <div>
+          <div 
+          className="inputBoton"
+          onClick={() => setChangeComponent("Estado de Cuenta")}
+          >
               <input
-                type="button"
+                type="radio"
                 value="Estado de Cuenta"
-                onClick={() => setChangeComponent("Estado de Cuenta")}
                 className="inputBoton"
+                style={{ display: "none" }}
               />
+              <label className="label-home-inst"  htmlFor="Estado de Cuenta">Estado de Cuenta</label>
+
             </div>
-            <div>
+            <div 
+            className="inputBoton"
+            onClick={() => setChangeComponent("Expediente de Alumno")}
+            >
               <input
-                type="button"
+                type="radio"
                 value="Expediente de Alumno"
-                onClick={() => setChangeComponent("Expediente de Alumno")}
-                className="inputBoton"
+                id="Expediente de Alumno"
+                name="changeComponent"
+                style={{ display: "none" }}
               />
+
+              <label className="label-home-inst"  htmlFor="Expediente de Alumno">Expediente de Alumno</label>
             </div>
-            <div>
+
+            <div 
+            className="inputBoton"
+            onClick={() => setChangeComponent("Comunicacion")}
+            >
               <input
-                type="button"
+                type="radio"
                 value="Comunicacion"
-                onClick={() => setChangeComponent("Comunicacion")}
-                className="inputBoton"
+                id="Comunicacion"
+                name="changeComponent"
+                style={{ display: "none" }}
+         
               />
+              <label className="label-home-inst"  htmlFor="comunicacion">Comunicacion</label>
             </div>
             
-            <div>
+            <div 
+            className="inputBoton"
+            onClick={() =>
+              setChangeComponent("Calificacion del Estudiante")
+            }>
               <input
-                type="button"
+                type="radio"
                 value="Calificaciones del Estudiante"
-                onClick={() =>
-                  setChangeComponent("Calificacion del Estudiante")
-                }
-                className="inputBoton"
+                id="Calificacion del Estudiante"
+                name="changeComponent"
+                style={{ display: "none" }}
               />
+              <label className="label-home-inst"  htmlFor="Calificacion del Estudiante">Calificacion del Estudiante</label>
             </div>
           </div>
         </aside>
@@ -94,3 +142,4 @@ function HomePadresForm() {
 }
 
 export default HomePadresForm;
+

@@ -316,7 +316,11 @@ function CreateStaff() {
        try {
          // Desencriptar el token
          const decodedToken = jwtDecode(token);
-         const institutionIdFromToken = decodedToken.info.institution; 
+         console.log(decodedToken);
+         
+         const institutionIdFromToken = decodedToken.info.id; 
+         
+         console.log(institutionIdFromToken);
          
          setInstitutionId(institutionIdFromToken);
        } catch (error) {
@@ -373,6 +377,8 @@ function CreateStaff() {
 
       const data = await response.json();
       const imageUrl = data.image_url;
+      console.log(imageUrl);
+      
 
       const staff = {
         username: changeNombre,
