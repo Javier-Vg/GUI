@@ -89,36 +89,29 @@ function Login2() {
         <form onSubmit={handleSubmit}>
           <div className="img-logo-inicio">{responseMessage}</div>
           <div className="container-inputs-general">
+           <div className="wave-group">
+              <input
+                  autoComplete="off"
+                  className="input-login-general"
+                  type="email"
+                  id="email"
+                  value={email}
+                  onChange={(e) => setEmail(e.target.value)}
+                  required
+                  placeholder=" "  // Agregar placeholder vacío para la validación
+              />
+              <label className="label-login-general" htmlFor="email">
+                  <span className="label-char" style={{ "--index": 0 }}>E</span>
+                  <span className="label-char" style={{ "--index": 1 }}>m</span>
+                  <span className="label-char" style={{ "--index": 2 }}>a</span>
+                  <span className="label-char" style={{ "--index": 3 }}>i</span>
+                  <span className="label-char" style={{ "--index": 4 }}>l</span>
+              </label>
+              <span className="bar"></span>
+           </div>
           <div className="wave-group">
             <input
-              className="input-login-general"
-              type="email"
-              id="email"
-              value={email}
-              onChange={(e) => setEmail(e.target.value)}
-              required
-            />
-            <label className="label-login-general" htmlFor="email">
-              <span className="label-char" style={{ "--index": 0 }}>
-                E
-              </span>
-              <span className="label-char" style={{ "--index": 1 }}>
-                m
-              </span>
-              <span className="label-char" style={{ "--index": 2 }}>
-                a
-              </span>
-              <span className="label-char" style={{ "--index": 3 }}>
-                i
-              </span>
-              <span className="label-char" style={{ "--index": 4 }}>
-                l
-              </span>
-            </label>
-            <span className="bar"></span>
-          </div>
-          <div className="wave-group">
-            <input
+              autoComplete="off"
               className="input-login-general"
               type="password"
               id="password"
@@ -179,8 +172,8 @@ function Login2() {
             >
               <path d="M16.1716 10.9999L10.8076 5.63589L12.2218 4.22168L20 11.9999L12.2218 19.778L10.8076 18.3638L16.1716 12.9999H4V10.9999H16.1716Z"></path>
             </svg>
-          </button>
-          <a href="">Olvidó su contraseña?</a>
+            </button>
+            <a href="">Olvidó  su  contraseña?</a>
           </div>
         </form>
         <div className="container-derechos-general">

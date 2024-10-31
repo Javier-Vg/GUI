@@ -175,11 +175,11 @@
         max-width: 80%; /* Ajusta el ancho de los mensajes */
         font-size: 14px;
     }
-
+/* 
     button {
         padding: 6px 12px;
         font-size: 14px;
-    }
+    } */
 }
 
 /* Media query para pantallas medianas, entre 600px y 900px */
@@ -201,9 +201,9 @@
         max-width: 70%;
     }
 
-    button {
+    /* button {
         padding: 7px 14px;
-    }
+    } */
 }
 
 /* Media query para pantallas grandes, más de 900px */
