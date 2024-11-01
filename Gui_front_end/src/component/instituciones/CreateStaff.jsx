@@ -318,7 +318,7 @@ function CreateStaff() {
          const decodedToken = jwtDecode(token);
          console.log(decodedToken);
          
-         const institutionIdFromToken = decodedToken.info.id; 
+         const institutionIdFromToken = decodedToken.info.institution; 
          
          console.log(institutionIdFromToken);
          
