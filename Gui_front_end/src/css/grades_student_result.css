@@ -8,6 +8,7 @@ body {
 .grades-container {
     max-width: 100%;
     max-height: 400px;
+    margin-top: 100px;
     background: white;
     border-radius: 12px;
     box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
@@ -203,3 +204,32 @@ h2 {
     display: flex;
     justify-content: space-around;
   }
+
+
+
+
+
+
+/* Estilos específicos para pantallas más pequeñas */
+@media (max-width: 414px) {
+  .h2-result {
+    font-size: 16px; /* Tamaño de fuente más pequeño */
+  }
+
+  .open-modal-button {
+    width: 100%; /* Botón ocupa todo el ancho */
+  }
+
+  .grades-table th,
+  .grades-table td {
+    font-size: 14px; /* Tamaño de fuente más pequeño en la tabla */
+  }
+
+  .grades-table {
+    font-size: 12px; /* Tamaño de fuente de la tabla */
+  }
+
+  .emotion-list {
+    font-size: 12px; /* Tamaño de fuente en la lista de emociones */
+  }
+}

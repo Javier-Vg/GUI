@@ -4,12 +4,12 @@ import Chat from "./Chat";
 import CalificacionesEstudiante from "./CalificacionesEstudiante";
 import "../../css/Institutions/HomeInstitutionsForm.css";
 import { useSelector, useDispatch } from "react-redux";
+import ScrollIndicator from "../../component/modulo padres/messageScroll";
+import ThemeSwitcher from "../../component/modulo padres/changeTheme/ChangeTheme";
 import ListaEventos from "../moduloProfesor/listaEventos";
 
 function HomePadresForm() {
   const [changeComponent, setChangeComponent] = useState("");
-
-  const [isDarkMode, setIsDarkMode] = useState(false);
 
   // Definir el estado para controlar el despliegue del aside
   const [isDeployed, setIsDeployed] = useState(false);
@@ -25,6 +25,9 @@ function HomePadresForm() {
   };
 
   // Cambiar el tema basado en la preferencia del usuario
+  const [isDarkMode, setIsDarkMode] = useState(false);
+  const [isHovered, setIsHovered] = useState(false);
+
   useEffect(() => {
     const savedTheme = localStorage.getItem("theme");
     if (savedTheme) {
@@ -32,18 +35,17 @@ function HomePadresForm() {
     }
   }, []);
 
-  // Función para alternar el tema
   const toggleTheme = () => {
     setIsDarkMode((prevMode) => !prevMode);
     const newTheme = !isDarkMode ? "dark" : "light";
     localStorage.setItem("theme", newTheme);
-    document.body.className = newTheme; // Cambia la clase del body
+    document.body.className = newTheme;
   };
-
 
   return (
     <div>
-      <div>
+      <ScrollIndicator/>
+      <div className="div-core-father">
         <head>
           <link
             href="https://unpkg.com/boxicons@2.0.7/css/boxicons.min.css"
@@ -60,11 +62,8 @@ function HomePadresForm() {
           <img src={InfInstitution} alt="" />
           <h2>{NameInstitution}</h2>
 
-          <div className="theme-toggle">
-            <button className="btn-darkLight" onClick={toggleTheme}>
-              {isDarkMode ? "🌞 Modo Día" : "🌜 Modo Noche"}
-            </button>
-          </div>
+          {/* ahhhhhhh */}
+          <ThemeSwitcher/>
         </nav>
         
         <aside id="aside" className={isDeployed ? "desplegar" : ""}>
@@ -128,14 +127,14 @@ function HomePadresForm() {
             </div>
           </div>
         </aside>
-        <div className="div-components">
+       
           <div className="div-components">
             {changeComponent === "Expediente de Alumno" && <ExpedienteAlumno />}
             {changeComponent === "Comunicacion" && <Chat />}
             {changeComponent === "Calificacion del Estudiante" && <CalificacionesEstudiante />}
             {/* {changeComponent === "Estado de Cuenta" && <ExpedienteAlumno />} */}
           </div>
-        </div>
+  
       </div>
     </div>
   );

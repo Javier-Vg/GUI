@@ -53,3 +53,6 @@ pagos:
 pip install python-stripe
 
 pip install sib-api-v3-sdk
+
+-mensaje scroll
+npm install lucide-react

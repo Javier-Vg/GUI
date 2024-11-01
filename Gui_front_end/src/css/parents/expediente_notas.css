@@ -25,11 +25,13 @@ aside{
     grid-template-columns: 1fr 1fr; /* Dos columnas */
     grid-template-rows:240px 240px; /* Tres filas */
     gap: 15px; /* Espaciado entre los elementos */
-    width: 100%; /* Ancho del contenedor */
+    width: 99%; /* Ancho del contenedor */
     max-height: 100%; /* Alto del contenedor */
     height: 100%;
     border-radius: 5px;
     z-index: -1;
+    margin-left: 10px;
+    margin-top: 100px;
 }
 
 .fade-in:nth-child(1) {
@@ -210,6 +212,15 @@ p{
     .fade-in:nth-child(1){
       width: 700px;
     } 
+
+    .div-student-show{
+      margin: auto;
+    }
+
+    .div-components{
+      margin-top: 300px;
+      
+    }
   }
 
   /* Media queries */
@@ -218,6 +229,11 @@ p{
       flex-direction: column;
       align-items: center;
       height: 650px; 
+    }
+
+    nav{
+      position: fixed;
+      z-index: 3;
     }
   
     .box1, .box2 {
@@ -234,7 +250,7 @@ p{
     }
 
     aside{
-      width: 160px;
+      width: 120px;
     }
 
     .inputBoton{
@@ -262,6 +278,7 @@ p{
     .div-core-expediente{
      overflow-y: auto; 
       height: 100%;
+      
     }
 
     .div-components{
@@ -277,6 +294,94 @@ p{
       overflow: auto;
     }
   }
+
+  /* Estilos generales para la visualización en móviles */
+@media (max-width: 414px) {
+
+  .div-components{
+    margin: 0;
+    padding: 0;
+    width: 100%;
+    width: 700px;
+  }
+
+  .div-core-expediente {
+    padding: 10px;
+    width: 500px;
+  }
+
+  .div-student-show {
+    display: flex;
+    flex-direction: column;
+    align-items: center; /* Centra el contenido */
+    margin: 10px 0; /* Espacio entre los elementos */
+  }
+
+  .box1, .box2 {
+    width: 100%; /* Asegura que las cajas ocupen todo el ancho */
+    margin-bottom: 10px; /* Espacio entre cajas */
+    padding: 10px;
+    box-shadow: 0 0 5px rgba(0, 0, 0, 0.1); /* Sombra sutil para el efecto visual */
+    border-radius: 5px; /* Bordes redondeados */
+  }
+
+  .img-student {
+    width: 100px; /* Tamaño de la imagen */
+    height: auto; /* Mantiene la relación de aspecto */
+    border-radius: 50%; /* Imagen circular */
+  }
+
+
+
+
+
+
+
+
+
+
+  .div-core-father{
+
+      overflow: auto; /* Asegúrate de que el hijo no esté recortado */
+    
+  }
+
+
+
+
+
+
+
+
+
+
+
+
+  .span-alumno {
+    font-size: 14px; /* Tamaño de fuente ajustado */
+    line-height: 1.5; /* Espaciado entre líneas */
+    text-align: center; /* Centra el texto */
+  }
+
+  .iframe {
+    width: 100%;
+    height: 200px; /* Ajusta la altura del iframe */
+  }
+
+  .button-container-grafic {
+    display: flex;
+    flex-wrap: wrap; /* Permite que los botones se envuelvan en varias líneas */
+    justify-content: center; /* Centra los botones */
+    margin: 10px 0;
+  }
+
+  .btn-grafic {
+    margin: 5px; /* Espacio entre botones */
+    padding: 5px 10px; /* Ajuste de padding para botones */
+    font-size: 14px; /* Tamaño de fuente para botones */
+  }
+}
+
   
 
 
@@ -394,7 +499,6 @@ body.dark .aside{
   background-color: #3066c4;
   cursor: pointer;
   transition: background-color 0.3s;
-  
 }
 
 .btn-grafic:hover {
@@ -420,3 +524,18 @@ body.dark .aside{
   margin-top:40px;
   margin-left: 135px;
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+/* mensaje de bienvenida */
+

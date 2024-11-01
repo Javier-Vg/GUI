@@ -27,6 +27,9 @@ const MyModal = forwardRef((props, ref) => { //forwardRef  Se usa para pasar la 
       className="modal-overlay" 
       onClick={handleOverlayClick}
     >
+      <br />
+      <br />
+      <br />
       <div className="modal-content">
         {props.children}
         <button className='btn-hook' onClick={() => setIsOpen(false)}>Cerrar</button>

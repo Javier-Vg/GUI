@@ -141,6 +141,8 @@ function CalificacionesEstudiante() {
           )}
         </tbody>
       </table>
+      <br />
+      <br />
 
       <MyModal ref={modalRef}>
         <h2 className="modal-title">Evaluación de la Calificación según la Emoción</h2>

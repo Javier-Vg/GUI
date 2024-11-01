@@ -20,6 +20,7 @@ import {
 import { GoogleMap, LoadScript, Marker } from '@react-google-maps/api';
 
 function ExpedienteAlumno() {
+
   const dispatch = useDispatch();
 
   const [studentID, setStudentID] = useState("");
@@ -141,10 +142,10 @@ function ExpedienteAlumno() {
   return (
     <div className="div-core-expediente">
       {/* <h2>Expediente</h2> */}
-      <Skeleton className="">
         <div className="container2">
 
           <div className="fade-in">
+
         
             <br />
             {itemStudent &&
@@ -267,7 +268,7 @@ function ExpedienteAlumno() {
           <br />
           <br />
         </div>
-      </Skeleton>
+
     </div>
   );
 }
