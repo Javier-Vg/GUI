@@ -10,34 +10,34 @@ import Cookies from "js-cookie";
 import { jwtDecode } from "jwt-decode";
 import EditCalendarIcon from '@mui/icons-material/EditCalendar';
 import DatePicker from 'react-datepicker';
+import Tooltip from '@mui/material/Tooltip';
 import 'react-datepicker/dist/react-datepicker.css';
 
 function ListGroups() {
   const [groups, setGroups] = useState([]);
-  const [seeMore, setSeeMore] = useState(false);
-  const [selectedGroup, setSelectedGroups] = useState(null);
+  const [seeMore, setSeeMore] = useState(null);
+  const [attendance, setAttendance] = useState({});
+  const [startDate, setStartDate] = useState(null);
+  const [isOpen, setIsOpen] = useState(false);
   const dispatch = useDispatch();
-
-  //Estados de Staff:
+  
+  // Redux state
   const itemsGroup = useSelector((state) => state.group.items);
   const itemsStudent = useSelector((state) => state.student.items);
   const itemsAssignmentG = useSelector((state) => state.groupAssignment.items);
   const loading = useSelector((state) => state.group.loading);
   const error = useSelector((state) => state.group.error);
-
-  const [attendance, setAttendance] = useState({});
-
-  //Setea la cookie
-  const [InstitutionId, setInstitutionId] = useState("");
-  const [NameTeacher, setNameTeacher] = useState("");
-  const [TeacherId, setTeacherId] = useState("");
-
-  //Cierra el modal:
-  const closeModal = () => {
-    setAttendance("");
-    setSeeMore(false);
-  }
   
+  // Teacher info
+  const [institutionId, setInstitutionId] = useState("");
+  const [nameTeacher, setNameTeacher] = useState("");
+  const [teacherId, setTeacherId] = useState("");
+
+  const closeModal = () => {
+    setAttendance({});
+    setSeeMore(null);
+  };
+
   const handleAttendanceChange = (studentId, status) => {
     setAttendance(prev => ({
       ...prev,
@@ -45,29 +45,17 @@ function ListGroups() {
     }));
   };
 
-  // calenderrrr
-  const [startDate, setStartDate] = useState(null);
-  const [isOpen, setIsOpen] = useState(false);
-
   const saveAttendance = () => {
-
-    // Obtener el año, mes y día
-    const year = startDate.getFullYear();
-    const month = String(startDate.getMonth() + 1).padStart(2, '0'); // Los meses son 0-indexados
-    const day = String(startDate.getDate()).padStart(2, '0');
-    // Formatear a yyyy/mm/dd
-    const fechaFormateada = `${year}/${month}/${day}`;
-
+    const formattedDate = startDate.toISOString().split('T')[0];
     const json = {
-      institution: InstitutionId,
+      institution: institutionId,
       daily_attendance: attendance,
       group: seeMore,
-      dateToday: fechaFormateada,
-      teacher: TeacherId
-    }
+      dateToday: formattedDate,
+      teacher: teacherId
+    };
 
     postStudentAssistence(json);
-
   };
 
   const handleButtonClick = () => {
@@ -79,10 +67,7 @@ function ListGroups() {
 
     if (token) {
       try {
-        // Desencriptar el token
         const decodedToken = jwtDecode(token);
-        console.log(decodedToken);
-        
         setInstitutionId(decodedToken.info.institution);
         setNameTeacher(decodedToken.info.username);
         setTeacherId(decodedToken.info.id);
@@ -90,147 +75,82 @@ function ListGroups() {
         console.error("Error al decodificar el token", error);
       }
     }
-    dispatch(fetchGroups()); // Llama a la acción para obtener productos al cargar el componente
-    dispatch(fetchStaff()); // Llama a la acción para obtener productos al cargar el componente
-    dispatch(fetchStudent()); // Llama a la acción para obtener productos al cargar el componente
+    dispatch(fetchGroups());
+    dispatch(fetchStaff());
+    dispatch(fetchStudent());
   }, [dispatch]);
 
   useEffect(() => {
-    setGroups([]);
-    let arrayGroups = [];
-    for (let i = 0; i < itemsGroup.length; i++) {
-      Object.values(
-        itemsGroup[i].communication_of_subjects_and_teacher
-      ).forEach((value) => {
-        if (
-          itemsGroup[i].institution === InstitutionId &&
-          value == NameTeacher
-        ) {
-          //Valida nombre del profe y institucion
-          // Actualiza el valor de la clave correspondiente
+    const uniqueGroups = itemsGroup.filter(group =>
+      group.institution === institutionId &&
+      Object.values(group.communication_of_subjects_and_teacher).includes(nameTeacher)
+    );
 
-          arrayGroups.push(itemsGroup[i]);
-          // Crear un conjunto para rastrear usernames únicos
-          let usernamesUnicos = new Set();
+    setGroups(uniqueGroups);
+  }, [itemsGroup, institutionId, nameTeacher]);
 
-          // Filtrar los objetos omitiendo duplicados
-          const objetosFiltrados = arrayGroups.filter((obj) => {
-            if (usernamesUnicos.has(obj.group_name)) {
-              return false; // Omitir si ya existe
-            } else {
-              usernamesUnicos.add(obj.group_name); // Agregar al conjunto
-              return true; // Mantener si es único
-            }
-          });
-
-          setGroups(objetosFiltrados);
-        }
-      });
-    }
-  }, [itemsGroup]);
-
-  
-  if (loading) {
-    return <div>Cargando...</div>; // Muestra un mensaje de carga
-  }
-
-  if (error) {
-    return <div>Error: {error}</div>; // Muestra el error si ocurre
-  }
+  if (loading) return <div className="loading">Cargando...</div>;
+  if (error) return <div className="error">Error: {error}</div>;
 
   return (
     <>
-      <h1>Grupos</h1>
-      <p>Grupos donde usted se encuentra asignado:</p>
-      <p>La asignacion de asistencia de estudiantes esta en este apartado.</p>
-      <br />
-      <br />
-      <div>
+      <h1 className="title">Grupos</h1>
+      <p className="description">Grupos donde usted se encuentra asignado:</p>
+      <div className="groups-container">
         {groups.length > 0 ? (
-          <div className="container_list">
-            {groups.map((group, i) => (
-              <div key={i} className="divField">
-                <fieldset>
-                  <legend>
-                    Detalles del Grupo: <br />
-                    {group.group_name}
-                  </legend>
-
-                  <div className="info">
-                    <span className="label">Nivel de educacion:</span>{" "}
-                    {group.educational_level}
-                  </div>
-                  <div className="info">
-                    <span className="label">Capacidad Maxima:</span>{" "}
-                    {group.capacity}
-                  </div>
-                  <div className="info">
-                    <span className="label">Numero de clase:</span>{" "}
-                    {group.classroom}
-                  </div>
-                  <div className="info">
-                    <span className="label">Estudiantes activos:</span>{" "}
-                    {group.current_students}
-                  </div>
-                  
-                    <span className="label">Docentes asignados:</span>
-                    <br />
-                    <br />
-                    {group.communication_of_subjects_and_teacher && (
-                      <table className="table_json">
-                        <thead>
-                          <tr>
-                            <th>Asignatura</th>
-                            <th>Docente</th>
+          groups.map((group, i) => (
+            <div key={i} className="group-card">
+              <fieldset className="group-details">
+                <legend>Detalles del Grupo: {group.group_name}</legend>
+                <div className="group-info">
+                  <span> Nivel de educación: {group.educational_level},</span> 
+                  <span> Capacidad máxima: {group.capacity},</span> 
+                  <span> Número de clase: {group.classroom},</span> 
+                  <span> Estudiantes activos: {group.current_students}</span> 
+                  <br />
+                  <span> Docentes asignados:</span>
+                  {group.communication_of_subjects_and_teacher && (
+                    <table className="teachers-table">
+                      <thead>
+                        <tr>
+                          <th>Asignatura</th>
+                          <th>Docente</th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        {Object.entries(group.communication_of_subjects_and_teacher).map(([subject, teacher], index) => (
+                          <tr key={index}>
+                            <td>{subject}</td>
+                            <td>{teacher}</td>
                           </tr>
-                        </thead>
-
-                        {Object.keys(
-                          group.communication_of_subjects_and_teacher
-                        ).map((key, index) => (
-                          <tbody>
-                            <tr key={index}>
-                              <td>{key}</td>
-                              <td>
-                                {group.communication_of_subjects_and_teacher[key]}
-                              </td>
-                            </tr>
-                          </tbody>
                         ))}
-                      </table>
-                    )}
-                    <br />
-                 
-                  <button
-                    onClick={() => setSeeMore(group.id)}
-                    className="btn-asistencia"
-                  >
-                    Asignar asistencia de los estudiantes
-                  </button>
-                </fieldset>
+                      </tbody>
+                    </table>
+                  )}
+                </div>
 
-                {/* Modal de asignar asistencia */}
-                {seeMore && (
-                  <div className="modal-overlayTwo">
-                    <div className="modalTwo">
-                      
-                      <div className="container-asistencia">
-                      <h1 className="title">Registro de Asistencia</h1>
-                      <h2 className="subtitle">Grupo: {seeMore}</h2>
-                      
+                <Tooltip title="Asigne asistencia" placement="bottom">
+                  <button onClick={() => setSeeMore(group.id)} className="btn-asistencia">
+                  Asignar asistencia de los estudiantes
+                </button>
+                </Tooltip>
 
+
+                
+              </fieldset>
+
+              {seeMore === group.id && (
+                <div className="modal-overlay">
+                  <div className="modal-content">
+                    <h2 className="modal-title">Registro de Asistencia - Grupo: {group.group_name}</h2>
+                    <div className="student-list">
                       {itemsAssignmentG.map((item, k) =>
-                        itemsStudent.map((itemStu, s) =>
-                          item.group === seeMore && itemStu.id === item.student && (
-                            <div key={`${s}-${k}`} 
-                              className="student-card">
+                        itemsStudent.map((itemStu) => 
+                          item.group === group.id && itemStu.id === item.student && (
+                            <div key={`${k}-${itemStu.id}`} className="student-card">
                               <h3 className="student-name">{itemStu.username} {itemStu.last_name}</h3>
-                              <select
-                                onChange={(e) => handleAttendanceChange(itemStu.id, e.target.value)}
-                                defaultValue="Seleccionar estado"
-                                className="select-asis"
-                              >
-                                <option value="" defaultValue={this}>Seleccionar estado</option>
+                              <select onChange={(e) => handleAttendanceChange(itemStu.id, e.target.value)} className="select-asis">
+                                <option value="">Seleccionar estado</option>
                                 <option value="Puntual">Puntual</option>
                                 <option value="Inpuntual">Inpuntual</option>
                                 <option value="Ausente">Ausente</option>
@@ -239,44 +159,29 @@ function ListGroups() {
                           )
                         )
                       )}
-                      <div className="div-btn">
-                        <EditCalendarIcon className="icon" onClick={handleButtonClick} style={{ fontSize: '40px', color: 'blue', marginTop: "18px" }}  />
-                      
-                        <div>
+                    </div>
+                    <div className="modal-actions">
+
+                      <Tooltip title="Seleccionar fecha de hoy" placement="bottom">
+                        <div className="date-picker">
+                          <EditCalendarIcon style={{fontSize: "35px"}} onClick={() => setIsOpen(!isOpen)} className="calendar-icon" />
                           {isOpen && (
-                              <DatePicker 
-                                  selected={startDate}
-                                  onChange={(date) => {
-                                      setStartDate(date);
-                                      setIsOpen(false); // Cierra el calendario al seleccionar una fecha
-                                  }} 
-                                  inline // Para mostrar el calendario de forma inline
-                              />
+                            <DatePicker selected={startDate} onChange={(date) => { setStartDate(date); setIsOpen(false); }} inline />
                           )}
                         </div>
-
-                        <button onClick={saveAttendance}
-                          className="button-asis">
-                          Guardar Asistencia
-                        </button>
-                        <button
-                          className="btn-close-asistencia"
-                          onClick={() => closeModal()}
-                        >
-                          volver
-                        </button>
-                      </div>
-                      
-                    </div>
-                  
+                      </Tooltip>
+                     
+                      <button onClick={saveAttendance} className="button-save">Guardar Asistencia</button>
+                      <button onClick={closeModal} className="button-close">Volver</button>
                     </div>
                   </div>
-                )}
-              </div>
-            ))}
-          </div>
+                </div>
+              )}
+
+            </div>
+          ))
         ) : (
-          <p>Todavia usted no se encuentra en ningun grupo.</p>
+          <p>No se encuentra en ningún grupo.</p>
         )}
       </div>
     </>

@@ -10,6 +10,7 @@ import '../../../css/Institutions/teachers/GradesTeacher.css'
 import Cookies from 'js-cookie';
 import { jwtDecode } from "jwt-decode";
 
+
 function GradesTeacher() {
   const [studentsWithGroups, setStudentsWithGroups] = useState([]);
   const [NameTeacher, setNameTeacher] = useState("")
@@ -29,6 +30,10 @@ function GradesTeacher() {
   //Muestra el div del semestre seleccionado
   
   const [RenderTrimestre, setRenderTrimestre] = useState("");
+
+
+  console.log(RenderTrimestre);
+  
 
   //Guardan estados para el objeto
   const [StudentId, setStudentId] = useState("");
@@ -158,8 +163,6 @@ function GradesTeacher() {
     
     setStudentsWithGroups(tempStudents);
   }, [itemsGroups, itemsAssignmentG, itemsStudent, NameTeacher]);
-
-  // console.log(studentsWithGroups);
   
   // Manejar cambios en los inputs
   const handleSelectChange = (e, materiaKey) => {
@@ -214,7 +217,7 @@ function GradesTeacher() {
                 onChange={(e) => handleTrimesterChange(student.id, e.target.value)}
                 className="custom-select"
               >
-                <option value="null" disabled>
+                <option value="null" disabled selected>
                   Seleccione el trimestre para asignar nota
                 </option>
                 <option value="1°Trimestre">1°Trimestre</option>
@@ -294,7 +297,6 @@ function GradesTeacher() {
                       )}
                     </tbody>
                   </table>
-          
                   <div>
                     <button type="button" onClick={closeModalR}>Cerrar</button>
                   </div>
@@ -303,9 +305,9 @@ function GradesTeacher() {
             )}
           </div>
           
-          ))};
+          ))}
         </div>
-      )};
+      )}
     </>
   );
 };
