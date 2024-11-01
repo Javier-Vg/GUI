@@ -116,7 +116,7 @@ useEffect(() => {
 
   // Filtrado de mensajes por miembro seleccionado
   return (
-    <div className="container-principal-derecknecio">
+    
     <div className="chat-profesor-container">
       {/* Lista de miembros del staff con imágenes */}
 
@@ -127,7 +127,7 @@ useEffect(() => {
             // className="student-bubble"
             onClick={() => {
               setSelectedMember(member.id);
-              // let id = member.id;
+              
               fetchMessages();
             }}
           >
@@ -181,7 +181,7 @@ useEffect(() => {
         < SendIcon/>
           </button>
     </div>
-    </div>
+    
   );
   
 };

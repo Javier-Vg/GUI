@@ -26,7 +26,7 @@ SECRET_KEY = 'django-insecure--)w=hwu666smegfn6!7*9v=phhg9c5^*go-i$7x2b56o^&!6xk
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['localhost', '127.0.0.1', 'Gui_front_end', '192.168.100.42', '192.168.100.44','192.168.100.47', '192.168.100.13',"192.168.0.10","172.20.10.2",'192.168.1.119','192.168.100.39']
+ALLOWED_HOSTS = ['localhost', '127.0.0.1', 'Gui_front_end', '192.168.100.42', '192.168.100.44','192.168.100.47', '192.168.100.13',"192.168.0.10","172.20.10.2",'192.168.1.119','192.168.100.39','192.168.0.11']
 CORS_ALLOWED_ORIGINS = [
     #Frontend
     "http://localhost:5173",
@@ -39,10 +39,12 @@ CORS_ALLOWED_ORIGINS = [
     "http://192.168.0.15:5173",
     "http://172.20.10.2:5173",
     "http://192.168.1.119:5173",
+    "http://192.168.0.11:5173",
     
     
     #Backend
     "http://192.168.100.42:8000",
+    
 ]
 
 #La que termina en 13 es la de la otra compu 

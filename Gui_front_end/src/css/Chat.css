@@ -1,20 +1,27 @@
-/* Contenedor principal */
+
 .container-principal-derecknecio {
-    display: grid; /* Cambia a grid */
-    height: 100vh; /* Altura completa de la ventana */
+    display: grid;
+    height: 100vh; 
     box-sizing: border-box;
     place-items: center;
+    margin-right: 58rem;
+    width: -10rem;
+
+    background-color: #ffffff;
 }
 
 /* Contenedor del chat y lista de miembros */
 .chat-profesor-container {
     display: flex;
     flex-direction: column;
-    width: 100%;
-    height: 100rem;
-    box-sizing: border-box;
+   
+    /* height: 80rem; */
+    /* box-sizing: border-box; */
     background-color: rgb(255, 255, 255);
     overflow-y: auto;
+    margin-right: 45rem;
+    margin-top: -2rem;
+    
     
 }
 
@@ -28,7 +35,7 @@
     scrollbar-width: none;
     gap: 10px; /* Espacio entre elementos */
     height: 19rem;
-    width: 40rem;
+    
     scrollbar-width: none; /* Para Firefox */
    
 }
@@ -50,20 +57,25 @@
     margin-bottom: 5px;
     object-fit: cover; 
 }
-
+.chat-container-staf{
+    width: 110vh;
+    margin-right: 45rem;
+    height: 23rem;
+    background-color: #ffffff;
+    
+}
 
 
 /* Contenedor de los mensajes */
-.messages-container-staff {
+.messages-container-staff{
     display: grid;
     grid-auto-rows: min-content; /* Ajusta la altura de cada mensaje al contenido */
     gap: 5px;                    /* Espacio entre los mensajes */
     padding: 10px;               /* Reduce el espacio interno */
-    width: 128rem;
-    height: 50rem;          /* Altura fija y más pequeña */
+    width: 1vh;
+    height: 60rem;          /* Altura fija y más pequeña */
     overflow-y: auto;            /* Permite scroll vertical si se supera la altura */
-    background-color: #ffffff;
-    
+    margin-right: 50rem;
     border-radius: 4px;
     overflow-y: auto;
     scrollbar-width: none; /* Para Firefox */
@@ -77,7 +89,7 @@
 }
 
 .message-input-chat{
-    width: 100rem;
+    width: 60rem;
     height: 8rem;
     border-radius: 8px;
     border: 1px solid #ccc;
@@ -95,8 +107,8 @@
     display: flex;
     align-items: center;
     margin-left: auto; 
-    padding: 2REM;
-    font-size:2rem;
+    padding: 1rem;
+    font-size:1rem;
     border-radius: 3%;
     max-width: 100%; /* Ajusta el ancho máximo al 100% del contenedor padre */
     word-wrap: break-word; /* Hace que el texto largo se divida en líneas */
@@ -105,7 +117,7 @@
     
 }
 .send-button-student{
-    margin-left: 112rem;
+    margin-left: 61rem;
     margin-bottom: 10rem;
     margin-top: -6rem;
     width: 10rem;
@@ -124,9 +136,9 @@
     border: 1px solid #1d318b;
     display: flex;
     align-items: center;
-    padding: 2REM;
+    padding: 1rem;
     margin-right: auto; 
-    font-size:2rem;
+    font-size:1rem;
     border-radius: 3%;
     max-width: 100%; /* Ajusta el ancho máximo al 100% del contenedor padre */
     word-wrap: break-word; /* Hace que el texto largo se divida en líneas */
@@ -136,58 +148,204 @@
 } 
 
 
-@media (max-width: 768px) {
-    .container-principal-derecknecio {
-        height: auto; /* Ajusta la altura del contenedor */
-        padding: 10px; /* Agrega un pequeño padding para separación */
-        margin-right: 2rem;
+
+.chat-profesor-container {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    height: 80rem;
+    background-color: rgb(255, 255, 255);
+    overflow-y: auto;
+}
+
+.chat-bubbles-container-students {
+    display: grid;
+    grid-auto-flow: column;
+    grid-auto-columns: min-content;
+    place-items: center;
+    overflow-x: auto;
+    gap: 10px;
+    height: 19rem;
+    width: 40rem;
+}
+
+.chat-bubbles-container-students::-webkit-scrollbar,
+.chat-profesor-container::-webkit-scrollbar {
+    display: none;
+}
+
+.staff-photo {
+    width: 100px;
+    height: 100px;
+    border-radius: 50%;
+}
+
+.messages-container-staff {
+    display: grid;
+    gap: 5px;
+    padding: 10px;
+    width: 100%;
+    height: 20rem;
+    overflow-y: auto;
+    background-color: #ffffff;
+    border-radius: 4px;
+}
+
+.message-input-chat {
+    width: 94vh;
+    height: 5rem;
+    border-radius: 8px;
+    border: 1px solid #ccc;
+    font-size: 2rem;
+    margin-right: 80rem;
+}
+
+.sent-estudiante, .received-estudiante {
+    color: #1d318b;
+    border: 1px solid #1d318b;
+    padding: 1rem;
+    font-size: 1rem;
+    border-radius: 3%;
+    max-width: 100%;
+    word-wrap: break-word;
+}
+
+.send-button-student {
+    width: 10rem;
+    height: 5rem;
+    padding: 8px 16px;
+    background-color: #1d318b;
+    color: white;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+    margin-top: -5rem;
+}
+
+/* Media Query for 1232x422 */
+@media (max-width: 1232px) and (max-height: 422px) {
+    .container-principal-derecknecio, 
+    .chat-profesor-container, 
+    .messages-container-staff {
+        padding: 10px;
+        height: auto;
     }
-    
-    .chat-profesor-container {
-        width: 100%; /* Usa el 100% del ancho disponible */
-        height: auto; /* Ajusta la altura al contenido */
-        padding: 10px; /* Espacio adicional para mejor visibilidad */
+
+    .chat-bubbles-container-students, 
+    .student-bubble, 
+    .messages-container-staff, 
+    .message-input-chat {
+        width: 100%;
     }
-    
-    .chat-bubbles-container-students {
-        width: 100%; /* Ajusta al ancho del contenedor */
-        height: auto; /* Permite que el contenido se ajuste */
-        gap: 5px; /* Reduce el espacio entre burbujas */
-    }
-    
-    .student-bubble {
-        padding: 5px; /* Reduce el padding para adaptarse al tamaño */
-    }
-    
+
     .staff-photo {
-        width: 80px; /* Ajusta el tamaño de la imagen para móviles */
+        width: 80px;
         height: 80px;
     }
 
-    .messages-container-staff {
-        width: 100%; 
-        height: 30rem; /* Reduce la altura para pantallas más pequeñas */
-        padding: 5px; /* Reduce el padding */
-    }
-    
-    .message-input-chat {
-        width: 90%; /* Ocupa casi todo el ancho disponible */
-        height: 6rem; /* Ajusta la altura para que sea más compacto */
-        margin-right: 0; /* Elimina margen derecho */
-        font-size: 1.5rem; /* Reduce el tamaño de la fuente */
-    }
-    
     .sent-estudiante, .received-estudiante {
-        font-size: 1rem; /* Ajusta el tamaño de fuente para móvil */
-        padding: 1rem; /* Reduce el padding para adaptar el tamaño */
-        max-width: 90%; /* Limita el ancho máximo */
+        font-size: 1.8rem;
+        padding: 1rem;
     }
-    
+
     .send-button-student {
-        margin-left: 0; /* Ajusta para mejor alineación */
-        width: 8rem; /* Ajusta el ancho para móviles */
-        height: 4rem; /* Ajusta la altura */
-        margin-bottom: 2rem; /* Reduce el margen inferior */
-        margin-top: 1rem; /* Ajusta el margen superior */
+        width: 9rem;
+        height: 5rem;
+    }
+}
+
+/* Media Query for Mobile (max-width: 768px) */
+@media (max-width: 768px) {
+    .container-principal-derecknecio, 
+    .chat-profesor-container, 
+    .messages-container-staff {
+        padding: 5px;
+        height: auto;
+    }
+
+    .chat-bubbles-container-students, 
+    .message-input-chat, 
+    .send-button-student {
+        width: 100%;
+    }
+
+    .staff-photo {
+        width: 60px;
+        height: 60px;
+    }
+
+    .messages-container-staff {
+        height: 15rem;
+    }
+
+    .message-input-chat {
+        height: 6rem;
+        font-size: 1.6rem;
+    }
+
+    .sent-estudiante, .received-estudiante {
+        font-size: 1.6rem;
+        padding: 0.5rem;
+    }
+
+    .send-button-student {
+        width: 8rem;
+        height: 4rem;
+    }
+}
+
+/* Media Query for Small Mobile Screens (max-width: 518px) */
+@media (max-width: 518px) {
+    /* .container-principal-derecknecio,  */
+    .chat-profesor-container
+    {
+        padding: 5px;
+        height: 70rem;
+        width: 21rem;
+        margin-top: -5rem;
+        margin-right: 7rem;
+        
+    }
+    .messages-container-staff {
+        width: 21rem;
+
+    }
+    .container-principal-derecknecio{
+        width: 21rem;
+
+    }
+
+    .chat-bubbles-container-students, 
+    .message-input-chat, 
+    .send-button-student {
+        width: 100%;
+    }
+
+    .staff-photo {
+        width: 50px;
+        height: 50px;
+    }
+
+    .messages-container-staff {
+        height: 26rem;
+    }
+
+    .message-input-chat {
+        height: 3rem;
+        font-size: 1.3rem;
+        width: 15rem;
+        margin-top: 3rem;
+    }
+
+    .sent-estudiante, .received-estudiante {
+        font-size: 1.2rem;
+        padding: 0.4rem;
+    }
+
+    .send-button-student {
+        width: 5rem;
+        height: 3rem;
+        margin-left: 15rem;
+        margin-top: -3rem;
     }
 }
