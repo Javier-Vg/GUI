@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import ExpedienteAlumno from '../modulo padres/ExpedienteAlumno';
 import Notas from './Notas';
 import ChatProfesor from './ChatProfesor';
+import '../../css/Institutions/HomeInstitutionsForm.css'
 
 function HomeProfesorFunc() {
     const [changeComponent, setChangeComponent] = useState('');
@@ -13,7 +14,7 @@ function HomeProfesorFunc() {
 
     return (
         <div>
-            <nav>
+            <nav className='navbar'>
                 <button id="open-close" onClick={toggleAside}>
                     <span id="open-close"><i className='bx bx-menu'></i></span>
                 </button>

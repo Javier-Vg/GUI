@@ -16,7 +16,7 @@
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
     height: 8vh;
     position: relative; 
-  }
+}
 
 .Sidebar input[type="button"] {
     background-color: #007BFF; 
@@ -53,7 +53,7 @@
   .right-section {
     display: flex;
     align-items: center;
-  }
+  } 
   
   .right-section input {
     padding: 8px 12px;
@@ -91,6 +91,7 @@
     box-sizing: border-box;
     margin: 0;
 }
+
 html{
     font-size: 62.5%;
     font-family: sans-serif;
@@ -110,14 +111,17 @@ nav{
     position: fixed;
     border-bottom: 1px solid var(--border-color);
 }
+
 nav img{
     margin-left: 20px;
 }
+
 nav span i{
     color: #fff;
     font-size: 2.7rem;
     cursor: pointer;
 }
+
 aside{
     background-color: var(--items-color);
     width: 260px;
@@ -130,19 +134,25 @@ aside{
     margin-top: 8vh;
     transition: 0.5s;
 }
+
 aside:hover{
     overflow-y: auto;
+
 }
+
 .desplegar{
     transform: translateX(-100%);
 }
+
 aside::-webkit-scrollbar{
     width: 8px;
 }
+
 aside::-webkit-scrollbar-thumb{
     background-color: #909090;
     border-radius: 5px;
 }
+
 .container-svg{
     border-bottom: 1px solid var(--border-color);
     padding: 10px 1px;
@@ -160,6 +170,7 @@ aside::-webkit-scrollbar-thumb{
 .div_components_institutions{
   background-color: red;
 }
+
 .container-svg div:hover{
     background-color: #1d318b;
     color: #e7e7e7;
@@ -173,6 +184,7 @@ h2{
     padding: 10px 20px;
     color: #aaaaaa;
 }
+
 img{
     width: 50px;
     height: 50px;
@@ -196,14 +208,16 @@ div{
     background-color: white;
 }
 
-.inputBoton{
+/* .inputBoton{
     background-color: transparent;
     border: none;
     color: white;
     text-align: left;
     padding: 5px;
+    transition: color 0.5 ease-in;
     
-}
+} */
+
 
 /* Media queri */
 @media (max-width: 768px) {

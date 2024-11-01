@@ -316,7 +316,11 @@ function CreateStaff() {
        try {
          // Desencriptar el token
          const decodedToken = jwtDecode(token);
-         const institutionIdFromToken = decodedToken.info.institution; 
+         console.log(decodedToken);
+         
+         const institutionIdFromToken = decodedToken.info.id; 
+         
+         console.log(institutionIdFromToken);
          
          setInstitutionId(institutionIdFromToken);
        } catch (error) {
@@ -403,6 +407,16 @@ function CreateStaff() {
 
   return (
     <div className='container-create-staff'>
+      <br />
+      <br />
+      <br />
+      <br />
+      <br />
+      <br />
+      <br />
+      <br />
+      <br />
+      <br />
       <form className='form-staff' onSubmit={handleSubmit}>
         <label>
           Nombre:

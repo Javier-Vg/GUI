@@ -13,7 +13,6 @@ class InstitutionViewSet(viewsets.ModelViewSet):
     # permission_classes = [IsAuthenticated]
     permission_classes = [AllowAny]
 
-
     def create(self, request, *args, **kwargs):
         # Extraer la contraseña del request
         password = request.data.get('password')

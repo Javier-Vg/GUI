@@ -8,6 +8,7 @@ body {
 .grades-container {
     max-width: 100%;
     max-height: 400px;
+    margin-top: 100px;
     background: white;
     border-radius: 12px;
     box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
@@ -85,4 +86,150 @@ h2 {
 .grade{
     opacity: 0.3; /* Cambia el valor de 0 (transparente) a 1 (opaco) */
     margin: auto;
+}
+
+
+
+
+
+
+
+
+.modal-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 20px;
+  }
+  
+  .open-modal-button {
+    padding: 10px 20px;
+    background-color: #007bff;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+  }
+  
+  .open-modal-button:hover {
+    background-color: #0056b3;
+  }
+  
+  .modal-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: rgba(0, 0, 0, 0.7);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    
+  }
+  
+  .modal-content {
+    padding: 20px;
+    border-radius: 10px;
+    background-color: #fff;
+    max-width: 500px;
+    margin: auto;
+    margin-top: 50px;
+  }
+  
+  .modal-title {
+    font-size: 24px;
+    margin-bottom: 15px;
+  }
+  
+  .modal-description {
+    font-size: 16px;
+    margin-bottom: 20px;
+  }
+  
+  .emotion-list {
+    list-style-type: none;
+    padding: 0;
+  }
+  
+  .emotion {
+    padding: 10px;
+    border-radius: 5px;
+    margin-bottom: 10px;
+    transition: background-color 0.3s;
+  }
+  
+  .poor {
+    background-color: #f8d7da;
+    color: #721c24;
+  }
+  
+  .bad {
+    background-color: #fce5e5;
+    color: #856404;
+  }
+  
+  .neutral {
+    background-color: #fff3cd;
+    color: #856404;
+  }
+  
+  .good {
+    background-color: #d4edda;
+    color: #155724;
+  }
+  
+  .excellent {
+    background-color: #c3e6cb;
+    color: #155724;
+  }
+  
+  .close-modal-button {
+    padding: 10px 20px;
+    background-color: #dc3545;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+  }
+  
+  .close-modal-button:hover {
+    background-color: #c82333;
+  }
+  
+
+  .div-grades-with-modal{
+    display: flex;
+    justify-content: space-around;
+  }
+
+
+
+
+
+
+/* Estilos específicos para pantallas más pequeñas */
+@media (max-width: 414px) {
+  .h2-result {
+    font-size: 16px; /* Tamaño de fuente más pequeño */
+  }
+
+  .open-modal-button {
+    width: 100%; /* Botón ocupa todo el ancho */
+  }
+
+  .grades-table th,
+  .grades-table td {
+    font-size: 14px; /* Tamaño de fuente más pequeño en la tabla */
+  }
+
+  .grades-table {
+    font-size: 12px; /* Tamaño de fuente de la tabla */
+  }
+
+  .emotion-list {
+    font-size: 12px; /* Tamaño de fuente en la lista de emociones */
+  }
 }

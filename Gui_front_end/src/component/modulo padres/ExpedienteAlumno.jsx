@@ -4,7 +4,7 @@ import { fetchStudent } from "../../Redux/Slices/SliceStudent";
 import { fetchAssistenceStudent } from "../../Redux/Slices/SliceAssitenceStudent";
 import {  Skeleton } from "@nextui-org/react";
 import { useDispatch, useSelector } from "react-redux";
-import "../../css/expediente_notas.css";
+import "../../css/parents/expediente_notas.css";
 import Cookies from "js-cookie";
 import { jwtDecode } from "jwt-decode";
 import { key } from '../../keys/keys.js';
@@ -19,33 +19,17 @@ import {
 } from "recharts";
 import { GoogleMap, LoadScript, Marker } from '@react-google-maps/api';
 
-
 function ExpedienteAlumno() {
+
   const dispatch = useDispatch();
 
   const [studentID, setStudentID] = useState("");
-
-  const [isDarkMode, setIsDarkMode] = useState(false);
-  // Cambiar el tema basado en la preferencia del usuario
-  useEffect(() => {
-    const savedTheme = localStorage.getItem("theme");
-    if (savedTheme) {
-      setIsDarkMode(savedTheme === "dark");
-    }
-  }, []);
-
-  // Función para alternar el tema
-  const toggleTheme = () => {
-    setIsDarkMode((prevMode) => !prevMode);
-    const newTheme = !isDarkMode ? "dark" : "light";
-    localStorage.setItem("theme", newTheme);
-    document.body.className = newTheme; // Cambia la clase del body
-  };
+  const [institutionID, setInstitutionID] = useState("");
 
   const itemStudent = useSelector((state) => state.student.items);
   const itemGrades = useSelector((state) => state.grades.items);
   const itemAssistence = useSelector((state) => state.assistenceStudent.items);
-
+    
   //objto del grafico
   const [graficRender, setGraficRender] = useState([]);
 
@@ -56,10 +40,12 @@ function ExpedienteAlumno() {
       try {
         // Desencriptar el token
         const decodedToken = jwtDecode(token);  
-        const idStudent = decodedToken.info.id;
+        const idStudent = decodedToken.info.id; 
+        const idInstitution = decodedToken.info.institution;        
         
         // Guardar el ID en una variable local
         setStudentID(idStudent);
+        setInstitutionID(idInstitution);
       } catch (error) {
         console.error("Error al decodificar el token", error);
       }
@@ -69,7 +55,7 @@ function ExpedienteAlumno() {
     dispatch(fetchAssistenceStudent()); // Llama a la acción para obtener productos al cargar el componente
   }, [dispatch]);
 
-  const [selectedButton, setSelectedButton] = useState("");
+  const [selectedButton, setSelectedButton] = useState("Enero");
 
   const buttons = [
     "Enero",
@@ -86,30 +72,28 @@ function ExpedienteAlumno() {
     "Diciembre",
   ];
 
-  const handleButtonClick = (button) => {
+  const handleButtonClick = (button) => { //nombre del mes    
     setSelectedButton(button);
   };
 
-  //tranforma de mes a numero
-  const monthNameToNumber = (monthName) => {
-    const monthMap = {
-      Enero: "01",
-      Febrero: "02",
-      Marzo: "03",
-      Abril: "04",
-      Mayo: "05",
-      Junio: "06",
-      Julio: "07",
-      Agosto: "08",
-      Septiembre: "09",
-      Octubre: "10",
-      Noviembre: "11",
-      Diciembre: "12",
-    };
-
-    return monthMap[monthName];
+ const monthNameToNumber = (monthName) => {
+  
+  const monthMap = {
+    Enero: "01",
+    Febrero: "02",
+    Marzo: "03",
+    Abril: "04",
+    Mayo: "05",
+    Junio: "06",
+    Julio: "07",
+    Agosto: "08",
+    Setiembre: "09",
+    Octubre: "10",
+    Noviembre: "11",
+    Diciembre: "12",
   };
-
+  return monthMap[monthName] || "Invalid month";
+};
 
   //Cambia la grafica:
   useEffect(() => {
@@ -118,22 +102,21 @@ function ExpedienteAlumno() {
       presente: 0,
       ausente: 0,
       tardia: 0,
-    };
+    };    
 
-    const targetInstitutionId = 1; // ID de la institución que deseas filtrar
     const mes = monthNameToNumber(selectedButton);
 
     // Filtrar y sobrescribir la misma variable
     let data = itemAssistence.filter((item) => {
       const [year, month, day] = item.dateToday.split("/");
 
-      return month === mes && item.institution === targetInstitutionId;
-    });
-
+      return month === mes && item.institution === institutionID;
+    });    
+    
     // Iterar sobre el array de datos
     data.forEach((item) => {
       // Iterar sobre el JSON de 'daily_attendance'
-      Object.keys(item.daily_attendance).map((value, i) => {
+      Object.keys(item.daily_attendance).map((value, i) => {        
       
         if (value == studentID) {
           // Contar las ocurrencias
@@ -148,30 +131,22 @@ function ExpedienteAlumno() {
       });
     });
 
-
     setGraficRender([
       { category: 'Puntualidades', count: attendanceCount.presente },
       { category: 'Inpuntualidades', count: attendanceCount.tardia },
       { category: 'Ausencias', count: attendanceCount.ausente },
     ]);
-  }, [selectedButton]);
+  }, [selectedButton, institutionID]);
 
 
   return (
     <div className="div-core-expediente">
       {/* <h2>Expediente</h2> */}
-      <Skeleton className="w-2/5 rounded-lg">
         <div className="container2">
 
           <div className="fade-in">
-          
-            <div className="theme-toggle">
-              <br />
-              <button className="btn-darkLight" onClick={toggleTheme}>
-                {isDarkMode ? "🌞 Modo Día" : "🌜 Modo Noche"}
-              </button>
-            </div>
 
+        
             <br />
             {itemStudent &&
               itemStudent.map(
@@ -181,42 +156,42 @@ function ExpedienteAlumno() {
                       <div className="box1">
                         <img
                           className="img-student"
-                          src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRfYPJMISkUhApPtH3hkTzEftdcmD2IRusYOSidBXgzffIelPjTSM1u2YW5SPrYrgRGhJM&usqp=CAU"
+                          src={st.imagen_url}
                           alt=""
                         />
-                        <span className="student-name">
+                        <span className="span-alumno">
                           {st.username} {st.last_name}
                         </span>
-                        <span className="identification-number">
+                        <span className="span-alumno">
                           Número de identificación: {st.identification_number}
                         </span>
-                        <span className="birthdate">
+                        <span className="span-alumno">
                           Fecha de nacimiento: <br /> {st.birthdate_date}
                         </span>
                       </div>
                       <div className="box2">
-                        <span className="grades">Grado: {st.grade}</span>
-                        <span className="academic-status">
+                        <span className="span-alumno">Grado: {st.grade}</span>
+                        <span className="span-alumno">
                           Estado académico: {st.academic_status}
                         </span>
-                        <span className="allergy-information">
+                        <span className="span-alumno">
                           Información de alergias: <br />
                           {st.allergy_information}
                         </span>
-                        <span className="contact-information">
+                        <span className="span-alumno">
                           Información de contacto: {st.contact_information}
                         </span>
-                        <span className="email">Email: {st.email}</span>
-                        <span className="guardian-phone">
+                        <span className="span-alumno">Email: {st.email}</span>
+                        <span className="span-alumno">
                           Teléfono del tutor: {st.guardian_phone_number}
                         </span>
-                        <span className="guardian-name">
+                        <span className="span-alumno">
                           Nombre del tutor: {st.name_guardian}
                         </span>
-                        <span className="monthly-payment">
+                        <span className="span-alumno">
                           Pago mensual: {st.monthly_payent_students}
                         </span>
-                        <span className="type-of-student">
+                        <span className="span-alumno">
                           Tipo de estudiante: {st.type_of_student}
                         </span>
                       </div>
@@ -253,7 +228,7 @@ function ExpedienteAlumno() {
 
               <div>
                 <BarChart
-                  width={400}
+                  width={410}
                   height={240}
                   data={graficRender}
                   margin={{ top: 20, right: 50, bottom: 5 }}
@@ -293,7 +268,7 @@ function ExpedienteAlumno() {
           <br />
           <br />
         </div>
-      </Skeleton>
+
     </div>
   );
 }

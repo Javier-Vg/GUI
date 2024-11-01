@@ -20,7 +20,6 @@ import Eventos from "./Eventos";
 import ListaEventos from "../moduloProfesor/listaEventos";
 import '../../css/Institutions/HomeInstitutionsForm.css'
 
-
 function HomeInstitutionsForm() {
   const [changeComponent, setChangeComponent] = useState("");
   const [isDeployed, setIsDeployed] = useState(false);
@@ -36,7 +35,7 @@ function HomeInstitutionsForm() {
   const handleSearch = (e) => {
     dispatch(setSearchTerm(e.target.value)); // Despacha la acción de búsqueda
   };
-  const toggleAside = () => {
+  const toggleAside  = () => {
     setIsDeployed(!isDeployed);
   };
   useEffect(() => {
@@ -73,7 +72,6 @@ function HomeInstitutionsForm() {
   return (
     <div>
      
-
       <nav className="navbar">
         {/* <button id="open-close" onClick={toggleAside}> */}
           <span id="open-close" onClick={toggleAside}>
@@ -205,7 +203,6 @@ function HomeInstitutionsForm() {
                 <label className="label-home-inst"  htmlFor="personal">Personal</label>
               </div>
 
-
               <div
                 onClick={() => setChangeComponent("eventos")}
                 className="inputBoton"
@@ -218,7 +215,6 @@ function HomeInstitutionsForm() {
                 />
                 <label className="label-home-inst"  htmlFor="eventos">Programar eventos</label>
               </div>
-
 
               <div
                 onClick={() => setChangeComponent("listeventos")}

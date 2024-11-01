@@ -1,0 +1,137 @@
+body {
+    transition: background-color 0.3s ease;
+  }
+  
+  .light {
+    background-color: #f0f0f0; /* Color de fondo claro */
+    color: #333; /* Color de texto oscuro */
+  }
+  
+  .dark {
+    background-color: #1a1a1a; /* Color de fondo oscuro */
+    color: #f0f0f0; /* Color de texto claro */
+  }
+  
+  .flex {
+    display: flex;
+  }
+  
+  .items-center {
+    align-items: center;
+  }
+  
+  .justify-center {
+    justify-content: center;
+  }
+  
+  .p-4 {
+    padding: 16px; /* Ajusta el padding según lo necesites */
+  }
+  
+  .relative {
+    position: relative;
+  }
+  
+  .gap-2 {
+    gap: 8px; /* Espacio entre elementos */
+  }
+  
+  .w-5 {
+    width: 20px; /* Ajusta el tamaño del icono */
+  }
+  
+  .h-5 {
+    height: 20px; /* Ajusta el tamaño del icono */
+  }
+  
+  .w-16 {
+    width: 64px; /* Ancho del botón */
+  }
+  
+  .h-8 {
+    height: 32px; /* Alto del botón */
+  }
+  
+  .rounded-full {
+    border-radius: 9999px; /* Bordes redondeados */
+  }
+  
+  .bg-gray-200 {
+    background-color: #e2e2e2; /* Color de fondo claro */
+  }
+  
+  .bg-blue-600 {
+    background-color: #3b82f6; /* Color de fondo azul */
+  }
+  
+  .text-yellow-500 {
+    color: #f59e0b; /* Color amarillo */
+  }
+  
+  .text-gray-400 {
+    color: #9ca3af; /* Color gris */
+  }
+  
+  .text-blue-400 {
+    color: #60a5fa; /* Color azul claro */
+  }
+  
+  .transition-all {
+    transition: all 0.3s ease; /* Transiciones suaves */
+  }
+  
+  .duration-300 {
+    transition-duration: 300ms; /* Duración de la transición */
+  }
+  
+  .focus\:outline-none:focus {
+    outline: none; /* Sin contorno al enfocar */
+  }
+  
+  .focus\:ring-2:focus {
+    ring: 2px; /* Contorno en enfoque */
+  }
+  
+  .focus\:ring-offset-2:focus {
+    ring-offset: 2px; /* Offset del contorno */
+  }
+  
+  .focus\:ring-blue-500:focus {
+    ring-color: #3b82f6; /* Color del contorno */
+  }
+  
+  .absolute {
+    position: absolute; /* Posicionamiento absoluto */
+  }
+  
+  .bg-white {
+    background-color: #ffffff; /* Color de fondo blanco */
+  }
+  
+  .shadow-lg {
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Sombra grande */
+  }
+  
+  .transform {
+    transition: transform 0.3s ease; /* Transiciones para el movimiento */
+  }
+  
+  .translate-x-1 {
+    transform: translateX(0.25rem); /* Desplazamiento en X */
+  }
+  
+  .translate-x-8 {
+    transform: translateX(2rem); /* Desplazamiento en X */
+  }
+  
+  .sr-only {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    padding: 0;
+    margin: -1px;
+    overflow: hidden;
+    clip: rect(0, 0, 0, 0);
+    border: 0;
+  }
+  

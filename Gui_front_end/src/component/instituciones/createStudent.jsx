@@ -35,7 +35,7 @@ function CreateStudent() {
       try {
         // Desencriptar el token
         const decodedToken = jwtDecode(token);  
-        const institutionIdFromToken = decodedToken.info.institution;
+        const institutionIdFromToken = decodedToken.info.id;
         console.log(institutionIdFromToken);
         
         // Guardar el ID en una variable local
@@ -155,6 +155,12 @@ function CreateStudent() {
 
   return (
     <div className='container-students'>
+    <br />
+    <br />
+    <br />
+    <br />
+    <br />
+    <br />
       <label>
         Nombre estudiante:
         <input type="text" name="nombre" value={nombre} onChange={handleInputChange} />
