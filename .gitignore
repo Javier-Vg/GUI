@@ -3,7 +3,9 @@ Byte-compiled / optimized / DLL files
 pycache/
 *.py[cod]
 *$py.class
-
+media*
+/media*
+.media*
 C extensions
 *.so
 
@@ -157,6 +159,7 @@ out/
 Next.js
 .next/
 out/
+key*
 
 Nuxt.js
 .nuxt/
@@ -192,3 +195,6 @@ MacOS
 .DS_Store
 .AppleDouble
 .LSOverride
+
+
+keyMap.jsx

@@ -15,8 +15,20 @@ Including another URLconf
     2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
 """
 from django.contrib import admin
-from django.urls import path
+from django.urls import path, include
+from products.views import (
+    CreateCheckoutSessionView,
+    ProductLandingPageView,
+    SuccessView,
+    CancelView,
+    stripe_webhook,
+    StripeIntentView
+)
 
 urlpatterns = [
     path('admin/', admin.site.urls),
+    path('api/', include('Api.urls')),
+    path('pasarela/', ProductLandingPageView.as_view(), name='landing-page'),
+    path('create-checkout-session/<pk>/', CreateCheckoutSessionView.as_view(), name='create-checkout-session')
+    
 ]

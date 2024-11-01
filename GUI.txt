@@ -1,1 +1,58 @@
 Creado el 9/23/24
+npm install redux react-redux @reduxjs/toolkit
+npm install cors
+npm install axios 
+npm i react-router-dom
+npm install jsonwebtoken bcryptjs express
+npm install jwt-decode
+npm install js-cookie
+npm install jwt-decode@latest
+npm audit fix
+npm i jwt-decode
+
+pip install django-cors-headers
+pip install djangorestframework
+pip install djangorestframework-simplejwt
+pip install path.py
+pip install attrs
+pip install auth
+pip install timedelta
+pip install "PyJWT==1.7.1"
+pip install --upgrade djangorestframework-simplejwt
+pip uninstall jwt
+pip uninstall pyjwt
+pip install pyjwt
+pip install --force PyJWT
+
+python manage.py drf_create_token root
+python manage.py createsuperuser
+
+Redux dependecias:
+npm i redux-thunk
+
+Alertas:
+npm i react-toastify
+
+NextUI / libreria de css:
+npm i @nextui-org/react
+
+Mapa :
+npm i @react-google-maps/api
+
+Iconos:
+npm install @mui/icons-material
+npm install @emotion/styled
+
+calendario:
+npm install react-datepicker
+
+grafico:
+npm install recharts
+
+pagos:
+pip install python-stripe
+
+pip install sib-api-v3-sdk
+
+-mensaje scroll
+npm install lucide-react

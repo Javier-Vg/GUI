@@ -1,0 +1,352 @@
+
+.div-profesor-messeges {
+     display: grid;
+    place-items: center;
+    background-color: rgb(255, 255, 255); 
+    
+}
+
+.messages-container {
+    gap: 0.5rem;
+  
+} 
+
+.chat-container {
+    display: grid;
+    place-items: center; 
+    height:30rem;  
+    overflow-y: auto;
+    padding: 10px;       
+    border-radius: 8px;  
+    width: 60rem;
+    margin-top: 40px;
+ 
+    background-color: rgb(255, 255, 255);
+    margin-top: -1rem;
+  }
+  .messages-container {
+    overflow-y: auto;
+    background-color: rgb(255, 255, 255);
+    scrollbar-width: none; /* Para Firefox */
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    height: 60vh;
+    max-height: 100%; 
+    padding: 10px;
+    margin-top: 5rem; /* Espacio alrededor de los mensajes */
+}
+.chat-container::-webkit-scrollbar {
+    display: none; /* Para Chrome, Safari y otros navegadores basados en WebKit */
+}
+
+.chat-bubbles-container-staff{
+    display: grid;
+    grid-auto-flow: column; /* Coloca los elementos en una fila horizontal */
+    grid-auto-columns: min-content; /* Ajusta el tamaño de las columnas según el contenido */
+    place-items: center;
+    overflow-x: auto; /* Permite el desplazamiento horizontal */
+    scrollbar-width: none;
+    gap: 10px; /* Espacio entre elementos */
+    height: 19rem;
+    width: 40rem;
+}
+.chat-bubbles-container-students::-webkit-scrollbar {
+    display: none; /* Para Chrome, Safari y otros navegadores basados en WebKit */
+}
+.message-input{
+    width: 45rem;
+    height: 5rem;
+    border-radius: 8px;
+    border: 1px solid #ccc;
+    font-size: 2rem;
+    margin-right: 10rem;
+}
+.send-button-profesor{
+    margin-left: 47rem;
+    margin-top: -5rem;
+    width: 10rem;
+    height: 5rem;
+    padding: 8px 16px;
+    background-color: #1d318b;
+    color: white;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+    transition: background 0.3s ease;
+    
+
+}
+.message-profesor {
+    padding: 8px;
+    border-radius: 5px;
+    margin: 5px 0; 
+    word-wrap: break-word; 
+}
+ .sent-profesor {
+    color: #1d318b;
+    border: 1px solid #1d318b;
+    display: flex;
+    align-items: center;
+    margin-left: auto; 
+    padding: 1REM;
+    font-size:1rem;
+    word-wrap: break-word; /* Hace que el texto largo se divida en líneas */
+    overflow-wrap: break-word;
+    flex-wrap: wrap; 
+}
+.received-profesor {
+    align-self: flex-start;
+    color: #1d318b;
+    border: 1px solid #1d318b;
+    display: flex;
+    align-items: center;
+    padding: 1rem;
+    font-size:1rem;
+    max-width: 100%; /* Ajusta el ancho máximo al 100% del contenedor padre */
+    word-wrap: break-word; /* Hace que el texto largo se divida en líneas */
+    overflow-wrap: break-word;
+    flex-wrap: wrap; 
+    
+}  
+
+
+.student-bubble {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    border-radius: 50%;
+    width: 200px; 
+    /* height: 20px;  */
+    text-align: center; 
+}  
+.student-photo {
+    width: 100px; /* Aumenta el tamaño de la imagen */
+    height: 100px;
+    border-radius: 50%;
+    margin-bottom: 5px;
+    object-fit: cover; 
+} 
+.nombre-estudiante {
+    margin-top: 0.5rem;
+    color: #1d318b;
+    font-size: 2rem;
+}
+
+
+.div-profesor-messeges {
+    display: grid;
+    place-items: center;
+    background-color: rgb(255, 255, 255); 
+}
+
+.messages-container {
+    gap: 0.5rem;
+} 
+
+.chat-container {
+    display: grid;
+    place-items: center; 
+    height: 30rem;  
+    overflow-y: auto;
+    padding: 10px;       
+    border-radius: 8px;  
+    width: 60rem;
+    margin-top: -1rem;
+    background-color: rgb(255, 255, 255);
+}
+.chat-container::-webkit-scrollbar {
+    display: none;
+}
+
+.messages-container {
+    overflow-y: auto;
+    background-color: rgb(255, 255, 255);
+    scrollbar-width: none;
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    height: 60vh;
+    max-height: 100%; 
+    padding: 10px;
+    margin-top: 5rem;
+}
+
+.chat-bubbles-container-staff {
+    display: grid;
+    grid-auto-flow: column;
+    grid-auto-columns: min-content;
+    place-items: center;
+    overflow-x: auto;
+    scrollbar-width: none;
+    gap: 10px;
+    height: 19rem;
+    width: 40rem;
+}
+.chat-bubbles-container-students::-webkit-scrollbar {
+    display: none;
+}
+
+.message-input {
+    width: 45rem;
+    height: 5rem;
+    border-radius: 8px;
+    border: 1px solid #ccc;
+    font-size: 2rem;
+    margin-right: 10rem;
+}
+
+.send-button-profesor {
+    margin-left: 47rem;
+    margin-top: -5rem;
+    width: 10rem;
+    height: 5rem;
+    padding: 8px 16px;
+    background-color: #1d318b;
+    color: white;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+    transition: background 0.3s ease;
+}
+
+.message-profesor {
+    padding: 8px;
+    border-radius: 5px;
+    margin: 5px 0;
+    word-wrap: break-word;
+}
+
+.sent-profesor, .received-profesor {
+    color: #1d318b;
+    border: 1px solid #1d318b;
+    display: flex;
+    align-items: center;
+    padding: 1rem;
+    font-size: 1rem;
+    word-wrap: break-word;
+    overflow-wrap: break-word;
+    flex-wrap: wrap;
+}
+.sent-profesor {
+    margin-left: auto;
+}
+
+.student-bubble {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    border-radius: 50%;
+    width: 200px;
+    text-align: center;
+}
+.student-photo {
+    width: 100px;
+    height: 100px;
+    border-radius: 50%;
+    margin-bottom: 5px;
+    object-fit: cover;
+}
+.nombre-estudiante {
+    margin-top: 0.5rem;
+    color: #1d318b;
+    font-size: 2rem;
+}
+
+/* Ajustes responsivos para tablets y móviles */
+@media (max-width: 768px) {
+    .chat-container {
+        width: 100%;
+        height: auto;
+        margin-top: 1rem;
+        padding: 5px;
+    }
+    
+    .messages-container {
+        height: 50vh;
+        padding: 5px;
+        margin-top: 3rem;
+    }
+    
+    .chat-bubbles-container-staff, .chat-bubbles-container-students {
+        width: 100%;
+        height: auto;
+        gap: 5px;
+    }
+    
+    .message-input {
+        width: 100%;
+        margin-right: 0;
+        font-size: 1.6rem;
+    }
+    
+    .send-button-profesor {
+        margin-left: 0;
+        margin-top: 1rem;
+        width: 8rem;
+        height: 4rem;
+    }
+    
+    .sent-profesor, .received-profesor {
+        font-size: 1.2rem;
+        padding: 0.5rem;
+        max-width: 90%;
+    }
+    
+    .student-bubble {
+        width: 150px;
+    }
+    
+    .student-photo {
+        width: 80px;
+        height: 80px;
+    }
+    
+    .nombre-estudiante {
+        font-size: 1.6rem;
+    }
+}
+
+@media (max-width: 480px) {
+    .chat-container {
+        padding: 5px;
+    }
+    
+    .messages-container {
+        height: 40vh;
+        margin-top: 2rem;
+        padding: 5px;
+    }
+    
+    .chat-bubbles-container-staff, .chat-bubbles-container-students {
+        width: 100%;
+        gap: 5px;
+    }
+    
+    .message-input {
+        font-size: 1.4rem;
+        height: 4rem;
+    }
+    
+    .send-button-profesor {
+        width: 7rem;
+        height: 3.5rem;
+    }
+    
+    .sent-profesor, .received-profesor {
+        font-size: 1rem;
+    }
+    
+    .student-bubble {
+        width: 120px;
+    }
+    
+    .student-photo {
+        width: 60px;
+        height: 60px;
+    }
+    
+    .nombre-estudiante {
+        font-size: 1.4rem;
+    }
+}

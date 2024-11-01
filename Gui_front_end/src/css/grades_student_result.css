@@ -1,0 +1,235 @@
+/* Likert */
+
+body {
+    background-color: #e9ecef;
+    font-family: 'Arial', sans-serif;
+}
+
+.grades-container {
+    max-width: 100%;
+    max-height: 400px;
+    margin-top: 100px;
+    background: white;
+    border-radius: 12px;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+    padding: 14px;
+    transition: transform 0.3s;
+    overflow: auto;
+    animation: fadeIn 0.5s ease-in;
+}
+
+@keyframes grades {
+    from {
+      opacity: 0;
+    }
+    to {
+      opacity: 1;
+    }
+  }
+
+h2 {
+    text-align: center;
+    color: #343a40;
+    margin-bottom: 20px;
+}
+
+.grades-table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+.grades-table th, .grades-table td {
+    padding: 15px;
+    text-align: left;
+    border-bottom: 1px solid #dee2e6;
+}
+
+.grades-table th {
+    background-color: #f8f9fa;
+    color: #495057;
+}
+
+.likert-scale {
+    display: flex;
+    justify-content: center;
+}
+
+.likert-option {
+    width: 40px;
+    height: 40px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border: 2px solid #ccc;
+    border-radius: 50%;
+    margin: 0 5px;
+    cursor: pointer;
+    transition: background 0.3s, border 0.3s, font-size 0.4s;
+    color: #495057;
+    font-size: 23px;
+}
+
+.likert-option.selected {
+    background: #4caf50;
+    color: white;
+    border: 2px solid #388e3c;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
+}
+
+.likert-option:hover {
+    background: #f1f1f1;
+    border: 2px solid #6c757d; 
+    font-size: 31px;
+}
+
+/* emojis */
+.grade{
+    opacity: 0.3; /* Cambia el valor de 0 (transparente) a 1 (opaco) */
+    margin: auto;
+}
+
+
+
+
+
+
+
+
+.modal-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 20px;
+  }
+  
+  .open-modal-button {
+    padding: 10px 20px;
+    background-color: #007bff;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+  }
+  
+  .open-modal-button:hover {
+    background-color: #0056b3;
+  }
+  
+  .modal-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: rgba(0, 0, 0, 0.7);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    
+  }
+  
+  .modal-content {
+    padding: 20px;
+    border-radius: 10px;
+    background-color: #fff;
+    max-width: 500px;
+    margin: auto;
+    margin-top: 50px;
+  }
+  
+  .modal-title {
+    font-size: 24px;
+    margin-bottom: 15px;
+  }
+  
+  .modal-description {
+    font-size: 16px;
+    margin-bottom: 20px;
+  }
+  
+  .emotion-list {
+    list-style-type: none;
+    padding: 0;
+  }
+  
+  .emotion {
+    padding: 10px;
+    border-radius: 5px;
+    margin-bottom: 10px;
+    transition: background-color 0.3s;
+  }
+  
+  .poor {
+    background-color: #f8d7da;
+    color: #721c24;
+  }
+  
+  .bad {
+    background-color: #fce5e5;
+    color: #856404;
+  }
+  
+  .neutral {
+    background-color: #fff3cd;
+    color: #856404;
+  }
+  
+  .good {
+    background-color: #d4edda;
+    color: #155724;
+  }
+  
+  .excellent {
+    background-color: #c3e6cb;
+    color: #155724;
+  }
+  
+  .close-modal-button {
+    padding: 10px 20px;
+    background-color: #dc3545;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+  }
+  
+  .close-modal-button:hover {
+    background-color: #c82333;
+  }
+  
+
+  .div-grades-with-modal{
+    display: flex;
+    justify-content: space-around;
+  }
+
+
+
+
+
+
+/* Estilos específicos para pantallas más pequeñas */
+@media (max-width: 414px) {
+  .h2-result {
+    font-size: 16px; /* Tamaño de fuente más pequeño */
+  }
+
+  .open-modal-button {
+    width: 100%; /* Botón ocupa todo el ancho */
+  }
+
+  .grades-table th,
+  .grades-table td {
+    font-size: 14px; /* Tamaño de fuente más pequeño en la tabla */
+  }
+
+  .grades-table {
+    font-size: 12px; /* Tamaño de fuente de la tabla */
+  }
+
+  .emotion-list {
+    font-size: 12px; /* Tamaño de fuente en la lista de emociones */
+  }
+}
