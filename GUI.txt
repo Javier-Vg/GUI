@@ -5,7 +5,10 @@ npm install axios
 npm i react-router-dom
 npm install jsonwebtoken bcryptjs express
 npm install jwt-decode
-
+npm install js-cookie
+npm install jwt-decode@latest
+npm audit fix
+npm i jwt-decode
 
 pip install django-cors-headers
 pip install djangorestframework
@@ -29,3 +32,27 @@ npm i redux-thunk
 
 Alertas:
 npm i react-toastify
+
+NextUI / libreria de css:
+npm i @nextui-org/react
+
+Mapa :
+npm i @react-google-maps/api
+
+Iconos:
+npm install @mui/icons-material
+npm install @emotion/styled
+
+calendario:
+npm install react-datepicker
+
+grafico:
+npm install recharts
+
+pagos:
+pip install python-stripe
+
+pip install sib-api-v3-sdk
+
+-mensaje scroll
+npm install lucide-react

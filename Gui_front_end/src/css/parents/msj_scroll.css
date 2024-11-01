@@ -1,0 +1,131 @@
+/* Animaciones para el deslizamiento horizontal */
+@keyframes slide-slow {
+    0%, 100% { transform: translateX(0); }
+    50% { transform: translateX(6px); }
+  }
+  
+  @keyframes slide-slower {
+    0%, 100% { transform: translateX(0); }
+    50% { transform: translateX(8px); }
+  }
+  
+  @keyframes slide-slowest {
+    0%, 100% { transform: translateX(0); }
+    50% { transform: translateX(10px); }
+  }
+  
+  @keyframes ping {
+    75%, 100% {
+      transform: scale(2);
+      opacity: 0;
+    }
+  }
+  
+  @keyframes pulse {
+    50% {
+      opacity: .5;
+    }
+  }
+  
+  /* Clases de animación */
+  .animate-slide-slow {
+    animation: slide-slow 2s infinite;
+  }
+  
+  .animate-slide-slower {
+    animation: slide-slower 2s infinite 0.2s;
+  }
+  
+  .animate-slide-slowest {
+    animation: slide-slowest 2s infinite 0.4s;
+  }
+  
+  .animate-ping {
+    animation: ping 1s cubic-bezier(0, 0, 0.2, 1) infinite;
+  }
+  
+  .animate-pulse {
+    animation: pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+  }
+  
+  /* Estilos del contenedor principal */
+  .scroll-indicator {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    z-index: 50;
+    opacity: 1;
+    transition: opacity 1s ease-out, visibility 1s ease-out;
+  }
+  
+  .scroll-indicator.fade-out {
+    opacity: 0;
+    visibility: hidden;
+  }
+  
+  /* Contenedor con fondo translúcido */
+  .indicator-container {
+    background-color: rgba(0, 0, 0, 0.2);
+    backdrop-filter: blur(4px);
+    border-radius: 9999px;
+    padding: 1.5rem;
+    box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
+  }
+  
+  /* Contenedor de la animación */
+  .animation-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.75rem;
+  }
+  
+  /* Contenedor del icono */
+  .icon-container {
+    position: relative;
+  }
+  
+  .icon {
+    color: white;
+  }
+  
+  .icon-glow {
+    position: absolute;
+    inset: 0;
+    background-color: rgba(255, 255, 255, 0.2);
+    border-radius: 9999px;
+    filter: blur(6px);
+  }
+  
+  /* Estilos del texto */
+  .scroll-text {
+    color: white;
+    font-weight: 500;
+    font-size: 0.875rem;
+    background: linear-gradient(to right, rgba(255, 255, 255, 0.8), white);
+    -webkit-background-clip: text;
+    background-clip: text;
+  }
+  
+  /* Contenedor de chevrones */
+  .chevron-container {
+    display: flex;
+    align-items: center;
+    margin-left: -1rem;
+  }
+  
+  .chevron {
+    color: white;
+  }
+  
+  .chevron-fade {
+    opacity: 0.8;
+  }
+  
+  .chevron-fade-more {
+    opacity: 0.6;
+  }

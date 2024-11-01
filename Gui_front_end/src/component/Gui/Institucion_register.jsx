@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { clientId } from '../../keys/keys.js'; // Asegúrate de tener el clientId configurado
 import { postInstitutions } from "../../service/LoginGui"; // Asegúrate de que esta función maneje la subida de datos
-import '../../css/Register_institutions.css'
+import '../../css/Gui/Register_institutions.css'
 const domain = window.location.hostname 
 function Institucion_register() {
   
@@ -15,7 +15,6 @@ function Institucion_register() {
   const [password, setPassword] = useState("");
   const [file, setFile] = useState(null); // Estado para la imagen
   const [monthly_payent, setMonthly_payent] = useState(""); // Estado para la imagen
-
   const send_data = async (e) => {
     e.preventDefault();
   
@@ -43,15 +42,23 @@ function Institucion_register() {
   };
 
   return (
-    <div className="registration-form">
-      <div className="img_circle">
-        {file && <img className="image-previsualizacion" src={URL.createObjectURL(file)} alt="Previsualización" />}
+  <>
+    <div className="container-createInst">
+      <div className="img_circle-createInst">
+        {file && (
+          <img
+            className="image-preview-createInst"
+            src={URL.createObjectURL(file)}
+            alt="Previsualización"
+          />
+        )}
       </div>
-      <div className="container_inputs">
-        <div className="divsInputs">
+      <div className="container-inputs-createInst">
+        <div className="divsInputs-createInst">
           <input
+          autoComplete="off"
             placeholder="Nombre de la Institución:"
-            className="inpts"
+            className="inputs-createInst"
             type="text"
             id="name_institution"
             value={username}
@@ -59,10 +66,11 @@ function Institucion_register() {
             required
           />
         </div>
-        <div className="divsInputs">
+        <div className="divsInputs-createInst">
           <input
+          autoComplete="off"
             placeholder="Dirección de la Institución:"
-            className="inpts"
+            className="inputs-createInst"
             type="text"
             id="address_institution"
             value={address}
@@ -70,8 +78,8 @@ function Institucion_register() {
             required
           />
         </div>
-        <div className="divsInputs">
-          <label htmlFor="state_institution">Estado de la Institución:</label>
+        <div className="divsInputs-createInst">
+          <label className='labels-createInst' htmlFor="state_institution">Estado de la Institución:</label>
           <select
             id="state_institution"
             value={estado}
@@ -83,8 +91,8 @@ function Institucion_register() {
             <option value="Inactiva">Inactiva</option>
           </select>
         </div>
-        <div className="divsInputs">
-          <label htmlFor="subscription_type">Tipo de Suscripción:</label>
+        <div className="divsInputs-createInst">
+          <label  className='labels-createInst' htmlFor="subscription_type">Tipo de Suscripción:</label>
           <select
             id="subscription_type"
             value={subscriptionType}
@@ -96,10 +104,11 @@ function Institucion_register() {
             <option value="Anual">Anual</option>
           </select>
         </div>
-        <div className="divsInputs">
+        <div className="divsInputs-createInst">
           <input
-            placeholder="Numero de telefono"
-            className="inpts"
+          autoComplete="off"
+            placeholder="Número de teléfono"
+            className="inputs-createInst"
             type="number"
             id="phone_number"
             value={phoneNumber}
@@ -107,9 +116,10 @@ function Institucion_register() {
             required
           />
         </div>
-        <div className="divsInputs">
+        <div className="divsInputs-createInst">
           <input
-            className="inpts"
+          autoComplete="off"
+            className="inputs-createInst"
             type="email"
             id="email"
             placeholder="Correo de la Institución"
@@ -118,9 +128,10 @@ function Institucion_register() {
             required
           />
         </div>
-        <div className="divsInputs">
+        <div className="divsInputs-createInst">
           <input
-            className="inpts"
+          autoComplete="off"
+            className="inputs-createInst"
             type="number"
             id="monthly_payment"
             placeholder="monthly_payment"
@@ -129,10 +140,12 @@ function Institucion_register() {
             required
           />
         </div>
-        <div className="divsInputs">
+        <div className="divsInputs-createInst">
+        <label  className='labels-createInst' htmlFor="subscription_type">Fecha</label>
           <input
-            placeholder="Date"
-            className="inpts"
+          autoComplete="off"
+            placeholder="Fecha"
+            className="inputs-createInst"
             type="date"
             id="date"
             value={date}
@@ -140,13 +153,21 @@ function Institucion_register() {
             required
           />
         </div>
-        <div className="divsInputs">
-          <input placeholder="Contraseña" type="password"value={password} name="" id="" onChange={(e) => setPassword(e.target.value)}/>
-        </div>
-        <div className="divsInputs">
+        <div className="divsInputs-createInst">
           <input
-            placeholder="file"
-            className="inpts"
+          autoComplete="off"
+            className="inputs-createInst"
+            placeholder="Contraseña"
+            type="password"
+            value={password}
+            onChange={(e) => setPassword(e.target.value)}
+          />
+        </div>
+        <div className="divsInputs-createInst">
+          <input
+          autoComplete="off"
+            placeholder="Archivo"
+            className="inputs-createInst"
             type="file"
             id="file"
             onChange={(e) => setFile(e.target.files[0])}
@@ -154,8 +175,9 @@ function Institucion_register() {
           />
         </div>
       </div>
-      <input onClick={send_data} type="submit" value="Guardar" />
+      <input className='inp-submit-createInst' onClick={send_data} type="submit" value="Guardar" />
     </div>
+  </>
   );
 }
 export default Institucion_register;

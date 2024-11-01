@@ -3,11 +3,13 @@ from rest_framework.response import Response
 from rest_framework import status
 from .models import grades
 from .serializers import Grades_Serializer
+from rest_framework.permissions import IsAuthenticated, AllowAny
 
 class GroupsViewSet(viewsets.ModelViewSet):
     queryset = grades.objects.all()
     serializer_class = Grades_Serializer
-
+    permission_classes = [IsAuthenticated]
+    
     def update(self, request, pk=None):
         try:
             institution = grades.objects.get(pk=pk)

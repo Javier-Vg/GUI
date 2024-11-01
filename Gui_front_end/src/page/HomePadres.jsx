@@ -1,8 +1,8 @@
-import React from 'react'
-import HomePadresForm from '../component/modulo padres/HomePadresForm'
+import React from 'react';
+import HomePadresForm from '../component/modulo padres/HomePadresForm';
 function HomePadres() {
   return (
-    <div>
+    <div className='core-home-parents'>
       <HomePadresForm />
     </div>
   )

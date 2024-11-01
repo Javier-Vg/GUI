@@ -1,122 +1,137 @@
-# from rest_framework import viewsets
-# from .models import staff
-# from .serializers import Staff_Serializer
-# from rest_framework.decorators import api_view
-# from django.contrib.auth.hashers import check_password
-# from datetime import datetime, timedelta
-# import jwt
-# from rest_framework.response import Response
-# from Api.Key import KeyJWT
-# from django.http import JsonResponse
 
-# # Create your views here.
-# class StaffViewSet(viewsets.ModelViewSet):
-#     queryset = staff.objects.all()
-#     serializer_class = Staff_Serializer
-
-
-# @api_view(['POST'])
-# def LoginView(request):
-#     username = request.data.get('username')
-#     password = request.data.get('password')
-
-#     try:
-#         # Buscar la institución por el username
-#         staff_member = staff.objects.get(username=username)  # Asegúrate de usar el nombre correcto del modelo
-
-#         # Verificar la contraseña hasheada
-#         if check_password(password, staff_member.password):
-#             # Generar el payload para el JWT
-#             payload = {
-#                 'exp': datetime.utcnow() + timedelta(hours=24),  # Expira en 24 horas
-#                 'iat': datetime.utcnow(),  # Hora de creación del token
-#                 'username': staff_member.username,
-#                 'institution_id': staff_member.institution.id,  # Incluye el ID de la institución
-#             }
-
-#             # # Generar el JWT usando PyJWT
-#             encoded = jwt.encode(payload, KeyJWT, algorithm='HS256')
-#             response = JsonResponse({'message': 'Login exitoso', 'institution': staff_member.institution.id})
-#             # # Retornar el token y el ID de la institución
-#             # response.set_cookie('Authorization', f'Bearer {encoded}', expires=datetime.now() + timedelta(hours=24))
-#             response.set_cookie({"username": staff_member.username})
-#             return response  # Retornar el token y el ID de la institución al cliente
-        
-#             # return Response({'token': encoded, 'institution': staff_member.institution.id})  # Retornar el token y el ID de la institución al client
-#         else:
-#             return Response({'error': 'Credenciales inválidas'}, status=400)
-#     except staff.DoesNotExist:
-#         return Response({'error': 'Credenciales inválidas'}, status=400)
+from rest_framework.decorators import api_view,permission_classes
+from rest_framework.response import Response
+from rest_framework import viewsets, status
+from .serializers import Staff_Serializer
+from .serializers import LoginSerializer
 from rest_framework import viewsets
 from .models import staff
-from .serializers import Staff_Serializer
-from rest_framework.decorators import api_view
-from django.contrib.auth.hashers import check_password
-from datetime import datetime, timedelta
-import jwt
-from rest_framework.response import Response
-from Api.Key import KeyJWT
-from django.http import JsonResponse
+from users.serializers import UserCreateSerializer
+from users.models import User
+# from rest_framework.permissions import AllowAny
+from rest_framework.permissions import IsAuthenticated, AllowAny
+from rest_framework.exceptions import ValidationError
 
 class StaffViewSet(viewsets.ModelViewSet):
     queryset = staff.objects.all()
     serializer_class = Staff_Serializer
+    permission_classes = [AllowAny]  
+    def create(self, request, *args, **kwargs):
+    # Extraemos los datos de usuario desde el request
+        position = request.data.get('position')
+
+        # Preparamos los datos del usuario
+        user_data = {
+            'username': request.data.get('username'),
+            'password': request.data.get('password'),
+            'email': request.data.get('email'),
+        }
+
+        # Establecer is_staff según la posición
+        if position != "Teacher":
+            user_data.update({
+                'is_staff': True,
+                'is_student': False,
+                'is_teacher': False
+            })
+        else:
+            user_data.update({
+                'is_staff': False,
+                'is_student': False,
+                'is_teacher': True
+            })
+
+        # Crear el usuario
+        user_serializer = UserCreateSerializer(data=user_data)
+        user_serializer.is_valid(raise_exception=True)
+        user = user_serializer.save()  # Guardamos y obtenemos la instancia de User
+
+        # Ahora creamos el perfil de Staff
+        staff_data = request.data.copy()
+        staff_data['user'] = user.id  # Asignamos la relación a User
+        serializer = self.get_serializer(data=staff_data)
+        serializer.is_valid(raise_exception=True)
+        serializer.save()
+
+        return Response(serializer.data, status=status.HTTP_201_CREATED)
+
+    def retrieve(self, request, pk=None):
+        try:
+            staff_instance = self.get_object()  # Utiliza el método get_object de ModelViewSet
+            serializer = self.get_serializer(staff_instance)
+            return Response(serializer.data, status=status.HTTP_200_OK)
+        except staff.DoesNotExist:
+            return Response({"error": "Staff not found"}, status=status.HTTP_404_NOT_FOUND)
+
+    def update(self, request, *args, **kwargs):
+        partial = kwargs.pop('partial', False)
+        staff_instance = self.get_object()
+        
+        # Obtener el email de la instancia de Staff antes de actualizarla
+        email = staff_instance.email
+
+        # Crear el serializer con los datos nuevos
+        serializer = self.get_serializer(staff_instance, data=request.data, partial=partial)
+        serializer.is_valid(raise_exception=True)
+        self.perform_update(serializer)
+        
+        # Actualizar el usuario asociado en la tabla User, si existe y si el email no cambia
+        user = User.objects.filter(email=email).first()
+        if user:
+            # Actualizar los datos en User si vienen en el request
+            user_fields = ['username', 'password', 'email']  # Campos relevantes de User que quieras actualizar
+            for field in user_fields:
+                if field in request.data:
+                    setattr(user, field, request.data[field])
+            user.save()  # Guarda los cambios en User
+
+        return Response(serializer.data, status=status.HTTP_200_OK)
+    def destroy(self, request, pk=None):
+        try:
+            # Obtener la instancia de Staff
+            staff_instance = self.get_object()
+
+            # Obtener el email de la instancia de Staff
+            email = staff_instance.email
+
+            # Buscar y eliminar el usuario con el mismo email, si existe
+            user = User.objects.filter(email=email).first()
+            if user:
+                user.delete()  # Elimina el usuario asociado
+
+            # Eliminar la instancia de Staff
+            staff_instance.delete()
+            return Response({"message": "Staff and associated user deleted successfully"}, status=status.HTTP_204_NO_CONTENT)
+
+        except staff.DoesNotExist:
+            return Response({"error": "Staff not found"}, status=status.HTTP_404_NOT_FOUND)
+
 
 @api_view(['POST'])
+@permission_classes([AllowAny])
 def LoginView(request):
-    username = request.data.get('username')
-    password = request.data.get('password')
+    serializer = LoginSerializer(data=request.data)
+    
+    if serializer.is_valid():
+        return Response(serializer.validated_data, status=200)
+    # else:
+    #     return Response(serializer.errors, status=400)
 
-    try:
-        # Buscar el miembro del staff por el username
-        staff_member = staff.objects.get(username=username)
 
-        # Verificar la contraseña hasheada
-        if check_password(password, staff_member.password):
-            # Generar el payload para el JWT
-            payload = {
-                'exp': datetime.utcnow() + timedelta(hours=24),  # Expira en 24 horas
-                'iat': datetime.utcnow(),  # Hora de creación del token
-                'username': staff_member.username,
-                'institution_id': staff_member.institution.id,
-            }
+# from rest_framework_simplejwt.views import TokenObtainPairView
+# class CustomTokenObtainPairView(TokenObtainPairView):
+#     permission_classes = [AllowAny]  # Permitir acceso sin autenticación
+#     serializer_class = CustomTokenObtainPairSerializer
 
-            # Generar el JWT usando PyJWT
-            encoded = jwt.encode(payload, KeyJWT, algorithm='HS256')
 
-# Crear la respuesta JSON correctamente
-            return Response({
-                'token': encoded,
-                'message': 'Login exitoso',
-                'institution': staff_member.institution.id,
-                'Name': staff_member.username,
-                'imgInstitution': staff_member.imagen_url
-            })
-                        
-            # Crear la cookie para el token (JWT)
-            # response.set_cookie(
-            #     key='Authorization',
-            #     value=f'Bearer {encoded}',
-            #     expires=datetime.now() + timedelta(hours=24),
-            #     httponly=False,  # Cambia esto a True si no necesitas acceder desde JavaScript
-            #     secure=False,   # Cambia a True si usas HTTPS
-            #     samesite='Lax', # Política de SameSite
-            #     path='/',       # La cookie será accesible en todo el dominio
-            # )
-            
-            # # También crear una cookie para el username si lo necesitas
-            # response.set_cookie(
-            #     key='username',
-            #     value=staff_member.username,
-            #     expires=datetime.now() + timedelta(hours=24),
-            #     httponly=False,  # Deja en False si necesitas acceder desde JavaScript
-            #     path='/',
-            # )
-            
-            # return response
-        
-        else:
-            return Response({'error': 'Credenciales inválidas'}, status=400)
+# @api_view(['POST'])
+# @permission_classes([AllowAny])
+# def LoginView(request):
+#     serializer = LoginSerializer(data=request.data)
 
-    except staff.DoesNotExist:
-        return Response({'error': 'Credenciales inválidas'}, status=400)
+#     if serializer.is_valid():
+#         # Retorna los datos del serializer (incluyendo el token JWT)
+#         return Response(serializer.validated_data, status=200)
+#     else:
+#         # Retorna los errores si la validación falla
+#         return Response(serializer.errors, status=400)

@@ -1,69 +1,189 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from "react";
+import { getStaff, getMessages, sendMessage } from "../../service/LoginGui";
+import "../../css/Chat.css";
+import Cookies from "js-cookie";
+import { jwtDecode } from "jwt-decode";
+import ChatBubbleIcon from '@mui/icons-material/ChatBubble';
+import SendIcon from '@mui/icons-material/Send'
 
 const Chat = () => {
-    const [selectedTeacher, setSelectedTeacher] = useState(null);
-    const [message, setMessage] = useState('');
-    const [messages, setMessages] = useState([]);
-    
-    // Simulación de profesores (esto podría venir de una API)
-    const teachers = [
-        { id: '1', name: 'Prof. Juan' },
-        { id: '2', name: 'Prof. María' },
-        { id: '3', name: 'Prof. Luis' },
-    ];
+  const [selectedMember, setSelectedMember] = useState("");
+  const [message, setMessage] = useState("");
+  const [messages, setMessages] = useState([]);
+  const [staff, setStaff] = useState([]);
+  const [storedStudent, setStudentID] = useState('');
+  const [storedInstitutionId, setInstitutionId] = useState('');
+  const [storedTeacherName, setNameTeacher] = useState('');
+  
+  useEffect(() => {
+    const token = Cookies.get("AuthCookie");
+    if (token) {
+      try {
+        const decodedToken = jwtDecode(token);           
+        const institutionIdFromToken = decodedToken.info.institution;
+        const NameTeacher = decodedToken.info.username;
+        const studentID = decodedToken.info.id;
+     
+        setNameTeacher(NameTeacher);
+        setStudentID(studentID);
+        setInstitutionId(institutionIdFromToken);
+      } catch (error) {
+        console.error("Error al decodificar el token", error);
+      }
+    }
+  }, []);
 
-    const handleSendMessage = () => {
-        if (message.trim() && selectedTeacher) {
-            const newMessage = {
-                id: messages.length + 1,
-                teacherId: selectedTeacher,
-                text: message,
-                date: new Date().toLocaleString(),
-                sender: 'Papa', // o el nombre del padre
-            };
-            setMessages([...messages, newMessage]);
-            setMessage('');
-        }
+  useEffect(() => { 
+    const fetchStaff = async () => {
+      try {
+        const allStaff = await getStaff();
+        const filteredStaff = allStaff.filter(
+          (member) => member.institution === storedInstitutionId && member.position ==="Teacher"
+          
+        );
+        console.log("Staff filtrado:", filteredStaff);
+        setStaff(filteredStaff);
+        
+      } catch (error) {
+        console.error("Error al cargar el personal:", error);
+      }
     };
 
-    const filteredMessages = selectedTeacher 
-        ? messages.filter(msg => msg.teacherId === selectedTeacher)
-        : [];
+    fetchStaff();
+  }, [storedInstitutionId]);
 
-    return (
-        <div>
-            <h2>Chat con Profesores</h2>
-            <div>
-                <label>Selecciona un Profesor:</label>
-                <select onChange={(e) => setSelectedTeacher(e.target.value)} defaultValue="">
-                    <option value="" disabled>Selecciona un profesor</option>
-                    {teachers.map(teacher => (
-                        <option key={teacher.id} value={teacher.id}>{teacher.name}</option>
-                    ))}
-                </select>
+  const fetchMessages = async (memberId) => {
+  try {
+    const allMessages = await getMessages();  
+    
+    
+    setMessages(allMessages);
+  } catch (error) {
+    console.error("Error al cargar los mensajes:", error);
+  }
+};
+
+useEffect(() => {
+  if (selectedMember) {
+    fetchMessages(); 
+  }
+  const interval = setInterval(fetchMessages, 5000); 
+
+  return () => clearInterval(interval);
+}, [selectedMember]);
+
+
+
+  const handleSendMessage = async () => {
+    if (message.trim() && selectedMember && storedStudent) {
+      const newMessage = {
+        message,
+        students: storedStudent,
+        staff: selectedMember,
+        institution: storedInstitutionId,
+        date: new Date().toISOString(),
+        name: storedTeacherName,
+      };
+
+      try {
+        const savedMessage = await sendMessage(newMessage);
+        setMessages((prevMessages) => [
+          ...prevMessages,
+          { ...savedMessage, transmitterName: storedTeacherName || "Profesor" },
+        ]);
+        setMessage("");
+      } catch (error) {
+        console.error("No se pudo enviar el mensaje", error);
+        alert("Error al enviar el mensaje. Intenta nuevamente.");
+      }
+    } else {
+      alert("Por favor, selecciona un miembro del staff y escribe un mensaje.");
+    }
+  };
+  const filteredMessages = selectedMember
+  ? messages.filter(
+      (msg) =>
+        msg.staff === selectedMember &&
+        msg.institution === storedInstitutionId &&
+        msg.students === storedStudent 
+    )
+  : [];
+  // console.log(messages[0].staff);
+  console.log(selectedMember);
+  
+  
+  
+
+  // Filtrado de mensajes por miembro seleccionado
+  return (
+    
+    <div className="chat-profesor-container">
+      {/* Lista de miembros del staff con imágenes */}
+
+      <div className="chat-bubbles-container-students">
+        {staff.map((member) => (
+          <div
+            key={member.id}
+            // className="student-bubble"
+            onClick={() => {
+              setSelectedMember(member.id);
+              
+              fetchMessages();
+            }}
+          >
+            <div className="contendor-fotos">
+           <img
+              src={member.imagen_url}
+              alt={`${member.name} profile`}
+              className="staff-photo"
+            />
+            <p>{member.username}</p>
             </div>
-            <div>
-                <textarea 
-                    value={message}
-                    onChange={(e) => setMessage(e.target.value)}
-                    placeholder="Escribe tu mensaje aquí"
-                />
-                <button onClick={handleSendMessage}>Enviar</button>
-            </div>
-            <div>
-                <h3>Mensajes</h3>
-                {filteredMessages.length > 0 ? (
-                    filteredMessages.map(msg => (
-                        <div key={msg.id}>
-                            <p><strong>{msg.sender}:</strong> {msg.text} <em>({msg.date})</em></p>
-                        </div>
-                    ))
-                ) : (
-                    <p>No hay mensajes para este profesor.</p>
-                )}
-            </div>
+          </div>
+        ))}
+      </div>
+
+      {/* Contenedor del chat */}
+      <div className="chat-container-staf">
+        {/* Mostrar los mensajes filtrados */}
+        <div className="messages-container-staff">
+        {console.log(filteredMessages)
+        }
+          {filteredMessages.length > 0 ? (
+            filteredMessages.map((msg, index) => (
+              <div
+                key={index}
+                className={`message ${
+                  msg.name === storedTeacherName ? "sent-estudiante" : "received-estudiante"
+                }`}
+              ><ChatBubbleIcon/>
+                <strong> {msg.name}:</strong> {msg.message}
+              </div>
+            ))
+          ) : (
+            <p>No hay mensajes en la conversación.</p>
+          )}
         </div>
-    );
+
+        {/* Input para enviar un mensaje */}
+        
+      </div>
+      <div className="send-message-container">
+          <textarea
+            value={message}
+            onChange={(e) => setMessage(e.target.value)}
+            placeholder="Escribe tu mensaje aquí"
+            className="message-input-chat"
+          />
+          
+        </div>
+        <button onClick={handleSendMessage} className="send-button-student">
+        < SendIcon/>
+          </button>
+    </div>
+    
+  );
+  
 };
 
 export default Chat;

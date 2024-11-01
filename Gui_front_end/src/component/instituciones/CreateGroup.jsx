@@ -1,48 +1,52 @@
 import React, { useEffect, useState } from "react";
 import { postGroups } from "../../service/LoginGui";
-import "../../css/create_group.css";
+// import "../../css/create_group.css";
 import { useDispatch, useSelector } from 'react-redux';
 import { fetchSubjects } from '../../Redux/Slices/SliceSubjects';
 import { fetchInstitution } from '../../Redux/Slices/SliceInstitution';
 import { fetchStaff } from '../../Redux/Slices/SliceStaff';
 import { toast } from "react-toastify";
-
+import Cookies from 'js-cookie';
+import { jwtDecode } from "jwt-decode";
 function CreateGroup() {
   
   //Redux
   const itemsInstitution = useSelector(state => state.institutions.items);  
-  const itemsStaff = useSelector(state => state.staff.items);  
   const itemsSubjects = useSelector(state => state.subject.items);
-  const dispatch = useDispatch();
+  const itemsStaff = useSelector(state => state.staff.items);  
 
+  const [educationLevel, setEducationLevel] = useState();
+  const [capacity, setCapacity] = useState();
+  const [classroom, setClassroom] = useState();
+
+  const [subjectsFiltred, setSubjectsFiltred] = useState("");
+  const [teachersFiltred, setTeachersFiltred] = useState("");
+  const [objctChosen, setObjctChosen] = useState([]);
+
+  const [Name, setName] = useState();
+  const [objectStudentsSubjects, setObjectStudentsSubjects] = useState([]);
+  const dispatch = useDispatch();
+  const [institution_id, setInstitutionId] = useState(null); // Almacena el ID de la institución
   useEffect(() => {
+    const token = Cookies.get('AuthCookie'); 
+
+    if (token) {
+      try {
+        // Desencriptar el token
+        const decodedToken = jwtDecode(token);
+      
+        const institutionIdFromToken = decodedToken.info.institution;
+        setInstitutionId(institutionIdFromToken);
+      } catch (error) {
+        console.error('Error al decodificar el token', error);
+      }
+    }
         
     dispatch(fetchSubjects());
     dispatch(fetchInstitution());
     dispatch(fetchStaff());
 
   }, [dispatch]);
-
-  //Local Storage institucion id
-  const institutionId = sessionStorage.getItem("InstitutionID");
-
-  //Alamacena los inputs
-  const [Name, setName] = useState();
-  const [educationLevel, setEducationLevel] = useState();
-  const [capacity, setCapacity] = useState();
-  const [classroom, setClassroom] = useState();
-  
-
-  //Almacena los datos del api segun el id de institucion
-  const [subjectsFiltred, setSubjectsFiltred] = useState("");
-  const [teachersFiltred, setTeachersFiltred] = useState("");
-
-  //Almacena a las materias que fueron seleccionadas.
-  const [objctChosen, setObjctChosen] = useState([]);
-
-  //Crea el objeto con la vinculacion de docente y asignaturas:
-  const [objectStudentsSubjects, setObjectStudentsSubjects] = useState([]);
-
   useEffect(() => {
 
     // Limpiar los estados al entrar al componente.
@@ -51,14 +55,14 @@ function CreateGroup() {
 
     //Condicion para luego mostrar las materia y profesores segun el id de institucions
     itemsSubjects.forEach((i) => {
-      if (institutionId == i.institution) {
+      if (institution_id == i.institution) {
         setSubjectsFiltred((prevSubjectsFiltred) => [...prevSubjectsFiltred,i,]);
       }
     });
 
-     //Filtra los estudiantes:
-     itemsStaff.forEach((i) => {
-      if (i.position == "Teacher" && institutionId == i.institution) { //MOSTRAR MENSAJE EN CASO DE QUE NO EXISTA PROFESOR DE ESA INSTITUCION. 
+    //Filtra los estudiantes:
+    itemsStaff.forEach((i) => {
+      if (i.position == "Teacher" && institution_id == i.institution) { //MOSTRAR MENSAJE EN CASO DE QUE NO EXISTA PROFESOR DE ESA INSTITUCION. 
         setTeachersFiltred((prevTeachersFiltred) => [...prevTeachersFiltred,i,]);
       }
     }); 
@@ -67,14 +71,15 @@ function CreateGroup() {
   const changeCommunication_of_subjects_and_teacher = (e) => {
     setObjctChosen([...objctChosen, e.target.value]);
   };
-
+ 
+ 
 const Post = () => {
   const group = {
     group_name: Name,
     educational_level: educationLevel,
     capacity: capacity,
     classroom: classroom,
-    institution: institutionId,
+    institution: institution_id,
     communication_of_subjects_and_teacher: objectStudentsSubjects,
     current_students: 0
   };
@@ -98,7 +103,6 @@ const Post = () => {
       }));
     });
 
-    // `setObjctFinish` es asincrónico.
   };
 
   // Manejar cambios en los selects
@@ -114,7 +118,7 @@ const Post = () => {
 
   return (
     
-    <div className="div-core">
+    <div className="container-CreateGroup">
       <h2>Creacion de grupos</h2>
       <br />
       <form action="" className="form1">

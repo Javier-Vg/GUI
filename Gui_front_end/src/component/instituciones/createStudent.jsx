@@ -1,6 +1,7 @@
-
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { postStudents } from '../../service/LoginGui';
+import Cookies from 'js-cookie';
+import { jwtDecode } from "jwt-decode";
 const domain = window.location.hostname 
 
 function CreateStudent() {
@@ -19,11 +20,31 @@ function CreateStudent() {
   const [nameGuardian, setNameGuardian] = useState('');
   const [alergias, setAlergias] = useState('');
   const [imagen, setImagen] = useState(null);
-  
+   
+   
   const [mensualidadDelEstudiante, setMensualidadDelEstudiante] = useState('');
   const [formMessage, setFormMessage] = useState('');
   const [password, setPassword] = useState('');
-  
+
+  const [institution_id, setInstitutionId] = useState(null); 
+ 
+  useEffect(() => {
+    const token = Cookies.get('AuthCookie'); 
+
+    if (token) {
+      try {
+        // Desencriptar el token
+        const decodedToken = jwtDecode(token);  
+        const institutionIdFromToken = decodedToken.info.institution;
+        console.log(institutionIdFromToken);
+        
+        // Guardar el ID en una variable local
+        setInstitutionId(institutionIdFromToken);
+      } catch (error) {
+        console.error('Error al decodificar el token', error);
+      }
+    }
+  }, []);
   const handleInputChange = (e) => {
     const { name, value } = e.target;
     switch (name) {
@@ -105,7 +126,8 @@ function CreateStudent() {
         throw new Error('Error al subir la imagen');
       }
       const imageUrl = data.image_url;
-      const institution_id = sessionStorage.getItem('InstitutionID')
+      console.log(imageUrl);
+      
       // Aquí agregamos el institutionId al postStudents
       await postStudents(nombre, apellido, identificacion, fechaNacimiento, grado, estadoAcademico, telefono, email, imageUrl, alergias, guardianTelefono, nameGuardian, mensualidadDelEstudiante, password, institution_id); // Añadir institutionId
       setFormMessage("Personal creado exitosamente"); // Mostrar mensaje de éxito
@@ -132,7 +154,13 @@ function CreateStudent() {
   };
 
   return (
-    <div>
+    <div className='container-students'>
+    <br />
+    <br />
+    <br />
+    <br />
+    <br />
+    <br />
       <label>
         Nombre estudiante:
         <input type="text" name="nombre" value={nombre} onChange={handleInputChange} />

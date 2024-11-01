@@ -1,4 +1,4 @@
-
+# from .permissions import IsAuthenticatedWithCookie
 from rest_framework.decorators import api_view
 from rest_framework.response import Response
 from rest_framework.viewsets import ModelViewSet
@@ -6,18 +6,24 @@ from .models import Post
 from .serializers import PostSerializer
 import requests
 from .Key import clientId
+from rest_framework.permissions import AllowAny
 @api_view(['GET'])
 def helloworld(request):
+    
     return Response({"message": "Hello, World!"})
+
 
 class PostViewSet(ModelViewSet):
     queryset = Post.objects.all()
-    serializer_class=PostSerializer
+    serializer_class=PostSerializer,
+    # permission_classes = [IsAuthenticatedWithCookie]
     # authentication_classes = [TokenAuthentication]
     # permission_classes = [IsAuthenticated]
 
 @api_view(['POST'])
 def upload_image(request):
+    
+    
     # Obtener el archivo de la solicitud
     image = request.FILES.get('image')
 
