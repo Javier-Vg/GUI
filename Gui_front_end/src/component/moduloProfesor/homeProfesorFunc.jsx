@@ -50,8 +50,8 @@ function HomeProfesorFunc() {
                 </div>
             </aside>
 
-            <div className='div-components'>
-                {changeComponent === "Expediente de Alumno" && <ExpedienteAlumno />}
+            <div className='div-components-profesor'>
+                {changeComponent  === "Expediente de Alumno" && <ExpedienteAlumno />}
                 {changeComponent === "MENSAJES" && <ChatProfesor />}
                 {changeComponent === "Calificacion del Estudiante" && <Notas />}
             </div>

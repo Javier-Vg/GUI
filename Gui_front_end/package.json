@@ -24,6 +24,7 @@
     "axios": "^1.7.7",
     "cors": "^2.8.5",
     "date-fns": "^4.1.0",
+    "emailjs-com": "^3.2.0",
     "js-cookie": "^3.0.5",
     "jwt-decode": "^4.0.0",
     "lucide-react": "^0.454.0",

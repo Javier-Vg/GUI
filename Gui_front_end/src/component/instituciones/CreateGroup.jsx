@@ -35,7 +35,7 @@ function CreateGroup() {
         // Desencriptar el token
         const decodedToken = jwtDecode(token);
       
-        const institutionIdFromToken = decodedToken.info.id;
+        const institutionIdFromToken = decodedToken.info.institution;
         setInstitutionId(institutionIdFromToken);
       } catch (error) {
         console.error('Error al decodificar el token', error);

@@ -2,9 +2,11 @@
     margin: 0;
     padding: 0;
     overflow: hidden;
-    /* color: white !important; */
 }
-
+.div-component-institutions {
+    background-color: #f8f9fa;
+    height: 100vh;
+}
 .navbar {
     display: flex;
     justify-content: space-between;
@@ -43,9 +45,9 @@
     font-size: 18px;
     
   }
-  .label-home-inst{
+  /* .label-home-inst{
     color: #1d318b;
-  }
+  } */
   
   
   .right-section {
@@ -58,7 +60,7 @@
     border-radius: 5px;
     border: 1px solid #ddd;
     font-size: 16px;
-    margin-right: 20px; /* Espacio entre el input y el nombre */
+    margin-right: 20px; 
   }
   
   .right-section h2 {
@@ -73,9 +75,9 @@
     border-radius: 50%;
   }
   :root{
-    --fondo-color:#181818;
-    --items-color:#202020;
-    --border-color:#383838;
+    --fondo-color:#833c3c;
+    --items-color:#801515;
+    --border-color:#d65050;
     --text-color:#e7e7e7;
 }
 /* :root{
@@ -128,7 +130,8 @@ aside{
     left: 0;
     bottom:0;
     overflow-y: hidden;
-    margin-top: 72.5px;
+    /* margin-top: 62.5px; */
+    margin-top: 8vh;
     transition: 0.5s;
 }
 
@@ -154,18 +157,18 @@ aside::-webkit-scrollbar-thumb{
     border-bottom: 1px solid var(--border-color);
     padding: 10px 1px;
     color: var(--text-color);
+    background-color: #801515;
 }
-
-.inputBoton:hover .label-home-inst{
-    color: white;
-}
-
 .container-svg div{
     display: flex;
     align-items: center;
     width: 100%;
     padding: 10px 20px;
     cursor: pointer;
+    background-color: #801515;
+}
+.div_components_institutions{
+  background-color: red;
 }
 
 .container-svg div:hover{
@@ -194,11 +197,15 @@ button{
 
 .div-components{
     text-align: center;
-    margin-top: 80px;
-    margin-left: 150px;
+    margin-top: 100px;
+
     padding: 10px;
-    /* overflow: auto; */
-    max-height: 800px;
+    overflow: auto;
+    margin-left: 27rem;
+    
+}
+div{
+    background-color: white;
 }
 
 /* .inputBoton{
@@ -217,11 +224,4 @@ button{
     .div-components{
         margin-left: 60px;
     }
-}
-
-
-.div-nav-{
-    display: flex;
-    justify-content: space-around;
-    
 }

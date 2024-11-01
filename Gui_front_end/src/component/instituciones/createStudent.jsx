@@ -35,7 +35,7 @@ function CreateStudent() {
       try {
         // Desencriptar el token
         const decodedToken = jwtDecode(token);  
-        const institutionIdFromToken = decodedToken.info.id;
+        const institutionIdFromToken = decodedToken.info.institution;
         console.log(institutionIdFromToken);
         
         // Guardar el ID en una variable local

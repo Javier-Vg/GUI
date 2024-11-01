@@ -40,6 +40,8 @@ function ExpedienteAlumno() {
       try {
         // Desencriptar el token
         const decodedToken = jwtDecode(token);  
+        console.log(decodedToken);
+        
         const idStudent = decodedToken.info.id; 
         const idInstitution = decodedToken.info.institution;        
         
