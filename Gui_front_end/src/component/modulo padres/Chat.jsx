@@ -3,6 +3,8 @@ import { getStaff, getMessages, sendMessage } from "../../service/LoginGui";
 import "../../css/Chat.css";
 import Cookies from "js-cookie";
 import { jwtDecode } from "jwt-decode";
+import ChatBubbleIcon from '@mui/icons-material/ChatBubble';
+import SendIcon from '@mui/icons-material/Send'
 
 const Chat = () => {
   const [selectedMember, setSelectedMember] = useState("");
@@ -12,9 +14,7 @@ const Chat = () => {
   const [storedStudent, setStudentID] = useState('');
   const [storedInstitutionId, setInstitutionId] = useState('');
   const [storedTeacherName, setNameTeacher] = useState('');
-  // const pollingInterval = 5000;
-  // let pollingTimeout;
-
+  
   useEffect(() => {
     const token = Cookies.get("AuthCookie");
     if (token) {
@@ -23,8 +23,7 @@ const Chat = () => {
         const institutionIdFromToken = decodedToken.info.institution;
         const NameTeacher = decodedToken.info.username;
         const studentID = decodedToken.info.id;
-        console.log("NameTeacher: ", NameTeacher);
-        console.log("StudentID: ", studentID);
+     
         setNameTeacher(NameTeacher);
         setStudentID(studentID);
         setInstitutionId(institutionIdFromToken);
@@ -38,7 +37,6 @@ const Chat = () => {
     const fetchStaff = async () => {
       try {
         const allStaff = await getStaff();
-        console.log("todos:",allStaff);
         const filteredStaff = allStaff.filter(
           (member) => member.institution === storedInstitutionId && member.position ==="Teacher"
           
@@ -57,11 +55,9 @@ const Chat = () => {
   const fetchMessages = async (memberId) => {
   try {
     const allMessages = await getMessages();  
-     const filteredMessages = allMessages.filter(message => 
-      (message.staff === memberId) && (message.students === storedStudent)
-      
-    );    
-    setMessages(filteredMessages);
+    
+    
+    setMessages(allMessages);
   } catch (error) {
     console.error("Error al cargar los mensajes:", error);
   }
@@ -69,14 +65,9 @@ const Chat = () => {
 
 useEffect(() => {
   if (selectedMember) {
-    fetchMessages(selectedMember); // Fetch initial messages
+    fetchMessages(); 
   }
-
-  const interval = setInterval(() => {
-    if (selectedMember) {
-      fetchMessages(selectedMember);
-    }
-  }, 5000); // Cada 5 segundos
+  const interval = setInterval(fetchMessages, 5000); 
 
   return () => clearInterval(interval);
 }, [selectedMember]);
@@ -85,8 +76,6 @@ useEffect(() => {
 
   const handleSendMessage = async () => {
     if (message.trim() && selectedMember && storedStudent) {
-      console.log(storedStudent, storedTeacherName);
-      
       const newMessage = {
         message,
         students: storedStudent,
@@ -111,47 +100,63 @@ useEffect(() => {
       alert("Por favor, selecciona un miembro del staff y escribe un mensaje.");
     }
   };
+  const filteredMessages = selectedMember
+  ? messages.filter(
+      (msg) =>
+        msg.staff === selectedMember &&
+        msg.institution === storedInstitutionId &&
+        msg.students === storedStudent 
+    )
+  : [];
+  // console.log(messages[0].staff);
+  console.log(selectedMember);
+  
+  
+  
 
   // Filtrado de mensajes por miembro seleccionado
   return (
+    
     <div className="chat-profesor-container">
       {/* Lista de miembros del staff con imágenes */}
-      <div className="chat-bubbles-container">
+
+      <div className="chat-bubbles-container-students">
         {staff.map((member) => (
           <div
             key={member.id}
-            className="student-bubble"
+            // className="student-bubble"
             onClick={() => {
               setSelectedMember(member.id);
-              let id = member.id;
-              fetchMessages(id);
+              
+              fetchMessages();
             }}
           >
             <div className="contendor-fotos">
            <img
               src={member.imagen_url}
               alt={`${member.name} profile`}
-              className="student-photo"
+              className="staff-photo"
             />
-            <p>{member.name}</p>
+            <p>{member.username}</p>
             </div>
           </div>
         ))}
       </div>
 
       {/* Contenedor del chat */}
-      <div className="chat-container">
+      <div className="chat-container-staf">
         {/* Mostrar los mensajes filtrados */}
-        <div className="messages-container">
-        
-          {messages.length > 0 ? (
-            messages.map((msg, index) => (
+        <div className="messages-container-staff">
+        {console.log(filteredMessages)
+        }
+          {filteredMessages.length > 0 ? (
+            filteredMessages.map((msg, index) => (
               <div
                 key={index}
                 className={`message ${
-                  msg.name === storedTeacherName ? "sent" : "received"
+                  msg.name === storedTeacherName ? "sent-estudiante" : "received-estudiante"
                 }`}
-              >
+              ><ChatBubbleIcon/>
                 <strong> {msg.name}:</strong> {msg.message}
               </div>
             ))
@@ -161,20 +166,24 @@ useEffect(() => {
         </div>
 
         {/* Input para enviar un mensaje */}
-        <div className="send-message-container">
+        
+      </div>
+      <div className="send-message-container">
           <textarea
             value={message}
             onChange={(e) => setMessage(e.target.value)}
             placeholder="Escribe tu mensaje aquí"
-            className="message-input"
+            className="message-input-chat"
           />
-          <button onClick={handleSendMessage} className="send-button">
-            Enviar
-          </button>
+          
         </div>
-      </div>
+        <button onClick={handleSendMessage} className="send-button-student">
+        < SendIcon/>
+          </button>
     </div>
+    
   );
+  
 };
 
 export default Chat;

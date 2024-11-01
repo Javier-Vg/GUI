@@ -2,9 +2,11 @@
     margin: 0;
     padding: 0;
     overflow: hidden;
-    /* color: white !important; */
 }
-
+.div-component-institutions {
+    background-color: #f8f9fa;
+    height: 100vh;
+}
 .navbar {
     display: flex;
     justify-content: space-between;
@@ -58,7 +60,7 @@
     border-radius: 5px;
     border: 1px solid #ddd;
     font-size: 16px;
-    margin-right: 20px; /* Espacio entre el input y el nombre */
+    margin-right: 20px; 
   }
   
   .right-section h2 {
@@ -145,6 +147,7 @@ aside::-webkit-scrollbar-thumb{
     border-bottom: 1px solid var(--border-color);
     padding: 10px 1px;
     color: var(--text-color);
+    background-color: #801515;
 }
 .container-svg div{
     display: flex;
@@ -152,6 +155,7 @@ aside::-webkit-scrollbar-thumb{
     width: 100%;
     padding: 10px 20px;
     cursor: pointer;
+    background-color: #801515;
 }
 .div_components_institutions{
   background-color: red;
@@ -182,10 +186,14 @@ button{
 .div-components{
     text-align: center;
     margin-top: 100px;
-    margin-left: 150px;
+
     padding: 10px;
     overflow: auto;
-    max-height: 800px;
+    margin-left: 27rem;
+    
+}
+div{
+    background-color: white;
 }
 
 .inputBoton{

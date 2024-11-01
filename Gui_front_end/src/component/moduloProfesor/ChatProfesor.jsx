@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { getStudents, getMessages, sendMessage } from "../../service/LoginGui"; // Ajusta la ruta si es necesario
-
+import ChatBubbleIcon from '@mui/icons-material/ChatBubble';
+import SendIcon from '@mui/icons-material/Send';
 import Cookies from "js-cookie";
 import { jwtDecode } from "jwt-decode";
 import { useSelector } from "react-redux";
@@ -103,7 +104,8 @@ const ChatProfesor = () => {
     ? messages.filter(
         (msg) =>
           msg.students=== selectedStudent &&
-          msg.institution === storedInstitutionId
+          msg.institution === storedInstitutionId &&
+          msg.staff === storedStaffId
       )
     : [];
 
@@ -111,7 +113,7 @@ const ChatProfesor = () => {
     
     <div className="div-profesor-messeges">
       {/* Lista de estudiantes con imágenes */}
-      <div className="chat-bubbles-container">
+      <div className="chat-bubbles-container-staff">
         {students.map((student) => (
           <div
             key={student.id}
@@ -126,8 +128,9 @@ const ChatProfesor = () => {
               alt={`${student.name} profile`}
               className="student-photo"
             />
-            <p>{student.username}</p>
+            <p className="nombre-estudiante">{student.username}</p>
           </div>
+          
         ))}
       </div>
 
@@ -139,10 +142,10 @@ const ChatProfesor = () => {
             filteredMessages.map((msg, index) => (
               <div 
                 key={index}
-                className={`message ${
-                  msg.name === storedTeacherName ? "sent" : "received"
+                className={`message-profesor ${
+                  msg.name === storedTeacherName ? "sent-profesor" : "received-profesor"
                 }`}
-              >
+              ><ChatBubbleIcon/>
                 <strong>{msg.name}:</strong> {msg.message}
               </div>
             ))
@@ -152,18 +155,21 @@ const ChatProfesor = () => {
         </div>
 
         {/* Input para enviar un mensaje */}
-        <div className="send-message-container">
-          <textarea
+       
+      </div>
+      <div className="send-message-container">
+      
+          <textarea 
             value={message}
             onChange={(e) => setMessage(e.target.value)}
             placeholder="Escribe tu mensaje aquí"
             className="message-input"
           />
-          <button onClick={handleSendMessage} className="send-button">
-            Enviar
-          </button>
+        
         </div>
-      </div>
+        <button onClick={handleSendMessage} className="send-button-profesor">
+       < SendIcon/>
+          </button>
     </div>
   );
 };
