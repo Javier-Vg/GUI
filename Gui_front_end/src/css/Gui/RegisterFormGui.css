@@ -1,8 +1,109 @@
-.container-createGui{
+/* Estilos principales */
+.container-createGui {
     height: 100vh;
     display: flex;
     justify-content: center;
     align-items: center;
     flex-direction: column;
-    background-color: white;
+    background-color: #f0f0f0; /* Fondo gris claro */
+    padding: 20px;
+    box-sizing: border-box;
 }
+
+.title-createGui {
+    font-size: 1.8rem;
+    color: #333; /* Texto gris oscuro */
+    margin-bottom: 20px;
+}
+
+.input-group-createGui {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    max-width: 400px;
+    margin-bottom: 15px;
+}
+
+.label-createGui {
+    color: #666; /* Gris medio */
+    font-size: 1rem;
+    margin-bottom: 5px;
+}
+
+.input-createGui {
+    padding: 10px 0;
+    border: none;
+    border-bottom: 2px solid #ccc; /* Solo borde inferior */
+    font-size: 1rem;
+    color: #333;
+    background-color: transparent;
+    outline: none;
+    transition: border-color 0.3s ease;
+}
+
+.input-createGui:focus {
+    border-color: #333; /* Borde inferior gris oscuro en focus */
+}
+
+.message-createGui {
+    font-size: 0.9rem;
+    color: #333; /* Mensaje en gris oscuro */
+    margin-top: 10px;
+}
+
+.button-group-createGui {
+    display: flex;
+    justify-content: center;
+    width: 100%;
+    max-width: 400px;
+}
+
+.button-createGui {
+    background-color: #333; /* Botón gris oscuro */
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 1rem;
+    transition: background-color 0.3s ease;
+}
+
+.button-createGui:hover {
+    background-color: #555; /* Gris más claro en hover */
+}
+
+/* Media queries para hacer la página responsiva */
+@media (max-width: 768px) {
+    .title-createGui {
+        font-size: 1.5rem;
+    }
+
+    .input-group-createGui,
+    .button-group-createGui {
+        max-width: 300px;
+        border-radius: 0px;
+    }
+
+    .input-createGui,
+    .button-createGui {
+        font-size: 0.9rem;
+        border-radius: 0px;
+
+    }
+}
+
+@media (max-width: 480px) {
+    .title-createGui {
+        font-size: 1.3rem;
+    }
+
+    .input-createGui,
+    .button-createGui {
+        padding: 8px;
+        font-size: 0.8rem;
+        border-radius: 0px;
+
+    }
+}
+

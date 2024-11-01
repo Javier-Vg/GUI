@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { clientId } from '../../keys/keys.js'; // Asegúrate de tener el clientId configurado
 import { postInstitutions } from "../../service/LoginGui"; // Asegúrate de que esta función maneje la subida de datos
+import '../../css/Gui/Register_institutions.css'
 const domain = window.location.hostname 
 function Institucion_register() {
   
@@ -55,6 +56,7 @@ function Institucion_register() {
       <div className="container-inputs-createInst">
         <div className="divsInputs-createInst">
           <input
+          autoComplete="off"
             placeholder="Nombre de la Institución:"
             className="inputs-createInst"
             type="text"
@@ -66,6 +68,7 @@ function Institucion_register() {
         </div>
         <div className="divsInputs-createInst">
           <input
+          autoComplete="off"
             placeholder="Dirección de la Institución:"
             className="inputs-createInst"
             type="text"
@@ -76,7 +79,7 @@ function Institucion_register() {
           />
         </div>
         <div className="divsInputs-createInst">
-          <label htmlFor="state_institution">Estado de la Institución:</label>
+          <label className='labels-createInst' htmlFor="state_institution">Estado de la Institución:</label>
           <select
             id="state_institution"
             value={estado}
@@ -89,7 +92,7 @@ function Institucion_register() {
           </select>
         </div>
         <div className="divsInputs-createInst">
-          <label htmlFor="subscription_type">Tipo de Suscripción:</label>
+          <label  className='labels-createInst' htmlFor="subscription_type">Tipo de Suscripción:</label>
           <select
             id="subscription_type"
             value={subscriptionType}
@@ -103,6 +106,7 @@ function Institucion_register() {
         </div>
         <div className="divsInputs-createInst">
           <input
+          autoComplete="off"
             placeholder="Número de teléfono"
             className="inputs-createInst"
             type="number"
@@ -114,6 +118,7 @@ function Institucion_register() {
         </div>
         <div className="divsInputs-createInst">
           <input
+          autoComplete="off"
             className="inputs-createInst"
             type="email"
             id="email"
@@ -125,6 +130,7 @@ function Institucion_register() {
         </div>
         <div className="divsInputs-createInst">
           <input
+          autoComplete="off"
             className="inputs-createInst"
             type="number"
             id="monthly_payment"
@@ -135,7 +141,9 @@ function Institucion_register() {
           />
         </div>
         <div className="divsInputs-createInst">
+        <label  className='labels-createInst' htmlFor="subscription_type">Fecha</label>
           <input
+          autoComplete="off"
             placeholder="Fecha"
             className="inputs-createInst"
             type="date"
@@ -147,6 +155,8 @@ function Institucion_register() {
         </div>
         <div className="divsInputs-createInst">
           <input
+          autoComplete="off"
+            className="inputs-createInst"
             placeholder="Contraseña"
             type="password"
             value={password}
@@ -155,6 +165,7 @@ function Institucion_register() {
         </div>
         <div className="divsInputs-createInst">
           <input
+          autoComplete="off"
             placeholder="Archivo"
             className="inputs-createInst"
             type="file"
@@ -164,7 +175,7 @@ function Institucion_register() {
           />
         </div>
       </div>
-      <input onClick={send_data} type="submit" value="Guardar" />
+      <input className='inp-submit-createInst' onClick={send_data} type="submit" value="Guardar" />
     </div>
   </>
   );

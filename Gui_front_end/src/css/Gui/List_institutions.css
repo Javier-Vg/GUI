@@ -1,0 +1,303 @@
+/* Contenedor principal de la lista de instituciones */
+.institutionList-container {
+    margin-top: 5em;
+    padding: 20px;
+    background-color: #f9f9f9; /* Fondo claro para el contenedor */
+    height: 100vh; /* Altura total de la ventana */
+    overflow-y: auto; /* Habilitar scroll vertical si el contenido excede la altura */
+}
+
+/* Estilo para el título de la lista de instituciones */
+.institutionList h1 {
+    text-align: center;
+    color: #1d318b; /* Color del título */
+    margin-bottom: 20px;
+}
+
+/* Contenedor de la lista de instituciones */
+.institutionList {
+    margin-top: 3em;
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(250px, 1fr)); /* Cuadrícula responsive */
+    gap: 15px; /* Espaciado entre cada elemento */
+}
+
+/* Elemento individual de la lista de instituciones */
+.institutionList-item {
+    display: flex;
+    flex-direction: column; /* Cambiar a columna para el layout */
+    background: #ffffff; /* Fondo blanco para cada institución */
+    border: 1px solid #ccc; /* Borde gris claro */
+    border-radius: 5px; /* Bordes redondeados */
+    padding: 15px;
+    transition: box-shadow 0.3s; /* Efecto de transición para la sombra */
+    cursor: pointer; /* Cambiar cursor al pasar por encima */
+}
+
+/* Efecto al pasar el ratón sobre el elemento de la lista */
+.institutionList-item:hover {
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2); /* Sombra al pasar el ratón */
+}
+
+/* Contenedor de la imagen de la institución */
+.institutionList-imgContainer {
+    flex-shrink: 0; /* Evitar que la imagen se encoja */
+    width: 100%; /* Ancho completo para la imagen */
+    height: 120px; /* Altura fija para la imagen */
+    margin-bottom: 10px; /* Espaciado inferior */
+}
+
+/* Estilo para el logo de la institución */
+.institutionList-logo {
+    width: 100%;
+    height: 100%;
+    object-fit: cover; /* Ajustar la imagen al contenedor */
+    border-radius: 5px; /* Bordes redondeados para la imagen */
+}
+
+/* Información de la institución */
+.institutionList-info {
+    flex-grow: 1; /* Ocupa el espacio restante */
+    text-align: center; /* Centrar texto */
+}
+
+/* Botón para ver más */
+.institutionList-info input[type="button"] {
+    margin-top: auto; /* Empujar hacia el final */
+    padding: 10px; /* Espaciado interno */
+    background-color: #1d318b; /* Color de fondo */
+    color: white; /* Color de texto */
+    border: none; /* Sin borde */
+    border-radius: 5px; /* Bordes redondeados */
+    cursor: pointer; /* Cambiar cursor al pasar el ratón */
+    transition: background-color 0.3s; /* Transición suave para el color de fondo */
+}
+
+/* Cambio de color al pasar el ratón sobre el botón */
+.institutionList-info input[type="button"]:hover {
+    background-color: #3a4d9f; /* Color de fondo más oscuro al pasar el ratón */
+}
+
+/* Modal de información de la institución */
+.institutionList-modal {
+    position: fixed; /* Posicionamiento fijo */
+    top: 50%; /* Centrar verticalmente */
+    left: 50%; /* Centrar horizontalmente */
+    transform: translate(-50%, -50%); /* Ajustar el centrado */
+    background-color: #ffffff; /* Fondo blanco */
+    border-radius: 12px; /* Bordes redondeados */
+    padding: 30px; /* Espaciado interno aumentado */
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15); /* Sombra más pronunciada */
+    z-index: 1000; /* Asegurarse de que esté encima de otros elementos */
+    width: 90%; /* Ancho responsive */
+    max-width: 600px; /* Ancho máximo */
+    height: 80vh; /* Altura del modal del 80% de la ventana */
+    overflow-y: auto; /* Scroll vertical si el contenido excede la altura */
+}
+
+/* Estilo para el botón de cerrar */
+.institutionList-closeButton {
+    position: absolute; /* Posicionamiento absoluto para el botón de cerrar */
+    top: 15px; /* Espaciado desde la parte superior */
+    right: 15px; /* Espaciado desde la derecha */
+    background-color: transparent; /* Fondo transparente */
+    color: #1d318b; /* Color del texto */
+    border: none; /* Sin borde */
+    cursor: pointer; /* Cambiar cursor al pasar el ratón */
+    font-size: 1.5rem; /* Tamaño de fuente */
+    transition: color 0.3s; /* Transición suave para el color */
+}
+
+/* Cambio de color al pasar el ratón sobre el botón de cerrar */
+.institutionList-closeButton:hover {
+    color: #3a4d9f; /* Color de texto más oscuro al pasar el ratón */
+}
+
+/* Título del modal */
+.institutionList-title {
+    margin-bottom: 30px; /* Espaciado inferior aumentado */
+    text-align: center; /* Centrar título */
+    font-size: 1.8rem; /* Tamaño de fuente más grande */
+    color: #1d318b; /* Color del título */
+    font-weight: bold; /* Hacer el título más destacado */
+}
+
+/* Estilo para cada item en el modal */
+.institutionList-grid {
+    display: grid; /* Usar grid para organizar el contenido */
+    grid-template-columns: repeat(2, 1fr); /* Dos columnas */
+    gap: 20px; /* Espacio entre los elementos aumentado */
+}
+
+/* Estilo para los botones dentro del modal */
+.institutionList-closeButton,
+.institutionList-item input[type="button"] {
+    margin-top: 25px; /* Espaciado superior aumentado */
+    padding: 12px 20px; /* Espaciado interno aumentado */
+    background-color: #1d318b; /* Color de fondo */
+    color: white; /* Color de texto */
+    border: none; /* Sin borde */
+    border-radius: 6px; /* Bordes redondeados */
+    cursor: pointer; /* Cambiar cursor al pasar el ratón */
+    transition: background-color 0.3s, transform 0.2s; /* Transiciones suaves para color y tamaño */
+    font-size: 1rem; /* Tamaño de fuente para botones */
+}
+
+/* Cambio de color y efecto al pasar el ratón sobre los botones */
+.institutionList-closeButton:hover,
+.institutionList-item input[type="button"]:hover {
+    background-color: #3a4d9f; /* Color de fondo más oscuro al pasar el ratón */
+    transform: scale(1.05); /* Efecto de aumento al pasar el ratón */
+}
+
+/* Estilos para inputs dentro del modal */
+.institutionList-item input[type="text"],
+.institutionList-item input[type="email"] {
+    width: 100%; /* Ancho completo */
+    padding: 12px; /* Espaciado interno aumentado */
+    border: none; /* Sin borde */
+    border-bottom: 1px solid #ccc; /* Borde inferior gris claro */
+    outline: none; /* Sin outline */
+    margin-top: 10px; /* Espaciado superior aumentado */
+    margin-bottom: 20px; /* Espaciado inferior añadido para separación */
+    font-size: 1rem; /* Tamaño de fuente */
+}
+
+/* Estilo para los labels de los inputs */
+.institutionList-item label {
+    font-size: 1rem; /* Tamaño de fuente para labels */
+    margin-bottom: 10px; /* Espaciado inferior */
+    display: block; /* Hacer que el label ocupe toda la línea */
+    color: #333; /* Color del texto */
+}
+
+/* Media Queries para dispositivos móviles */
+@media (max-width: 768px) {
+    /* Modal */
+    .institutionList-modal {
+        width: 90%; /* Ancho responsive */
+        padding: 15px; /* Ajustar padding en móviles */
+    }
+
+    /* Estilo para la cuadrícula en móviles */
+    .institutionList {
+        grid-template-columns: 1fr; /* Una columna en móviles */
+    }
+
+    /* Elemento individual de la lista de instituciones */
+    .institutionList-item {
+        place-items: center; /* Centrar contenido */
+        border: 1px solid transparent !important; /* Borde transparente para móviles */
+        border-left: 1px solid rgba(0, 0, 0, 0.274) !important; /*
+        margin-top: 1.5em; /* Espaciado superior */
+        padding: 10px; /* Ajustar el padding en móviles */
+    }
+
+    /* Contenedor de la lista de instituciones */
+    .institutionList-container {
+        margin-top: 6em; /* Espaciado superior aumentado en contenedor */
+    }
+
+    /* Estilo para el botón "Guardar Cambios" */
+    .save-update-button {
+        font-size: 0.9rem; /* Tamaño de fuente más pequeño en móviles */
+        padding: 10px 15px; /* Ajustar el padding en móviles */
+    }
+}
+@media (max-width: 480px) {
+    /* Título del modal */
+    .institutionList-title {
+        font-size: 1.5rem; /* Tamaño de fuente más pequeño en móviles */
+    }
+
+    /* Ajustar tamaño de inputs */
+    .institutionList-item input[type="text"],
+    .institutionList-item input[type="email"] {
+        font-size: 0.9rem; /* Tamaño de fuente más pequeño para inputs */
+    }
+}
+
+/* Ocultar scrollbar */
+::-webkit-scrollbar {
+    display: none !important; 
+}
+
+
+
+
+.contact-form-email {
+    display: flex;
+    flex-direction: column;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    background-color: #f9f9f9;
+    max-width: 400px;  /* Ancho máximo para pantallas grandes */
+    width: 90%;         /* Ancho del 90% en pantallas pequeñas */
+    margin: auto;
+    position: fixed;    /* Usar fixed para centrar en toda la pantalla */
+    top: 50%;           /* Alinear verticalmente al centro */
+    left: 50%;          /* Alinear horizontalmente al centro */
+    transform: translate(-50%, -50%); /* Ajustar para centrar */
+    z-index: 10;       /* Asegura que esté por encima de otros elementos */
+}
+
+.contact-form__close-button-email {
+    align-self: flex-end;
+    background: transparent;
+    border: none;
+    font-size: 24px;
+    cursor: pointer;
+}
+
+.contact-form__input-email,
+.contact-form__textarea-email {
+    margin: 10px 0;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    font-size: 16px;
+    width: 100%;        /* Asegura que los inputs ocupen todo el ancho */
+    min-width: 250px;   /* Ancho mínimo para que no sean demasiado pequeños */
+}
+
+.contact-form__textarea-email {
+    min-height: 100px;
+}
+
+.contact-form__submit-button-email {
+    background-color: white; /* Color de fondo blanco */
+    color: black;           /* Texto negro */
+    border: 2px solid blue; /* Borde azul */
+    padding: 10px;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 16px;
+    transition: background-color 0.3s, color 0.3s; /* Añadir transición para efectos */
+}
+
+.contact-form__submit-button-email:hover {
+    background-color: blue;  /* Fondo azul al pasar el ratón */
+    color: white;            /* Texto blanco al pasar el ratón */
+}
+
+.contact-form__status-message-email {
+    margin-top: 10px;
+    color: #ff0000; /* Color para el mensaje de estado */
+}
+
+/* Estilos adicionales para pantallas pequeñas */
+@media (max-width: 480px) {
+    .contact-form-email {
+        width: 95%; /* Ampliar el ancho en pantallas pequeñas */
+    }
+
+    .contact-form__input-email,
+    .contact-form__textarea-email {
+        font-size: 14px; /* Reducir el tamaño de la fuente para móviles */
+    }
+
+    .contact-form__submit-button-email {
+        font-size: 14px; /* Ajustar tamaño del botón */
+    }
+}

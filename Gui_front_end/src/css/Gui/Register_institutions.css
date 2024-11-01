@@ -1,7 +1,181 @@
-.container-createInst{
-    height: 100vh;
+.container-createInst {
+    height: 100vh; /* Mantener altura total de la ventana */
     display: flex;
     justify-content: center;
     align-items: center;
     flex-direction: column;
+    background-color: #f0f0f0;
+    overflow: hidden; /* Evitar overflow no deseado en pantallas grandes */
+}
+
+.img_circle-createInst {
+    width: 120px; /* Ajustar el tamaño del círculo */
+    height: 120px; /* Ajustar el tamaño del círculo */
+    border-radius: 50%;
+    overflow: hidden;
+    margin-bottom: 20px;
+    border: 1px solid #919192; 
+}
+ 
+.image-preview-createInst {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.container-inputs-createInst {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center; /* Centrado de inputs */
+    gap: 20px;
+    width: 100%;
+}
+
+.divsInputs-createInst {
+    display: flex;
+    flex-direction: column;
+    width: calc(50% - 10px);
+    align-items: center; /* Centrar inputs dentro del div */
+}
+
+.labels-createInst {
+    color: #1d318b; 
+    font-size: 0.9rem;
+    margin-bottom: 5px;
+    text-align: center; /* Centrado de etiquetas */
+}
+
+.inputs-createInst {
+    padding: 10px;
+    border: none;
+    border-bottom: 2px solid #ccc;
+    background-color: #fff;
+    font-size: 1rem;
+    color: #333;
+    outline: none;
+    transition: border-color 0.3s ease;
+    width: 95%;  /* Ancho */
+    max-width: 350px;  /* Max-width */
+    margin: 0 auto; /* Centrarlos horizontalmente */
+}
+
+.inputs-createInst:focus {
+    border-color: #1d318b;
+}
+
+.divsInputs-createInst select {
+    padding: 10px;
+    border: none;
+    border-bottom: 2px solid #ccc;
+    font-size: 1rem;
+    color: #333;
+    background-color: #fff;
+    outline: none;
+    transition: border-color 0.3s ease;
+    width: 95%;  /* Ancho */
+    max-width: 350px;  /* Max-width */
+    margin: 0 auto; /* Centrarlos horizontalmente */
+}
+
+.divsInputs-createInst select:focus {
+    border-color: #1d318b;
+}
+
+.inp-submit-createInst[type="submit"] {
+    padding: 12px 20px;
+    margin-top: 20px;
+    border: none;
+    background-color: #1d318b; 
+    color: #fff;
+    font-size: 1rem;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    width: 100%;
+    max-width: 200px;
+    margin: 0 auto; /* Centrar botón */
+}
+
+.inp-submit-createInst[type="submit"]:hover {
+    background-color: #3a4d9f;
+}
+
+/* Estilos para pantallas más grandes */
+@media (min-width: 768px) {
+    .container-createInst {
+        border-radius: 8px; /* Añade un borde redondeado al contenedor */
+        padding: 40px; /* Aumenta el padding del contenedor */
+    }
+    
+    .inp-submit-createInst[type="submit"] {
+        margin-top: 3em; /* Ajusta el margen superior del botón de envío */
+        width: 40vh; /* Define el ancho del botón en unidades vh (viewport height) */
+    }
+}
+
+/* Estilos para pantallas pequeñas */
+@media (max-width: 768px) {
+    .container-createInst {
+        overflow: auto !important; /* Habilita el desplazamiento automático para el contenedor */
+        scrollbar-width: none; /* Para Firefox: oculta la barra de desplazamiento */
+        padding: 15px; /* Reduce el padding para pantallas pequeñas */
+        margin-top: 7em; /* Añade margen superior para separar del contenido superior */
+        height: 100vh; /* Mantiene la altura del contenedor */
+    }
+    
+    /* Oculta la barra de desplazamiento para Chrome, Safari y otros navegadores basados en WebKit */
+    .container-createInst::-webkit-scrollbar {
+        display: none !important; 
+    }
+
+    .divsInputs-createInst {
+        width: 20vh; /* Ajusta el ancho de los divs de inputs para móviles */
+        border-radius: 0px; /* Quita el borde redondeado */
+    }
+
+    .inputs-createInst {
+        width: 100%; /* Cambia el ancho a 100% para adaptarse a la pantalla */
+    }
+
+    .inputs-createInst,
+    .divsInputs-createInst select,
+    .inp-submit-createInst[type="submit"] {
+        margin-top: 1em; /* Añade margen superior a todos los inputs y selectores */
+        font-size: 0.9rem; /* Ajusta el tamaño de la fuente para mejorar la legibilidad */
+        max-width: 100%; /* Permite que los inputs ocupen todo el ancho disponible */
+    }
+    
+    .inp-submit-createInst[type="submit"] {
+        margin-top: 2em; /* Añade margen superior específico para el botón de envío */
+        width: 40vh; /* Ajusta el ancho del botón en unidades vh */
+    }
+}
+
+/* Estilos para pantallas muy pequeñas */
+@media (max-width: 480px) {
+    .container-createInst {
+        overflow: auto !important; /* Habilita el desplazamiento automático */
+        height: auto; /* Permite que la altura del contenedor se ajuste al contenido */
+        padding: 10px; /* Reduce aún más el padding */
+        border-radius: 0; /* Quita el borde redondeado */
+        box-shadow: none; /* Elimina la sombra del contenedor */
+    }
+
+    .divsInputs-createInst {
+        width: 20vh; /* Mantiene el ancho de los divs de inputs para móviles */
+        border-radius: 0px; /* Quita el borde redondeado */
+    }
+
+    .inputs-createInst,
+    .divsInputs-createInst select {
+        font-size: 0.85rem; /* Tamaño de fuente más pequeño para mejorar la adaptabilidad */
+        border-radius: 0px; /* Quita el borde redondeado */
+    }
+
+    .inp-submit-createInst[type="submit"] {
+        margin-top: 3em; /* Ajusta el margen superior del botón de envío */
+        width: 30vh; /* Ajusta el ancho del botón en unidades vh */
+        font-size: 0.85rem; /* Tamaño de fuente más pequeño para el botón */
+        padding: 10px 15px; /* Ajusta el padding del botón */
+    }
 }

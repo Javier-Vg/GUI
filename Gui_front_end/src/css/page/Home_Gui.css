@@ -1,3 +1,228 @@
-.div-components-gui-home{
-    background-color: blue;
+/* Estilos principales */
+:root {
+    --fondo-color: #833c3c;
+    --items-color: #801515;
+    --border-color: #d65050;
+    --text-color: #e7e7e7;
+}
+
+html {
+    font-size: 62.5%;
+    font-family: sans-serif;
+}
+
+body {
+    width: 100%;
+    height: 100vh;
+    background-color: var(--fondo-color);
+}
+
+button {
+    background-color: transparent;
+    border: none;
+}
+
+h2 {
+    padding: 10px 20px;
+    color: #aaaaaa;
+}
+
+/* Navbar principal */
+.GuiHome-nav {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background-color: #f8f9fa;
+    padding: 10px 20px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    height: 8vh;
+    position: fixed;
+    width: 100%;
+    background-color: var(--items-color);
+    border-bottom: 1px solid var(--border-color);
+}
+
+/* Botón de abrir/cerrar menú */
+#GuiHome-open-close {
+    background-color: #9b9c9d;
+    border: none;
+    color: white;
+    padding: 10px;
+    cursor: pointer;
+    border-radius: 5px;
+    font-size: 18px;
+}
+
+#GuiHome-open-close i {
+    color: #fff;
+    font-size: 2.7rem;
+    cursor: pointer;
+}
+
+/* Logo en la navbar */
+.GuiHome-logo {
+    margin-left: 20px;
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+}
+
+/* Título de la navbar */
+.GuiHome-title {
+    font-size: 20px;
+    color: #333;
+    margin-right: 20px;
+}
+
+/* Sidebar en formato vertical (escritorio) */
+#GuiHome-aside {
+    background-color: var(--items-color);
+    width: 260px;
+    position: absolute;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    margin-top: 8vh;
+    transition: 0.5s;
+    overflow-y: hidden;
+}
+
+#GuiHome-aside.desplegar {
+    transform: translateX(-100%);
+}
+
+#GuiHome-aside:hover {
+    overflow-y: auto;
+}
+
+#GuiHome-aside::-webkit-scrollbar {
+    width: 8px;
+}
+
+#GuiHome-aside::-webkit-scrollbar-thumb {
+    background-color: #909090;
+    border-radius: 5px;
+}
+
+/* Contenedor para la lista de botones */
+.GuiHome-container-svg {
+    border-bottom: 1px solid var(--border-color);
+    padding: 10px 1px;
+    color: var(--text-color);
+}
+
+.GuiHome-container-svg div {
+    display: flex;
+    align-items: center;
+    padding: 10px 20px;
+    cursor: pointer;
+}
+
+.GuiHome-container-svg div:hover {
+    background-color: #1d318b;
+    color: #e7e7e7;
+}
+
+.GuiHome-container-svg div span {
+    margin-left: 15px;
+    font-size: 1.5rem;
+    font-weight: 500;
+}
+
+/* Botones de la sidebar */
+.GuiHome-inputBoton {
+    background-color: transparent;
+    border: none;
+    color: white;
+    text-align: left;
+    padding: 5px;
+    width: 100%;
+    cursor: pointer;
+    transition: background-color 0.3s, transform 0.2s;
+}
+
+.GuiHome-inputBoton:hover {
+    background-color: #1d318b;
+    transform: scale(1.05);
+}
+
+/* Contenedor principal de componentes */
+.GuiHome-div-components {
+    text-align: center;
+    margin-top: 100px;
+    margin-left: 150px;
+    padding: 10px;
+    overflow: auto;
+    max-height: 800px;
+}
+
+/* Media query para dispositivos móviles */
+@media (max-width: 768px) {
+    /* Ajustar el contenedor de componentes en móviles */
+    .GuiHome-div-components {
+        margin-left: 0;
+        margin-top: 20px;
+        padding: 10px;
+    }
+
+    /* Cambiar el sidebar a formato horizontal en la parte inferior de la pantalla */
+    #GuiHome-aside {
+
+        width: 100%;
+        height: auto;
+        position: fixed;
+        bottom: 0;
+        left: 0;
+        display: flex;
+        flex-direction: row;
+        justify-content: space-around;
+        align-items: center;
+        padding: 10px 0;
+        margin-top: 0;
+        transition: 0.5s;
+        transform: translateY(100%); /* Ocultar el menú por defecto en móviles */
+        margin-bottom: 1em;
+    }
+
+    #GuiHome-aside.desplegar {
+        transform: translateY(0); /* Mostrar el menú cuando esté desplegado */
+    }
+
+    /* Mostrar el botón de apertura/cierre en móviles y colocarlo en la esquina inferior derecha */
+    #GuiHome-open-close {
+        display: block;
+        position: fixed;
+        bottom: 10px;
+        right: 10px;
+        background-color: #007bff;
+        color: white;
+        padding: 10px;
+        border-radius: 5px;
+        font-size: 18px;
+        z-index: 100; /* Asegurarse de que el botón esté por encima del sidebar */
+    }
+    
+    #GuiHome-open-close i {
+        font-size: 2.4rem;
+    }
+
+    /* Ajustar el contenedor de botones en el sidebar móvil */
+    #GuiHome-aside .GuiHome-container-svg {
+        
+        display: flex;
+        flex-direction: row;
+        justify-content: space-around;
+        width: 100%;
+        padding: 0;
+    }
+
+    .GuiHome-container-svg div {
+        padding: 10px;
+    }
+
+    /* Ajustar los íconos y el texto en el sidebar */
+    .GuiHome-container-svg div span {
+        font-size: 1.3rem;
+        margin-left: 5px;
+    }
 }
