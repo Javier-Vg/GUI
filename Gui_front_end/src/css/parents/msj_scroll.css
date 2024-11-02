@@ -54,17 +54,20 @@
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
+    background-color: transparent;
     display: flex;
     flex-direction: column;
     align-items: center;
     z-index: 50;
     opacity: 1;
     transition: opacity 1s ease-out, visibility 1s ease-out;
+    
   }
   
   .scroll-indicator.fade-out {
     opacity: 0;
     visibility: hidden;
+   
   }
   
   /* Contenedor con fondo translúcido */
@@ -81,12 +84,19 @@
     display: flex;
     flex-direction: column;
     align-items: center;
+    background-color:transparent;
+
     gap: 0.75rem;
   }
   
   /* Contenedor del icono */
   .icon-container {
+    background-color: transparent;
     position: relative;
+  }
+
+  svg{
+    background-color: transparent;
   }
   
   .icon {
@@ -105,7 +115,7 @@
   .scroll-text {
     color: white;
     font-weight: 500;
-    font-size: 0.875rem;
+    font-size: 0.975rem;
     background: linear-gradient(to right, rgba(255, 255, 255, 0.8), white);
     -webkit-background-clip: text;
     background-clip: text;
@@ -116,6 +126,7 @@
     display: flex;
     align-items: center;
     margin-left: -1rem;
+    background-color: transparent;
   }
   
   .chevron {

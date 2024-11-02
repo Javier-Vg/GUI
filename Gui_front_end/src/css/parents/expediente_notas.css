@@ -1,0 +1,487 @@
+body{
+    padding: 0;
+  }
+  aside{
+    z-index: 5;
+  }
+  .btn-hook{
+    border: 0.1px black solid;
+    background-color: #3066c4;
+    color: white;
+    border-radius: 5px;
+    padding: 10px;
+    transition: all 0.5 ease-in;
+  }
+  .btn-hook:hover{
+    background-color: #faf9fd;
+    color: #000000;
+  }
+  .container2 {
+      display: grid;
+      grid-template-columns: 1fr 1fr; /* Dos columnas */
+      grid-template-rows:240px 240px; /* Tres filas */
+      gap: 15px; /* Espaciado entre los elementos */
+      width: 99%; /* Ancho del contenedor */
+      max-height: 100%; /* Alto del contenedor */
+      height: 100%;
+      border-radius: 5px;
+      z-index: -1;
+      margin-left: 10px;
+      margin-top: 100px;
+  }
+  .fade-in:nth-child(1) {
+      grid-column: 1 / 2; /* Ocupa la primera columna */
+      grid-row: 1 / 4; /* Ocupa las tres filas */
+      background-color: lightblue;
+      padding: 20px;
+      text-align: center;
+      border-radius: 10px;
+      height: 475px;
+      /* width: 700px; */
+  } 
+  .fade-in:nth-child(2) {
+      grid-column: 2 / 3; /* Ocupa la segunda columna */
+      grid-row: 1 / 2; /* Ocupa la primera fila */
+      padding: 20px;
+      text-align: center;
+      border-radius: 10px;
+      height: 240px;
+      border: 5px rgb(0, 0, 0) solid;
+  }
+  .fade-in:nth-child(3) {
+      grid-column: 2 / 3; /* Ocupa la segunda columna */
+      grid-row: 2 / 3; /* Ocupa la segunda fila */
+      background-color: rgb(73, 73, 73);
+      padding: 20px;
+      text-align: center;
+      border-radius: 10px;
+      height: 220px;
+      border: 3px rgb(0, 0, 0) solid;
+  }
+  /* ---------------- */
+  .h1-info{
+      text-align: left;
+      font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
+  }
+  .div-btn-trimestre{
+      display: flex;
+      justify-content: space-around;
+  }
+  /* Scroll */
+  /* ::-webkit-scrollbar {
+      display: none; /* Para navegadores WebKit 
+  } */
+  .img-student:hover {
+      transform: scale(1.1); /* Aumentar tamaño al pasar el mouse */
+  }
+  .img-student{
+      width: 170px;
+      height: 230px;
+      border-radius: 10px;
+      transition: transform 0.3s ease; /* Transición suave */
+  }
+  .box2{
+      text-align: left;
+  }
+  p{
+      text-align: left;
+  }
+  /* Diseño gpt */
+  /* Estilos generales */
+  .fade-in {
+      animation: fadeIn 0.5s ease-in;
+      z-index: 1;
+      }
+    
+    @keyframes fadeIn {
+      from {
+        opacity: 0;
+      }
+      to {
+        opacity: 1;
+      }
+    }
+    
+    /* Estilos del encabezado */
+    .h1-info {
+      text-align: center;
+      font-size: 2.5rem;
+      color: #2c3e50;
+      margin-bottom: 20px;
+      font-family: 'Georgia', serif;
+      text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.1);
+    }
+    
+    /* Contenedor de información del estudiante */
+    .div-student-show {
+      display: flex;
+      justify-content: space-around;
+      align-items: flex-start; /* Cambiado a flex-start para alinear la imagen arriba */
+      padding: 20px;
+      margin: 20px;
+      border-radius: 15px;
+      background: rgba(236, 240, 241, 0.9);
+      box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
+      transition: transform 0.3s, box-shadow 0.3s;
+      height: 400px;
+    }
+    
+    .div-student-show:hover {
+      box-shadow: 0 12px 30px rgba(0, 0, 0, 0.3);
+    }
+    
+    .box1, .box2 {
+      flex: 1;
+      margin: 10px;
+    }
+    
+    /* Estilos de la imagen */
+    .img-student {
+      border-radius: 50%;
+      width: 135px; /* Tamaño reducido */
+      height: 135px; /* Tamaño reducido */
+      object-fit: cover;
+      border: 4px solid #2980b9;
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+      margin-bottom: 15px; /* Espacio entre la imagen y el texto */
+    }
+    
+    /* Estilos para los textos */
+    .span-alumno {
+      display: block; 
+      font-size: 1rem;
+      line-height: 1.6;
+      color: #34495e;
+      font-family: 'Arial', sans-serif;
+      border-left: 4px solid #2980b9;
+      padding-left: 15px;
+      margin: 10px 0;
+      background-color: #f9f9f9;
+      border-radius: 8px;
+      transition: background-color 0.3s, transform 0.2s;
+      position: relative;
+      overflow: hidden;
+    }
+    
+    .span-alumno:hover {
+      background-color: #d9e6f2;
+      transform: translateX(5px);
+    }
+    
+    /* Estilo de texto para destacar */
+    .student-name {
+      font-weight: bold;
+      font-size: 1.2rem;
+      color: #2980b9;
+      text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.1);
+    }
+    
+    .identification-number,
+    .birthdate,
+    .academic-status,
+    .allergy-information,
+    .contact-information,
+    .email,
+    .guardian-phone,
+    .guardian-name,
+    .institution,
+    .group,
+    .monthly-payment,
+    .type-of-student {
+      font-style: italic;
+    }
+    
+    @media (max-width: 1000px) {
+      .fade-in:nth-child(1){
+        width: 700px;
+      } 
+      .div-student-show{
+        margin: auto;
+      }
+      .div-components{
+        margin-top: 300px;
+        
+      }
+    }
+    /* Media queries */
+    @media (max-width: 680px) {
+        
+      .div-student-show {
+        flex-direction: column;
+        align-items: center;
+        height: 650px; 
+      }
+      nav{
+        position: fixed;
+        z-index: 3;
+      }
+    
+      .box1, .box2 {
+        margin: 10px 0;
+        width: 90%;
+      }
+    
+      .h1-info {
+        font-size: 2rem;
+      }
+    
+      span {
+        font-size: 0.9rem;
+      }
+      aside{
+        width: 120px;
+      }
+      .inputBoton{
+        font-size: 6px;
+      }
+      .h1-info {
+        font-size: 1.8rem;
+      }
+    
+      span {
+        font-size: 0.8rem;
+      }
+    
+      .img-student {
+        width: 100px; /* Tamaño reducido aún más para pantallas pequeñas */
+        height: 100px; /* Tamaño reducido aún más para pantallas pequeñas */
+      }
+      .container2 {
+        display: flex;
+        flex-direction: column;
+      }
+      .div-core-expediente{
+       overflow-y: auto; 
+        height: 100%;
+        
+      }
+      .div-components{
+        height: 100%;
+      }
+      .fade-in:nth-child(1){
+        width: 500px;
+        height: 690px;
+      }
+      .div-components{
+        overflow: auto;
+      }
+    }
+    /* Estilos generales para la visualización en móviles */
+  @media (max-width: 414px) {
+    .div-components{
+      margin: 0;
+      padding: 0;
+      height: 100%;
+      width: 700px;
+    }
+
+    .div-core-expediente {
+      padding: 10px;
+      width: 530px;
+      height: 1500px;
+    }
+
+    .div-student-show {
+      display: flex;
+      flex-direction: column;
+      align-items: center; /* Centra el contenido */
+      margin: 10px 0; /* Espacio entre los elementos */
+    }
+    .box1, .box2 {
+      width: 100%; /* Asegura que las cajas ocupen todo el ancho */
+      margin-bottom: 10px; /* Espacio entre cajas */
+      padding: 10px;
+      box-shadow: 0 0 5px rgba(0, 0, 0, 0.1); /* Sombra sutil para el efecto visual */
+      border-radius: 5px; /* Bordes redondeados */
+    }
+    .img-student {
+      width: 100px; /* Tamaño de la imagen */
+      height: auto; /* Mantiene la relación de aspecto */
+      border-radius: 50%; /* Imagen circular */
+    }
+    .div-core-father{
+     
+        overflow: auto; /* Asegúrate de que el hijo no esté recortado */
+      
+    }
+    .span-alumno {
+      font-size: 14px; /* Tamaño de fuente ajustado */
+      line-height: 1.5; /* Espaciado entre líneas */
+      text-align: center; /* Centra el texto */
+    }
+    .iframe {
+      width: 100%;
+      height: 200px; /* Ajusta la altura del iframe */
+    }
+    .button-container-grafic {
+      display: flex;
+      flex-wrap: wrap; /* Permite que los botones se envuelvan en varias líneas */
+      justify-content: center; /* Centra los botones */
+      margin: 10px 0;
+    }
+    .btn-grafic {
+      margin: 5px; /* Espacio entre botones */
+      padding: 5px 10px; /* Ajuste de padding para botones */
+      font-size: 14px; /* Tamaño de fuente para botones */
+    }
+  }
+    
+  /* Estilos generales para el tema claro */
+  body.light {
+    background-color: #ffffff;
+    color: #000000;
+    /* transition: background-color 0.5s, color 0.5s; */
+  }
+  body.light .div-student-show {
+    background-color: #f0f0f0;
+    border: 1px solid #ccc;
+    /* transition: background-color 0.5s, border-color 0.5s; */
+  }
+  /* Estilos generales para el tema oscuro */
+  body.dark {
+    background-color: #1a1a1a;
+    color: #ffffff;
+    /* transition: background-color 0s, color 0.5s; */
+  }
+
+  body.dark .div-student-show,
+  body.dark nav,
+  body.dark .grades-container,
+  body.dark .h2-result,
+  body.dark .select-calisific,
+  body.dark th,
+  body.dark .div-components,
+  body.dark .div-core-father,
+  body.dark .div-grades-with-modal,
+  body.dark .div-grades-with-modal div,
+  body.dark .likert-scale,
+  body.dark .container2,
+  body.dark .div-core-expediente,
+  body.dark .box1,
+  body.dark .box2,
+  body.dark .div-grafic,
+  body.dark .div-tema,
+  body.dark .sub-div-tema,
+  body.dark .grade,
+  body.dark .grade-x,
+  body.dark #aside,
+  body.dark .inputBoton,
+  body.dark .container-svg,
+  body.dark .messages-container-staff,
+  body.dark .chat-profesor-container,
+  body.dark .chat-bubbles-container-students,
+  body.dark .send-message-container,
+  body.dark .chat-container-staf{
+    background-color: #333;
+    color: white;
+    /* transition: background-color 0.5s, border-color 0.5s; */
+    
+  }
+
+  .div-tema, .sub-div-tema{
+    background-color: var(--items-color);
+  }
+
+
+  body.dark aside{
+    background-color: #333;
+    color: white;
+    /* transition: background-color 0.5s, border-color 0.5s; */
+    background-color: var(--items-color);
+    width: 260px;
+    position: absolute;
+    top: 0;
+    left: 0;
+    bottom:0;
+    overflow-y: hidden;
+    /* margin-top: 62.5px; */
+    margin-top: 8vh;
+    /* transition: 0.5s; */
+  }
+
+
+
+  body.dark .fade-in{
+    background-color: #1a1a1a;
+    border:3px white solid;
+  }
+ 
+  /* Estilos del botón de cambio de tema */
+  .theme-toggle {
+    top: 70px;
+    right: 20px;
+    z-index: 100;
+  }
+  .theme-toggle button {
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 16px;
+    /* transition: background-color 0.3s, color 0.3s; */
+  }
+  .theme-toggle button:hover {
+    opacity: 0.8;
+  }
+  /* Grafico */
+  .custom-x-axis{
+    font-size: 14px;
+    stroke: #2980b9;
+  }
+  .map{
+    height: 300px;
+    width: 300px;
+  }
+  .iframe{
+    position: absolute;
+    top: 0;
+    border: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    border: 1;
+  }
+  /* styles.css o el archivo CSS correspondiente */
+  .fade-in {
+    position: relative;
+  }
+  .div-grafic{
+    display: grid;
+    grid-template-columns: 50px 442px;
+    grid-template-rows: 170px;
+  }
+  .button-container-grafic {
+    display: flex;
+    flex-wrap: wrap;
+  }
+  .btn-grafic {
+    font-size: 6px;
+    background-color: #2980b9;
+    text-align: center;
+    padding: 1px;
+    width: 40px;
+    margin-top: 2.5px;
+    border: none;
+    background-color: #3066c4;
+    cursor: pointer;
+    transition: background-color 0.3s;
+  }
+  .btn-grafic:hover {
+    background-color: #f9f9f9;
+    color: #000000;
+  }
+  .btn-darkLight{
+    background-color: #2980b9;
+    z-index: 10;
+  }
+  .select-calisific{
+    border: none;
+  }
+  .div-core-expediente{
+    margin-right: 35px;
+  }
+  .div-components{
+    margin: 0;
+    margin-top:40px;
+    margin-left: 135px;
+  }

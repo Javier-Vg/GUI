@@ -10,7 +10,6 @@ import HomeProfe from '../page/HomeProfe';
 import Login2 from '../component/prueba/login'
 
 function Routing() {
-
   return (
     
     <div id='root'>
