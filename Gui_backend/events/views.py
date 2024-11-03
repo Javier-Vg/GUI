@@ -4,10 +4,12 @@ from rest_framework import status
 from .models import events
 from .serializers import Events_Serializer
 from rest_framework.permissions import IsAuthenticated, AllowAny
+import jwt
 class EventsViewSet(viewsets.ModelViewSet):
     queryset = events.objects.all()
     serializer_class = Events_Serializer
-    permission_classes = [IsAuthenticated]
+    permission_classes = [AllowAny]
+    
     
     def retrieve(self, request, pk=None):
         try:
@@ -20,6 +22,7 @@ class EventsViewSet(viewsets.ModelViewSet):
 
     # POST: Profesores, administradores y Gui
     def create(self, request):
+        
         serializer = self.get_serializer(data=request.data)
         if serializer.is_valid():
             serializer.save()
