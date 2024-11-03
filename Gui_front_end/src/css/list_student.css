@@ -1,190 +1,200 @@
-/* .btn-asign{
-    color: aliceblue;
-    background-color: #FE8e03;
-    padding: 10px;
-    border: 1px black solid;
-    border-radius: 5px;
-}
-
-.btn_volver{
-    color: white;
-    background-color: #2f94e1;
-    padding: 5px;
-    width: 70px;
-    border: 2px black solid;
-    border-radius: 5px;
-    margin-right: 170px;
-} */
- /* Estilos generales */
-/* .container_list {
-    padding: 20px;
-    background-color: #f9f9f9;
-    border-radius: 10px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+/* Contenedor principal */
+.container_list-students {
+    padding: 1.5rem;
     max-width: 1200px;
     margin: 0 auto;
-    font-family: 'Arial', sans-serif;
-} */
-.container_list-students{
-    height: 100vh;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    flex-direction: column;
-}
-
-.container_list-students h1 {
+  }
+  
+  /* Título principal */
+  .container_list-students h1 {
     text-align: center;
-    color: #333;
-    font-size: 2.5rem;
-    margin-bottom: 30px;
-}
-
-/* Estilos para la lista de estudiantes */
-.students {
+    color: #2c3e50;
+    margin-bottom: 1.5rem;
+    font-size: 2rem;
+  }
+  
+  /* Grid de estudiantes */
+  .students {
     display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
-    gap: 20px;
-}
-
-.container_students_list {
-    background-color: #fff;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1rem;
+    max-height: 85vh;
+    overflow-y: auto;
+    padding-right: 0.5rem;
+  }
+  
+  /* Scrollbar */
+  .students::-webkit-scrollbar {
+    width: 6px;
+  }
+  
+  .students::-webkit-scrollbar-track {
+    background: #f1f1f1;
+    border-radius: 3px;
+  }
+  
+  .students::-webkit-scrollbar-thumb {
+    background: #888;
+    border-radius: 3px;
+  }
+  
+  /* Tarjeta de estudiante */
+  .container_students_list {
+    background: white;
     border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
     overflow: hidden;
-    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
-    transition: transform 0.3s ease-in-out;
-}
-
-.container_students_list:hover {
-    transform: scale(1.03);
-}
-
-.div_img {
-    background-color: #e0e0e0;
+    transition: transform 0.2s ease;
+  }
+  
+  .container_students_list:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 3px 6px rgba(0, 0, 0, 0.15);
+  }
+  
+  /* Contenedor de imagen */
+  .div_img {
+    width: 140px;
+    height: 140px; /* Altura reducida */
+    overflow: hidden;
+    background: #f5f5f5;
+    margin: auto;
+    background-color: transparent;
+  }
+  
+  .Student_Image {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+  
+  .No_Image {
+    width: 100%;
+    height: 100%;
     display: flex;
-    justify-content: center;
     align-items: center;
-    height: 200px;
-    overflow: hidden;
-}
-
-.Student_Image {
-    max-width: 100%;
-    height: auto;
-}
-
-.No_Image {
-    color: #888;
-    font-size: 1.2rem;
-}
-
-.student_inf {
-    padding: 15px;
+    justify-content: center;
+    background: #e0e0e0;
+    color: #757575;
+    font-size: 0.9rem;
+  }
+  
+  /* Información del estudiante */
+  .student_inf {
+    padding: 0.75rem;
     text-align: center;
-}
-
-.student_inf h2 {
-    color: #333;
-    font-size: 1.8rem;
-    margin-bottom: 10px;
-}
-
-.student_inf h6 {
-    color: #666;
+  }
+  
+  .student_inf h2 {
+    margin: 0.25rem 0;
+    color: #2c3e50;
     font-size: 1rem;
-    margin-bottom: 15px;
-}
-
-.student_inf input[type="button"] {
-    background-color: #007bff;
+    font-weight: 600;
+  }
+  
+  .student_inf h6 {
+    margin: 0;
+    color: #7f8c8d;
+    font-size: 0.8rem;
+  }
+  
+  /* Botón Ver más */
+  .student_inf input[type="button"] {
+    background: #3498db;
     color: white;
     border: none;
-    padding: 10px 20px;
-    border-radius: 5px;
+    padding: 0.35rem 0.75rem;
+    border-radius: 4px;
     cursor: pointer;
-    font-size: 1rem;
-    transition: background-color 0.3s ease;
-}
-
-.student_inf input[type="button"]:hover {
-    background-color: #0056b3;
-}
-
-/* Estilos para el modal */
-.modal {
+    margin-top: 0.5rem;
+    font-size: 0.85rem;
+    transition: background 0.2s ease;
+  }
+  
+  .student_inf input[type="button"]:hover {
+    background: #2980b9;
+  }
+  
+  /* Modal más compacto */
+  .modal {
     position: fixed;
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
-    width: 80%;
-    max-width: 800px;
-    background-color: #fff;
-    border-radius: 10px;
-    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
-    padding: 30px;
+    background: white;
+    padding: 1.5rem;
+    border-radius: 8px;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
+    max-width: 500px;
+    width: 90%;
+    max-height: 85vh;
+    overflow-y: auto;
     z-index: 1000;
-}
-
-.modal h2 {
-    text-align: center;
-    color: #333;
-    margin-bottom: 20px;
-}
-
-.modal input[type="text"],
-.modal input[type="date"] {
+  }
+  
+  .modal h2 {
+    color: #2c3e50;
+    margin-bottom: 1rem;
+    font-size: 1.5rem;
+  }
+  
+  /* Formulario en modal */
+  .modal label {
+    display: block;
+    margin-top: 0.75rem;
+    color: #2c3e50;
+    font-size: 0.9rem;
+    font-weight: 500;
+  }
+  
+  .modal input[type="text"],
+  .modal input[type="email"],
+  .modal input[type="date"] {
     width: 100%;
-    padding: 10px;
-    margin: 10px 0;
-    border-radius: 5px;
-    border: 1px solid #ccc;
-    font-size: 1rem;
-}
-
-.modal button {
-    background-color: #28a745;
+    padding: 0.4rem;
+    margin-top: 0.2rem;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    font-size: 0.9rem;
+  }
+  
+  .modal button {
+    background: #3498db;
     color: white;
     border: none;
-    padding: 10px 20px;
-    border-radius: 5px;
+    padding: 0.5rem 1rem;
+    border-radius: 4px;
     cursor: pointer;
-    font-size: 1rem;
-    transition: background-color 0.3s ease;
-    margin-right: 10px;
-}
-
-.modal button:hover {
-    background-color: #218838;
-}
-
-.modal button:last-child {
-    background-color: #dc3545;
-}
-
-.modal button:last-child:hover {
-    background-color: #c82333;
-}
-
-.modal input[type="button"] {
-    background-color: #6c757d;
-    color: white;
-    border: none;
-    padding: 10px 20px;
-    border-radius: 5px;
-    cursor: pointer;
-    font-size: 1rem;
-    margin-top: 20px;
-    transition: background-color 0.3s ease;
-}
-
-.modal input[type="button"]:hover {
-    background-color: #5a6268;
-}
-
-/* Estilo para el mensaje de "No hay estudiantes" */
-p {
-    text-align: center;
-    font-size: 1.2rem;
-    color: #555;
-    margin-top: 20px;
-}
+    margin-top: 1rem;
+    margin-right: 0.75rem;
+    font-size: 0.9rem;
+    transition: background 0.2s ease;
+  }
+  
+  /* Responsive */
+  @media (max-width: 1024px) {
+    .students {
+      grid-template-columns: repeat(2, 1fr);
+    }
+  }
+  
+  @media (max-width: 768px) {
+    .students {
+      grid-template-columns: repeat(2, 1fr);
+      gap: 0.75rem;
+    }
+    
+    .div_img {
+      height: 120px;
+    }
+  }
+  
+  @media (max-width: 480px) {
+    .students {
+      grid-template-columns: 1fr;
+    }
+    
+    .container_list-students {
+      padding: 1rem;
+    }
+  }

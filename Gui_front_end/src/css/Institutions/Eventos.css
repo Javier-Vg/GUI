@@ -1,7 +1,154 @@
-.container-events{
-    height: 100vh;
+.container-events {
+    max-width: 600px;
+    margin: 2rem auto;
+    padding: 2rem;
+    background: white;
+    border-radius: 12px;
+    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.1);
+}
+
+.container-events form {
     display: flex;
-    justify-content: center;
-    align-items: center;
     flex-direction: column;
+    gap: 1.5rem;
+}
+
+.container-events div {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+}
+
+.container-events label {
+    font-size: 0.95rem;
+    font-weight: 500;
+    color: #374151;
+}
+
+.container-events input {
+    width: 100%;
+    padding: 0.75rem;
+    border: 2px solid #e5e7eb;
+    border-radius: 8px;
+    font-size: 1rem;
+    transition: all 0.2s ease;
+    background: #f9fafb;
+}
+
+.container-events input:focus {
+    outline: none;
+    border-color: #2563eb;
+    background: white;
+    box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.1);
+}
+
+.container-events input[type="date"] {
+    color: #374151;
+    font-family: inherit;
+}
+
+.container-events button {
+    margin-top: 1rem;
+    padding: 0.875rem 1.5rem;
+    background: #2563eb;
+    color: white;
+    border: none;
+    border-radius: 8px;
+    font-size: 1rem;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.container-events button:hover:not(:disabled) {
+    background: #1d4ed8;
+    transform: translateY(-1px);
+}
+
+.container-events button:disabled {
+    background: #93c5fd;
+    cursor: not-allowed;
+}
+
+/* Estilos para los mensajes de error y éxito */
+.container-events p {
+    margin-top: 1rem;
+    padding: 0.75rem;
+    border-radius: 6px;
+    font-size: 0.95rem;
+}
+
+.container-events p[style*="color: red"] {
+    background: #fee2e2;
+    border: 1px solid #fecaca;
+    color: #dc2626 !important;
+}
+
+.container-events p[style*="color: green"] {
+    background: #dcfce7;
+    border: 1px solid #bbf7d0;
+    color: #16a34a !important;
+}
+
+/* Estilos para el estado de carga */
+.container-events button:disabled {
+    position: relative;
+    overflow: hidden;
+}
+
+.container-events button:disabled::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 200%;
+    height: 100%;
+    background: linear-gradient(
+        90deg,
+        transparent,
+        rgba(255, 255, 255, 0.2),
+        transparent
+    );
+    animation: loading 1.5s infinite;
+}
+
+@keyframes loading {
+    0% {
+        left: -100%;
+    }
+    100% {
+        left: 100%;
+    }
+}
+
+/* Responsive Design */
+@media (max-width: 640px) {
+    .container-events {
+        margin: 1rem;
+        padding: 1.5rem;
+    }
+
+    .container-events input,
+    .container-events button {
+        padding: 0.75rem;
+    }
+}
+
+/* Estilos para hover en inputs */
+.container-events input:hover {
+    border-color: #d1d5db;
+}
+
+/* Estilos para placeholder */
+.container-events input::placeholder {
+    color: #9ca3af;
+}
+
+/* Estilos para cuando el input es válido/inválido */
+.container-events input:valid {
+    border-color: #10b981;
+}
+
+.container-events input:invalid {
+    border-color: #ef4444;
 }

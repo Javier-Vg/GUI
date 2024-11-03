@@ -53,7 +53,7 @@ function HomePadresForm() {
           />
         </head>
 
-        <nav>
+        <nav style={{height:"46px"}}>
           <button id="open-close" onClick={toggleAside}>
             <span id="open-close">
               <i className="bx bx-menu"></i>
@@ -68,7 +68,7 @@ function HomePadresForm() {
         
         <aside id="aside" className={isDeployed ? "desplegar" : ""}>
           <div className="container-svg">
-          <div 
+          {/* <div 
           className="inputBoton"
           onClick={() => setChangeComponent("Estado de Cuenta")}
           >
@@ -80,7 +80,7 @@ function HomePadresForm() {
               />
               <label className="label-home-inst"  htmlFor="Estado de Cuenta">Estado de Cuenta</label>
 
-            </div>
+            </div> */}
             <div 
             className="inputBoton"
             onClick={() => setChangeComponent("Expediente de Alumno")}

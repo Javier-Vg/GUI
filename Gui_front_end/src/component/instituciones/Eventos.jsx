@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { PostEvento } from "../../service/LoginGui";
 import { jwtDecode } from "jwt-decode";
 import Cookies from 'js-cookie';
-
+import '../../css/Institutions/Eventos.css';
 function Eventos() {
   const [eventName, setEventName] = useState('');
   const [date, setDate] = useState('');

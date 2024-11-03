@@ -106,7 +106,6 @@ function ListGroups() {
                   <span> Nivel de educación: {group.educational_level},</span> 
                   <span> Capacidad máxima: {group.capacity},</span> 
                   <span> Número de clase: {group.classroom},</span> 
-                  <span> Estudiantes activos: {group.current_students}</span> 
                   <br />
                   <span> Docentes asignados:</span>
                   {group.communication_of_subjects_and_teacher && (

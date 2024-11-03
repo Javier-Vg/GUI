@@ -1,8 +1,276 @@
 
-.container-CreateGroup{
-    height: 100vh;
+.container-CreateGroup {
+    max-width: 800px;
+    margin: 2rem auto;
+    padding: 2.5rem;
+    background: linear-gradient(145deg, #ffffff, #f6f6f6);
+    border: 1px solid #e0e0e0;
+    border-radius: 20px;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.08);
+    position: relative;
+    overflow: auto;
+    height: 500px;
+
+  }
+  
+  .container-CreateGroup::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 5px;
+    background: linear-gradient(90deg, #000, #333, #000);
+  }
+  
+  .container-CreateGroup h2 {
+    color: #000;
+    font-size: 2rem;
+    margin-bottom: 2rem;
+    text-align: center;
+    font-weight: 600;
+    letter-spacing: -0.5px;
+    position: relative;
+    padding-bottom: 15px;
+  }
+  
+  .container-CreateGroup h2::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 60px;
+    height: 3px;
+    background: #000;
+  }
+  
+  .form1 {
+    display: grid;
+    gap: 1.5rem;
+  }
+  
+  .form1 label {
+    display: block;
+    margin-bottom: 0.5rem;
+    color: #333;
+    font-size: 0.95rem;
+    font-weight: 500;
+    transition: color 0.3s ease;
+  }
+  
+  .form1 label:hover {
+    color: #000;
+  }
+  
+  .form1 input[type="text"],
+  .form1 input[type="number"] {
+    width: 100%;
+    padding: 1rem;
+    border: 2px solid #eee;
+    border-radius: 12px;
+    font-size: 1rem;
+    transition: all 0.3s ease;
+    background: #fff;
+    box-shadow: inset 0 2px 4px rgba(0,0,0,0.03);
+  }
+  
+  .form1 input:focus {
+    outline: none;
+    border-color: #000;
+    box-shadow: 0 0 0 3px rgba(0,0,0,0.1);
+    transform: translateY(-1px);
+  }
+  
+  /* Sección de asignaturas */
+  .div-1 {
+    margin-top: 2.5rem;
+    padding: 2rem;
+    background: linear-gradient(145deg, #f8f8f8, #fff);
+    border-radius: 15px;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.05);
+  }
+  
+  .div-1 h2 {
+    font-size: 1.5rem;
+    margin-bottom: 1.5rem;
+    color: #000;
+  }
+  
+  /* Radio buttons estilizados */
+  .div-radios {
     display: flex;
-    justify-content: center;
     align-items: center;
-    flex-direction: column;
-}
+    gap: 0.8rem;
+    margin-bottom: 0.8rem;
+    padding: 0.8rem;
+    border-radius: 8px;
+    transition: background-color 0.3s ease;
+  }
+  
+  .div-radios:hover {
+    background: #f5f5f5;
+  }
+  
+  .div-radios input[type="radio"] {
+    -webkit-appearance: none;
+    appearance: none;
+    width: 22px;
+    height: 22px;
+    border: 2px solid #ddd;
+    border-radius: 50%;
+    margin: 0;
+    cursor: pointer;
+    position: relative;
+    transition: all 0.2s ease;
+  }
+  
+  .div-radios input[type="radio"]:checked {
+    border-color: #000;
+  }
+  
+  .div-radios input[type="radio"]:checked::after {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 12px;
+    height: 12px;
+    background: #000;
+    border-radius: 50%;
+  }
+  
+  .div-radios label {
+    font-size: 1rem;
+    cursor: pointer;
+  }
+  
+  /* Enlace de asignar docentes */
+  .a-asign {
+    display: inline-block;
+    padding: 1rem 2rem;
+    background: #000;
+    color: white;
+    text-decoration: none;
+    border-radius: 12px;
+    cursor: pointer;
+    margin: 1.5rem 0;
+    font-weight: 500;
+    transition: all 0.3s ease;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+  }
+  
+  .a-asign:hover {
+    background: #333;
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba(0,0,0,0.15);
+  }
+  
+  /* Selects mejorados */
+  .div-1 select {
+    width: 100%;
+    padding: 1rem;
+    border: 2px solid #eee;
+    border-radius: 12px;
+    font-size: 1rem;
+    background: #fff;
+    cursor: pointer;
+    appearance: none;
+    background-image: url("data:image/svg+xml;charset=UTF-8,%3csvg xmlns='http://www.w3.org/2000/svg' width='24' height='24' viewBox='0 0 24 24' fill='none' stroke='%23000000' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3e%3cpolyline points='6 9 12 15 18 9'%3e%3c/polyline%3e%3c/svg%3e");
+    background-repeat: no-repeat;
+    background-position: right 1rem center;
+    background-size: 1.2em;
+    transition: all 0.3s ease;
+    box-shadow: inset 0 2px 4px rgba(0,0,0,0.03);
+  }
+  
+  .div-1 select:focus {
+    outline: none;
+    border-color: #000;
+    box-shadow: 0 0 0 3px rgba(0,0,0,0.1);
+  }
+  
+  /* Botón de guardar mejorado */
+  .btn-save {
+    width: 100%;
+    padding: 1.2rem 2rem;
+    background: linear-gradient(145deg, #000, #222);
+    color: white;
+    border: none;
+    border-radius: 12px;
+    font-size: 1.1rem;
+    font-weight: 600;
+    cursor: pointer;
+    margin-top: 1.5rem;
+    transition: all 0.3s ease;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+  }
+  
+  .btn-save:hover {
+    background: linear-gradient(145deg, #222, #000);
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba(0,0,0,0.15);
+  }
+  
+  /* Mensajes y errores */
+  .div-1 p {
+    padding: 1rem;
+    border-radius: 8px;
+    margin: 1rem 0;
+    font-size: 0.95rem;
+  }
+  
+  .div-1 p[style*="color: red"] {
+    background: #fff1f1;
+    border: 1px solid #ffcdd2;
+    color: #d32f2f !important;
+  }
+  
+  /* Efectos hover generales */
+  .form1 input:hover,
+  .div-1 select:hover {
+    border-color: #ccc;
+  }
+  
+  /* Responsividad mejorada */
+  @media (max-width: 768px) {
+    .container-CreateGroup {
+      margin: 1rem;
+      padding: 1.5rem;
+    }
+  
+    .form1 input,
+    .form1 select,
+    .btn-save {
+      font-size: 16px;
+    }
+  
+    .container-CreateGroup h2 {
+      font-size: 1.5rem;
+    }
+  }
+  
+  /* Animación de carga */
+  @keyframes shimmer {
+    0% {
+      background-position: -1000px 0;
+    }
+    100% {
+      background-position: 1000px 0;
+    }
+  }
+  
+  .loading {
+    animation: shimmer 2s infinite linear;
+    background: linear-gradient(to right, #f6f6f6 4%, #f0f0f0 25%, #f6f6f6 36%);
+    background-size: 1000px 100%;
+  }
+
+
+  @media (max-width: 414px) {
+    .container-CreateGroup {
+        height: 770px;
+        overflow: auto;
+    }
+  }

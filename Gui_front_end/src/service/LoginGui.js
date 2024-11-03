@@ -188,8 +188,9 @@ export const getStaff = async () => {
 };
 
 export const postStaff = async (staff) => {
+  
   try {
-    const token = getTokenFromCookie(); // Obtener el token de la cookie
+    const token = getTokenFromCookie(); // Obtener el token de la cookie    
 
     const response = await axios.post(
       `http://${domain}:8000/api/staff/staff/`,

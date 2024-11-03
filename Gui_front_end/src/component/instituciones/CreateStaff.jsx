@@ -272,12 +272,11 @@ import { fetchContract } from '../../Redux/Slices/SliceContract';
 import { fetchSchedule } from '../../Redux/Slices/SliceSchedule';
 import { setID } from '../../Redux/Slices/SliceInstitution';
 import { useDispatch, useSelector } from 'react-redux';
-// import '../../css/create_staff.css';
+import '../../css/Institutions/CreateStaff.css'
 import Cookies from 'js-cookie';
 import { jwtDecode } from "jwt-decode";
 const domain = window.location.hostname;
  
-
 function CreateStaff() {
   // Estados para los campos del formulario
   const [changeNombre, setChangeNombre] = useState('');
@@ -398,7 +397,10 @@ function CreateStaff() {
         authorization: isAuthorized // Añadir el estado de autorización
       };
       
+      console.log(staff);
       await postStaff(staff); // Envia los datos
+
+      
       setFormMessage("Personal creado exitosamente"); // Mostrar mensaje de éxito
     } catch (error) {
       console.error("Error al enviar los datos:", error);
@@ -407,15 +409,6 @@ function CreateStaff() {
 
   return (
     <div className='container-create-staff'>
-      <br />
-      <br />
-      <br />
-      <br />
-      <br />
-      <br />
-      <br />
-      <br />
-      <br />
       <br />
       <form className='form-staff' onSubmit={handleSubmit}>
         <label>
@@ -539,7 +532,7 @@ function CreateStaff() {
         </label>
         <br />
 
-        <button type="submit">ENVIAR</button>
+        <button type="submit">GUARDAR</button>
       </form>
     </div>
   );

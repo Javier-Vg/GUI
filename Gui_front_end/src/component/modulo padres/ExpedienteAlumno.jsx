@@ -17,6 +17,7 @@ import {
   CartesianGrid,
   Legend,
 } from "recharts";
+import CalendarMonthIcon from '@mui/icons-material/CalendarMonth';
 import { GoogleMap, LoadScript, Marker } from "@react-google-maps/api";
 
 function ExpedienteAlumno() {
@@ -28,6 +29,7 @@ function ExpedienteAlumno() {
   const itemStudent = useSelector((state) => state.student.items);
   const itemGrades = useSelector((state) => state.grades.items);
   const itemAssistence = useSelector((state) => state.assistenceStudent.items);
+  
 
   //objto del grafico
   const [graficRender, setGraficRender] = useState([]);
@@ -109,11 +111,18 @@ function ExpedienteAlumno() {
 
     // Filtrar y sobrescribir la misma variable
     let data = itemAssistence.filter((item) => {
-      const [year, month, day] = item.dateToday.split("/");
+    console.log(item.dateToday);
+    
+      const [year, month, day] = item.dateToday.split("-");
+
+      console.log(month);
+      console.log(mes);
+      
+      
 
       return month === mes && item.institution === institutionID;
     });
-
+  
     // Iterar sobre el array de datos
     data.forEach((item) => {
       // Iterar sobre el JSON de 'daily_attendance'
@@ -130,6 +139,9 @@ function ExpedienteAlumno() {
         }
       });
     });
+
+    console.log(data);
+    
 
     setGraficRender([
       { category: "Puntualidades", count: attendanceCount.presente },
@@ -213,15 +225,15 @@ function ExpedienteAlumno() {
                   }`}
                   onClick={() => handleButtonClick(button)}
                 >
-                  {button}
+                  {button} <CalendarMonthIcon/>
                 </button>
               ))}
             </div>
 
             <div>
               <BarChart
-                width={410}
-                height={240}
+                width={510}
+                height={200}
                 data={graficRender}
                 margin={{ top: 20, right: 50, bottom: 5 }}
               >

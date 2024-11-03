@@ -2,6 +2,8 @@ import React, { useState, useEffect } from "react";
 import { postGastos } from "../../service/LoginGui";
 import Cookies from "js-cookie";
 import { jwtDecode } from "jwt-decode";
+import '../../css/Institutions/Gastos.css'
+
 function GastosGanancias() {
   const [estado, setEstado] = useState({
     luz: "",
