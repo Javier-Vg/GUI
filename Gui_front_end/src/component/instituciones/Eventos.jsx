@@ -23,7 +23,7 @@ function Eventos() {
       try {
         // Desencriptar el token
         const decodedToken = jwtDecode(token);
-        const institutionIdFromToken = decodedToken.institution; 
+        const institutionIdFromToken = decodedToken.info.institution; 
         
         setInstitution(institutionIdFromToken); // Establecer la institución desde el token
         

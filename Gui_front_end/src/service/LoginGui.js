@@ -625,6 +625,9 @@ export const GetEventos = async (institutionId) => {
       },
     });
     return response.data; // Devuelve los datos de los eventos filtrados por institutionId
+
+    
+    
   } catch (error) {
     console.error("Error fetching event data: ", error);
     throw error; // Lanza el error para que pueda ser manejado donde se llame
