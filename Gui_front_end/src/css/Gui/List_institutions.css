@@ -2,7 +2,7 @@
 .institutionList-container {
     margin-top: 5em;
     padding: 20px;
-    background-color: #f9f9f9; /* Fondo claro para el contenedor */
+    background-color: #ffffff; /* Fondo claro para el contenedor */
     height: 100vh; /* Altura total de la ventana */
     overflow-y: auto; /* Habilitar scroll vertical si el contenido excede la altura */
 }
@@ -17,8 +17,9 @@
 /* Contenedor de la lista de instituciones */
 .institutionList {
     margin-top: 3em;
+    background-color: #ffffff;
     display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(250px, 1fr)); /* Cuadrícula responsive */
+    grid-template-columns: repeat(4,1fr); /* Cuadrícula responsive */
     gap: 15px; /* Espaciado entre cada elemento */
 }
 
@@ -57,10 +58,14 @@
 
 /* Información de la institución */
 .institutionList-info {
-    flex-grow: 1; /* Ocupa el espacio restante */
+    flex-grow: 2; /* Ocupa el espacio restante */
     text-align: center; /* Centrar texto */
+    justify-content: space-between;
 }
-
+.div-botones-infoList{
+    display: flex;
+    justify-content: space-around;
+}
 /* Botón para ver más */
 .institutionList-info input[type="button"] {
     margin-top: auto; /* Empujar hacia el final */

@@ -10,8 +10,11 @@ import '../../../css/Institutions/teachers/GradesTeacher.css'
 import Cookies from 'js-cookie';
 import { jwtDecode } from "jwt-decode";
 
+
 function GradesTeacher() {
+  const [studentsWithGroupsF, setStudentsWithGroupsF] = useState([]);
   const [studentsWithGroups, setStudentsWithGroups] = useState([]);
+
   const [NameTeacher, setNameTeacher] = useState("")
   const [IdTeacher, setIdTeacher] = useState("")
   // const NameTeacher = sessionStorage.getItem("NameTeacher");
@@ -19,11 +22,21 @@ function GradesTeacher() {
 
   // Redux
   const itemsStudent = useSelector((state) => state.student.items);
+  const searchTerm = useSelector((state) => state.search.searchTerm);
   const itemsAssignmentG = useSelector((state) => state.groupAssignment.items);
   const itemsGroups = useSelector((state) => state.group.items);
   const itemsGrades = useSelector((state) => state.grades.items);
   
-
+  
+  useEffect(() => {
+    // Filtrar los estudiantes en studentsWithGroups que no tienen la letra "F" en el nombre de usuario
+    const filtro = studentsWithGroupsF.filter(student => 
+        !student.username.toLowerCase().includes('f') &&
+        student.username.toLowerCase().includes(searchTerm.toLowerCase())
+    );
+    setStudentsWithGroups(filtro);
+}, [studentsWithGroupsF,searchTerm]);
+  
   const dispatch = useDispatch();
 
   //Muestra el div del semestre seleccionado
@@ -59,11 +72,11 @@ function GradesTeacher() {
   let [estadoBusqueda, setEstadoBusqueda] = useState("");
 
   //Filtra por medio de las clases, ocultandolas segun sus caracteres o mostrandolas.
-  document.querySelectorAll(".keyDiv").forEach(card => {
-    card.textContent.toLowerCase().includes(estadoBusqueda.toLowerCase())
-    ? card.classList.remove("filtro")
-    : card.classList.add("filtro")
-  });
+  // document.querySelectorAll(".keyDiv").forEach(card => {
+  //   card.textContent.toLowerCase().includes(estadoBusqueda.toLowerCase())
+  //   ? card.classList.remove("filtro")
+  //   : card.classList.add("filtro")
+  // });
 
   useEffect(() => {
     const token = Cookies.get('AuthCookie');
@@ -156,10 +169,8 @@ function GradesTeacher() {
       };
     };
     
-    setStudentsWithGroups(tempStudents);
+    setStudentsWithGroupsF(tempStudents);
   }, [itemsGroups, itemsAssignmentG, itemsStudent, NameTeacher]);
-
-  // console.log(studentsWithGroups);
   
   // Manejar cambios en los inputs
   const handleSelectChange = (e, materiaKey) => {
@@ -171,6 +182,7 @@ function GradesTeacher() {
       [materiaKey]: value, // Actualiza el valor de la clave correspondiente
     }));
   };
+
 
   return (
     <>
@@ -214,7 +226,7 @@ function GradesTeacher() {
                 onChange={(e) => handleTrimesterChange(student.id, e.target.value)}
                 className="custom-select"
               >
-                <option value="null" disabled>
+                <option value="null" disabled selected>
                   Seleccione el trimestre para asignar nota
                 </option>
                 <option value="1°Trimestre">1°Trimestre</option>
@@ -294,7 +306,6 @@ function GradesTeacher() {
                       )}
                     </tbody>
                   </table>
-          
                   <div>
                     <button type="button" onClick={closeModalR}>Cerrar</button>
                   </div>
@@ -303,9 +314,9 @@ function GradesTeacher() {
             )}
           </div>
           
-          ))};
+          ))}
         </div>
-      )};
+      )}
     </>
   );
 };

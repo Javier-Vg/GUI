@@ -8,7 +8,9 @@ import Cookies from 'js-cookie';
 import { jwtDecode } from "jwt-decode";
 
 function StudentsTeacher() {
-  const [Student, setStudent] = useState([{username: "juan"}]);
+  const [StudentWithoutF, setStudentWithoutF] = useState([{username: "juan"}]);
+  const [Student, setStudent] = useState([]);
+  const searchTerm = useSelector((state) => state.search.searchTerm);
   const [NameTeacher, setnameTeacher] = useState("")
 
   const dispatch = useDispatch();
@@ -31,6 +33,15 @@ function StudentsTeacher() {
     dispatch(fetchGroups());
   }, [dispatch]);
 
+
+  useEffect(() => {
+    // Filtrar los estudiantes que no tienen la letra "F" en el nombre de usuario
+    const filtro = StudentWithoutF.filter(student => 
+        !student.username.toLowerCase().includes('f') &&
+        student.username.toLowerCase().includes(searchTerm.toLowerCase())
+    );
+    setStudent(filtro);
+}, [StudentWithoutF, searchTerm]);
   //Redux
   const itemsStudent = useSelector((state) => state.student.items);
   const itemsAssignmentG = useSelector((state) => state.groupAssignment.items);
@@ -61,14 +72,17 @@ function StudentsTeacher() {
                   // Filtrar los objetos omitiendo duplicados
                   const objetosFiltrados = studentsArray.filter(obj => {
                     if (usernamesUnicos.has(obj.username)) {
+
+                      
                       return false; // Omitir si ya existe
                     } else {
                       usernamesUnicos.add(obj.username); // Agregar al conjunto
                       return true; // Mantener si es único
                     }
                   });
+
                   
-                  setStudent(objetosFiltrados);
+                  setStudentWithoutF(objetosFiltrados);
                   
                 };
               };
@@ -78,7 +92,7 @@ function StudentsTeacher() {
       });
     };
   }, [NameTeacher]);
-  
+
   const [isModalOpen, setModalOpen] = useState(false);
   const [ImgValue, setImgValue] = useState(false);
   const handleOpenModal = ((image) => {

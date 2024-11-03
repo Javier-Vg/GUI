@@ -52,7 +52,9 @@ function Login2() {
       const token = response.data.token;
       const decodedData = jwtDecode(token);
       console.log("Datos decodificados:", decodedData); // Ver los datos decodificado
-
+      // if () {
+        
+      // }
       if (decodedData.is_teacher == true || decodedData.is_staff == true || decodedData.staff == true) {
         setTimeout(() => navigate("/institutions"), 1000);
       } else if (decodedData.is_superuser == true) {

@@ -38,33 +38,69 @@ function HomeInstitutionsForm() {
   const toggleAside  = () => {
     setIsDeployed(!isDeployed);
   };
+  // useEffect(() => {
+  //   const token = Cookies.get('AuthCookie'); 
+  
+  //   if (token) {
+  
+  //     try {
+  //       // Desencriptar el token
+  //       const decodedToken = jwtDecode(token);    
+  //       // Extraer valores del token
+  //       const auth = decodedToken.info.auth; 
+  //       const rol = decodedToken.info.rol;  
+  //       const nameInstitution = decodedToken.info.username;  
+  //       const imgurl = decodedToken.info.imgInstitution; 
+  //       setNameInstitution(nameInstitution)
+  //       setInfInstitution(imgurl)
+  //       console.log(decodedToken);
+        
+  //       if (!token || auth !== true) {
+  //         navigate("/error");
+  //       }
+  //       setRole(rol);
+  //       setAuth(auth);
+  //     } catch (error) {
+  //       console.error('Error al decodificar el token', error);
+  //     }
+  //   }
+  // }, []);
   useEffect(() => {
-    const token = Cookies.get('AuthCookie'); 
-  
-    if (token) {
-  
-      try {
-        // Desencriptar el token
-        const decodedToken = jwtDecode(token);    
-        // Extraer valores del token
-        const auth = decodedToken.info.auth; 
-        const rol = decodedToken.info.rol;  
-        const nameInstitution = decodedToken.info.username;  
-        const imgurl = decodedToken.info.imgInstitution; 
-        setNameInstitution(nameInstitution)
-        setInfInstitution(imgurl)
+    const token = Cookies.get('AuthCookie');
 
-        if (!token || auth !== true) {
-          navigate("/error");
-        }
-        setRole(rol);
-        setAuth(auth);
-      } catch (error) {
-        console.error('Error al decodificar el token', error);
-      }
+    if (!token) {
+      // Redirigir inmediatamente si no hay token
+      navigate("/error");
+      return;
     }
-  }, []);
-  
+
+    try {
+      // Desencriptar el token
+      const decodedToken = jwtDecode(token);
+
+      // Extraer valores del token
+      const auth = decodedToken.info?.auth;
+      const rol = decodedToken.info?.rol;
+      const nameInstitution = decodedToken.info?.username;
+      const imgurl = decodedToken.info?.imgInstitution;
+      console.log(auth, rol, nameInstitution, imgurl);
+      
+      // Setear valores si existen
+      if (nameInstitution) setNameInstitution(nameInstitution);
+      if (imgurl) setInfInstitution(imgurl);
+      if (auth !== true) {
+        navigate("/error");
+      }
+
+      setRole(rol);
+      setAuth(auth);
+      console.log(decodedToken);
+    } catch (error) {
+      console.error('Error al decodificar el token', error);
+      navigate("/error");
+    }
+  }, [navigate]);
+
   const Logout = async () => {
     navigate("/login");
   };
