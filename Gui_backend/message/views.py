@@ -7,7 +7,7 @@ from rest_framework.permissions import IsAuthenticated, AllowAny
 class MessageViewSet(viewsets.ModelViewSet):
     queryset = message.objects.all()
     serializer_class = Message_Serializer
-    permission_classes = [AllowAny]
+    permission_classes = [IsAuthenticated]
     #Los 4
     def create(self, request):
         serializer = self.get_serializer(data=request.data)

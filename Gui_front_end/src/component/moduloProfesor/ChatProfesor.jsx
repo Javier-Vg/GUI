@@ -160,8 +160,6 @@ useEffect(() => {
 
 // Filter students by search term
 useEffect(() => {
-  console.log(studentsAll);
-  
     setStudents(studentsAll.filter(student =>
       student.username.toLowerCase().includes(searchTerm.toLowerCase())
     ));

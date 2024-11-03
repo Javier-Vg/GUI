@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { postStudents } from '../../service/LoginGui';
 import Cookies from 'js-cookie';
 import { jwtDecode } from "jwt-decode";
+import '../../css/Institutions/CreateStudent.css'
 const domain = window.location.hostname 
 
 function CreateStudent() {
@@ -130,7 +131,7 @@ function CreateStudent() {
       
       // Aquí agregamos el institutionId al postStudents
       await postStudents(nombre, apellido, identificacion, fechaNacimiento, grado, estadoAcademico, telefono, email, imageUrl, alergias, guardianTelefono, nameGuardian, mensualidadDelEstudiante, password, institution_id); // Añadir institutionId
-      setFormMessage("Personal creado exitosamente"); // Mostrar mensaje de éxito
+      setFormMessage("Estudiante creado exitosamente"); // Mostrar mensaje de éxito
 
       // Restablecer campos
       setNombre('');
@@ -155,12 +156,7 @@ function CreateStudent() {
 
   return (
     <div className='container-students'>
-    <br />
-    <br />
-    <br />
-    <br />
-    <br />
-    <br />
+      <br />
       <label>
         Nombre estudiante:
         <input type="text" name="nombre" value={nombre} onChange={handleInputChange} />

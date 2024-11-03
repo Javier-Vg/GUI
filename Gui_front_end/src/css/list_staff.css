@@ -1,91 +1,206 @@
-.container-list-staff{
-    height: 100vh;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    flex-direction: column;
-}
-.div1 {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    padding: 20px;
+.container-list-staff {
+    max-width: 1200px;
+    margin: 2rem auto;
+    padding: 2rem;
 }
 
-.div-vista {
-    border: 2px solid #ccc;
-    border-radius: 5px;
-    color: white;
-    padding: 20px;
-    margin-bottom: 10px;
-    width: 350px;
-    text-align: center;
-    background-color: #333;
-    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.2); /* Añadido para dar un efecto de sombra */
+.container-list-staff h2 {
+    color: #1f2937;
+    font-size: 1.875rem;
+    font-weight: 600;
+    margin-bottom: 1.5rem;
 }
 
-.button {
-    color: #48e;
-    border: none;
-    background-color: transparent;
+/* Estilos para los botones de filtro */
+.filter-buttons {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.75rem;
+    margin-bottom: 2rem;
+    padding: 1rem;
+    background: #f3f4f6;
+    border-radius: 10px;
+}
+
+.filter-buttons button {
+    padding: 0.625rem 1rem;
+    background: white;
+    border: 1px solid #e5e7eb;
+    border-radius: 6px;
+    color: #4b5563;
+    font-size: 0.875rem;
+    font-weight: 500;
+    transition: all 0.2s ease;
     cursor: pointer;
-    font-size: 16px;
-    margin-top: 10px;
 }
 
-.button:hover {
-    text-decoration: underline; /* Efecto hover */
+.filter-buttons button:hover {
+    background: #2563eb;
+    color: white;
+    border-color: #2563eb;
 }
 
+/* Grid de tarjetas de personal */
+.div1 {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+    gap: 1.5rem;
+}
+
+/* Tarjeta individual de personal */
+.div-vista {
+    background: white;
+    border-radius: 12px;
+    padding: 1.5rem;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    transition: transform 0.2s ease;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.div-vista:hover {
+    transform: translateY(-4px);
+}
+
+.div-vista h3 {
+    color: #1f2937;
+    font-size: 1.125rem;
+    margin: 0.5rem 0;
+    text-align: center;
+}
+
+.div-vista img {
+    width: 120px;
+    height: 120px;
+    border-radius: 50%;
+    object-fit: cover;
+    margin: 1rem 0;
+    border: 3px solid #e5e7eb;
+}
+
+.div-vista .button {
+    background: #2563eb;
+    color: white;
+    padding: 0.625rem 1rem;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+    transition: background 0.2s ease;
+    width: 100%;
+    margin-top: 1rem;
+}
+
+.div-vista .button:hover {
+    background: #1d4ed8;
+}
+
+/* Estilos para el diálogo modal */
 .dialog {
-    border-radius: 14px;
-    background-color: rgba(0, 0, 0, 0.8); /* Fondo oscuro semi-transparente para el modal */
-    padding: 20px;
-    width: 600px;
-    max-width: 90%; /* Hace que el modal sea responsivo */
-    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.5); /* Sombra para el modal */
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background: white;
+    padding: 2rem;
+    border-radius: 12px;
+    border: none;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.15);
+    width: 90%;
+    max-width: 800px;
+    max-height: 90vh;
+    overflow-y: auto;
+}
+
+.dialog::backdrop {
+    background: rgba(0, 0, 0, 0.5);
 }
 
 .dialog-content {
     display: grid;
-    grid-template-columns: 1fr 1fr;
-    grid-gap: 15px; /* Añadido para separación entre columnas */
-    padding: 20px;
-    background-color: white; /* Fondo blanco para el contenido del modal */
-    border: 3px solid black;
-    border-radius: 10px;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 2rem;
 }
 
-.dialog-content h3 {
-    margin: 10px 0;
+.dialog h3 {
+    color: #374151;
+    font-size: 1rem;
+    margin: 1rem 0;
 }
 
-.dialog input[type="text"], .dialog input[type="email"], .dialog input[type="date"] {
+.dialog input[type="text"],
+.dialog input[type="email"],
+.dialog input[type="date"] {
     width: 100%;
-    padding: 8px;
-    margin-top: 5px;
-    border: 1px solid #ccc;
+    padding: 0.5rem;
+    border: 1px solid #e5e7eb;
     border-radius: 4px;
-    box-sizing: border-box;
+    margin-top: 0.25rem;
 }
 
-.filter-buttons {
-    display: flex;
-    justify-content: space-around;
-    margin-bottom: 20px;
-    flex-wrap: wrap; /* Añadido para que los botones se ajusten en pantallas pequeñas */
+.dialog input[type="checkbox"] {
+    margin-right: 0.5rem;
 }
 
-.filter-buttons button {
-    padding: 10px;
-    border-radius: 5px;
-    border: 1px solid #ccc;
-    background-color: #f0f0f0;
+.dialog label {
+    margin-right: 1rem;
+}
+
+.dialog button {
+    background: #2563eb;
+    color: white;
+    padding: 0.75rem 1.5rem;
+    border: none;
+    border-radius: 6px;
     cursor: pointer;
-    transition: background-color 0.3s ease;
-    margin: 5px; /* Espacio entre botones */
+    margin: 1rem 0.5rem;
+    transition: background 0.2s ease;
 }
 
-.filter-buttons button:hover {
-    background-color: #ddd;
+.dialog button:hover {
+    background: #1d4ed8;
+}
+
+.dialog button:last-child {
+    background: #ef4444;
+}
+
+.dialog button:last-child:hover {
+    background: #dc2626;
+}
+
+/* Mensaje cuando no hay resultados */
+.div1 p {
+    grid-column: 1 / -1;
+    text-align: center;
+    color: #6b7280;
+    font-size: 1.125rem;
+    padding: 2rem;
+    background: #f3f4f6;
+    border-radius: 8px;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .container-list-staff {
+        padding: 1rem;
+    }
+    
+    .dialog-content {
+        grid-template-columns: 1fr;
+    }
+    
+    .filter-buttons {
+        justify-content: center;
+    }
+    
+    .filter-buttons button {
+        flex: 1 1 calc(50% - 0.75rem);
+    }
+}
+
+@media (max-width: 480px) {
+    .filter-buttons button {
+        flex: 1 1 100%;
+    }
 }

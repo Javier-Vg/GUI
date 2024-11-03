@@ -12,9 +12,7 @@ import { jwtDecode } from "jwt-decode";
 
 
 function GradesTeacher() {
-  const [studentsWithGroupsF, setStudentsWithGroupsF] = useState([]);
   const [studentsWithGroups, setStudentsWithGroups] = useState([]);
-
   const [NameTeacher, setNameTeacher] = useState("")
   const [IdTeacher, setIdTeacher] = useState("")
   // const NameTeacher = sessionStorage.getItem("NameTeacher");
@@ -22,34 +20,27 @@ function GradesTeacher() {
 
   // Redux
   const itemsStudent = useSelector((state) => state.student.items);
-  const searchTerm = useSelector((state) => state.search.searchTerm);
   const itemsAssignmentG = useSelector((state) => state.groupAssignment.items);
   const itemsGroups = useSelector((state) => state.group.items);
   const itemsGrades = useSelector((state) => state.grades.items);
-  
-  
-  useEffect(() => {
-    // Filtrar los estudiantes en studentsWithGroups que no tienen la letra "F" en el nombre de usuario
-    const filtro = studentsWithGroupsF.filter(student => 
-        !student.username.toLowerCase().includes('f') &&
-        student.username.toLowerCase().includes(searchTerm.toLowerCase())
-    );
-    setStudentsWithGroups(filtro);
-}, [studentsWithGroupsF,searchTerm]);
   
   const dispatch = useDispatch();
 
   //Muestra el div del semestre seleccionado
   
   const [RenderTrimestre, setRenderTrimestre] = useState("");
+  const [renderSubjects, setRenderSubjects] = useState(false);
 
   //Guardan estados para el objeto
   const [StudentId, setStudentId] = useState("");
   const [GroupId, setGroupId] = useState("");
   const [Trimestre, setTrimestre] = useState("");
+
+  const [isOpenRegistro, setIsOpenRegistro] = useState(false);//Estado de modal de registro
   
   //Modal calificaciones
   const openModal = () => setIsOpen(true);
+
   const closeModal = () => {
     setIsOpen(false);
     setObjectGrades([]);
@@ -57,14 +48,21 @@ function GradesTeacher() {
   }
 
   //Modal registro calificaciones.
-  const openModalR = () => setIsOpenRegistro(true);
+  const openModalR = () => {
+    setRenderSubjects(true)
+    setIsOpenRegistro(true);
+  }
+  
+  useEffect(() => {
+    return;
+  },[renderSubjects, isOpenRegistro]);
+  
   const closeModalR = () => {
     setIsOpenRegistro(false);
   }
 
 
   const [isOpen, setIsOpen] = useState(false);
-  const [isOpenRegistro, setIsOpenRegistro] = useState(false);//Estado de modal de registro
 
   //Crea el objeto con la vinculacion de la nota y asignaturas:
   const [ObjectGrades, setObjectGrades] = useState([]);
@@ -72,11 +70,11 @@ function GradesTeacher() {
   let [estadoBusqueda, setEstadoBusqueda] = useState("");
 
   //Filtra por medio de las clases, ocultandolas segun sus caracteres o mostrandolas.
-  // document.querySelectorAll(".keyDiv").forEach(card => {
-  //   card.textContent.toLowerCase().includes(estadoBusqueda.toLowerCase())
-  //   ? card.classList.remove("filtro")
-  //   : card.classList.add("filtro")
-  // });
+  document.querySelectorAll(".keyDiv").forEach(card => {
+    card.textContent.toLowerCase().includes(estadoBusqueda.toLowerCase())
+    ? card.classList.remove("filtro")
+    : card.classList.add("filtro")
+  });
 
   useEffect(() => {
     const token = Cookies.get('AuthCookie');
@@ -121,8 +119,8 @@ function GradesTeacher() {
     });
   };
 
-  const Post = (e) => {
-    e.preventDefault();
+  const Post = () => {
+    // e.preventDefault();
     const teacherId = Number(IdTeacher);
 
     let json = {
@@ -132,6 +130,8 @@ function GradesTeacher() {
       teacher: teacherId,
       period: Trimestre
     }
+
+    setRenderSubjects(json); //Recarga el registro
     
     postGrades(json);
   };
@@ -169,7 +169,7 @@ function GradesTeacher() {
       };
     };
     
-    setStudentsWithGroupsF(tempStudents);
+    setStudentsWithGroups(tempStudents);
   }, [itemsGroups, itemsAssignmentG, itemsStudent, NameTeacher]);
   
   // Manejar cambios en los inputs
@@ -182,7 +182,6 @@ function GradesTeacher() {
       [materiaKey]: value, // Actualiza el valor de la clave correspondiente
     }));
   };
-
 
   return (
     <>
@@ -199,7 +198,7 @@ function GradesTeacher() {
         </label>
       </div>
       <div>
-        <button onClick={openModalR}>Ver registro de Calificacion</button>
+        <button onClick={(() => openModalR())}>Ver registro de Calificacion</button>
       </div>
     </div>
       <br />
@@ -213,7 +212,7 @@ function GradesTeacher() {
           {studentsWithGroups.map((student) => (
             <div className="keyDiv" id="categoria" key={student.id}>
             <div className="content-container">
-              <h4 className="title">
+              <h4 className="title-grades">
                 Nombre del estudiante: <br />- {student.username} {student.last_name}.
               </h4>
               <p className="paragraph">
@@ -278,7 +277,7 @@ function GradesTeacher() {
             )}
           
             {/* Muestra el modal para el registro de calificaciones */}
-            {isOpenRegistro && (
+            {isOpenRegistro && renderSubjects &&(
               <div className="modal-overlayTwo">
                 <div className="modalTwo">
                   <h2>Registro de calificaciones</h2>

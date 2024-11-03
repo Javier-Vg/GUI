@@ -7,6 +7,7 @@ import { useSelector, useDispatch } from "react-redux";
 import ScrollIndicator from "../../component/modulo padres/messageScroll";
 import ThemeSwitcher from "../../component/modulo padres/changeTheme/ChangeTheme";
 import ListaEventos from "../moduloProfesor/listaEventos";
+import { useNavigate } from "react-router-dom";
 import '../../css/ModuloPadres/HomePadresForm.css'
 function HomePadresForm() {
   const [changeComponent, setChangeComponent] = useState("");
@@ -24,6 +25,7 @@ function HomePadresForm() {
     setIsDeployed(!isDeployed);
   };
 
+  const navigate = useNavigate();
   // Cambiar el tema basado en la preferencia del usuario
   const [isDarkMode, setIsDarkMode] = useState(false);
   const [isHovered, setIsHovered] = useState(false);
@@ -41,6 +43,11 @@ function HomePadresForm() {
     localStorage.setItem("theme", newTheme);
     document.body.className = newTheme;
   };
+  const logout = async () => {
+    console.log("HOLA");
+    
+    navigate("/")
+  }
 
   return (
     <div>
@@ -53,7 +60,7 @@ function HomePadresForm() {
           />
         </head>
 
-        <nav>
+        <nav style={{height:"46px"}}>
           <button id="open-close" onClick={toggleAside}>
             <span id="open-close">
               <i className="bx bx-menu"></i>
@@ -68,7 +75,7 @@ function HomePadresForm() {
         
         <aside id="aside" className={isDeployed ? "desplegar" : ""}>
           <div className="container-svg">
-          <div 
+          {/* <div 
           className="inputBoton"
           onClick={() => setChangeComponent("Estado de Cuenta")}
           >
@@ -80,7 +87,7 @@ function HomePadresForm() {
               />
               <label className="label-home-inst"  htmlFor="Estado de Cuenta">Estado de Cuenta</label>
 
-            </div>
+            </div> */}
             <div 
             className="inputBoton"
             onClick={() => setChangeComponent("Expediente de Alumno")}
@@ -125,6 +132,7 @@ function HomePadresForm() {
               />
               <label className="label-home-inst"  htmlFor="Calificacion del Estudiante">Calificacion del Estudiante</label>
             </div>
+            <input type="button" value=" Cerrar Session" onClick={logout} />
           </div>
         </aside>
         {/* <div className="div-components"> */}

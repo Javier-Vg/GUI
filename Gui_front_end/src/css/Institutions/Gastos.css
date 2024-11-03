@@ -1,98 +1,275 @@
-/* .container-gastos{
-    height: 100vh;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    flex-direction: column;
-} */
- /* Estilo de grid para organizar elementos en filas de 3 o 4 en pantallas de PC */
+/* Variables para colores y valores comunes */
+:root {
+  --primary-color: #4f46e5;
+  --primary-hover: #4338ca;
+  --success-color: #10b981;
+  --warning-color: #f59e0b;
+  --danger-color: #ef4444;
+  --text-primary: #1f2937;
+  --text-secondary: #4b5563;
+  --background-primary: #ffffff;
+  --background-secondary: #f9fafb;
+  --border-color: #e5e7eb;
+  --shadow-sm: 0 1px 2px 0 rgb(0 0 0 / 0.05);
+  --shadow-md: 0 4px 6px -1px rgb(0 0 0 / 0.1);
+  --border-radius: 0.5rem;
+}
+
+/* Estilos generales del contenedor */
+.container-gastos {
+  max-width: 1400px;
+  margin: 2rem auto;
+  padding: 2rem;
+  background-color: var(--background-primary);
+  border-radius: var(--border-radius);
+  box-shadow: var(--shadow-md);
+  max-height: 90vh;
+  overflow-y: auto;
+}
+
+/* Personalización del scrollbar */
+.container-gastos::-webkit-scrollbar {
+  width: 10px;
+}
+
+.container-gastos::-webkit-scrollbar-track {
+  background: var(--background-secondary);
+  border-radius: var(--border-radius);
+}
+
+.container-gastos::-webkit-scrollbar-thumb {
+  background: var(--primary-color);
+  border-radius: var(--border-radius);
+  opacity: 0.8;
+}
+
+.container-gastos::-webkit-scrollbar-thumb:hover {
+  background: var(--primary-hover);
+}
+
+/* Títulos */
+.titulo-principal {
+  color: var(--text-primary);
+  margin-bottom: 2rem;
+  font-size: 2.25rem;
+  font-weight: 700;
+  text-align: center;
+  position: relative;
+  padding-bottom: 1rem;
+}
+
+.titulo-principal::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 60px;
+  height: 4px;
+  background-color: var(--primary-color);
+  border-radius: 2px;
+}
+
+.titulo-secundario {
+  color: var(--text-primary);
+  margin: 2rem 0 1rem;
+  font-size: 1.75rem;
+  font-weight: 600;
+}
+
+/* Grid y layout */
 .grid {
-    display: grid;
-    grid-template-columns: repeat(4, 1fr); /* 4 columnas fijas */
-    gap: 15px;
-    width: 100%;
-    margin: 10px 0;
-  }
-  
-  /* Si prefieres filas de 3 en lugar de 4, cambia `repeat(4, 1fr)` a `repeat(3, 1fr)` */
-  
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+  gap: 1.5rem;
+  margin-bottom: 2rem;
+}
+
+/* Estilos para etiquetas e inputs */
+.etiqueta-gasto,
+.etiqueta-ganancia {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  font-weight: 500;
+  color: var(--text-secondary);
+  background: var(--background-secondary);
+  padding: 1rem;
+  border-radius: var(--border-radius);
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.etiqueta-gasto:hover,
+.etiqueta-ganancia:hover {
+  transform: translateY(-2px);
+  box-shadow: var(--shadow-md);
+}
+
+.input-gasto,
+.input-ganancia,
+.input-fecha {
+  padding: 0.75rem;
+  border: 2px solid var(--border-color);
+  border-radius: var(--border-radius);
+  font-size: 1rem;
+  transition: all 0.3s ease;
+  background-color: var(--background-primary);
+}
+
+.input-gasto:focus,
+.input-ganancia:focus,
+.input-fecha:focus {
+  outline: none;
+  border-color: var(--primary-color);
+  box-shadow: 0 0 0 3px rgba(79, 70, 229, 0.1);
+}
+
+/* Etiqueta fecha */
+.etiqueta-fecha {
+  display: inline-block;
+  margin: 1.5rem 0;
+  padding: 1rem;
+  background-color: var(--background-secondary);
+  border-radius: var(--border-radius);
+  box-shadow: var(--shadow-sm);
+}
+
+/* Botones */
+.boton-operaciones,
+.boton-enviar {
+  background-color: var(--primary-color);
+  color: white;
+  padding: 1rem 2rem;
+  border: none;
+  border-radius: var(--border-radius);
+  cursor: pointer;
+  font-size: 1rem;
+  font-weight: 600;
+  transition: all 0.3s ease;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.boton-operaciones:hover,
+.boton-enviar:hover {
+  background-color: var(--primary-hover);
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(79, 70, 229, 0.2);
+}
+
+.boton-enviar {
+  margin-top: 1rem;
+  background-color: var(--success-color);
+}
+
+.boton-enviar:hover {
+  background-color: #059669;
+}
+
+/* Totales y balance */
+.total-gastos,
+.total-ganancias,
+.balance {
+  font-size: 1.5rem;
+  font-weight: 600;
+  margin: 1.5rem 0;
+  padding: 1rem 1.5rem;
+  border-radius: var(--border-radius);
+  box-shadow: var(--shadow-sm);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.total-gastos {
+  background-color: #fee2e2;
+  color: var(--danger-color);
+}
+
+.total-ganancias {
+  background-color: #dcfce7;
+  color: var(--success-color);
+}
+
+.balance {
+  background: linear-gradient(135deg, var(--primary-color), var(--primary-hover));
+  color: white;
+  position: relative;
+  overflow: hidden;
+}
+
+.balance::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: linear-gradient(45deg, transparent, rgba(255, 255, 255, 0.1));
+}
+
+/* Lista de resultados */
+.lista-resultados {
+  list-style: none;
+  padding: 0;
+  margin: 1.5rem 0;
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  gap: 1rem;
+}
+
+.item-resultado {
+  padding: 1rem;
+  background-color: var(--background-secondary);
+  border-radius: var(--border-radius);
+  box-shadow: var(--shadow-sm);
+  transition: transform 0.2s ease;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.item-resultado:hover {
+  transform: translateY(-2px);
+  box-shadow: var(--shadow-md);
+}
+
+/* Responsive */
+@media (max-width: 768px) {
   .container-gastos {
-    height: 100vh;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    flex-direction: column;
-    background-color: #f9f9f9;
-    padding: 20px;
-    border-radius: 8px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-    width: 80%;
-    max-width: 800px; /* Ensanchar el contenedor para pantallas de PC */
-    margin: auto;
-    font-family: Arial, sans-serif;
+    margin: 1rem;
+    padding: 1rem;
   }
   
-  /* Títulos */
+  .grid {
+    grid-template-columns: 1fr;
+  }
+  
   .titulo-principal {
-    color: #333;
-    margin: 10px 0;
+    font-size: 1.75rem;
   }
   
   .titulo-secundario {
-    color: #666;
-    margin: 8px 0;
+    font-size: 1.5rem;
   }
   
-  .total-gastos, .total-ganancias, .balance {
-    color: #555;
-    margin: 5px 0;
-  }
-  
-  /* Etiquetas y campos de entrada */
-  .etiqueta-gasto, .etiqueta-ganancia, .etiqueta-fecha {
-    display: flex;
-    flex-direction: column;
-    font-size: 0.9em;
-  }
-  
-  .input-gasto, .input-ganancia, .input-fecha {
-    padding: 8px;
-    margin-top: 3px;
-    border: 1px solid #ccc;
-    border-radius: 4px;
-    font-size: 1em;
-    width: 100%;
-  }
-  
-  /* Botones */
-  .boton-operaciones, .boton-enviar {
-    padding: 10px 15px;
-    background-color: #007bff;
-    color: white;
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
-    font-size: 1em;
-    margin: 10px 0;
-  }
-  
-  .boton-operaciones:hover, .boton-enviar:hover {
-    background-color: #0056b3;
-  }
-  
-  /* Lista de resultados detallados */
   .lista-resultados {
-    list-style-type: none;
-    padding: 0;
-    margin: 10px 0;
-    width: 100%;
-    max-width: 300px;
+    grid-template-columns: 1fr;
   }
   
-  .item-resultado {
-    background-color: #eef;
-    padding: 5px 10px;
-    margin: 5px 0;
-    border-radius: 4px;
+  .total-gastos,
+  .total-ganancias,
+  .balance {
+    font-size: 1.25rem;
   }
-      
+}
+
+/* Animaciones */
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(10px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.container-gastos > * {
+  animation: fadeIn 0.5s ease forwards;
+}

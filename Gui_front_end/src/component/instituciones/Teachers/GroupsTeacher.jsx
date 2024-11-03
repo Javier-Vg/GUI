@@ -63,7 +63,7 @@ function ListGroups() {
   };
 
   const saveAttendance = () => {
-    const formattedDate = startDate.toISOString().split('T')[0];
+    const formattedDate = startDate ? startDate.toISOString().split('T')[0] : '';
     const json = {
       institution: institutionId,
       daily_attendance: attendance,
@@ -123,7 +123,6 @@ function ListGroups() {
                   <span> Nivel de educación: {group.educational_level},</span> 
                   <span> Capacidad máxima: {group.capacity},</span> 
                   <span> Número de clase: {group.classroom},</span> 
-                  <span> Estudiantes activos: {group.current_students}</span> 
                   <br />
                   <span> Docentes asignados:</span>
                   {group.communication_of_subjects_and_teacher && (

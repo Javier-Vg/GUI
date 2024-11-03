@@ -1,7 +1,102 @@
-.container-create-staff{
-    height: 100vh;
+.container-create-staff {
+    max-width: 800px;
+    margin: 2rem auto;
+    padding: 2rem;
+    background: white;
+    border: 1px solid #e0e0e0;
+    border-radius: 8px;
+    overflow: auto;
+    height: 500px;
+  }
+  
+  .form-staff {
     display: flex;
-    justify-content: center;
-    align-items: center;
-    flex-direction: column; 
-}
+    flex-direction: column;
+    gap: 1.2rem;
+  }
+  
+  .form-staff label {
+    display: block;
+    font-size: 0.9rem;
+    color: #333;
+    margin-bottom: 0.5rem;
+  }
+  
+  /* Estilo base para inputs y selects */
+  .form-staff input:not([type="checkbox"]), 
+  .form-staff select {
+    width: 100%;
+    padding: 0.8rem;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    font-size: 1rem;
+    background: white;
+  }
+  
+  /* Focus simple */
+  .form-staff input:focus:not([type="checkbox"]),
+  .form-staff select:focus {
+    outline: none;
+    border-color: #000;
+  }
+  
+  /* Estilo para el input file */
+  .form-staff input[type="file"] {
+    padding: 0.5rem;
+    border: 1px solid #ddd;
+    background: white;
+  }
+  
+  /* Estilo para checkbox */
+  .form-staff input[type="checkbox"] {
+    width: 16px;
+    height: 16px;
+    margin-left: 10px;
+  }
+  
+  /* Mensajes de error */
+  .error {
+    color: #000;
+    font-size: 0.85rem;
+    margin-top: 0.3rem;
+    font-weight: 500;
+  }
+  
+  /* Botón de envío */
+  .form-staff button[type="submit"] {
+    background: #000;
+    color: white;
+    border: none;
+    padding: 1rem 2rem;
+    border-radius: 4px;
+    font-size: 1rem;
+    font-weight: 500;
+    cursor: pointer;
+    width: 100%;
+    margin-top: 1rem;
+  }
+  
+  .form-staff button[type="submit"]:hover {
+    background: #333;
+  }
+  
+  /* Estilos responsivos */
+  @media (max-width: 768px) {
+    .container-create-staff {
+      margin: 1rem;
+      padding: 1rem;
+    }
+    
+    .form-staff input,
+    .form-staff select,
+    .form-staff button {
+      font-size: 16px;
+    }
+  }
+
+  @media (max-width: 414px) {
+    .container-create-staff {
+        height: 770px;
+        overflow: auto;
+    }
+  }
