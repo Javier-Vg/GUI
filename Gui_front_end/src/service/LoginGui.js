@@ -1,4 +1,6 @@
 import axios from "axios";
+import Cookies from 'js-cookie';
+import {jwtDecode} from 'jwt-decode';
 const domain = window.location.hostname;
 
 function getTokenFromCookie() {
@@ -620,13 +622,14 @@ export const PostEvento = async (eventData) => {
 
 
 export const PostSchedule = async (scheduleData) => {
-  const token = Cookies.get('AuthCookie');
-  const institutionId = token ? jwtDecode(token).info.institution : null;
 
-  if (!institutionId) {
-    console.error("No se pudo obtener la institución desde el token.");
-    return;
-  }
+  const token = Cookies.get('AuthCookie');
+    const institutionId = token ? jwtDecode(token).info.institution : null;
+
+    if (!institutionId) {
+      console.error("No se pudo obtener la institución desde el token.");
+      return;
+    }
   
   try {
     const response = await axios.post(

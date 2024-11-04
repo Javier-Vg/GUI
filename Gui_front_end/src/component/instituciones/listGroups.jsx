@@ -117,6 +117,7 @@ function ListGroups() {
     }
   };
 
+  //Selecciona a los estudiantes para la asignacion de asistencia.
   const toggleStudentSelection = (studentId) => {
     setSelectedStudents((prevSelected) =>
       prevSelected.includes(studentId)
@@ -134,6 +135,7 @@ function ListGroups() {
     if (selectedStudents.length === 0) return;
     const groupId = selectedGroup.id;
 
+    //Crea el el objeto para asignar el estudiante al grupo
     for (const studentId of selectedStudents) {
       const assignment = {
         student: studentId,
@@ -150,6 +152,7 @@ function ListGroups() {
       }
     }
 
+    //Variable 
     const updatedGroup = {
       ...selectedGroup,
       current_students:

@@ -90,7 +90,7 @@ const ManageSubjects = () => {
                 <button onClick={openModal} className='btn-materias'>Ver materias registradas</button>
             </div>
 
-            {/* Props de modal que toda de refencia  */}
+            {/* Props de modal que toma de referencia el contenido que esta dentro de la etiqueta. */}
             <MyModal ref={modalRef}>
                 
                   <div className="modal">
@@ -103,10 +103,6 @@ const ManageSubjects = () => {
                   </div>
              
             </MyModal>
-            
-            
-                
-            
         </div>
     );
 };

@@ -43,7 +43,7 @@ function CreateStudent() {
       }
     }
   }, []);
-  const handleInputChange = (e) => {
+  const handleInputChange = (e) => { //Capta los cambios de los inputs.
     const { name, value } = e.target;
     switch (name) {
       case 'nombre':
@@ -90,6 +90,7 @@ function CreateStudent() {
     }
   };
 
+  // Verifica si hay un archivo.
   const handleFileChange = (e) => {
     const file = e.target.files[0];
     if (file) {
@@ -97,6 +98,7 @@ function CreateStudent() {
     }
   };
 
+  // Funcion que valida los campos y luego los sube al backend.
   const handleSubmit = async () => {
     if (!nombre || !apellido || !identificacion || !fechaNacimiento || !grado || !estadoAcademico || !telefono || !email || !nameGuardian || !mensualidadDelEstudiante || !password) {
       alert("Por favor, completa todos los campos obligatorios.");
