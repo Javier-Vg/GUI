@@ -75,6 +75,7 @@ const ManageSubjects = () => {
                 <h2>Registro de Materia</h2>
                 <label htmlFor='subjectName'>Nombre de la Materia:</label>
                 <input
+                    autoComplete='off'
                     type='text'
                     id='subjectName'
                     value={subjectName}

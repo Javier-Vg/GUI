@@ -156,22 +156,22 @@ function CreateStudent() {
       <br />
       <label>
         Nombre estudiante:
-        <input type="text" name="nombre" value={nombre} onChange={handleInputChange} />
+        <input type="text" autoComplete='off' name="nombre" value={nombre} onChange={handleInputChange} />
       </label>
       <br />
       <label>
         Apellido:
-        <input type="text" name="apellido" value={apellido} onChange={handleInputChange} />
+        <input type="text" autoComplete='off' name="apellido" value={apellido} onChange={handleInputChange} />
       </label>
       <br />
       <label>
         Número de Identificación:
-        <input type="text" name="identificacion" value={identificacion} onChange={handleInputChange} />
+        <input type="text" autoComplete='off' name="identificacion" value={identificacion} onChange={handleInputChange} />
       </label>
       <br />
       <label>
         Fecha de Nacimiento:
-        <input type="date" name="fechaNacimiento" value={fechaNacimiento} onChange={handleInputChange} />
+        <input type="date" autoComplete='off' name="fechaNacimiento" value={fechaNacimiento} onChange={handleInputChange} />
       </label>
       <br />
       <label>
@@ -198,43 +198,43 @@ function CreateStudent() {
       <br />
       <label>
         Teléfono:
-        <input type="text" name="telefono" value={telefono} onChange={handleInputChange} />
+        <input type="text" autoComplete='off' name="telefono" value={telefono} onChange={handleInputChange} />
       </label>
       <br />
       <label>
         Email:
-        <input type="email" name="email" value={email} onChange={handleInputChange} />
+        <input type="email"  autoComplete='off' name="email" value={email} onChange={handleInputChange} />
       </label>
       <br />
       <label>
         Contraseña:
-        <input type="password" name="password" value={password} onChange={handleInputChange} />
+        <input type="password"  autoComplete='off' name="password" value={password} onChange={handleInputChange} />
       </label>
       <br />
       <label>
         Nombre del Encargado:
-        <input type="text" name="nameGuardian" value={nameGuardian} onChange={handleInputChange} />
+        <input type="text" autoComplete='off' name="nameGuardian" value={nameGuardian} onChange={handleInputChange} />
       </label>
       <br />
       <label>
         Teléfono del Encargado (opcional):
-        <input type="text" name="guardianTelefono" value={guardianTelefono} onChange={handleInputChange} />
+        <input type="text" autoComplete='off' name="guardianTelefono" value={guardianTelefono} onChange={handleInputChange} />
       </label>
       <br />
       <label>
         Alergias:
-        <input type="text" name="alergias" value={alergias} onChange={handleInputChange} />
+        <input type="text"  autoComplete='off' name="alergias" value={alergias} onChange={handleInputChange} />
       </label>
       <br />
       <label>
         Imagen:
-        <input type="file" accept="image/*" onChange={handleFileChange} />
+        <input type="file" autoComplete='off' accept="image/*" onChange={handleFileChange} />
       </label>
       <br />
       <br />
       <label>
         Mensualidad del Estudiante:
-        <input type="text" name="mensualidadDelEstudiante" value={mensualidadDelEstudiante} onChange={handleInputChange} />
+        <input type="text" autoComplete='off' name="mensualidadDelEstudiante" value={mensualidadDelEstudiante} onChange={handleInputChange} />
       </label>
       <br />
       {formMessage && <div>{formMessage}</div>}

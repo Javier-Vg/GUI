@@ -9,6 +9,7 @@ const CreateContract = () => {
   const [startDate, setStartDate] = useState('');
   const [endDate, setEndDate] = useState('');
   const [salary, setSalary] = useState('');
+  const [message, setMessage] = useState("");
 
   // Obtener el ID de la institución desde el token
   const token = Cookies.get('AuthCookie');
@@ -44,6 +45,10 @@ const CreateContract = () => {
 
       if (response.status === 201) {
         console.log("Contrato creado exitosamente:");
+        setMessage("Enviados correctamente")
+        setTimeout(() => {
+          setMessage("")
+        }, 2000);
       } else {
         console.error("Error al crear el contrato:", response.statusText);
       }
@@ -99,6 +104,7 @@ const CreateContract = () => {
       </label>
 
       <button type="submit" className="submit-button">Crear Contrato</button>
+      <h5>{message}</h5>
   </form>
 
   );

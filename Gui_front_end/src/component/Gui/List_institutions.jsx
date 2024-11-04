@@ -112,6 +112,10 @@ function ListInstitutions() {
               : institution
           );
           setInstituciones(updatedInstitutions);
+          setMessage("Actulizacion correctamente")
+          setTimeout(() => {
+            setMessage("")
+          }, 2000);
         }
       } catch (error) {
         console.error("Error updating institution:", error);
@@ -314,6 +318,7 @@ function ListInstitutions() {
                 onClick={handleSaveChanges}
               />
             </div>
+            <h5>{message}</h5>
             <button
               className="institutionList-closeButton"
               onClick={closeModal}

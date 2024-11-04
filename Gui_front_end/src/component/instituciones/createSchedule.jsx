@@ -2,13 +2,13 @@ import React, { useState } from 'react';
 import axios from 'axios';
 import Cookies from 'js-cookie';
 import {jwtDecode} from 'jwt-decode';
-import '../../css/Institutions/createSchedule.css';
-import { PostSchedule } from '../../service/LoginGui';
+import '../../css/Institutions/CreateSchedule.css';
 const domain = window.location.hostname;
 const ScheduleForm = () => {
   const [startTime, setStartTime] = useState('');
   const [endTime, setEndTime] = useState('');
   const [days, setDays] = useState('');
+  const [message, setMessage] = useState("");
 
   // Obtener el ID de la institución desde el token
   const token = Cookies.get('AuthCookie');
@@ -46,6 +46,10 @@ const ScheduleForm = () => {
 
       if (response.status === 201) {
         console.log("Horario creado exitosamente:")
+        setMessage("Enviados correctamente")
+        setTimeout(() => {
+          setMessage("")
+        }, 2000);
       } else {
         console.error("Error al crear el horario:");
       }
@@ -70,6 +74,7 @@ const ScheduleForm = () => {
       <label className='label-schedule'>
         Hora de fin:
         <input
+        autoComplete='off'
           type="time"
           value={endTime}
           className='input-schedule'
@@ -88,7 +93,7 @@ const ScheduleForm = () => {
           required
         />
       </label>
-
+      <h5>{message}</h5>
       <button className='bttnn-schedule' type="submit">Crear Horario</button>
     </form>
   );
