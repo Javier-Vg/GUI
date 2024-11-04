@@ -36,9 +36,7 @@ function CreateStudent() {
       try {
         // Desencriptar el token
         const decodedToken = jwtDecode(token);  
-        const institutionIdFromToken = decodedToken.info.institution;
-        console.log(institutionIdFromToken);
-        
+        const institutionIdFromToken = decodedToken.info.institution;        
         // Guardar el ID en una variable local
         setInstitutionId(institutionIdFromToken);
       } catch (error) {
@@ -127,7 +125,6 @@ function CreateStudent() {
         throw new Error('Error al subir la imagen');
       }
       const imageUrl = data.image_url;
-      console.log(imageUrl);
       
       // Aquí agregamos el institutionId al postStudents
       await postStudents(nombre, apellido, identificacion, fechaNacimiento, grado, estadoAcademico, telefono, email, imageUrl, alergias, guardianTelefono, nameGuardian, mensualidadDelEstudiante, password, institution_id); // Añadir institutionId

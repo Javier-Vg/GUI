@@ -12,13 +12,8 @@ from rest_framework.permissions import IsAuthenticated, AllowAny
 class Contracts_ViewSet(viewsets.ModelViewSet):
     queryset = contracts.objects.all()
     serializer_class = Contracts_Serializer
-    permission_classes = [AllowAny]
+    permission_classes = [IsAuthenticated]
     
-    # permission_classes = [IsAuthenticatedWithCookieDirectors]
-    # permission_classes = [IsAuthenticatedWithCookie]
-    
-
-
     def retrieve(self, request, pk=None):
         # self.permission_classes = [IsAuthenticatedWithCookieDirectors]
         # self.check_permissions(request)

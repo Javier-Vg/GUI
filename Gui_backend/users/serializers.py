@@ -124,7 +124,7 @@ class LoginSerializer(serializers.Serializer):
                     Institution_instance = {
                         "username": Institution_instance.username,
                         "email": Institution_instance.email,
-                        "imgUrl": Institution_instance.imagen_url,
+                        "imgInstitution": Institution_instance.imagen_url,
                         "suscription_type": Institution_instance.suscription_type,
                         "auth": Institution_instance.authorization,
                         'institution': Institution_instance.id
@@ -142,7 +142,7 @@ class LoginSerializer(serializers.Serializer):
                         "email": student_instance.email,
                         "institution": student_instance.institution_id,
                         "id": student_instance.id,
-                        'imgURL': student_instance.imagen_url,
+                        'imgInstitution': student_instance.imagen_url,
                         'numberIdentification': student_instance.identification_number,
                         'type_of_student': student_instance.type_of_student
                     }

@@ -8,6 +8,7 @@
     "js-cookie": "^3.0.5",
     "jsonwebtoken": "^9.0.2",
     "jwt-decode": "^4.0.0",
+    "react-datepicker": "^7.5.0",
     "react-router-dom": "^6.26.2",
     "react-toastify": "^10.0.5",
     "redux-persist": "^6.0.0",

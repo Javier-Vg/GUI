@@ -7,6 +7,7 @@ import { useSelector, useDispatch } from "react-redux";
 import ScrollIndicator from "../../component/modulo padres/messageScroll";
 import ThemeSwitcher from "../../component/modulo padres/changeTheme/ChangeTheme";
 import ListaEventos from "../moduloProfesor/listaEventos";
+import { useNavigate } from "react-router-dom";
 import '../../css/ModuloPadres/HomePadresForm.css'
 function HomePadresForm() {
   const [changeComponent, setChangeComponent] = useState("");
@@ -24,6 +25,7 @@ function HomePadresForm() {
     setIsDeployed(!isDeployed);
   };
 
+  const navigate = useNavigate();
   // Cambiar el tema basado en la preferencia del usuario
   const [isDarkMode, setIsDarkMode] = useState(false);
   const [isHovered, setIsHovered] = useState(false);
@@ -41,6 +43,11 @@ function HomePadresForm() {
     localStorage.setItem("theme", newTheme);
     document.body.className = newTheme;
   };
+  const logout = async () => {
+    console.log("HOLA");
+    
+    navigate("/")
+  }
 
   return (
     <div>
@@ -125,6 +132,7 @@ function HomePadresForm() {
               />
               <label className="label-home-inst"  htmlFor="Calificacion del Estudiante">Calificacion del Estudiante</label>
             </div>
+            <input type="button" value=" Cerrar Session" onClick={logout} />
           </div>
         </aside>
         {/* <div className="div-components"> */}

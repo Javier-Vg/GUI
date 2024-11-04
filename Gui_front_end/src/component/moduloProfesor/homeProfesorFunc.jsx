@@ -5,7 +5,7 @@ import ChatProfesor from './ChatProfesor';
 import '../../css/Institutions/HomeInstitutionsForm.css'
 
 function HomeProfesorFunc() {
-    const [changeComponent, setChangeComponent] = useState('');
+    const [changeComponent, setChangeComponent] = useState('MENSAJES');
     const [isDeployed, setIsDeployed] = useState(false);
 
     const toggleAside = () => {

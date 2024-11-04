@@ -315,11 +315,8 @@ function CreateStaff() {
        try {
          // Desencriptar el token
          const decodedToken = jwtDecode(token);
-         console.log(decodedToken);
-         
+
          const institutionIdFromToken = decodedToken.info.institution; 
-         
-         console.log(institutionIdFromToken);
          
          setInstitutionId(institutionIdFromToken);
        } catch (error) {
@@ -375,9 +372,7 @@ function CreateStaff() {
       });
 
       const data = await response.json();
-      const imageUrl = data.image_url;
-      console.log(imageUrl);
-      
+      const imageUrl = data.image_url;      
 
       const staff = {
         username: changeNombre,
@@ -397,7 +392,6 @@ function CreateStaff() {
         authorization: isAuthorized // Añadir el estado de autorización
       };
       
-      console.log(staff);
       await postStaff(staff); // Envia los datos
 
       

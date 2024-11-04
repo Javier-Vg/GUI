@@ -17,6 +17,7 @@
 }
 
 .input-group-createGui {
+    background-color: transparent !important;
     display: flex;
     flex-direction: column;
     width: 100%;
@@ -52,6 +53,7 @@
 }
 
 .button-group-createGui {
+    background-color: transparent !important;
     display: flex;
     justify-content: center;
     width: 100%;

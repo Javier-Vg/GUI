@@ -1,287 +1,9 @@
-// import React, { useEffect, useState } from "react";
-// import { getInstitutions, updateInstitutions } from "../../service/LoginGui";
-// import '../../css/Gui/List_institutions.css'
-
-// function ListInstitutions() {
-//   const [instituciones, setInstituciones] = useState([]);
-//   const [seeMore, setSeeMore] = useState(false);
-//   const [selectedInstitution, setSelectedInstitution] = useState(null);
-//   const [editingInstitution, setEditingInstitution] = useState(null); // Estado para la edición
-
-//   useEffect(() => {
-//     getInstitutionsData();
-//   }, []);
-
-//   const getInstitutionsData = async () => {
-//     try {
-//       const institutions = await getInstitutions();
-//       setInstituciones(institutions);
-//     } catch (error) {
-//       console.error("Error fetching institutions:", error);
-//     }
-//   };
-
-//   const openModal = (institution) => {
-//     setSelectedInstitution(institution);
-//     setEditingInstitution({ ...institution }); // Inicializamos el estado para edición con los valores actuales
-//     setSeeMore(true);
-//   };
-
-//   const closeModal = () => {
-//     setSeeMore(false);
-//     setSelectedInstitution(null);
-//     setEditingInstitution(null); // Limpiamos el estado de edición al cerrar el modal
-//   };
-
-//   const handleInputChange = (e) => {
-//     const { name, value } = e.target;
-//     setEditingInstitution((prev) => ({
-//       ...prev,
-//       [name]: value,
-//     }));
-//   };
-
-//   const handleSaveChanges = async () => {
-//     try {
-//       // Agregar un console.log para ver los datos que se envían
-//       console.log("Enviando cambios a la API:", editingInstitution);
-
-//       // Llamar a la función updateInstitutions
-//       const updatedInstitution = await updateInstitutions(editingInstitution);
-
-//       // Después de la actualización, actualizar la lista de instituciones con los datos actualizados
-//       if (updatedInstitution) {
-//         const updatedInstitutions = instituciones.map((institution) =>
-//           institution.id === updatedInstitution.id
-//             ? updatedInstitution
-//             : institution
-//         );
-//         setInstituciones(updatedInstitutions);
-//       }
-
-//       // El modal no se cierra automáticamente ahora
-//     } catch (error) {
-//       console.error("Error updating institution:", error);
-//     }
-//   };
-
-//   return (
-//     // <div className='container_list'>
-//     //     <h1>Instituciones</h1>
-//     //     <div className='institutions'>
-//     //         {instituciones.map((item) => (
-//     //             <div className='container_institutions_list' key={item.id}>
-//     //                 <div className='div_img'>
-//     //                     <img className='Logo_Institution' src={item.imagen_url} alt="No found" onError={() => console.log("Image failed to load:", item.imagen_url)} />
-//     //                 </div>
-//     //                 <div className='institution_inf'>
-//     //                     <h6>{item.username}</h6>
-//     //                     <input onClick={() => openModal(item)} type="button" value="Ver más" />
-//     //                 </div>
-//     //             </div>
-//     //         ))}
-//     //     </div>
-
-//     //     {seeMore && selectedInstitution && (
-//     //         <div className='modal_institution_list'>
-//     //             <h2 className="institution-title">Información de la Institución</h2>
-//     //             <div className="institution-grid">
-//     //                 <div className="institution-item">
-//     //                     <strong>ID:</strong> {selectedInstitution.id}
-//     //                 </div>
-//     //                 <div className="institution-item">
-//     //                     <strong>Nombre:</strong>
-//     //                     <input
-//     //                         type="text"
-//     //                         name="name"
-//     //                         value={editingInstitution.username}
-//     //                         onChange={handleInputChange}
-//     //                     />
-//     //                 </div>
-//     //                 <div className="institution-item">
-//     //                     <strong>Dirección:</strong>
-//     //                     <input
-//     //                         type="text"
-//     //                         name="direction"
-//     //                         value={editingInstitution.direction}
-//     //                         onChange={handleInputChange}
-//     //                     />
-//     //                 </div>
-//     //                 <div className="institution-item">
-//     //                     <strong>Estado de Pago:</strong>
-//     //                     <input
-//     //                         type="text"
-//     //                         name="payment_status"
-//     //                         value={editingInstitution.payment_status}
-//     //                         onChange={handleInputChange}
-//     //                     />
-//     //                 </div>
-//     //                 <div className="institution-item">
-//     //                     <strong>Tipo de Suscripción:</strong>
-//     //                     <input
-//     //                         type="text"
-//     //                         name="suscription_type"
-//     //                         value={editingInstitution.suscription_type}
-//     //                         onChange={handleInputChange}
-//     //                     />
-//     //                 </div>
-//     //                 <div className="institution-item">
-//     //                     <strong>Teléfono:</strong>
-//     //                     <input
-//     //                         type="text"
-//     //                         name="number_phone"
-//     //                         value={editingInstitution.number_phone}
-//     //                         onChange={handleInputChange}
-//     //                     />
-//     //                 </div>
-//     //                 <div className="institution-item">
-//     //                     <strong>Email:</strong>
-//     //                     <input
-//     //                         type="email"
-//     //                         name="email"
-//     //                         value={editingInstitution.email}
-//     //                         onChange={handleInputChange}
-//     //                     />
-//     //                 </div>
-//     //                 <div className="institution-item">
-//     //                     <strong>Suscripción:</strong>
-//     //                     <input
-//     //                         type="text"
-//     //                         name="subscription_date"
-//     //                         value={editingInstitution.subscription_date}
-//     //                         onChange={handleInputChange}
-//     //                     />
-//     //                 </div>
-//     //             </div>
-//     //             <div className="institution-item">
-//     //                 <input type="button" value="Guardar cambios" onClick={handleSaveChanges} />
-//     //             </div>
-//     //             <button className="close-button" onClick={closeModal}>×</button>
-//     //         </div>
-//     //     )}
-//     // </div>
-//     <div className="institutionList-container">
-//       <h1>Instituciones</h1>
-//       <div className="institutionList">
-//         {instituciones.map((item) => (
-//           <div className="institutionList-item" key={item.id}>
-//             <div className="institutionList-imgContainer">
-//               <img
-//                 className="institutionList-logo"
-//                 src={item.imagen_url}
-//                 alt="No found"
-//                 onError={() =>
-//                   console.log("Image failed to load:", item.imagen_url)
-//                 }
-//               />
-//             </div>
-//             <div className="institutionList-info">
-//               <h6>{item.username}</h6>
-//               <input
-//                 onClick={() => openModal(item)}
-//                 type="button"
-//                 value="Ver más"
-//               />
-//             </div>
-//           </div>
-//         ))}
-//       </div>
-
-//       {seeMore && selectedInstitution && (
-//         <div className="institutionList-modal">
-//           <h2 className="institutionList-title">
-//             Información de la Institución
-//           </h2>
-//           <div className="institutionList-grid">
-//             <div className="institutionList-item">
-//               <strong>ID:</strong> {selectedInstitution.id}
-//             </div>
-//             <div className="institutionList-item">
-//               <strong>Nombre:</strong>
-//               <input
-//                 type="text"
-//                 name="username"
-//                 value={editingInstitution.username}
-//                 onChange={handleInputChange}
-//               />
-//             </div>
-//             <div className="institutionList-item">
-//               <strong>Dirección:</strong>
-//               <input
-//                 type="text"
-//                 name="direction"
-//                 value={editingInstitution.direction}
-//                 onChange={handleInputChange}
-//               />
-//             </div>
-//             <div className="institutionList-item">
-//               <strong>Estado de Pago:</strong>
-//               <input
-//                 type="text"
-//                 name="payment_status"
-//                 value={editingInstitution.payment_status}
-//                 onChange={handleInputChange}
-//               />
-//             </div>
-//             <div className="institutionList-item">
-//               <strong>Tipo de Suscripción:</strong>
-//               <input
-//                 type="text"
-//                 name="suscription_type"
-//                 value={editingInstitution.suscription_type}
-//                 onChange={handleInputChange}
-//               />
-//             </div>
-//             <div className="institutionList-item">
-//               <strong>Teléfono:</strong>
-//               <input
-//                 type="text"
-//                 name="number_phone"
-//                 value={editingInstitution.number_phone}
-//                 onChange={handleInputChange}
-//               />
-//             </div>
-//             <div className="institutionList-item">
-//               <strong>Email:</strong>
-//               <input
-//                 type="email"
-//                 name="email"
-//                 value={editingInstitution.email}
-//                 onChange={handleInputChange}
-//               />
-//             </div>
-//             <div className="institutionList-item">
-//               <strong>Suscripción:</strong>
-//               <input
-//                 type="text"
-//                 name="subscription_date"
-//                 value={editingInstitution.subscription_date}
-//                 onChange={handleInputChange}
-//               />
-//             </div>
-//           </div>
-//           <div className="institutionList-item">
-//             <input
-//               type="button"
-//               value="Guardar cambios"
-//               onClick={handleSaveChanges}
-//             />
-//           </div>
-//           <button className="institutionList-closeButton" onClick={closeModal}>
-//             ×
-//           </button>
-//         </div>
-//       )}
-//     </div>
-//   );
-// }
-
-// export default ListInstitutions;
 import React, { useEffect, useState } from "react";
 import { getInstitutions, updateInstitutions } from "../../service/LoginGui";
 import "../../css/Gui/List_institutions.css";
 import axios from "axios";
 import Cookies from "js-cookie"; // Importa js-cookie para manejar cookies
+const domain = window.location.hostname 
 
 function ListInstitutions() {
 
@@ -298,53 +20,41 @@ function ListInstitutions() {
     const [statusMessage, setStatusMessage] = useState("");
 
     const sendEmail = async (emailTo) => {
-      const templateParams = {
-        to_name: emailTo, // Usa la variable recipientEmail
-        from_name: userName,
-        from_email: userEmail,
-        message: message,
-        phone: phone, // Añadiendo el campo de teléfono
-        subject: subject, // Añadiendo el campo de asunto
+      const emailData = {
+          to_email: emailTo,
+          nombre: userName,
+          from_email: userEmail,
+          mensaje: message,
+          subject: subject,
       };
-
-
-
-      // Extraer el token de la cookie
-      const token = Cookies.get("AuthCookie"); // Cambia 'authToken' por el nombre real de tu cookie
-
+  
+      const token = Cookies.get("AuthCookie");
+  
       try {
-        const response = await axios.post(
-          "https://api.emailjs.com/api/v1.0/email/send",
-          {
-            service_id: serviceID,
-            template_id: templateID,
-            user_id: userID,
-            template_params: templateParams,
-          },
-          {
-            headers: {
-              Authorization: `Bearer ${token}`, // Añadir el token de autenticación a las cabeceras
-              "Content-Type": "application/json",
-            },
+          const response = await axios.post(
+              `http://${domain}:8000/api/email/enviar_correo/`,
+              emailData, // Enviar directamente el objeto con los datos esperados
+              {
+                  headers: {
+                      Authorization: `Bearer ${token}`,
+                      "Content-Type": "application/json",
+                  },
+              }
+          );
+  
+          if (response.status === 200) {
+              setStatusMessage("Correo enviado exitosamente!");
+              setSubject('');
+              setPhone('');
+              setMessage('');
+              setUserEmail('');
+              setUserName('');
           }
-        );
-        if (response.status === 200) {
-          setStatusMessage("Correo enviado exitosamente!");
-          setSubject('')
-          setPhone('')
-          setMessage('')
-          setUserEmail('')
-          setUserName('')
-          // Opcional: cerrar el modal si el envío es exitoso
-          closeModal();
-        }
       } catch (error) {
-        setStatusMessage(
-          "Error al enviar el correo. Verifica la consola para más detalles."
-        );
-        console.error("Error al enviar el correo:", error);
+          setStatusMessage("Error al enviar el correo. Verifica la consola para más detalles.");
+          console.error("Error al enviar el correo:", error);
       }
-    };
+  };
 
     useEffect(() => {
       getInstitutionsData();
@@ -419,17 +129,20 @@ function ListInstitutions() {
                 />
               </div>
               <div className="institutionList-info">
-                <h6>{item.username}</h6>
-                <input
-                  onClick={() => openModal(item)}
-                  type="button"
-                  value="Ver más"
-                />
-                <input
-                  onClick={() => openModal2(item)}
-                  type="button"
-                  value="Enviar Correo"
-                />
+                <h5>{item.username}</h5>
+                <div className="div-botones-infoList">
+                  <input
+                      onClick={() => openModal(item)}
+                      type="button"
+                      value="Ver más"
+                    />
+                    <input
+                      onClick={() => openModal2(item)}
+                      type="button"
+                      value="Enviar Correo"
+                    />   
+                </div>
+                
               </div>
             </div>
           ))}
@@ -537,9 +250,9 @@ function ListInstitutions() {
                   value={editingInstitution.payment_status}
                   onChange={handleInputChange}
                 >
-                  <option value="Active">Pagado</option>
-                  <option value="Pendiente">Pendiente</option>
-                  <option value="Incative">Vencido</option>
+                  <option value="Activa">Activa</option>
+                  <option value="Inactiva">Inactiva</option>
+                  {/* <option value="Incative">Vencido</option> */}
                 </select>
               </div>
               <div className="institutionList-item">
@@ -549,9 +262,9 @@ function ListInstitutions() {
                   value={editingInstitution.suscription_type}
                   onChange={handleInputChange}
                 >
-                  <option value="Básico">Básico</option>
-                  <option value="Premium">Premium</option>
-                  <option value="Pro">Pro</option>
+                  <option value="Mensual">Mensual</option>
+                  <option value="Anual">Anual</option>
+                  {/* <option value="Pro">Pro</option> */}
                 </select>
               </div>
               <div className="institutionList-item">

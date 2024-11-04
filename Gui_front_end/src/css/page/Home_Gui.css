@@ -27,34 +27,28 @@ h2 {
     color: #aaaaaa;
 }
 
+.GuiHome-nav-i1{
+    background-color: transparent !important;
+}
+.GuiHome-nav-i2{
+    background-color: transparent !important;
+    padding-top: 2em;
+}
 /* Navbar principal */
 .GuiHome-nav {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    background-color: #f8f9fa;
-    padding: 10px 20px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    display: grid;
     height: 8vh;
-    position: fixed;
     width: 100%;
-    background-color: var(--items-color);
-    border-bottom: 1px solid var(--border-color);
+    grid-template-columns: repeat(3,1fr);
+    background-color: #6289b3;
+    border-bottom: none;
+    border-bottom: 1px solid rgba(0, 0, 0, 0.149);
 }
 
 /* Botón de abrir/cerrar menú */
-#GuiHome-open-close {
-    background-color: #9b9c9d;
-    border: none;
-    color: white;
-    padding: 10px;
-    cursor: pointer;
-    border-radius: 5px;
-    font-size: 18px;
-}
 
 #GuiHome-open-close i {
-    color: #fff;
+    color: #ffffff;
     font-size: 2.7rem;
     cursor: pointer;
 }
@@ -75,8 +69,12 @@ h2 {
 }
 
 /* Sidebar en formato vertical (escritorio) */
+#aside{
+    background-color: #6289b3;
+}
 #GuiHome-aside {
     background-color: var(--items-color);
+    background-color: #1d318b;
     width: 260px;
     position: absolute;
     top: 0;
@@ -106,20 +104,19 @@ h2 {
 
 /* Contenedor para la lista de botones */
 .GuiHome-container-svg {
-    border-bottom: 1px solid var(--border-color);
+    background-color: #6289b3;
     padding: 10px 1px;
-    color: var(--text-color);
 }
 
 .GuiHome-container-svg div {
     display: flex;
     align-items: center;
+    background-color: rgba(0, 0, 0, 0);
     padding: 10px 20px;
     cursor: pointer;
 }
 
 .GuiHome-container-svg div:hover {
-    background-color: #1d318b;
     color: #e7e7e7;
 }
 
@@ -142,7 +139,6 @@ h2 {
 }
 
 .GuiHome-inputBoton:hover {
-    background-color: #1d318b;
     transform: scale(1.05);
 }
 
@@ -194,7 +190,7 @@ h2 {
         position: fixed;
         bottom: 10px;
         right: 10px;
-        background-color: #007bff;
+        background-color: #6289b3;
         color: white;
         padding: 10px;
         border-radius: 5px;
@@ -219,10 +215,19 @@ h2 {
     .GuiHome-container-svg div {
         padding: 10px;
     }
+    #aside{
+        width: 20vh;
+    }
 
     /* Ajustar los íconos y el texto en el sidebar */
     .GuiHome-container-svg div span {
         font-size: 1.3rem;
         margin-left: 5px;
+    }
+    .GuiHome-nav-i2{
+        width: 25vh;
+        padding-top: 2em;
+        padding-left: 2em;
+        color: white;
     }
 }

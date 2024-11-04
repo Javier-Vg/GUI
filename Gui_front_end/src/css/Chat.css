@@ -1,20 +1,19 @@
 
-.container-principal-derecknecio {
+/* .container-principal-derecknecio {
     display: grid;
     height: 100vh; 
     box-sizing: border-box;
     place-items: center;
     margin-right: 58rem;
-    width: -10rem;
-
-    background-color: #ffffff;
-}
+    width: 100rem;
+    background-color: #0a40bd;
+} */
 
 /* Contenedor del chat y lista de miembros */
 .chat-profesor-container {
     display: flex;
     flex-direction: column;
-   
+    width: 115vh;
     /* height: 80rem; */
     /* box-sizing: border-box; */
     background-color: rgb(255, 255, 255);
@@ -35,7 +34,7 @@
     scrollbar-width: none;
     gap: 10px; /* Espacio entre elementos */
     height: 19rem;
-    
+    width: 40rem;
     scrollbar-width: none; /* Para Firefox */
    
 }
@@ -58,10 +57,9 @@
     object-fit: cover; 
 }
 .chat-container-staf{
-    width: 110vh;
+    width: 115vh;
     margin-right: 45rem;
     height: 23rem;
-    background-color: #ffffff;
     
 }
 
@@ -72,7 +70,7 @@
     grid-auto-rows: min-content; /* Ajusta la altura de cada mensaje al contenido */
     gap: 5px;                    /* Espacio entre los mensajes */
     padding: 10px;               /* Reduce el espacio interno */
-    width: 1vh;
+    width: 115vh;
     height: 60rem;          /* Altura fija y más pequeña */
     overflow-y: auto;            /* Permite scroll vertical si se supera la altura */
     margin-right: 50rem;
@@ -219,7 +217,7 @@
     border: none;
     border-radius: 6px;
     cursor: pointer;
-    margin-top: -5rem;
+    margin-top: 2rem;
 }
 
 /* Media Query for 1232x422 */

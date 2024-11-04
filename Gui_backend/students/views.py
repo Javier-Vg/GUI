@@ -12,7 +12,7 @@ from users.models import User
 class StudentsViewSet(viewsets.ModelViewSet):
     queryset = students.objects.all()
     serializer_class = Students_Serializer
-    permission_classes = [AllowAny]  # Permitir acceso solo si estás autenticado
+    permission_classes = [IsAuthenticated]  # Permitir acceso solo si estás autenticado
 
     def create(self, request):
         # Primero, obtener los datos necesarios para crear el usuario

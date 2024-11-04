@@ -14,7 +14,9 @@ import Tooltip from '@mui/material/Tooltip';
 import 'react-datepicker/dist/react-datepicker.css';
 
 function ListGroups() {
+  const [groupsWithoutF, setGroupsWithoutF] = useState([]);
   const [groups, setGroups] = useState([]);
+
   const [seeMore, setSeeMore] = useState(null);
   const [attendance, setAttendance] = useState({});
   const [startDate, setStartDate] = useState(null);
@@ -22,6 +24,8 @@ function ListGroups() {
   const dispatch = useDispatch();
   
   // Redux state
+  const searchTerm = useSelector((state) => state.search.searchTerm);
+
   const itemsGroup = useSelector((state) => state.group.items);
   const itemsStudent = useSelector((state) => state.student.items);
   const itemsAssignmentG = useSelector((state) => state.groupAssignment.items);
@@ -33,10 +37,22 @@ function ListGroups() {
   const [nameTeacher, setNameTeacher] = useState("");
   const [teacherId, setTeacherId] = useState("");
 
-  const closeModal = () => {
+  const closeModal = () => { //Cierra el modal
     setAttendance({});
     setSeeMore(null);
   };
+
+  useEffect(() => {
+      
+    // Filtrar los grupos que no tienen la letra "F" en el nombre y que coinciden con el searchTerm
+    const filtro = groupsWithoutF.filter(group => 
+        group && // Asegúrate de que group no sea undefined
+        group.group_name && // Asegúrate de que group.name existe
+        !group.group_name.toLowerCase().includes('f') &&  // Filtrar grupos que no tienen "F"
+        group.group_name.toLowerCase().includes(searchTerm.toLowerCase()) // Filtrar por searchTerm
+    );
+    setGroups(filtro); // Suponiendo que tienes un estado para almacenar los grupos filtrados
+}, [groupsWithoutF, searchTerm]);
 
   const handleAttendanceChange = (studentId, status) => {
     setAttendance(prev => ({
@@ -46,7 +62,7 @@ function ListGroups() {
   };
 
   const saveAttendance = () => {
-    const formattedDate = startDate.toISOString().split('T')[0];
+    const formattedDate = startDate ? startDate.toISOString().split('T')[0] : '';
     const json = {
       institution: institutionId,
       daily_attendance: attendance,
@@ -86,7 +102,7 @@ function ListGroups() {
       Object.values(group.communication_of_subjects_and_teacher).includes(nameTeacher)
     );
 
-    setGroups(uniqueGroups);
+    setGroupsWithoutF(uniqueGroups);
   }, [itemsGroup, institutionId, nameTeacher]);
 
   if (loading) return <div className="loading">Cargando...</div>;
