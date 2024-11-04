@@ -1,102 +1,87 @@
-import React, { useState, useEffect } from 'react';
-import Cookies from 'js-cookie';
-import { jwtDecode } from "jwt-decode"; // jwtDecode no necesita destructuración
-import { GetEventos } from '../../service/LoginGui'; 
-import "../../css/Institutions/teachers/eventosList.css"
-
+import React, { useState, useEffect } from 'react'; // Importa React y los hooks necesarios
+import Cookies from 'js-cookie'; // Importa la librería para manejar cookies
+import { jwtDecode } from "jwt-decode"; // Importa la función para decodificar el token JWT
+import { GetEventos } from '../../service/LoginGui'; // Importa la función para obtener eventos
+import "../../css/Institutions/teachers/eventosList.css"; // Importa el archivo CSS para estilos
 
 function ListaEventos() {
+  // Estados para manejar la ID de la institución, eventos, carga y errores
   const [institutionId, setInstitutionId] = useState(null);
   const [eventos, setEventos] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
 
   useEffect(() => {
-    const token = Cookies.get('AuthCookie');
+    const token = Cookies.get('AuthCookie'); // Obtiene el token de las cookies
     if (token) {
       try {
-        const decodedToken = jwtDecode(token);
-        const institutionIdFromToken = decodedToken.info.institution; 
-        setInstitutionId(institutionIdFromToken);
+        const decodedToken = jwtDecode(token); // Decodifica el token
+        const institutionIdFromToken = decodedToken.info.institution; // Obtiene la ID de la institución del token 
+        setInstitutionId(institutionIdFromToken); // Establece la ID de la institución en el estado
       } catch (error) {
-        console.error('Error al decodificar el token', error);
+        console.error('Error al decodificar el token', error); // Maneja errores de decodificación
       }
     }
-  }, []);
-
+  }, []); // Se ejecuta una vez al montar el componente
 
   useEffect(() => {
+    // Se ejecuta cuando la ID de la institución cambia
     if (institutionId) {
       const fetchEvents = async () => {
         try {
-
-          const eventosObtenidos = await GetEventos(institutionId);
-          
-          setEventos(eventosObtenidos);
-          
-          setLoading(false);
-          
+          const eventosObtenidos = await GetEventos(institutionId); // Llama a la función para obtener eventos
+          setEventos(eventosObtenidos); // Establece los eventos obtenidos en el estado
+          setLoading(false); // Detiene el estado de carga
         } catch (error) {
-          console.error('Error al obtener los eventos:', error);
-          setError('Error al obtener los eventos');
-          setLoading(false);
+          console.error('Error al obtener los eventos:', error); // Muestra el error en la consola
+          setError('Error al obtener los eventos'); // Establece el mensaje de error
+          setLoading(false); // Detiene el estado de carga
         }
       };
-      fetchEvents();
-      
+      fetchEvents(); // Llama a la función para obtener eventos
     }
-  }, [institutionId]);
-  console.log("eventosf",eventos);eventos
+  }, [institutionId]); // Dependencia: se ejecuta cuando cambia institutionId
 
+  console.log("eventosf", eventos); // Muestra los eventos en la consola para depuración
+
+  // Filtra los eventos para mostrar solo los que pertenecen a la institución actual
   const eventosFiltrados = eventos.filter(evento => evento.institution === institutionId);
-  
-  
 
-  // Muestra los eventos filtrados
-  // Muestra un mensaje de carga si está cargando eventos
-  // Muestra un mensaje de error si hay un error al obtener los eventos
- // console.log("eventos", eventos);  // para ver los eventos en consola
- // console.log("eventosFiltrados", eventosFiltrados); // para ver los eventos filtrados en consola
- // console.log("loading", loading); // para ver el estado de carga en consola
- // console.log("error", error); // para ver el estado
-
+  // Renderiza un mensaje de carga mientras se obtienen los eventos
   if (loading) {
     return <div className="loading">Cargando eventos...</div>;
   }
 
+  // Renderiza un mensaje de error si hay un error
   if (error) {
     return <div className="error">{error}</div>;
   }
 
   return (
-    <div className="event-container">
-        <h1 className="event-title">Lista de Eventos</h1>
+    <div className="event-container-event"> {/* Contenedor de eventos */}
+      <h1 className="event-title-event">Lista de Eventos</h1> {/* Título de la lista de eventos */}
 
-      
-      <div className='evento-list-container2'>
-        {eventosFiltrados.length > 0 ? (
-            <ul className="event-list">
-              {eventosFiltrados.map((evento) => (
-                <li key={evento.id} className="event-item">
-                  <div className="event-header">
-                    
-                  <p className='date-letras'>{evento.date}</p>
-                  </div>
-                  <div className='name-event'>
-                    <h3>{evento.event_name}</h3>
-                    </div>
-                
-                  <p className="event-description">{evento.description}</p>
-                </li>
-              ))}
-            </ul>
-          ) : (
-            <p>No hay eventos disponibles.</p>
-          )}   
+      <div className='evento-list-container2'> {/* Contenedor para la lista de eventos */}
+        {eventosFiltrados.length > 0 ? ( // Comprueba si hay eventos filtrados
+          <ul className="event-list-event"> {/* Lista de eventos */}
+            {eventosFiltrados.map((evento) => ( // Mapea sobre los eventos filtrados
+              <li key={evento.id} className="event-ite-event"> {/* Elemento de lista para cada evento */}
+                <div className="event-header-event"> {/* Cabecera del evento */}
+                  <p className='date-letras-event'>{evento.date}</p> {/* Muestra la fecha del evento */}
+                </div>
+                <div className='name-event-event'> {/* Nombre del evento */}
+                  <h3>{evento.event_name}</h3> {/* Muestra el nombre del evento */}
+                </div>
+                <p className="event-description-event">{evento.description}</p> {/* Muestra la descripción del evento */}
+              </li>
+            ))}
+          </ul>
+        ) : (
+          <p>No hay eventos disponibles.</p> // Mensaje si no hay eventos
+        )}   
       </div>
-      
     </div>
   );
 }
 
-export default ListaEventos;
+export default ListaEventos; // Exporta el componente para ser utilizado en otras partes de la aplicación
