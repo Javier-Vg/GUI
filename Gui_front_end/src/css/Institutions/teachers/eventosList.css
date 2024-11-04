@@ -17,7 +17,7 @@
     flex-direction: column;
     align-items: center;
     width: 100%;
-    overflow: auto;
+    overflow: auto !important;
   }
   
   .event-list-event {
@@ -88,6 +88,111 @@
 
 }
 
+
+.container-events-create {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    padding: 20px;
+    margin: 0 auto;
+    max-width: 500px;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    margin-top: 12rem;
+  }
+  
+
+ form {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    width: 100%;
+  }
+  
+  
+  .label-event-create-name,
+  .label-event-create-date,
+  .label-event-create-description {
+    font-weight: bold;
+    margin-bottom: 5px;
+    color: #333;
+  }
+   
+
+  .type-text-event,
+  .input-date-event {
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    font-size: 1rem;
+    width: 100%;
+    box-sizing: border-box;
+  }
+  
+ 
+  .type-text-event:focus,
+  .input-date-event:focus {
+    border-color: #1d318b;
+    outline: none;
+  }
+   
+
+  .button-event-create-create {
+    padding: 12px;
+    font-size: 1rem;
+    color: white;
+    background-color: #1d318b;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+  }
+  
+  .button-event-create-create:hover {
+    background-color: #15246b;
+  }
+  
+  .button-event-create-create:disabled {
+    background-color: #ccc;
+    cursor: not-allowed;
+  }
+
+  @media (max-width: 768px) {
+    .event-list-event {
+        grid-template-columns: repeat(2, 1fr); /* 2 columnas en pantallas más pequeñas */
+    }
+
+    .container-events-create {
+        padding: 10px; /* Menos padding en dispositivos móviles */
+        margin-top: 5rem; /* Menos margen superior */
+    }
+
+    .button-event-create-create {
+        padding: 10px; /* Botón más pequeño en móviles */
+    }
+}
+
+@media (max-width: 480px) {
+    .event-list-event {
+        grid-template-columns: 1fr; /* 1 columna en dispositivos muy pequeños */
+    }
+
+    .event-ite-event {
+        padding: 8px; /* Menos padding en elementos de evento */
+    }
+
+    .type-text-event,
+    .input-date-event {
+        font-size: 0.9rem; /* Tamaño de fuente más pequeño en móviles */
+    }
+
+    .label-event-create-name,
+    .label-event-create-date,
+    .label-event-create-description {
+        font-size: 0.9rem; /* Tamaño de fuente más pequeño en etiquetas */
+    }
+}
 
   
 
