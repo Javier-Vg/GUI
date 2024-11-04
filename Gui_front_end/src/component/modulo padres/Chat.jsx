@@ -7,6 +7,7 @@ import ChatBubbleIcon from '@mui/icons-material/ChatBubble';
 import SendIcon from '@mui/icons-material/Send'
 
 const Chat = () => {
+  //manejadores de estados
   const [selectedMember, setSelectedMember] = useState("");
   const [message, setMessage] = useState("");
   const [messages, setMessages] = useState([]);
