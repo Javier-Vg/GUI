@@ -15,7 +15,7 @@ from rest_framework.exceptions import ValidationError
 class StaffViewSet(viewsets.ModelViewSet):
     queryset = staff.objects.all()
     serializer_class = Staff_Serializer
-    permission_classes = [AllowAny]  
+    permission_classes = [IsAuthenticated]  
     def create(self, request, *args, **kwargs):
     # Extraemos los datos de usuario desde el request
         position = request.data.get('position')
@@ -28,6 +28,8 @@ class StaffViewSet(viewsets.ModelViewSet):
         }
 
         # Establecer is_staff según la posición
+        # dependiendo el rol que se le seleccione en el frontend se le decide 
+        #si is_staff es true o si is_teacher is True
         if position != "Teacher":
             user_data.update({
                 'is_staff': True,
@@ -114,24 +116,3 @@ def LoginView(request):
     
     if serializer.is_valid():
         return Response(serializer.validated_data, status=200)
-    # else:
-    #     return Response(serializer.errors, status=400)
-
-
-# from rest_framework_simplejwt.views import TokenObtainPairView
-# class CustomTokenObtainPairView(TokenObtainPairView):
-#     permission_classes = [AllowAny]  # Permitir acceso sin autenticación
-#     serializer_class = CustomTokenObtainPairSerializer
-
-
-# @api_view(['POST'])
-# @permission_classes([AllowAny])
-# def LoginView(request):
-#     serializer = LoginSerializer(data=request.data)
-
-#     if serializer.is_valid():
-#         # Retorna los datos del serializer (incluyendo el token JWT)
-#         return Response(serializer.validated_data, status=200)
-#     else:
-#         # Retorna los errores si la validación falla
-#         return Response(serializer.errors, status=400)

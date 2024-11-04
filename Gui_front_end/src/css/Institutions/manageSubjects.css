@@ -1,7 +1,133 @@
-.container-manageSubjects{
-    height: 100vh;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    flex-direction: column;
+.container-manageSubjects {
+    max-width: 600px;
+    margin: 2rem auto;
+    padding: 2rem;
+    background: white;
+    border-radius: 12px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.container-manageSubjects h2 {
+    color: #2563eb;
+    font-size: 1.75rem;
+    font-weight: 600;
+    margin-bottom: 1.5rem;
+    text-align: center;
+}
+
+.container-manageSubjects label {
+    display: block;
+    margin-bottom: 0.5rem;
+    color: #4b5563;
+    font-size: 0.95rem;
+}
+
+.container-manageSubjects input {
+    width: 100%;
+    padding: 0.75rem;
+    border: 2px solid #e5e7eb;
+    border-radius: 8px;
+    font-size: 1rem;
+    transition: border-color 0.2s ease;
+    margin-bottom: 1rem;
+}
+
+.container-manageSubjects input:focus {
+    outline: none;
+    border-color: #2563eb;
+    box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.1);
+}
+
+.btn-save-materia {
+    background-color: #2563eb;
+    color: white;
+    padding: 0.75rem 1.5rem;
+    border: none;
+    border-radius: 8px;
+    font-size: 1rem;
+    font-weight: 500;
+    cursor: pointer;
+    transition: background-color 0.2s ease;
+    width: 100%;
+    margin-bottom: 1rem;
+}
+
+.btn-save-materia:hover {
+    background-color: #1d4ed8;
+}
+
+.btn-materias {
+    background-color: #ffffff;
+    color: #2563eb;
+    padding: 0.75rem 1.5rem;
+    border: 2px solid #2563eb;
+    border-radius: 8px;
+    font-size: 1rem;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    width: 100%;
+}
+
+.btn-materias:hover {
+    background-color: #2563eb;
+    color: white;
+}
+            
+.modal {
+    background: white;
+    padding: 2rem;
+    border-radius: 12px;
+    height: 300px;
+    max-width: 500px;
+    overflow-y: auto;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.modal h2 {
+    color: #2563eb;
+    font-size: 1.5rem;
+    margin-bottom: 1rem;
+    text-align: center;
+}
+
+.modal h3 {
+    color: #4b5563;
+    font-size: 1.1rem;
+    padding: 0.5rem 0;
+    border-bottom: 1px solid #e5e7eb;
+}
+
+.modal button {
+    background-color: #ef4444;
+    color: white;
+    padding: 0.75rem 1.5rem;
+    border: none;
+    border-radius: 8px;
+    font-size: 1rem;
+    font-weight: 500;
+    cursor: pointer;
+    transition: background-color 0.2s ease;
+    width: 100%;
+    margin-top: 1rem;
+}
+
+.modal button:hover {
+    background-color: #dc2626;
+}
+
+/* Responsive Design */
+@media (min-width: 640px) {
+    .container-manageSubjects {
+        padding: 2.5rem;
+    }
+
+    .btn-save-materia,
+    .btn-materias {
+        width: auto;
+    }
+
+    .modal {
+        width: 500px;
+    }
 }

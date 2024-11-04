@@ -20,8 +20,8 @@ const ThemeSwitcher = () => {
   };
 
   return (
-    <div className="flex items-center justify-center p-4">
-      <div className="relative flex items-center gap-2">
+    <div className="flex items-center justify-center p-4 div-tema" style={{ backgroundColor: 'transparent' }}>
+      <div className="relative flex items-center gap-2 sub-div-tema" style={{ backgroundColor: 'transparent' }}>
         <Sun 
           className={`w-5 h-5 transition-all duration-300 ${!isDarkMode ? 'text-yellow-500' : 'text-gray-400'}`}
         />

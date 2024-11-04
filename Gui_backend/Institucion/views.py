@@ -11,7 +11,7 @@ class InstitutionViewSet(viewsets.ModelViewSet):
     queryset = Institution.objects.all()
     serializer_class = Institutions_Serializer
     # permission_classes = [IsAuthenticated]
-    permission_classes = [AllowAny]
+    permission_classes = [IsAuthenticated]
 
     def create(self, request, *args, **kwargs):
         # Extraer la contraseña del request
@@ -20,13 +20,15 @@ class InstitutionViewSet(viewsets.ModelViewSet):
             raise ValidationError("La contraseña no fue proporcionada en el request.")
 
         # Crear el usuario
+        #cuando se crea un institucion se traen los datos mas relevantes para enviarse a la tabla de users
+        
         user_data = {
             'username': request.data.get('username'),
             'email': request.data.get('email'),
             'password': password,
             'staff': True,
         }
-
+        
         user_serializer = UserCreateSerializer(data=user_data)
         user_serializer.is_valid(raise_exception=True)
         user = user_serializer.save()  # Guardamos el usuario y obtenemos la instancia

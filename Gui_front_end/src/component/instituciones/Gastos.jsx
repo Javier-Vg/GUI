@@ -2,6 +2,8 @@ import React, { useState, useEffect } from "react";
 import { postGastos } from "../../service/LoginGui";
 import Cookies from "js-cookie";
 import { jwtDecode } from "jwt-decode";
+import '../../css/Institutions/Gastos.css'
+
 function GastosGanancias() {
   const [estado, setEstado] = useState({
     luz: "",
@@ -30,10 +32,12 @@ function GastosGanancias() {
   const [resultadosGastos, setResultadosGastos] = useState({});
   const [institution_id, setInstitutionId] = useState(null);
 
+  //Detecta cambios de los inputs.
   const handleChange = (e) => {
     const { name, value } = e.target;
     setEstado((prev) => ({ ...prev, [name]: value }));
   };
+
   useEffect(() => {
     const token = Cookies.get("AuthCookie");
 
@@ -49,6 +53,7 @@ function GastosGanancias() {
     }
   }, []);
 
+  //
   const aplicarOperaciones = () => {
     const gastos = calcularGastos();
     const ganancias = calcularGanancias();
@@ -81,6 +86,7 @@ function GastosGanancias() {
     return { ...gastos, total };
   };
 
+  //Funcion que calcula los gastos y ganancias finales.
   const calcularGanancias = () => {
     const ingresosPrivados = parseFloat(estado.mensualidadNinosPrivados || 0);
     const ingresosRedCuido = parseFloat(estado.mensualidadNinosRedCuido || 0);
@@ -110,8 +116,6 @@ function GastosGanancias() {
     await postGastos(datos);
     try {
       const response = await postGastos(datos); // Envía los datos al backend
-      console.log("Datos enviados");
-      console.log("Respuesta del backend");
     } catch (error) {
       console.error("Error al enviar datos:", error);
     }

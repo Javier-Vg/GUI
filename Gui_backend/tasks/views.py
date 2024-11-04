@@ -8,15 +8,17 @@ class TasksViewSet(viewsets.ModelViewSet):
     queryset = tasks.objects.all()
     serializer_class = Tasks_Serializer
     permission_classes = [IsAuthenticated]
-#Gui, Institutions, teacher
+
     def create(self, request):
+        #obtiene los datos y los crea  
         serializer = self.get_serializer(data=request.data)
         if serializer.is_valid():
             serializer.save()
             return Response(serializer.data, status=status.HTTP_201_CREATED)
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
-#Gui, Institutions, teacher y students
+
     def retrieve(self, request, pk=None):
+        #obtiene los datos 
         try:
             task_instance = self.get_object()
         except tasks.DoesNotExist:
@@ -25,10 +27,9 @@ class TasksViewSet(viewsets.ModelViewSet):
         serializer = self.get_serializer(task_instance)
         return Response(serializer.data, status=status.HTTP_200_OK)
 
-#Gui, Institutions, teacher
+
     def update(self, request, pk=None):
-        try:
-            task_instance = tasks.objects.get(pk=pk)
+        try:#actualiza los datos pormedio de la pk
             task_instance = tasks.objects.get(pk=pk)
         except tasks.DoesNotExist:
             return Response({"error": "Task not found"}, status=status.HTTP_404_NOT_FOUND)
@@ -38,28 +39,13 @@ class TasksViewSet(viewsets.ModelViewSet):
             serializer.save()
             return Response(serializer.data, status=status.HTTP_200_OK)
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
-#Gui, Institutions, teacher
+
     def destroy(self, request, pk=None):
+        #elimina los datos por medio de la pk
         try:
             task_instance = self.get_object()
             task_instance.delete()
             return Response({"message": "Task deleted successfully"}, status=status.HTTP_204_NO_CONTENT)
         except tasks.DoesNotExist:
             return Response({"error": "Task not found"}, status=status.HTTP_404_NOT_FOUND)
-
-
-
-
-
-#Gui, Institutions, teacher
-    def destroy(self, request, pk=None):
-        try:
-            task_instance = self.get_object()
-            task_instance.delete()
-            return Response({"message": "Task deleted successfully"}, status=status.HTTP_204_NO_CONTENT)
-        except tasks.DoesNotExist:
-            return Response({"error": "Task not found"}, status=status.HTTP_404_NOT_FOUND)
-
-
-
 

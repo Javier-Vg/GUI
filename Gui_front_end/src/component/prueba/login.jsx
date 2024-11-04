@@ -42,7 +42,6 @@ function Login2() {
 
       // Manejo de la respuesta
       setResponseMessage("Inicio Exitoso, por favor espere");
-      console.log(response.data);
       Cookies.set(
         "AuthCookie",
         response.data.token,
@@ -51,8 +50,7 @@ function Login2() {
       );
       const token = response.data.token;
       const decodedData = jwtDecode(token);
-      console.log("Datos decodificados:", decodedData); // Ver los datos decodificado
-
+      console.log("Datos decodificados:"); // Ver los datos decodificado
       if (decodedData.is_teacher == true || decodedData.is_staff == true || decodedData.staff == true) {
         setTimeout(() => navigate("/institutions"), 1000);
       } else if (decodedData.is_superuser == true) {

@@ -1,7 +1,120 @@
 .container-students {
-    height: 100vh;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    flex-direction: column;
-}
+    max-width: 600px;
+    margin: 0 auto;
+    padding: 2rem;
+    background: #fff;
+    border: 1px solid #e0e0e0;
+    border-radius: 8px;
+    overflow: auto;
+    height: 500px;
+  }
+  
+  /* Contenedor para cada grupo de label + input */
+  .container-students label {
+    display: block;
+    margin-bottom: 1.5rem;
+    width: 100%;
+    font-size: 0.9rem;
+    color: #333;
+  }
+  
+  /* Estilos para todos los inputs y selects */
+  .container-students input:not([type="file"]),
+  .container-students select {
+    display: block;
+    width: 100%;
+    margin-top: 0.5rem;
+    padding: 0.8rem;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    font-size: 1rem;
+    background: #fff;
+  }
+  
+  /* Estilo específico para input tipo file */
+  .container-students input[type="file"] {
+    display: block;
+    width: 100%;
+    margin-top: 0.5rem;
+    padding: 0.5rem;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+  }
+  
+  /* Focus states */
+  .container-students input:focus,
+  .container-students select:focus {
+    outline: none;
+    border-color: #000;
+  }
+  
+  /* Estilo para el mensaje del formulario */
+  .container-students div:has(formMessage) {
+    margin: 1rem 0;
+    padding: 1rem;
+    background: #f8f8f8;
+    border-radius: 4px;
+    color: #333;
+  }
+  
+  /* Botón de envío */
+  .container-students button {
+    width: 100%;
+    padding: 1rem 2rem;
+    background: #000;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    font-size: 1rem;
+    font-weight: 500;
+    cursor: pointer;
+    margin-top: 1rem;
+  }
+  
+  .container-students button:hover {
+    background: #333;
+  }
+  
+  /* Estilos para los select */
+  .container-students select {
+    appearance: none;
+    background-image: url("data:image/svg+xml;charset=UTF-8,%3csvg xmlns='http://www.w3.org/2000/svg' width='24' height='24' viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3e%3cpolyline points='6 9 12 15 18 9'%3e%3c/polyline%3e%3c/svg%3e");
+    background-repeat: no-repeat;
+    background-position: right 0.5rem center;
+    background-size: 1em;
+    padding-right: 2.5rem;
+  }
+  
+  /* Estilo para placeholder */
+  .container-students input::placeholder {
+    color: #999;
+  }
+  
+  /* Responsividad */
+  @media (max-width: 768px) {
+    .container-students {
+      margin: 1rem;
+      padding: 1rem;
+    }
+  
+    .container-students input,
+    .container-students select,
+    .container-students button {
+      font-size: 16px; /* Mejor para dispositivos móviles */
+    }
+  }
+  
+  /* Estilo opcional para campos requeridos */
+  .container-students label.required::after {
+    content: "*";
+    color: #000;
+    margin-left: 4px;
+  }
+
+
+  @media (max-width: 414px) {
+    .container-students {
+        height: 770px;
+        overflow: auto;
+    }
+  }

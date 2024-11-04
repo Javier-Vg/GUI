@@ -1,151 +1,153 @@
+
 import React, { useState, useEffect } from "react";
-import { getStudents, getMessages, sendMessage } from "../../service/LoginGui"; // Ajusta la ruta si es necesario
+import { getStudents, getMessages, sendMessage } from "../../service/LoginGui"; 
 import ChatBubbleIcon from '@mui/icons-material/ChatBubble';
 import SendIcon from '@mui/icons-material/Send';
 import Cookies from "js-cookie";
 import { jwtDecode } from "jwt-decode";
 import { useSelector } from "react-redux";
 import "../../css/chatProfesor.css";
+
 const ChatProfesor = () => {
-  const [selectedStudent, setSelectedStudent] = useState(null);
-  const [message, setMessage] = useState("");
-  const [messages, setMessages] = useState([]);
-  const [students, setStudents] = useState([]);
-  const [storedStaffId,setStaffID] = useState('');
-  const [storedInstitutionId, setInstitutionId] = useState('');
-  const [storedTeacherName,setNameTeacher] = useState('');
-  const searchTerm = useSelector((state) => state.search.searchTerm);
-
-  useEffect(() => {
-    // Extraer el token desde la cookie
-    const token = Cookies.get("AuthCookie");
-
+  //maneja los estados de mensajes,estudiantes,profesor instituciones
+const [selectedStudent, setSelectedStudent] = useState(null);
+const [message, setMessage] = useState("");
+const [messages, setMessages] = useState([]);
+const [studentsAll, setStudentsAll] = useState([]);
+const [students, setStudents] = useState([]);
+const [storedStaffId, setStaffID] = useState('');
+const [storedInstitutionId, setInstitutionId] = useState('');
+const [storedTeacherName, setNameTeacher] = useState('');
+const searchTerm = useSelector((state) => state.search.searchTerm);
+//manejamos la cokies
+useEffect(() => {
+    const token = Cookies.get("AuthCookie");//trae todos los datos de la cokies
     if (token) {
       try {
-        // Desencriptar el token
-        const decodedToken = jwtDecode(token);
-        const institutionIdFromToken = decodedToken.info.institution;
-        const NameTeacher = decodedToken.info.username;
-        const staffID = decodedToken.info.id;
-        setNameTeacher(NameTeacher)
-        setStaffID(staffID)
-        setInstitutionId(institutionIdFromToken);
+        //Desencriptar el token 
+        const { info: { institution, username, id } } = jwtDecode(token);
+        setInstitutionId(institution); //guarda el id institucion
+        setNameTeacher(username);//guarda el nameTeacher
+        setStaffID(id); // guarda el idStaff
       } catch (error) {
-        console.error("Error al decodificar el token", error);
+        console.error("Error decoding token", error);
       }
     }
   }, []);
 
-  useEffect(() => {        
+
+useEffect(() => {        
     const fetchStudents = async () => {
       try {
+        //extraemos todos los estudiantes
         const allStudents = await getStudents();
-        const filteredStudents = allStudents.filter(
-          (student) => student.institution === storedInstitutionId
-        );
-        setStudents(filteredStudents);
+        //filtramos los estudiantes que pertenecen a la institución actual
+        setStudentsAll(allStudents.filter(student => student.institution === storedInstitutionId));
       } catch (error) {
-        console.error("Error al cargar los estudiantes:", error);
+        console.error("Error loading students", error);
       }
     };
-
     fetchStudents();
   }, [storedInstitutionId]);
 
-  const fetchMessages = async () => {
-    try {
-      const allMessages = await getMessages();
-      
-      setMessages(allMessages);
-    } catch (error) {
-      console.error("Error al cargar los mensajes:", error);
-    }
-  };
+// Este useEffect se activa cuando cambia `studentsAll` o `searchTerm`.
+// Filtra los estudiantes de la institución según el término de búsqueda ingresado
+// es el filtro de busqueda del nav
+useEffect(() => {
+    setStudents(studentsAll.filter(student =>
+      student.username.toLowerCase().includes(searchTerm.toLowerCase())
+    ));
+  }, [studentsAll, searchTerm]);
 
-
-  useEffect(() => {
+// Este useEffect se activa cuando cambia `selectedStudent`.
+// Establece un intervalo que actualiza los mensajes cada 5 segundos si hay un estudiante seleccionado
+useEffect(() => {
     if (selectedStudent) {
-      fetchMessages();
-
-      const interval = setInterval(fetchMessages, 5000); 
-      return () => clearInterval(interval); // Limpia el intervalo al desmontar
+      const interval = setInterval(fetchMessages, 5000);
+      return () => clearInterval(interval);
     }
   }, [selectedStudent]);
 
-
-  const handleSendMessage = async () => {
-    if (message.trim() && selectedStudent && storedStaffId) {
-      const newMessage = {
-        message,
-        staff: storedStaffId,
-        students: selectedStudent,
-        institution: storedInstitutionId,
-        date: new Date().toISOString(),
-        name: storedTeacherName,
-      };
-
-      try {
-        const savedMessage = await sendMessage(newMessage);
-        setMessages((prevMessages) => [
-          ...prevMessages,
-          { ...savedMessage, transmitterName: storedTeacherName || "Profesor" },
-        ]);
-        setMessage("");
-      } catch (error) {
-        console.error("No se pudo enviar el mensaje", error);
-      }
-    } else {
-      // alert("Por favor, selecciona un estudiante y escribe un mensaje.");
+// Función para obtener los mensajes del chat
+const fetchMessages = async () => {
+    try {
+      //obtiene todos los mensajes del backend
+      setMessages(await getMessages());
+    } catch (error) {
+      console.error("Error loading messages", error);
     }
   };
 
-  // Filtrado de mensajes por estudiante seleccionado
-  const filteredMessages = selectedStudent
-    ? messages.filter(
-        (msg) =>
-          msg.students=== selectedStudent &&
-          msg.institution === storedInstitutionId &&
-          msg.staff === storedStaffId
+// Función para manejar el envío de mensajes
+const handleSendMessage = async () => {
+   // Solo envía el mensaje si `message`, `selectedStudent` y `storedStaffId` tienen valores
+    if (message.trim() && selectedStudent && storedStaffId) {
+      try {
+      // Crea un nuevo mensaje con el texto, ID del profesor, estudiante seleccionado, institución, fecha y nombre del profesor
+        const newMessage = {
+          message,
+          staff: storedStaffId,
+          students: selectedStudent,
+          institution: storedInstitutionId,
+          date: new Date().toISOString(),
+          name: storedTeacherName,
+        };
+        const savedMessage = await sendMessage(newMessage);// Envía el mensaje al servidor
+        // Agrega el mensaje enviado a la lista de mensajes y borra el texto en el campo de entrada
+        setMessages(prevMessages => [...prevMessages, { ...savedMessage, transmitterName: storedTeacherName || "Profesor" }]);
+        setMessage("");
+      } catch (error) {
+        console.error("Failed to send message", error);// Muestra un error si falla el envío
+      }
+    }
+};
+// Filtra los mensajes para mostrar solo los del estudiante seleccionado, en la misma institución y enviados por el profesor actual
+const filteredMessages = selectedStudent 
+    ? messages.filter(msg =>
+        msg.students === selectedStudent && 
+        msg.institution === storedInstitutionId &&
+        msg.staff === storedStaffId
       )
     : [];
 
   return (
-    
-    <div className="div-profesor-messeges">
+    <div className="chatP-profesor-container">
       {/* Lista de estudiantes con imágenes */}
-      <div className="chat-bubbles-container-staff">
-        {students.map((student) => (
-          <div
-            key={student.id}
-            className="student-bubble"
-            onClick={() => {
-              setSelectedStudent(student.id);
-              fetchMessages();
-            }}
-          >
-            <img
-              src={student.imagen_url}
-              alt={`${student.name} profile`}
-              className="student-photo"
-            />
-            <p className="nombre-estudiante">{student.username}</p>
-          </div>
-          
-        ))}
+      <div className="div-chatP-bubbles-container-students">
+        <div className="chatP-bubbles-container-students">
+          {students.map((student) => (
+            <div
+              key={student.id}
+              className="student-bubble"
+              onClick={() => {
+                setSelectedStudent(student.id);
+                fetchMessages();
+              }}
+            >
+              <img
+                src={student.imagen_url}
+                alt={`${student.name} profile`}
+                className="student-photo"
+              />
+              <p className="nombre-estudiante">{student.username}</p>
+            </div>
+          ))}
+        </div>
       </div>
 
       {/* Contenedor del chat */}
-      <div className="chat-container">
+      <div className="chatP-container">
         {/* Mostrar los mensajes filtrados */}
-        <div className="messages-container">
+        <div className="messages-container-chatP">
           {filteredMessages.length > 0 ? (
             filteredMessages.map((msg, index) => (
               <div 
                 key={index}
-                className={`message-profesor ${
-                  msg.name === storedTeacherName ? "sent-profesor" : "received-profesor"
+                className={`message-chatP ${
+                  msg.name === storedTeacherName ? "sent-chatP" : "received-chatP"
                 }`}
-              ><ChatBubbleIcon/>
+              >
+                <ChatBubbleIcon />
                 <strong>{msg.name}:</strong> {msg.message}
               </div>
             ))
@@ -155,21 +157,18 @@ const ChatProfesor = () => {
         </div>
 
         {/* Input para enviar un mensaje */}
-       
       </div>
-      <div className="send-message-container">
-      
+      <div className="send-message-container-chatP">
           <textarea 
             value={message}
             onChange={(e) => setMessage(e.target.value)}
             placeholder="Escribe tu mensaje aquí"
-            className="message-input"
+            className="message-input-chatP"
           />
-        
-        </div>
-        <button onClick={handleSendMessage} className="send-button-profesor">
-       < SendIcon/>
+          <button onClick={handleSendMessage} className="send-button-chatP">
+            <SendIcon />
           </button>
+        </div>
     </div>
   );
 };

@@ -1,0 +1,238 @@
+.event-container-event {
+    display: flex;
+    flex-direction: column;
+    align-items: center; /* Centra horizontalmente */
+    justify-content: center; /* Centra verticalmente */
+    padding: 20px;
+    gap: 5px; /* Separación de 5px entre elementos */
+  }
+  
+  .event-title-event {
+    text-align: center;
+    margin-bottom: 10px;
+  }
+  
+  .evento-list-container2 {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+    overflow: auto !important;
+  }
+  
+  .event-list-event {
+    list-style-type: none;
+    padding: 0;
+    display: grid;
+    grid-template-columns: repeat(4, 1fr); /* 4 columnas de igual ancho */
+    gap: 5px; /* Separación de 5px entre elementos */
+
+    
+  }
+  
+  
+.event-ite-event {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  background-color: #1d318b;
+  box-shadow: 4px 4px 10px rgba(0, 0, 0, 0.4); /* Sombra para el efecto 3D */
+  transform: translateY(-2px); /* Eleva el elemento un poco para dar un efecto flotante */
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+.event-ite-event:hover {
+    transform: translateY(-6px); /* Eleva el cuadro un poco más */
+    box-shadow: 6px 6px 15px rgba(0, 0, 0, 0.6); /* Sombra más pronunciada */
+    background-color: #2845ba; /* Color de fondo ligeramente más claro al pasar el mouse */
+  }
+
+
+  
+  .date-letras-event,
+  .name-event-event,
+  .event-description-event {
+    text-align: center;
+    margin: 5px 0;
+    background-color: #1d318b;
+    color: white;
+    padding: 5px;
+    border-radius: 3px;
+    transition: transform 0.3s ease, box-shadow 0.3s ease; /* Transición suave */
+    border-radius: 5rem;
+  }
+  
+  .date-letras-event:hover,
+  .name-event-event:hover,
+  .event-description-event:hover {
+    transform: translateY(-3px); 
+    box-shadow: 4px 4px 8px rgba(0, 0, 0, 0.5); /* Sombra más pronunciada */
+    background-color: #2845ba; /* Color de fondo ligeramente más claro al pasar el mouse */
+    border-radius: 5rem;
+    
+  }
+  
+.event-header-event{
+    background-color: #1d318b;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+
+}
+.event-header-event:hover{
+    /* transform: translateY(-3px); */
+    
+    box-shadow: 4px 4px 8px rgba(0, 0, 0, 0.5); /* Sombra más pronunciada */
+    background-color: #2845ba;
+
+}
+
+
+.container-events-create {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    padding: 20px;
+    margin: 0 auto;
+    max-width: 500px;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    margin-top: 12rem;
+  }
+  
+
+ form {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    width: 100%;
+  }
+  
+  
+  .label-event-create-name,
+  .label-event-create-date,
+  .label-event-create-description {
+    font-weight: bold;
+    margin-bottom: 5px;
+    color: #333;
+  }
+   
+
+  .type-text-event,
+  .input-date-event {
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    font-size: 1rem;
+    width: 100%;
+    box-sizing: border-box;
+  }
+  
+ 
+  .type-text-event:focus,
+  .input-date-event:focus {
+    border-color: #1d318b;
+    outline: none;
+  }
+   
+
+  .button-event-create-create {
+    padding: 12px;
+    font-size: 1rem;
+    color: white;
+    background-color: #1d318b;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+  }
+  
+  .button-event-create-create:hover {
+    background-color: #15246b;
+  }
+  
+  .button-event-create-create:disabled {
+    background-color: #ccc;
+    cursor: not-allowed;
+  }
+
+  @media (max-width: 768px) {
+    .event-list-event {
+        grid-template-columns: repeat(2, 1fr); /* 2 columnas en pantallas más pequeñas */
+    }
+
+    .container-events-create {
+        padding: 10px; /* Menos padding en dispositivos móviles */
+        margin-top: 5rem; /* Menos margen superior */
+    }
+
+    .button-event-create-create {
+        padding: 10px; /* Botón más pequeño en móviles */
+    }
+}
+
+@media (max-width: 480px) {
+    .event-list-event {
+        grid-template-columns: 1fr; /* 1 columna en dispositivos muy pequeños */
+    }
+
+    .event-ite-event {
+        padding: 8px; /* Menos padding en elementos de evento */
+    }
+
+    .type-text-event,
+    .input-date-event {
+        font-size: 0.9rem; /* Tamaño de fuente más pequeño en móviles */
+    }
+
+    .label-event-create-name,
+    .label-event-create-date,
+    .label-event-create-description {
+        font-size: 0.9rem; /* Tamaño de fuente más pequeño en etiquetas */
+    }
+}
+
+  
+
+
+
+
+
+/* .event-container {
+    display: flex;             
+    flex-direction: column;     
+    justify-content: center;    
+    align-items: center;        
+    /* display: grid; */
+    /* padding: 9rem;
+     */
+    /* height: 80vh;   */
+     
+    /* background-color: rgb(255, 255, 255);  */
+           /* O cualquier altura que desees */
+/* } */ 
+
+/* 
+.evento-list-container2{
+    overflow: auto;
+   margin-top: 5rem;
+    background-color: red
+
+}
+.event-item{
+    margin-top: 3rem;
+    height: 10rem;
+    width: 140rem;
+    display: flex; 
+    flex-direction: row; 
+    justify-content: flex-start; 
+    align-items: center;
+    gap: 10px;
+
+}
+
+.event-title{
+    margin-top: 5rem;
+} */

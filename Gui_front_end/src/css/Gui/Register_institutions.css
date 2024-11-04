@@ -4,7 +4,7 @@
     justify-content: center;
     align-items: center;
     flex-direction: column;
-    background-color: #f0f0f0;
+    background-color: white;
     overflow: hidden; /* Evitar overflow no deseado en pantallas grandes */
 }
 
@@ -24,6 +24,7 @@
 }
 
 .container-inputs-createInst {
+    background-color: transparent !important;
     display: flex;
     flex-wrap: wrap;
     justify-content: center; /* Centrado de inputs */
@@ -32,6 +33,7 @@
 }
 
 .divsInputs-createInst {
+    background-color: transparent !important;
     display: flex;
     flex-direction: column;
     width: calc(50% - 10px);
@@ -49,7 +51,7 @@
     padding: 10px;
     border: none;
     border-bottom: 2px solid #ccc;
-    background-color: #fff;
+    background-color: #ffffff00;
     font-size: 1rem;
     color: #333;
     outline: none;
