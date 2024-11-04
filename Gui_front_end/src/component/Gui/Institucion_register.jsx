@@ -13,13 +13,16 @@ function Institucion_register() {
   const [email, setEmail] = useState("");
   const [date, setDate] = useState("");
   const [password, setPassword] = useState("");
+  const [msgAlert, setmsgAlert] = useState("");
+  //[Todos los de arriba de obtienen los datos de los inputs]
   const [file, setFile] = useState(null); // Estado para la imagen
   const [monthly_payent, setMonthly_payent] = useState(""); // Estado para la imagen
   const send_data = async (e) => {
     e.preventDefault();
+    //evita que recargue la pagina
   
-    if (!file) {
-      alert("Por favor selecciona una imagen.");
+    if (!file) {//verifica que la imagen extsa, si no exitse una le dice que seleccione una
+      setmsgAlert("Por favor selecciona una imagen.");
       return;
     }
     try {
@@ -32,11 +35,14 @@ function Institucion_register() {
         method: "POST",
         body: formData,
       });
-  
+      //convierte la data en json para poder leerlo
       const data = await response.json();
       const imageUrl = data.image_url; // URL de la imagen devuelta por el backend
       await postInstitutions(username, address, estado, subscriptionType, phoneNumber, email, imageUrl,monthly_payent,password);
+      setmsgAlert("Datos enviados correctamente")
+      //envia todos los datos
     } catch (error) {
+      setmsgAlert("Error al subir la imagen:")
       console.error("Error al subir la imagen:", error);
     }
   };
@@ -174,8 +180,10 @@ function Institucion_register() {
             required
           />
         </div>
+        <h5>{msgAlert}</h5>
       </div>
       <input className='inp-submit-createInst' onClick={send_data} type="submit" value="Guardar" />
+
     </div>
   </>
   );

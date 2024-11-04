@@ -1,5 +1,15 @@
 services:
 
+  # react:
+  #   container_name: gui_front_end
+  #   image: gui_front_end
+  #   build:
+  #     context: ./Gui_front_end
+  #   volumes:
+  #     - ./Gui_front_end:/app
+  #     - /app/node_modules
+  #   ports:
+  #     - "5173:5173"
   app:
     container_name: gui_front_end
     image: gui_front_end:prod

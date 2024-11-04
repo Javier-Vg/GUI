@@ -156,7 +156,8 @@ aside::-webkit-scrollbar-thumb{
     border-bottom: 1px solid var(--border-color);
     padding: 10px 1px;
     color: var(--text-color);
-    background-color: #801515;
+    background-color: #ffffff;
+    color: #1d318b;
 }
 .container-svg div{
     display: flex;
@@ -164,7 +165,7 @@ aside::-webkit-scrollbar-thumb{
     width: 100%;
     padding: 10px 20px;
     cursor: pointer;
-    background-color: #801515;
+    background-color: #ffffff;
 }
 .div_components_institutions{
   background-color: red;

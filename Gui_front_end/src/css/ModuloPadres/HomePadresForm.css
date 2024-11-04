@@ -114,6 +114,7 @@
     cursor: pointer;
     transition: background-color 0.2s ease;
     margin-top: 68vh;
+    background-color: rgba(255, 0, 0, 0.841);
 }
 
 .padresh-logout-button:hover {

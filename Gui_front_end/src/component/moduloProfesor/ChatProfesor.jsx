@@ -1,6 +1,6 @@
 
 import React, { useState, useEffect } from "react";
-import { getStudents, getMessages, sendMessage } from "../../service/LoginGui"; // Ajusta la ruta si es necesario
+import { getStudents, getMessages, sendMessage } from "../../service/LoginGui"; 
 import ChatBubbleIcon from '@mui/icons-material/ChatBubble';
 import SendIcon from '@mui/icons-material/Send';
 import Cookies from "js-cookie";
@@ -9,36 +9,39 @@ import { useSelector } from "react-redux";
 import "../../css/chatProfesor.css";
 
 const ChatProfesor = () => {
-  const [selectedStudent, setSelectedStudent] = useState(null);
-  const [message, setMessage] = useState("");
-  const [messages, setMessages] = useState([]);
-  const [studentsAll, setStudentsAll] = useState([]);
-  const [students, setStudents] = useState([]);
-  const [storedStaffId, setStaffID] = useState('');
-  const [storedInstitutionId, setInstitutionId] = useState('');
-  const [storedTeacherName, setNameTeacher] = useState('');
-  const searchTerm = useSelector((state) => state.search.searchTerm);
-
-  // Extract and decode token on initial load
-  useEffect(() => {
-    const token = Cookies.get("AuthCookie");
+  //maneja los estados de mensajes,estudiantes,profesor instituciones
+const [selectedStudent, setSelectedStudent] = useState(null);
+const [message, setMessage] = useState("");
+const [messages, setMessages] = useState([]);
+const [studentsAll, setStudentsAll] = useState([]);
+const [students, setStudents] = useState([]);
+const [storedStaffId, setStaffID] = useState('');
+const [storedInstitutionId, setInstitutionId] = useState('');
+const [storedTeacherName, setNameTeacher] = useState('');
+const searchTerm = useSelector((state) => state.search.searchTerm);
+//manejamos la cokies
+useEffect(() => {
+    const token = Cookies.get("AuthCookie");//trae todos los datos de la cokies
     if (token) {
       try {
+        //Desencriptar el token 
         const { info: { institution, username, id } } = jwtDecode(token);
-        setInstitutionId(institution);
-        setNameTeacher(username);
-        setStaffID(id);
+        setInstitutionId(institution); //guarda el id institucion
+        setNameTeacher(username);//guarda el nameTeacher
+        setStaffID(id); // guarda el idStaff
       } catch (error) {
         console.error("Error decoding token", error);
       }
     }
   }, []);
 
-  // Fetch and filter students by institution
-  useEffect(() => {
+
+useEffect(() => {        
     const fetchStudents = async () => {
       try {
+        //extraemos todos los estudiantes
         const allStudents = await getStudents();
+        //filtramos los estudiantes que pertenecen a la institución actual
         setStudentsAll(allStudents.filter(student => student.institution === storedInstitutionId));
       } catch (error) {
         console.error("Error loading students", error);
@@ -47,32 +50,36 @@ const ChatProfesor = () => {
     fetchStudents();
   }, [storedInstitutionId]);
 
-  // Filter students by search term
-  useEffect(() => {
+// Este useEffect se activa cuando cambia `studentsAll` o `searchTerm`.
+// Filtra los estudiantes de la institución según el término de búsqueda ingresado
+// es el filtro de busqueda del nav
+useEffect(() => {
     setStudents(studentsAll.filter(student =>
       student.username.toLowerCase().includes(searchTerm.toLowerCase())
     ));
   }, [studentsAll, searchTerm]);
 
-  // Fetch messages for selected student every 5 seconds
-  useEffect(() => {
+// Este useEffect se activa cuando cambia `selectedStudent`.
+// Establece un intervalo que actualiza los mensajes cada 5 segundos si hay un estudiante seleccionado
+useEffect(() => {
     if (selectedStudent) {
       const interval = setInterval(fetchMessages, 5000);
       return () => clearInterval(interval);
     }
   }, [selectedStudent]);
 
-  // Fetch messages
-  const fetchMessages = async () => {
+// Función para obtener los mensajes del chat
+const fetchMessages = async () => {
     try {
+      //obtiene todos los mensajes del backend
       setMessages(await getMessages());
     } catch (error) {
       console.error("Error loading messages", error);
     }
   };
 
-  // Send message to selected student
-  const handleSendMessage = async () => {
+
+const handleSendMessage = async () => {
     if (message.trim() && selectedStudent && storedStaffId) {
       try {
         const newMessage = {
@@ -92,8 +99,8 @@ const ChatProfesor = () => {
     }
   };
 
-  // Filter messages for selected student
-  const filteredMessages = selectedStudent 
+
+const filteredMessages = selectedStudent 
     ? messages.filter(msg =>
         msg.students === selectedStudent &&
         msg.institution === storedInstitutionId &&

@@ -26,7 +26,9 @@ function ListInstitutions() {
           from_email: userEmail,
           mensaje: message,
           subject: subject,
-      };
+      }; 
+      //obtiene los datos de el input y el email se le trae como valor
+      //cuando se selecciona la institución para saber a que email enviar el correo
   
       const token = Cookies.get("AuthCookie");
   
@@ -41,7 +43,7 @@ function ListInstitutions() {
                   },
               }
           );
-  
+          //envia el correo a ese endpoint para que en el backend envia el email
           if (response.status === 200) {
               setStatusMessage("Correo enviado exitosamente!");
               setSubject('');
@@ -49,6 +51,7 @@ function ListInstitutions() {
               setMessage('');
               setUserEmail('');
               setUserName('');
+              // Resetear los valores del formulario cuando se envía el correo
           }
       } catch (error) {
           setStatusMessage("Error al enviar el correo. Verifica la consola para más detalles.");
@@ -60,6 +63,7 @@ function ListInstitutions() {
       getInstitutionsData();
     }, []);
 
+    //trae los datos y los setea en una constante
     const getInstitutionsData = async () => {
       try {
         const institutions = await getInstitutions();
@@ -68,7 +72,8 @@ function ListInstitutions() {
         console.error("Error fetching institutions:", error);
       }
     };
-
+    //abre el modal cuando en boton se toca y capia los datos otras constantes para
+    //hace el edit de la institucion
     const openModal = (institution) => {
       setSelectedInstitution(institution);
       setEditingInstitution({ ...institution });
@@ -80,6 +85,7 @@ function ListInstitutions() {
       setSeeMore2(true);
     };
 
+    //cierra el modal
     const closeModal = () => {
       setSeeMore(false);
       setSelectedInstitution(null);
@@ -94,6 +100,7 @@ function ListInstitutions() {
       }));
     };
 
+    //guarda los cambios en la API dependiendo de la institucion que se selecciono por medio de el ID
     const handleSaveChanges = async () => {
       try {
         console.log("Enviando cambios a la API");
