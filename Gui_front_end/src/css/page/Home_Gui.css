@@ -77,7 +77,7 @@ h2 {
 
 /* Sidebar en formato vertical (escritorio) */
 #aside{
-    background-color: #ffffff!important;
+    background-color: #ffffff;
 }
 #GuiHome-aside {
     background-color: var(--items-color);

@@ -114,6 +114,7 @@ function StudentsTeacher() {
   <h1 className="student-title">Estudiantes</h1>
   <p className="student-description">Total de estudiantes que reciben sus clases:</p>
   
+  {/* Muestra los estudiantes que estan en algun grupo del profesor */}
   {Student && (
     <div className="student-svg-wrapper">
       {Student.length === 0 ? (

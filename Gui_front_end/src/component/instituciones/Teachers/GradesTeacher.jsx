@@ -61,7 +61,6 @@ function GradesTeacher() {
     setIsOpenRegistro(false);
   }
 
-
   const [isOpen, setIsOpen] = useState(false);
 
   //Crea el objeto con la vinculacion de la nota y asignaturas:
@@ -157,19 +156,20 @@ function GradesTeacher() {
       if (isTeacherGroup) {
         for (const assignment of itemsAssignmentG) {
           if (assignment.group === group.id) {
+            //Filtra por si el id de estudiante y el id de la asignacion de estudiante, si cumple este lo añade.
             const student = itemsStudent.find(
               (s) => s.id === assignment.student
             );
             
             if (student) {
-              tempStudents.push({ ...student, group: group });
+              tempStudents.push({ ...student, group: group }); //Guarda el el objeto con el estudiante y grupo correspondiente en el array.
             };
           };
         };
       };
     };
     
-    setStudentsWithGroups(tempStudents);
+    setStudentsWithGroups(tempStudents); //Setea el estado que guarda los estados 
   }, [itemsGroups, itemsAssignmentG, itemsStudent, NameTeacher]);
   
   // Manejar cambios en los inputs

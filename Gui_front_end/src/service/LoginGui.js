@@ -2,6 +2,7 @@ import axios from "axios";
 const domain = window.location.hostname;
 
 function getTokenFromCookie() {
+  
   const cookies = document.cookie.split("; ");
   for (let cookie of cookies) {
     const [cookieName, cookieValue] = cookie.split("=");
@@ -616,6 +617,40 @@ export const PostEvento = async (eventData) => {
     throw error;
   }
 };
+
+
+export const PostSchedule = async (scheduleData) => {
+  const token = Cookies.get('AuthCookie');
+  const institutionId = token ? jwtDecode(token).info.institution : null;
+
+  if (!institutionId) {
+    console.error("No se pudo obtener la institución desde el token.");
+    return;
+  }
+  
+  try {
+    const response = await axios.post(
+    `http://${domain}:8000/api/schedule/schedule/`,
+      scheduleData,
+      {
+        headers: {
+          'Authorization': `Bearer ${token}`, // Añadir el token para autenticación si es necesario
+          'Content-Type': 'application/json',
+        },
+      }
+    );
+
+    if (response.status === 201) {
+      console.log("Horario creado exitosamente:", response.data);
+    } else {
+      console.error("Error al crear el horario:", response.statusText);
+    }
+  } catch (error) {
+    console.error("Error en la solicitud:", error);
+  }
+};
+
+
 export const GetEventos = async (institutionId) => {
   const token = getTokenFromCookie(); // Obtener el token de la cookie
   try {
@@ -634,3 +669,5 @@ export const GetEventos = async (institutionId) => {
     throw error; // Lanza el error para que pueda ser manejado donde se llame
   }
 };
+
+

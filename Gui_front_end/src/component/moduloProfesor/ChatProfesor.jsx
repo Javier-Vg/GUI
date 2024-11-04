@@ -78,10 +78,12 @@ const fetchMessages = async () => {
     }
   };
 
-
+// Función para manejar el envío de mensajes
 const handleSendMessage = async () => {
+   // Solo envía el mensaje si `message`, `selectedStudent` y `storedStaffId` tienen valores
     if (message.trim() && selectedStudent && storedStaffId) {
       try {
+      // Crea un nuevo mensaje con el texto, ID del profesor, estudiante seleccionado, institución, fecha y nombre del profesor
         const newMessage = {
           message,
           staff: storedStaffId,
@@ -90,19 +92,19 @@ const handleSendMessage = async () => {
           date: new Date().toISOString(),
           name: storedTeacherName,
         };
-        const savedMessage = await sendMessage(newMessage);
+        const savedMessage = await sendMessage(newMessage);// Envía el mensaje al servidor
+        // Agrega el mensaje enviado a la lista de mensajes y borra el texto en el campo de entrada
         setMessages(prevMessages => [...prevMessages, { ...savedMessage, transmitterName: storedTeacherName || "Profesor" }]);
         setMessage("");
       } catch (error) {
-        console.error("Failed to send message", error);
+        console.error("Failed to send message", error);// Muestra un error si falla el envío
       }
     }
-  };
-
-
+};
+// Filtra los mensajes para mostrar solo los del estudiante seleccionado, en la misma institución y enviados por el profesor actual
 const filteredMessages = selectedStudent 
     ? messages.filter(msg =>
-        msg.students === selectedStudent &&
+        msg.students === selectedStudent && 
         msg.institution === storedInstitutionId &&
         msg.staff === storedStaffId
       )

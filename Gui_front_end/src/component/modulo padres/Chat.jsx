@@ -7,6 +7,7 @@ import ChatBubbleIcon from "@mui/icons-material/ChatBubble";
 import SendIcon from "@mui/icons-material/Send";
 
 const Chat = () => {
+  //manejadores de estados
   const [selectedMember, setSelectedMember] = useState("");
   const [message, setMessage] = useState("");
   const [messages, setMessages] = useState([]);
@@ -50,8 +51,8 @@ const Chat = () => {
     };
 
     fetchStaff();
-  }, [storedInstitutionId]);
-
+  }, [storedInstitutionId]);// Dependencia: se ejecuta cuando cambia `storedInstitutionId`
+ // Carga los mensajes para el miembro del staff seleccionado
   const fetchMessages = async (memberId) => {
     try {
       const allMessages = await getMessages();
@@ -72,6 +73,7 @@ const Chat = () => {
   }, [selectedMember]);
 
   const handleSendMessage = async () => {
+     // Comprueba si el mensaje, miembro seleccionado y estudiante están definidos
     if (message.trim() && selectedMember && storedStudent) {
       const newMessage = {
         message,
@@ -88,7 +90,7 @@ const Chat = () => {
           ...prevMessages,
           { ...savedMessage, transmitterName: storedTeacherName || "Profesor" },
         ]);
-        setMessage("");
+        setMessage("");// Limpia el mensaje después de enviarlo
       } catch (error) {
         console.error("No se pudo enviar el mensaje", error);
         alert("Error al enviar el mensaje. Intenta nuevamente.");
@@ -97,6 +99,7 @@ const Chat = () => {
       alert("Por favor, selecciona un miembro del staff y escribe un mensaje.");
     }
   };
+  // Filtrado de mensajes por miembro seleccionado, institución y estudiante
   const filteredMessages = selectedMember
     ? messages.filter(
         (msg) =>

@@ -2,6 +2,8 @@ import React, { useState } from 'react';
 import axios from 'axios';
 import Cookies from 'js-cookie';
 import {jwtDecode} from 'jwt-decode';
+import '../../css/Institutions/createSchedule.css';
+import { PostSchedule } from '../../service/LoginGui';
 const domain = window.location.hostname;
 const ScheduleForm = () => {
   const [startTime, setStartTime] = useState('');
@@ -14,11 +16,6 @@ const ScheduleForm = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-
-    if (!institutionId) {
-      console.error("No se pudo obtener la institución desde el token.");
-      return;
-    }
 
     const scheduleData = {
       institution: institutionId,
@@ -50,38 +47,41 @@ const ScheduleForm = () => {
   };
 
   return (
-    <form onSubmit={handleSubmit}>
-      <label>
+    <form className='form-schedule' onSubmit={handleSubmit}>
+      <label className='label-schedule'>
         Hora de inicio:
         <input
           type="time"
           value={startTime}
           onChange={(e) => setStartTime(e.target.value)}
+          className='input-schedule'
           required
         />
       </label>
 
-      <label>
+      <label className='label-schedule'>
         Hora de fin:
         <input
           type="time"
           value={endTime}
+          className='input-schedule'
           onChange={(e) => setEndTime(e.target.value)}
           required
         />
       </label>
 
-      <label>
+      <label className='label-schedule'>
         Días (ejemplo: Lunes, Miércoles, Viernes):
         <input
           type="text"
+          className='input-schedule'
           value={days}
           onChange={(e) => setDays(e.target.value)}
           required
         />
       </label>
 
-      <button type="submit">Crear Horario</button>
+      <button className='bttnn-schedule' type="submit">Crear Horario</button>
     </form>
   );
 };

@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import axios from 'axios';
 import Cookies from 'js-cookie';
 import {jwtDecode} from 'jwt-decode';
+import '../../css/Institutions/CreateContracts.css'
 const domain = window.location.hostname;
 const CreateContract = () => {
   const [contractType, setContractType] = useState('');
@@ -52,49 +53,54 @@ const CreateContract = () => {
   };
 
   return (
-    <form onSubmit={handleSubmit}>
-      <label>
-        Tipo de Contrato:
-        <input
-          type="text"
-          value={contractType}
-          onChange={(e) => setContractType(e.target.value)}
-          required
-        />
+    <form onSubmit={handleSubmit} className="contract-form">
+      <label className="form-label">
+          Tipo de Contrato:
+          <input
+              type="text"
+              value={contractType}
+              onChange={(e) => setContractType(e.target.value)}
+              required
+              className="form-input"
+          />
       </label>
 
-      <label>
-        Fecha de Inicio:
-        <input
-          type="date"
-          value={startDate}
-          onChange={(e) => setStartDate(e.target.value)}
-          required
-        />
+      <label className="form-label">
+          Fecha de Inicio:
+          <input
+              type="date"
+              value={startDate}
+              onChange={(e) => setStartDate(e.target.value)}
+              required
+              className="form-input"
+          />
       </label>
 
-      <label>
-        Fecha de Fin:
-        <input
-          type="date"
-          value={endDate}
-          onChange={(e) => setEndDate(e.target.value)}
-          required
-        />
+      <label className="form-label">
+          Fecha de Fin:
+          <input
+              type="date"
+              value={endDate}
+              onChange={(e) => setEndDate(e.target.value)}
+              required
+              className="form-input"
+          />
       </label>
 
-      <label>
-        Salario:
-        <input
-          type="number"
-          value={salary}
-          onChange={(e) => setSalary(e.target.value)}
-          required
-        />
+      <label className="form-label">
+          Salario:
+          <input
+              type="number"
+              value={salary}
+              onChange={(e) => setSalary(e.target.value)}
+              required
+              className="form-input"
+          />
       </label>
 
-      <button type="submit">Crear Contrato</button>
-    </form>
+      <button type="submit" className="submit-button">Crear Contrato</button>
+  </form>
+
   );
 };
 

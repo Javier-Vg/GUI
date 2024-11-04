@@ -42,7 +42,6 @@ const ManageSubjects = () => {
         // Desencriptar el token
         const decodedToken = jwtDecode(token);
 
-
         // Extraer el institution_id desde el token
         const institutionIdFromToken = decodedToken.info.institution;
          
@@ -91,6 +90,7 @@ const ManageSubjects = () => {
                 <button onClick={openModal} className='btn-materias'>Ver materias registradas</button>
             </div>
 
+            {/* Props de modal que toda de refencia  */}
             <MyModal ref={modalRef}>
                 
                   <div className="modal">

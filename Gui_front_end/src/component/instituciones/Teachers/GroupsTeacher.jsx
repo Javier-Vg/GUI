@@ -37,7 +37,7 @@ function ListGroups() {
   const [nameTeacher, setNameTeacher] = useState("");
   const [teacherId, setTeacherId] = useState("");
 
-  const closeModal = () => {
+  const closeModal = () => { //Cierra el modal
     setAttendance({});
     setSeeMore(null);
   };
