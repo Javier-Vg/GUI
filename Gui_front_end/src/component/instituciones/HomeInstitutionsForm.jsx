@@ -73,6 +73,7 @@ function HomeInstitutionsForm() {
     }
   }, [navigate]);
 
+  //Lo lleva al login en caso de que cierre sesion.
   const Logout = async () => {
     navigate("/login");
   };

@@ -17,6 +17,14 @@ const ScheduleForm = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
 
+    const token = Cookies.get('AuthCookie');
+    const institutionId = token ? jwtDecode(token).info.institution : null;
+
+    if (!institutionId) {
+      console.error("No se pudo obtener la institución desde el token.");
+      return;
+    }
+
     const scheduleData = {
       institution: institutionId,
       start_time: startTime,
