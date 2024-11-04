@@ -46,7 +46,6 @@ function ListaEventos() {
       
     }
   }, [institutionId]);
-  console.log("eventosf",eventos);eventos
 
   const eventosFiltrados = eventos.filter(evento => evento.institution === institutionId);
   

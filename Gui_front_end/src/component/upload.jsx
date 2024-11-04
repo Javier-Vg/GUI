@@ -30,7 +30,6 @@ function ImageUploader() {
 
           const data = await response.json();
           setResponseJson(data); // Almacena el JSON en el estado
-          console.log(data); // También lo muestra en la consola
 
       } catch (err) {
           alert("Failed to upload image");

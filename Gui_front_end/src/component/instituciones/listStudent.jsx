@@ -38,8 +38,6 @@ function ListStudents() {
         // Desencriptar el token
         const decodedToken = jwtDecode(token);
         const institutionIdFromToken = decodedToken.info.institution;
-        console.log(institutionIdFromToken);
-        
         
         setInstitutionId(institutionIdFromToken);
       } catch (error) {

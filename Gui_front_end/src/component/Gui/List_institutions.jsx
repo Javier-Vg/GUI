@@ -96,7 +96,7 @@ function ListInstitutions() {
 
     const handleSaveChanges = async () => {
       try {
-        console.log("Enviando cambios a la API:", editingInstitution);
+        console.log("Enviando cambios a la API");
         const updatedInstitution = await updateInstitutions(editingInstitution);
         if (updatedInstitution) {
           const updatedInstitutions = instituciones.map((institution) =>
@@ -124,7 +124,7 @@ function ListInstitutions() {
                   src={item.imagen_url}
                   alt="No found"
                   onError={() =>
-                    console.log("Image failed to load:", item.imagen_url)
+                    console.log("Image failed to load:")
                   }
                 />
               </div>
@@ -364,7 +364,6 @@ export default ListInstitutions;
 //         }
 //     } catch (error) {
 //         setStatusMessage('Error al enviar el correo. Verifica la consola para más detalles.');
-//         console.error('Error al enviar el correo:', error);
 //     }
 // };
 // <form onSubmit={sendEmail}>

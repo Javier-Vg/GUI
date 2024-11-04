@@ -57,7 +57,6 @@ function HomeInstitutionsForm() {
       const rol = decodedToken.info?.rol;
       const nameInstitution = decodedToken.info?.username;
       const imgurl = decodedToken.info?.imgInstitution;
-      console.log(auth, rol, nameInstitution, imgurl);
       
       // Setear valores si existen
       if (nameInstitution) setNameInstitution(nameInstitution);
@@ -68,7 +67,6 @@ function HomeInstitutionsForm() {
 
       setRole(rol);
       setAuth(auth);
-      console.log(decodedToken);
     } catch (error) {
       console.error('Error al decodificar el token', error);
       navigate("/error");
@@ -85,7 +83,7 @@ function HomeInstitutionsForm() {
       <nav className="navbar">
         {/* <button id="open-close" onClick={toggleAside}> */}
           <span id="open-close" onClick={toggleAside}>
-            <i className="bx bx-menu">≡</i>
+            <i className="bx bx-menu" >≡</i>
           </span>
         {/* </button> */}
         <div className="right-section">

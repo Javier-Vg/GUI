@@ -1,0 +1,121 @@
+.div-core-father{
+    background-color: rgb(255, 255, 255);
+}
+.padresh-nav {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background-color: #f8f9fa;
+    padding: 10px 20px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    height: 8vh;
+    position: relative; 
+    border-bottom: 1px solid transparent;
+}
+
+.padresh-open-close-button {
+    background: none;
+    border: none;
+    cursor: pointer;
+    font-size: 1.5rem;
+    color: #333 !important;
+    
+}
+
+.padresh-institution-info {
+    display: flex;
+    align-items: center;
+    gap: 10px; /* Espacio entre la imagen y el nombre */
+    background-color: transparent !important;
+}
+
+.padresh-institution-img {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    object-fit: cover;
+    margin-right: 10px;
+}
+
+.padresh-institution-name {
+    font-size: 1.1rem;
+    color: #333;
+    margin: 0;
+}
+
+/* ThemeSwitcher */
+.theme-switcher {
+    background-color: transparent; /* Fondo transparente */
+    cursor: pointer;
+    font-size: 1.5rem;
+    color: var(--theme-switcher-color, #333); /* Color de los puntos */
+    padding: 5px; /* Ajuste opcional para dar espacio alrededor */
+    border-radius: 5px; /* Opcional: redondear bordes */
+}
+
+/* Estilo del tema claro/oscuro */
+.light-mode .theme-switcher {
+    --theme-switcher-color: black;
+}
+
+.dark-mode .theme-switcher {
+    --theme-switcher-color: white;
+}
+
+
+.padresh-aside-container {
+    display: flex;
+    flex-direction: column;
+    color: #1d318b;
+}
+
+.padresh-aside-button {
+    padding: 15px; /* Tamaño de los botones */
+    background-color: #f5f5f5; /* Color de fondo uniforme */
+    box-shadow: none; /* Sin sombra */
+    cursor: pointer;
+    transition: background-color 0.2s ease;
+    border: none; /* Sin bordes redondeados */
+    color: #1d318b !important;
+}
+
+.padresh-aside-button:hover {
+    background-color: #1d318b; /* Color de fondo en hover */
+}
+
+.padresh-aside-button:hover .padresh-aside-label {
+    color: white; /* Cambia el color del label a blanco cuando el div esté en hover */
+}
+
+.padresh-aside-label {
+    font-size: 1.1rem; /* Texto un poco más grande */
+    font-weight: 500;
+    cursor: pointer;
+    color: #1d318b;
+}
+.padresh-aside-label:hover{
+    color: #ffffff; /* Color de texto en hover */
+}
+
+.padresh-aside-button input[type="radio"] {
+    display: none;
+}
+
+/* Elimina el cambio de color al seleccionar */
+.padresh-aside-button input[type="radio"]:checked + .padresh-aside-label {
+    font-weight: 500; /* Mantiene el mismo peso de fuente */
+}
+
+.padresh-logout-button {
+    color: #fff;
+    padding: 15px;
+    border: none;
+    font-size: 1.1rem; /* Tamaño de texto más grande */
+    cursor: pointer;
+    transition: background-color 0.2s ease;
+    margin-top: 68vh;
+}
+
+.padresh-logout-button:hover {
+    background-color: #c9302c; /* Color más oscuro en hover */
+}

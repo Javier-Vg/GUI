@@ -26,7 +26,6 @@ const ScheduleForm = () => {
       end_time: endTime,
       days: days,
     };
-    console.log(scheduleData);
     
     try {
       const response = await axios.post(
@@ -41,9 +40,9 @@ const ScheduleForm = () => {
       );
 
       if (response.status === 201) {
-        console.log("Horario creado exitosamente:", response.data);
+        console.log("Horario creado exitosamente:")
       } else {
-        console.error("Error al crear el horario:", response.statusText);
+        console.error("Error al crear el horario:");
       }
     } catch (error) {
       console.error("Error en la solicitud:", error);

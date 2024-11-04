@@ -19,7 +19,6 @@
 }
 
 .Sidebar input[type="button"] {
-    background-color: #007BFF; 
     color: white; 
     border: none; 
     border-radius: 4px; 
@@ -195,28 +194,11 @@ button{
     border: none;
 }
 
-.div-components{
-    text-align: center;
-    margin-top: 100px;
 
-    padding: 10px;
-    overflow: auto;
-    margin-left: 27rem;
-    
-}
 div{
     background-color: white;
 }
 
-/* .inputBoton{
-    background-color: transparent;
-    border: none;
-    color: white;
-    text-align: left;
-    padding: 5px;
-    transition: color 0.5 ease-in;
-    
-} */
 
 
 /* Media queri */

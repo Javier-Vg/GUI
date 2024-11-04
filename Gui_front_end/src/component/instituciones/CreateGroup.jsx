@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { postGroups } from "../../service/LoginGui";
-import "../../css/Institutions/createGroup.css";
+import "../../css/Institutions/CreateGroup.css";
 import { useDispatch, useSelector } from 'react-redux';
 import { fetchSubjects } from '../../Redux/Slices/SliceSubjects';
 import { fetchInstitution } from '../../Redux/Slices/SliceInstitution';

@@ -45,23 +45,6 @@ class UserCreateView(viewsets.ModelViewSet):
             return Response(serializer.data, status=status.HTTP_201_CREATED)
     
 
-# @api_view(["POST"])
-# @permission_classes([AllowAny])
-# def login_view(request):
-#     serializer = LoginSerializer(data=request.data)
-#     serializer.is_valid(raise_exception=True)
-
-#     # Accede a los datos validados (incluyendo el user_id, etc.)
-#     response_data = {
-#         "message": "Login successful",
-#         "token": serializer.validated_data["token"],
-#     }
-
-#     # Solo añade información de staff si existe
-#     if "staff_info" in serializer.validated_data:
-#         response_data["staff_info"] = serializer.validated_data["staff_info"]
-
-#     return Response(response_data, status=status.HTTP_200_OK)
 @api_view(["POST"])
 @permission_classes([AllowAny])
 def login_view(request):

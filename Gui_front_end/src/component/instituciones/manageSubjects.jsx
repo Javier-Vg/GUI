@@ -45,7 +45,6 @@ const ManageSubjects = () => {
 
         // Extraer el institution_id desde el token
         const institutionIdFromToken = decodedToken.info.institution;
-        console.log(institutionIdFromToken);
          
         setInstitutionId(institutionIdFromToken);
       } catch (error) {
@@ -59,7 +58,6 @@ const ManageSubjects = () => {
             name: subjectName,
             institution: institution_id // Usar el ID de la institución del localStorage
         };
-        console.log(subject);
         
         try {
             await postSubjects(subject);

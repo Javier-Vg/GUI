@@ -48,8 +48,10 @@ class LoginSerializer(serializers.Serializer):
             token['is_staff'] = user.is_staff
             token['is_superuser'] = user.is_superuser
             token['staff'] = user.staff
-
+            
             # Verificar el rol del usuario y recuperar la información correspondiente
+            #Esos roles se definen directamente en la view de el personal que proviene
+            #si se crea un staff entonces el rol proviene de la view de staff como is_staff = True
             if user.is_teacher:
                 try:
                     staff_instance = staff.objects.get(email=email)

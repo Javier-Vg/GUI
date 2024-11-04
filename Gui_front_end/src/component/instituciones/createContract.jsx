@@ -42,7 +42,7 @@ const CreateContract = () => {
       );
 
       if (response.status === 201) {
-        console.log("Contrato creado exitosamente:", response.data);
+        console.log("Contrato creado exitosamente:");
       } else {
         console.error("Error al crear el contrato:", response.statusText);
       }

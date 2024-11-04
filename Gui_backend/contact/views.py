@@ -9,14 +9,14 @@ import json
 @api_view(['POST'])
 def send_contact_email(request):
     if request.method == 'POST':
-        try:
+        try: #recibe un json de el frontend con los datos
             data = json.loads(request.body)
             nombre = data.get('nombre')
             mensaje = data.get('mensaje')
             from_email = data.get('from_email')
             to_email = data.get('to_email')
             # Enviar correo
-            send_mail(
+            send_mail( #envia el email con esa estructura
                 subject='Nuevo mensaje de contacto',
                 message=f'Nombre: {nombre}\n\n Correo de {from_email} para: {to_email}\n\n\nMensaje: {mensaje}',
                 from_email= from_email,  # Cambia esto por tu correo electrónico

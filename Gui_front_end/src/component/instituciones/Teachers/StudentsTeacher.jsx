@@ -47,7 +47,6 @@ function StudentsTeacher() {
   const itemsAssignmentG = useSelector((state) => state.groupAssignment.items);
   const itemsGroups = useSelector((state) => state.group.items);
 
-  console.log(itemsStudent);
   
 
   useEffect(() => {
@@ -99,7 +98,6 @@ function StudentsTeacher() {
   const [isModalOpen, setModalOpen] = useState(false);
   const [ImgValue, setImgValue] = useState(false);
   const handleOpenModal = ((image) => {
-    console.log(image);
     
     setModalOpen(true);
     setImgValue(image);
