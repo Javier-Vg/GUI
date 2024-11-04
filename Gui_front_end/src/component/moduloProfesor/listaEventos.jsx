@@ -69,24 +69,24 @@ function ListaEventos() {
   }
 
   return (
-    <div className="event-container">
-        <h1 className="event-title">Lista de Eventos</h1>
+    <div className="event-container-event">
+        <h1 className="event-title-event">Lista de Eventos</h1>
 
       
       <div className='evento-list-container2'>
         {eventosFiltrados.length > 0 ? (
-            <ul className="event-list">
+            <ul className="event-list-event">
               {eventosFiltrados.map((evento) => (
-                <li key={evento.id} className="event-item">
-                  <div className="event-header">
+                <li key={evento.id} className="event-ite-event">
+                  <div className="event-header-event">
                     
-                  <p className='date-letras'>{evento.date}</p>
+                  <p className='date-letras-event'>{evento.date}</p>
                   </div>
-                  <div className='name-event'>
+                  <div className='name-event-event'>
                     <h3>{evento.event_name}</h3>
                     </div>
                 
-                  <p className="event-description">{evento.description}</p>
+                  <p className="event-description-event">{evento.description}</p>
                 </li>
               ))}
             </ul>

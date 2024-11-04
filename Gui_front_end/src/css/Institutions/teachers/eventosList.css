@@ -1,17 +1,115 @@
-.event-container {
-    /* display: flex;             
-    flex-direction: column;     
-    justify-content: center;    
-    align-items: center;         */
+.event-container-event {
+    display: flex;
+    flex-direction: column;
+    align-items: center; /* Centra horizontalmente */
+    justify-content: center; /* Centra verticalmente */
+    padding: 20px;
+    gap: 5px; /* Separación de 5px entre elementos */
+  }
+  
+  .event-title-event {
+    text-align: center;
+    margin-bottom: 10px;
+  }
+  
+  .evento-list-container2 {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+    overflow: auto;
+  }
+  
+  .event-list-event {
+    list-style-type: none;
+    padding: 0;
     display: grid;
+    grid-template-columns: repeat(4, 1fr); /* 4 columnas de igual ancho */
+    gap: 5px; /* Separación de 5px entre elementos */
+
     
-    height: 80vh;  
-     
-    background-color: rgb(255, 255, 255); 
-           /* O cualquier altura que desees */
+  }
+  
+  
+.event-ite-event {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  background-color: #1d318b;
+  box-shadow: 4px 4px 10px rgba(0, 0, 0, 0.4); /* Sombra para el efecto 3D */
+  transform: translateY(-2px); /* Eleva el elemento un poco para dar un efecto flotante */
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+.event-ite-event:hover {
+    transform: translateY(-6px); /* Eleva el cuadro un poco más */
+    box-shadow: 6px 6px 15px rgba(0, 0, 0, 0.6); /* Sombra más pronunciada */
+    background-color: #2845ba; /* Color de fondo ligeramente más claro al pasar el mouse */
+  }
+
+
+  
+  .date-letras-event,
+  .name-event-event,
+  .event-description-event {
+    text-align: center;
+    margin: 5px 0;
+    background-color: #1d318b;
+    color: white;
+    padding: 5px;
+    border-radius: 3px;
+    transition: transform 0.3s ease, box-shadow 0.3s ease; /* Transición suave */
+    border-radius: 5rem;
+  }
+  
+  .date-letras-event:hover,
+  .name-event-event:hover,
+  .event-description-event:hover {
+    transform: translateY(-3px); 
+    box-shadow: 4px 4px 8px rgba(0, 0, 0, 0.5); /* Sombra más pronunciada */
+    background-color: #2845ba; /* Color de fondo ligeramente más claro al pasar el mouse */
+    border-radius: 5rem;
+    
+  }
+  
+.event-header-event{
+    background-color: #1d318b;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+
+}
+.event-header-event:hover{
+    /* transform: translateY(-3px); */
+    
+    box-shadow: 4px 4px 8px rgba(0, 0, 0, 0.5); /* Sombra más pronunciada */
+    background-color: #2845ba;
+
 }
 
 
+  
+
+
+
+
+
+/* .event-container {
+    display: flex;             
+    flex-direction: column;     
+    justify-content: center;    
+    align-items: center;        
+    /* display: grid; */
+    /* padding: 9rem;
+     */
+    /* height: 80vh;   */
+     
+    /* background-color: rgb(255, 255, 255);  */
+           /* O cualquier altura que desees */
+/* } */ 
+
+/* 
 .evento-list-container2{
     overflow: auto;
    margin-top: 5rem;
@@ -22,9 +120,9 @@
     margin-top: 3rem;
     height: 10rem;
     width: 140rem;
-    display: flex; /* Cambiado a flexbox */
-    flex-direction: row; /* Alinea los elementos en fila */
-    justify-content: flex-start; /* Alinea los elementos al inicio de la fila */
+    display: flex; 
+    flex-direction: row; 
+    justify-content: flex-start; 
     align-items: center;
     gap: 10px;
 
@@ -32,4 +130,4 @@
 
 .event-title{
     margin-top: 5rem;
-}
+} */
