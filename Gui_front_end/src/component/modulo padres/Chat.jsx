@@ -15,7 +15,7 @@ const Chat = () => {
   const [storedStudent, setStudentID] = useState('');
   const [storedInstitutionId, setInstitutionId] = useState('');
   const [storedTeacherName, setNameTeacher] = useState('');
-  
+   // Decodifica el token para extraer información como el ID del estudiante, nombre del profesor, y ID de la institución
   useEffect(() => {
     const token = Cookies.get("AuthCookie");
     if (token) {
@@ -33,7 +33,7 @@ const Chat = () => {
       }
     }
   }, []);
-
+ // Carga la lista de miembros del staff y filtra solo aquellos que pertenecen a la institución del estudiante y tienen el rol de "Teacher"
   useEffect(() => { 
     const fetchStaff = async () => {
       try {
@@ -51,8 +51,8 @@ const Chat = () => {
     };
 
     fetchStaff();
-  }, [storedInstitutionId]);
-
+  }, [storedInstitutionId]);// Dependencia: se ejecuta cuando cambia `storedInstitutionId`
+ // Carga los mensajes para el miembro del staff seleccionado
   const fetchMessages = async (memberId) => {
   try {
     const allMessages = await getMessages();  
@@ -63,7 +63,7 @@ const Chat = () => {
     console.error("Error al cargar los mensajes:", error);
   }
 };
-
+ // Actualiza los mensajes automáticamente cada 5 segundos si hay un miembro seleccionado
 useEffect(() => {
   if (selectedMember) {
     fetchMessages(); 
@@ -73,9 +73,9 @@ useEffect(() => {
   return () => clearInterval(interval);
 }, [selectedMember]);
 
-
-
+ // Envío de mensajes
   const handleSendMessage = async () => {
+     // Comprueba si el mensaje, miembro seleccionado y estudiante están definidos
     if (message.trim() && selectedMember && storedStudent) {
       const newMessage = {
         message,
@@ -92,7 +92,7 @@ useEffect(() => {
           ...prevMessages,
           { ...savedMessage, transmitterName: storedTeacherName || "Profesor" },
         ]);
-        setMessage("");
+        setMessage("");// Limpia el mensaje después de enviarlo
       } catch (error) {
         console.error("No se pudo enviar el mensaje", error);
         alert("Error al enviar el mensaje. Intenta nuevamente.");
@@ -101,6 +101,7 @@ useEffect(() => {
       alert("Por favor, selecciona un miembro del staff y escribe un mensaje.");
     }
   };
+  // Filtrado de mensajes por miembro seleccionado, institución y estudiante
   const filteredMessages = selectedMember
   ? messages.filter(
       (msg) =>
