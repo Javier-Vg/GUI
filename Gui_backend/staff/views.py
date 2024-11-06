@@ -15,7 +15,7 @@ from rest_framework.exceptions import ValidationError
 class StaffViewSet(viewsets.ModelViewSet):
     queryset = staff.objects.all()
     serializer_class = Staff_Serializer
-    permission_classes = [IsAuthenticated]  
+    permission_classes = [IsAuthenticated]
     def create(self, request, *args, **kwargs):
     # Extraemos los datos de usuario desde el request
         position = request.data.get('position')
@@ -32,7 +32,7 @@ class StaffViewSet(viewsets.ModelViewSet):
         #si is_staff es true o si is_teacher is True
         if position != "Teacher":
             user_data.update({
-                'is_staff': True,
+                'is_staff': True,   
                 'is_student': False,
                 'is_teacher': False
             })
