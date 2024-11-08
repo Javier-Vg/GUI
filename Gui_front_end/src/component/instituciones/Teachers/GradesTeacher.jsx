@@ -5,7 +5,6 @@ import { fetchGroups } from "../../../Redux/Slices/SliceGroup";
 import { fetchAssignmentGroup } from "../../../Redux/Slices/sliceAssignmentGroup";
 import { useDispatch, useSelector } from "react-redux";
 import { fetchGrades } from "../../../Redux/Slices/SliceGrades";
-// import "../../../css/grades_teacher.css";
 import '../../../css/Institutions/teachers/GradesTeacher.css'
 import Cookies from 'js-cookie';
 import { jwtDecode } from "jwt-decode";
@@ -15,8 +14,6 @@ function GradesTeacher() {
   const [studentsWithGroups, setStudentsWithGroups] = useState([]);
   const [NameTeacher, setNameTeacher] = useState("")
   const [IdTeacher, setIdTeacher] = useState("")
-  // const NameTeacher = sessionStorage.getItem("NameTeacher");
-  // const IdTeacher = sessionStorage.getItem("StaffID");
 
   // Redux
   const itemsStudent = useSelector((state) => state.student.items);

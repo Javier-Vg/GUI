@@ -105,6 +105,10 @@ function ListInstitutions() {
               : institution
           );
           setInstituciones(updatedInstitutions);
+          setMessage("Actualizacion correcta")
+          setTimeout(() => {
+            setMessage("")
+          }, 2000);
         }
       } catch (error) {
         console.error("Error updating institution:", error);

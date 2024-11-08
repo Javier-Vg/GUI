@@ -1,10 +1,11 @@
 import React, { useState, useEffect } from "react";
-import { postGastos } from "../../service/LoginGui";
+import { postGastos } from "../../service/LoginGui"; // Servicio para enviar datos al backend
 import Cookies from "js-cookie";
-import { jwtDecode } from "jwt-decode";
-import '../../css/Institutions/Gastos.css'
+import { jwtDecode } from "jwt-decode"; // Librería para decodificar tokens JWT
+import '../../css/Institutions/Gastos.css'; // Archivo CSS para estilos
 
 function GastosGanancias() {
+  // Estado para almacenar valores de gastos y ganancias
   const [estado, setEstado] = useState({
     luz: "",
     agua: "",
@@ -26,22 +27,25 @@ function GastosGanancias() {
     alquilerLocal: "",
   });
 
+  // Estado adicional para manejar totales y balance
   const [totalGastos, setTotalGastos] = useState(0);
   const [totalGanancias, setTotalGanancias] = useState(0);
   const [balance, setBalance] = useState(null);
   const [resultadosGastos, setResultadosGastos] = useState({});
   const [institution_id, setInstitutionId] = useState(null);
 
+  // Maneja cambios en el formulario y actualiza el estado
   const handleChange = (e) => {
     const { name, value } = e.target;
     setEstado((prev) => ({ ...prev, [name]: value }));
   };
+
+  // Efecto para decodificar el token y obtener el ID de la institución
   useEffect(() => {
     const token = Cookies.get("AuthCookie");
 
     if (token) {
       try {
-        // Desencriptar el token
         const decodedToken = jwtDecode(token);
         const institutionIdFromToken = decodedToken.info.institution;
         setInstitutionId(institutionIdFromToken);
@@ -51,13 +55,15 @@ function GastosGanancias() {
     }
   }, []);
 
+  // Función que aplica las operaciones de cálculo
   const aplicarOperaciones = () => {
     const gastos = calcularGastos();
     const ganancias = calcularGanancias();
-    setResultadosGastos(gastos);
-    calcularBalance(ganancias, gastos.total);
+    setResultadosGastos(gastos); // Guarda los resultados de los gastos detallados
+    calcularBalance(ganancias, gastos.total); // Calcula el balance general
   };
 
+  // Función para calcular el total de gastos
   const calcularGastos = () => {
     const gastos = {
       luz: parseFloat(estado.luz || 0),
@@ -77,12 +83,14 @@ function GastosGanancias() {
         parseFloat(estado.uniformeCostoInstitucion || 0),
     };
 
+    // Calcula el total sumando todos los gastos
     const total = Object.values(gastos).reduce((acc, curr) => acc + curr, 0);
-    setTotalGastos(total);
-    setEstado((prev) => ({ ...prev, TotalGastos: total })); // Guardar el total de gastos
+    setTotalGastos(total); // Actualiza el estado del total de gastos
+    setEstado((prev) => ({ ...prev, TotalGastos: total })); // Guarda el total en el estado
     return { ...gastos, total };
   };
 
+  // Función para calcular el total de ganancias
   const calcularGanancias = () => {
     const ingresosPrivados = parseFloat(estado.mensualidadNinosPrivados || 0);
     const ingresosRedCuido = parseFloat(estado.mensualidadNinosRedCuido || 0);
@@ -92,24 +100,25 @@ function GastosGanancias() {
 
     const total =
       ingresosPrivados + ingresosRedCuido + ingresosUniformesComprados;
-    setTotalGanancias(total);
-    setEstado((prev) => ({ ...prev, TotalGanancia: total })); // Guardar las ganancias
+    setTotalGanancias(total); // Actualiza el total de ganancias en el estado
+    setEstado((prev) => ({ ...prev, TotalGanancia: total }));
     return total;
   };
 
+  // Función para calcular el balance final
   const calcularBalance = (ganancias, gastosTotal) => {
     const resultado = ganancias - gastosTotal;
-    setBalance(resultado);
-    setEstado((prev) => ({ ...prev, balance: resultado })); // Guardar el balance
+    setBalance(resultado); // Actualiza el balance en el estado
+    setEstado((prev) => ({ ...prev, balance: resultado }));
   };
 
+  // Función para enviar los datos al backend
   const enviarDatosAlBackend = async () => {
     const datos = {
-      ...estado, // Incluye todos los campos del estado
+      ...estado,
       balance: estado.balance,
       institution: institution_id,
     };
-    await postGastos(datos);
     try {
       const response = await postGastos(datos); // Envía los datos al backend
       console.log("Datos enviados");
@@ -120,63 +129,11 @@ function GastosGanancias() {
   };
 
   return (
-    // <div className='container-gastos'>
-    //   <h1>Gastos</h1>
-    //   {['luz', 'agua', 'internet', 'comida', 'materialDidactico', 'patentes', 'deduccionCaja', 'polizas', 'uniformesCompradosCantidad', 'uniformeCostoInstitucion', 'uniformesRegalados', 'alquilerLocal'].map((item) => (
-    //     <label key={item}>
-    //       {item.replace(/([A-Z])/g, ' $1').trim()}:
-    //       <input
-    //         type="number"
-    //         name={item}
-    //         value={estado[item]}
-    //         onChange={handleChange}
-    //         step="0.01"
-    //       />
-    //     </label>
-    //   ))}
-    //   <br />
-    //   <label>
-    //     Fecha de Registro de Gastos:
-    //     <input type="date" name="fechaRegistro" value={estado.fechaRegistro} onChange={handleChange} />
-    //   </label>
-    //   <br />
-
-    //   <h2>Operaciones</h2>
-    //   <button onClick={aplicarOperaciones}>Aplicar Operaciones</button>
-    //   <h3>Total Gastos: ${totalGastos.toFixed(2)}</h3>
-
-    //   <h1>Ganancias</h1>
-    //   {['mensualidadNinosPrivados', 'mensualidadNinosRedCuido'].map((item) => (
-    //     <label key={item}>
-    //       {item.replace(/([A-Z])/g, ' $1').trim()}:
-    //       <input
-    //         type="number"
-    //         name={item}
-    //         value={estado[item]}
-    //         onChange={handleChange}
-    //         step="0.01"
-    //       />
-    //     </label>
-    //   ))}
-    //   <br />
-    //   <h3>Total Ganancias: ${totalGanancias.toFixed(2)}</h3>
-
-    //   {balance !== null && <h3>Balance: ${balance.toFixed(2)}</h3>}
-
-    //   <h2>Resultados Detallados</h2>
-    //   <ul>
-    //     {Object.entries(resultadosGastos).map(([key, value]) => (
-    //       <li key={key}>{key.replace(/([A-Z])/g, ' $1').trim()}: ${value?.toFixed(2) || 0}</li>
-    //     ))}
-    //   </ul>
-
-    //   <h2>Enviar Datos al Backend</h2>
-    //   <button onClick={enviarDatosAlBackend}>Enviar Datos</button>
-    // </div>
     <>
       <div className="container-gastos">
         <h1 className="titulo-principal">Gastos</h1>
         <div className="grid">
+          {/* Inputs para cada tipo de gasto */}
           {[
             "luz",
             "agua",
@@ -226,6 +183,7 @@ function GastosGanancias() {
 
         <h1 className="titulo-principal">Ganancias</h1>
         <div className="grid">
+          {/* Inputs para cada tipo de ganancia */}
           {["mensualidadNinosPrivados", "mensualidadNinosRedCuido"].map(
             (item) => (
               <label key={item} className="etiqueta-ganancia">
@@ -253,6 +211,7 @@ function GastosGanancias() {
 
         <h2 className="titulo-secundario">Resultados Detallados</h2>
         <ul className="lista-resultados">
+          {/* Muestra los resultados detallados de cada gasto */}
           {Object.entries(resultadosGastos).map(([key, value]) => (
             <li key={key} className="item-resultado">
               {key.replace(/([A-Z])/g, " $1").trim()}: ${value?.toFixed(2) || 0}

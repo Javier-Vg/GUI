@@ -42,7 +42,7 @@ function ListaEventos() {
     }
   }, [institutionId]); // Dependencia: se ejecuta cuando cambia institutionId
 
-  console.log("eventosf", eventos); // Muestra los eventos en la consola para depuración
+  
 
   // Filtra los eventos para mostrar solo los que pertenecen a la institución actual
   const eventosFiltrados = eventos.filter(evento => evento.institution === institutionId);

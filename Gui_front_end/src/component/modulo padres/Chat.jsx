@@ -51,9 +51,12 @@ const Chat = () => {
     };
 
     fetchStaff();
-  }, [storedInstitutionId]);// Dependencia: se ejecuta cuando cambia `storedInstitutionId`
+  }, [storedInstitutionId]);
+
+
+
  // Carga los mensajes para el miembro del staff seleccionado
-  const fetchMessages = async (memberId) => {
+  const fetchMessages = async () => {
   try {
     const allMessages = await getMessages();  
     
@@ -90,7 +93,7 @@ useEffect(() => {
         const savedMessage = await sendMessage(newMessage);
         setMessages((prevMessages) => [
           ...prevMessages,
-          { ...savedMessage, transmitterName: storedTeacherName || "Profesor" },
+          { ...savedMessage, transmitterName: storedTeacherName || "Profesor" },//storedTeacherName es el valor que se asignará a transmitterName si existe y no es un valor falso
         ]);
         setMessage("");// Limpia el mensaje después de enviarlo
       } catch (error) {
