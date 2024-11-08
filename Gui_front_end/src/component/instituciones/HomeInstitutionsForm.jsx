@@ -73,6 +73,7 @@ function HomeInstitutionsForm() {
     }
   }, [navigate]);
 
+  //Lo lleva al login en caso de que cierre sesion.
   const Logout = async () => {
     navigate("/login");
   };
@@ -83,7 +84,7 @@ function HomeInstitutionsForm() {
       <nav className="navbar">
         {/* <button id="open-close" onClick={toggleAside}> */}
           <span id="open-close" onClick={toggleAside}>
-            <i className="bx bx-menu">≡</i>
+            <i className="bx bx-menu" >≡</i>
           </span>
         {/* </button> */}
         <div className="right-section">

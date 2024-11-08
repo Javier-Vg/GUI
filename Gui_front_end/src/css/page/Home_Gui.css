@@ -5,7 +5,9 @@
     --border-color: #d65050;
     --text-color: #e7e7e7;
 }
-
+#points-tres{
+    color: #000000;
+}
 html {
     font-size: 62.5%;
     font-family: sans-serif;
@@ -14,7 +16,7 @@ html {
 body {
     width: 100%;
     height: 100vh;
-    background-color: var(--fondo-color);
+    background-color: white !important;
 }
 
 button {
@@ -27,11 +29,9 @@ h2 {
     color: #aaaaaa;
 }
 
-.GuiHome-nav-i1{
-    background-color: transparent !important;
-}
+/* .GuiHome-nav-i1{
+} */
 .GuiHome-nav-i2{
-    background-color: transparent !important;
     padding-top: 2em;
 }
 /* Navbar principal */
@@ -40,13 +40,20 @@ h2 {
     height: 8vh;
     width: 100%;
     grid-template-columns: repeat(3,1fr);
-    background-color: #6289b3;
+    background-color: #ffffff;
     border-bottom: none;
     border-bottom: 1px solid rgba(0, 0, 0, 0.149);
+    border-left: 1px solid black;
 }
 
 /* Botón de abrir/cerrar menú */
-
+.GuiHome-div-inpust{
+    border: none;
+    background-color: white ;
+}
+.GuiHome-div-inpust:hover{
+    background-color: #1d318b !important;
+}
 #GuiHome-open-close i {
     color: #ffffff;
     font-size: 2.7rem;
@@ -104,9 +111,9 @@ h2 {
 
 /* Contenedor para la lista de botones */
 .GuiHome-container-svg {
-    background-color: #6289b3;
     padding: 10px 1px;
 }
+
 
 .GuiHome-container-svg div {
     display: flex;
@@ -128,9 +135,9 @@ h2 {
 
 /* Botones de la sidebar */
 .GuiHome-inputBoton {
-    background-color: transparent;
     border: none;
-    color: white;
+    background-color: transparent !important;;
+    color: #1d318b;
     text-align: left;
     padding: 5px;
     width: 100%;
@@ -140,6 +147,8 @@ h2 {
 
 .GuiHome-inputBoton:hover {
     transform: scale(1.05);
+    background-color: transparent !important;
+    color: white !important;;
 }
 
 /* Contenedor principal de componentes */

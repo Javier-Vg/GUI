@@ -2,7 +2,7 @@
 
 .grades-container {
     max-width: 100%;
-    max-height: 400px;
+    height: 100vh;
     margin-top: 20px;
     background: white;
     border-radius: 12px;

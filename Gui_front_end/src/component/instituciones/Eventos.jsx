@@ -1,9 +1,8 @@
-import React, { useEffect, useState } from 'react'; 
-import { PostEvento } from "../../service/LoginGui"; 
-import { jwtDecode } from "jwt-decode"; 
-import Cookies from 'js-cookie'; 
-import "../../css/Institutions/teachers/eventosList.css"; 
 
+import React, { useEffect, useState } from 'react';
+import { PostEvento } from "../../service/LoginGui";
+import { jwtDecode } from "jwt-decode";
+import Cookies from 'js-cookie';
 function Eventos() {
   // Estados para manejar el nombre del evento, fecha, descripción, institución, carga, error y éxito
   const [eventName, setEventName] = useState('');

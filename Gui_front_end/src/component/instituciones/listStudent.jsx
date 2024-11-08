@@ -39,7 +39,6 @@ function ListStudents() {
         const decodedToken = jwtDecode(token);
         const institutionIdFromToken = decodedToken.info.institution;
         
-        
         setInstitutionId(institutionIdFromToken);
       } catch (error) {
         console.error('Error al decodificar el token', error);
@@ -213,6 +212,7 @@ function ListStudents() {
       {seeMore && selectedStudent && (
         <div className="modal">
           <h2>Información del Estudiante</h2>
+          {/* dependiendo de su estado, muestra o edita la informacion del estudiante. */}
           {editMode ? (
             <div>
               <label>Nombre:</label>

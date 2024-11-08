@@ -1,3 +1,4 @@
+
 import React, { useState, useEffect } from "react";
 import { getStudents, getMessages, sendMessage } from "../../service/LoginGui"; 
 import ChatBubbleIcon from '@mui/icons-material/ChatBubble';
@@ -6,6 +7,7 @@ import Cookies from "js-cookie";
 import { jwtDecode } from "jwt-decode";
 import { useSelector } from "react-redux";
 import "../../css/chatProfesor.css";
+
 const ChatProfesor = () => {
   //maneja los estados de mensajes,estudiantes,profesor instituciones
 const [selectedStudent, setSelectedStudent] = useState(null);
@@ -31,7 +33,7 @@ useEffect(() => {
         console.error("Error decoding token", error);
       }
     }
-}, []);
+  }, []);
 
 
 useEffect(() => {        
@@ -46,7 +48,7 @@ useEffect(() => {
       }
     };
     fetchStudents();
-}, [storedInstitutionId]);
+  }, [storedInstitutionId]);
 
 // Este useEffect se activa cuando cambia `studentsAll` o `searchTerm`.
 // Filtra los estudiantes de la institución según el término de búsqueda ingresado
@@ -55,7 +57,7 @@ useEffect(() => {
     setStudents(studentsAll.filter(student =>
       student.username.toLowerCase().includes(searchTerm.toLowerCase())
     ));
-}, [studentsAll, searchTerm]);
+  }, [studentsAll, searchTerm]);
 
 // Este useEffect se activa cuando cambia `selectedStudent`.
 // Establece un intervalo que actualiza los mensajes cada 5 segundos si hay un estudiante seleccionado
@@ -64,7 +66,7 @@ useEffect(() => {
       const interval = setInterval(fetchMessages, 5000);
       return () => clearInterval(interval);
     }
-}, [selectedStudent]);
+  }, [selectedStudent]);
 
 // Función para obtener los mensajes del chat
 const fetchMessages = async () => {
@@ -74,7 +76,7 @@ const fetchMessages = async () => {
     } catch (error) {
       console.error("Error loading messages", error);
     }
-};
+  };
 
 // Función para manejar el envío de mensajes
 const handleSendMessage = async () => {
@@ -107,43 +109,45 @@ const filteredMessages = selectedStudent
         msg.staff === storedStaffId
       )
     : [];
+
   return (
-    
-    <div className="div-profesor-messeges">
+    <div className="chatP-profesor-container">
       {/* Lista de estudiantes con imágenes */}
-      <div className="chat-bubbles-container-staff">
-        {students.map((student) => (
-          <div
-            key={student.id}
-            className="student-bubble"
-            onClick={() => {
-              setSelectedStudent(student.id);
-              fetchMessages();
-            }}
-          >
-            <img
-              src={student.imagen_url}
-              alt={`${student.name} profile`}
-              className="student-photo"
-            />
-            <p className="nombre-estudiante">{student.username}</p>
-          </div>
-          
-        ))}
+      <div className="div-chatP-bubbles-container-students">
+        <div className="chatP-bubbles-container-students">
+          {students.map((student) => (
+            <div
+              key={student.id}
+              className="student-bubble"
+              onClick={() => {
+                setSelectedStudent(student.id);
+                fetchMessages();
+              }}
+            >
+              <img
+                src={student.imagen_url}
+                alt={`${student.name} profile`}
+                className="student-photo"
+              />
+              <p className="nombre-estudiante">{student.username}</p>
+            </div>
+          ))}
+        </div>
       </div>
 
       {/* Contenedor del chat */}
-      <div className="chat-container">
+      <div className="chatP-container">
         {/* Mostrar los mensajes filtrados */}
-        <div className="messages-container">
+        <div className="messages-container-chatP">
           {filteredMessages.length > 0 ? (
             filteredMessages.map((msg, index) => (
               <div 
                 key={index}
-                className={`message-profesor ${
-                  msg.name === storedTeacherName ? "sent-profesor" : "received-profesor"
+                className={`message-chatP ${
+                  msg.name === storedTeacherName ? "sent-chatP" : "received-chatP"
                 }`}
-              ><ChatBubbleIcon/>
+              >
+                <ChatBubbleIcon />
                 <strong>{msg.name}:</strong> {msg.message}
               </div>
             ))
@@ -153,21 +157,18 @@ const filteredMessages = selectedStudent
         </div>
 
         {/* Input para enviar un mensaje */}
-       
       </div>
-      <div className="send-message-container">
-      
+      <div className="send-message-container-chatP">
           <textarea 
             value={message}
             onChange={(e) => setMessage(e.target.value)}
             placeholder="Escribe tu mensaje aquí"
-            className="message-input"
+            className="message-input-chatP"
           />
-        
-        </div>
-        <button onClick={handleSendMessage} className="send-button-profesor">
-       < SendIcon/>
+          <button onClick={handleSendMessage} className="send-button-chatP">
+            <SendIcon />
           </button>
+        </div>
     </div>
   );
 };

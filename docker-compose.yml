@@ -1,26 +1,26 @@
 services:
 
-  react:
-    container_name: gui_front_end
-    image: gui_front_end
-    build:
-      context: ./Gui_front_end
-    volumes:
-      - ./Gui_front_end:/app
-      - /app/node_modules
-    ports:
-      - "5173:5173"
-  # app:
+  # react:
   #   container_name: gui_front_end
-  #   image: gui_front_end:prod
+  #   image: gui_front_end
   #   build:
   #     context: ./Gui_front_end
-  #     target: production
-  #     args:
-  #       - NODE_ENV=production
-  #     dockerfile: Dockerfile.prod
+  #   volumes:
+  #     - ./Gui_front_end:/app
+  #     - /app/node_modules
   #   ports:
-  #     - 80:80
+  #     - "5173:5173"
+  app:
+    container_name: gui_front_end
+    image: gui_front_end:prod
+    build:
+      context: ./Gui_front_end
+      target: production
+      args:
+        - NODE_ENV=production
+      dockerfile: Dockerfile
+    ports:
+      - 80:80
 
   django:
     image: gui_backend

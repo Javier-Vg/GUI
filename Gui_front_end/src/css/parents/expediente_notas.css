@@ -20,22 +20,6 @@ body{
     background-color: #faf9fd;
     color: #000000;
   }
-
-  /* .container2 {
-      display: grid; */
-      /* grid-template-columns: 1fr 1fr; Dos columnas */
-      /* grid-template-rows:240px 240px; Tres filas */
-      /* gap: 15px; Espaciado entre los elementos */
-      /* width: 99%; Ancho del contenedor */
-      /* max-height: 100%; Alto del contenedor */
-      /* height: 100%;
-      border-radius: 5px;
-      z-index: -1;
-      margin-left: 10px;
-      margin-top: 100px;
-  } */
-
-
   /* ---------------- */
   .h1-info{
       text-align: left;
@@ -274,18 +258,15 @@ body{
   body.light {
     background-color: #ffffff;
     color: #000000;
-    /* transition: background-color 0.5s, color 0.5s; */
   }
   body.light .div-student-show {
     background-color: #f0f0f0;
     border: 1px solid #ccc;
-    /* transition: background-color 0.5s, border-color 0.5s; */
   }
   /* Estilos generales para el tema oscuro */
   body.dark {
     background-color: #1a1a1a;
     color: #ffffff;
-    /* transition: background-color 0s, color 0.5s; */
   }
 
   body.dark .div-student-show,
@@ -430,17 +411,6 @@ body{
   .div-core-expediente{
     margin-right: 35px;
   }
-  .div-components{
-    margin: 0;
-    margin-top:40px;
-    margin-left: 135px;
-  }
-
-
-
-
-
-
 
 
 .chat-profesor-container{

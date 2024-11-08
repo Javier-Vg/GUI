@@ -72,5 +72,13 @@ class EventsViewSet(viewsets.ModelViewSet):
             # Respondemos con un mensaje de éxito y un código 204 (contenido eliminado)
             return Response({"message": "Event deleted successfully"}, status=status.HTTP_204_NO_CONTENT)
         except events.DoesNotExist:
-            # Si el evento no existe, respondemos con un error 404
+            return Response({"error": "Event not found"}, status=status.HTTP_404_NOT_FOUND)
+
+    # Deelete: Profesores, administradores y Gui
+    def destroy(self, request, pk=None):
+        try:
+            event = events.objects.get(pk=pk)
+            event.delete()
+            return Response({"message": "Event deleted successfully"}, status=status.HTTP_204_NO_CONTENT)
+        except events.DoesNotExist:
             return Response({"error": "Event not found"}, status=status.HTTP_404_NOT_FOUND)

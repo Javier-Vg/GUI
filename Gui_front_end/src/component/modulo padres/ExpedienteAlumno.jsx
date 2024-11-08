@@ -41,7 +41,6 @@ function ExpedienteAlumno() {
       try {
         // Desencriptar el token
         const decodedToken = jwtDecode(token);
-        console.log(decodedToken);
 
         const idStudent = decodedToken.info.id;
         const idInstitution = decodedToken.info.institution;
@@ -111,12 +110,8 @@ function ExpedienteAlumno() {
 
     // Filtrar y sobrescribir la misma variable
     let data = itemAssistence.filter((item) => {
-    console.log(item.dateToday);
     
       const [year, month, day] = item.dateToday.split("-");
-
-      console.log(month);
-      console.log(mes);
       
       
 
@@ -140,7 +135,6 @@ function ExpedienteAlumno() {
       });
     });
 
-    console.log(data);
     
 
     setGraficRender([

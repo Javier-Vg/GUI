@@ -7,7 +7,7 @@ import { useSelector } from "react-redux";
 import "../css/page/Home_Gui.css";
 
 function Home_Gui() {
-  const [changeComponent, setChangeComponent] = useState("");
+  const [changeComponent, setChangeComponent] = useState("Registrar Admin");
   const [isDeployed, setIsDeployed] = useState(false);
   const navigate = useNavigate(); // Inicializa el hook para redirección
   const userRole = useSelector((state) => state.infInstitution.role);
@@ -38,7 +38,7 @@ function Home_Gui() {
             <div className="GuiHome-nav-i1">
               <button id="GuiHome-open-close" onClick={toggleAside}>
                 <span id="GuiHome-open-close-icon">
-                  <i className="bx bx-menu"></i>
+                  <i className="bx bx-menu" style={{ color: 'black' }}></i>
                 </span>
               </button>
             </div>
@@ -49,7 +49,7 @@ function Home_Gui() {
 
           <aside id="aside" className={isDeployed ? "desplegar" : ""}>
             <div className="GuiHome-container-svg">
-              <div>
+              <div className="GuiHome-div-inpust">
                 <input
                   autoComplete="off"
                   type="button"
@@ -58,7 +58,7 @@ function Home_Gui() {
                   onClick={() => setChangeComponent("Registrar Admin")}
                 />
               </div>
-              <div>
+              <div className="GuiHome-div-inpust">
                 <input
                   autoComplete="off"
                   type="button"
@@ -67,7 +67,7 @@ function Home_Gui() {
                   onClick={() => setChangeComponent("Crear Instituciones")}
                 />
               </div>
-              <div>
+              <div className="GuiHome-div-inpust">
                 <input
                   autoComplete="off"
                   type="button"
@@ -76,7 +76,7 @@ function Home_Gui() {
                   onClick={() => setChangeComponent("Gestionar Instituciones")}
                 />
               </div>
-              <div>
+              <div className="GuiHome-div-inpust">
                 <input
                   autoComplete="off"
                   type="button"

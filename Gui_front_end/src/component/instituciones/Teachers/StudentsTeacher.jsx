@@ -47,7 +47,6 @@ function StudentsTeacher() {
   const itemsAssignmentG = useSelector((state) => state.groupAssignment.items);
   const itemsGroups = useSelector((state) => state.group.items);
 
-  console.log(itemsStudent);
   
 
   useEffect(() => {

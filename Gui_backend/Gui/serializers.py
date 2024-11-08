@@ -18,6 +18,7 @@ class AdminLoginSerializer(serializers.Serializer):
     def validate(self, data):
         username = data.get('username')
         password = data.get('password')
+        #valida los datos que vienen 
 
         try:
             admin_gui = Admin_Gui.objects.get(username=username)

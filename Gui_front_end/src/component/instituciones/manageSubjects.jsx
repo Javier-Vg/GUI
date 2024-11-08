@@ -57,7 +57,6 @@ const ManageSubjects = () => {
             name: subjectName,
             institution: institution_id // Usar el ID de la institución del localStorage
         };
-        console.log(subject);
         
         try {
             await postSubjects(subject);
@@ -76,6 +75,7 @@ const ManageSubjects = () => {
                 <h2>Registro de Materia</h2>
                 <label htmlFor='subjectName'>Nombre de la Materia:</label>
                 <input
+                    autoComplete='off'
                     type='text'
                     id='subjectName'
                     value={subjectName}
@@ -91,7 +91,7 @@ const ManageSubjects = () => {
                 <button onClick={openModal} className='btn-materias'>Ver materias registradas</button>
             </div>
 
-            {/* Props de modal que toda de refencia  */}
+            {/* Props de modal que toma de referencia el contenido que esta dentro de la etiqueta. */}
             <MyModal ref={modalRef}>
                 
                   <div className="modal">
@@ -104,10 +104,6 @@ const ManageSubjects = () => {
                   </div>
              
             </MyModal>
-            
-            
-                
-            
         </div>
     );
 };

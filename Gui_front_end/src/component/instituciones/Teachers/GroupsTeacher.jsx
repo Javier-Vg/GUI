@@ -43,7 +43,7 @@ function ListGroups() {
   };
 
   useEffect(() => {
-      
+    
     // Filtrar los grupos que no tienen la letra "F" en el nombre y que coinciden con el searchTerm
     const filtro = groupsWithoutF.filter(group => 
         group && // Asegúrate de que group no sea undefined

@@ -48,9 +48,12 @@ class LoginSerializer(serializers.Serializer):
             token['is_staff'] = user.is_staff
             token['is_superuser'] = user.is_superuser
             token['staff'] = user.staff
-
+            
             # Verificar el rol del usuario y recuperar la información correspondiente
+            #Esos roles se definen directamente en la view de el personal que proviene
+            #si se crea un staff entonces el rol proviene de la view de staff como is_staff = True
             if user.is_teacher:
+                # Profesor (is_teacher): Recupera información del modelo staff y la almacena en el token bajo info
                 try:
                     staff_instance = staff.objects.get(email=email)
                     staff_info = {
@@ -110,6 +113,7 @@ class LoginSerializer(serializers.Serializer):
                     token['info'] = None 
             elif user.is_superuser:
                 try:
+                    # Superusuario (is_superuser): Si es un superusuario, recupera datos del modelo Admin_Gui.
                     superuser_instance = Admin_Gui.objects.get(email=email)
                     superuser_info = {
                         "username": superuser_instance.username,
@@ -133,6 +137,7 @@ class LoginSerializer(serializers.Serializer):
                 except Institution.DoesNotExist:
                     token['info'] = None
             elif user.is_student:
+                #SI es student trae los datos de estudent y los guarda en la cookie
                 try:
                     student_instance = students.objects.get(email=email)
                     student_info = {
@@ -145,9 +150,10 @@ class LoginSerializer(serializers.Serializer):
                         'imgInstitution': student_instance.imagen_url,
                         'numberIdentification': student_instance.identification_number,
                         'type_of_student': student_instance.type_of_student
-                    }
+                    } #los guarda en la coookie
                     token['info'] = student_info
                 except students.DoesNotExist:
+                    #
                     token['info'] = None
 
             data["token"] = str(token)  # Convertir el token a string
@@ -156,3 +162,10 @@ class LoginSerializer(serializers.Serializer):
             raise serializers.ValidationError("Invalid email.")
 
         return data
+        
+# Manejo de Roles de Usuario
+# Profesor (is_teacher): Recupera información del modelo staff y la almacena en el token bajo info.
+# Staff (is_staff): Similar al rol de profesor, guarda detalles específicos en info.
+# Superusuario (is_superuser): Si es un superusuario, recupera datos del modelo Admin_Gui.
+# Institución (staff): Si pertenece a una institución, recupera datos del modelo Institution.
+# Estudiante (is_student): Si es un estudiante, extrae detalles específicos del modelo students.

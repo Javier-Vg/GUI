@@ -34,13 +34,12 @@ function GastosGanancias() {
   const [resultadosGastos, setResultadosGastos] = useState({});
   const [institution_id, setInstitutionId] = useState(null);
 
-  // Maneja cambios en el formulario y actualiza el estado
+  //Detecta cambios de los inputs.
   const handleChange = (e) => {
     const { name, value } = e.target;
     setEstado((prev) => ({ ...prev, [name]: value }));
   };
 
-  // Efecto para decodificar el token y obtener el ID de la institución
   useEffect(() => {
     const token = Cookies.get("AuthCookie");
 
@@ -55,7 +54,7 @@ function GastosGanancias() {
     }
   }, []);
 
-  // Función que aplica las operaciones de cálculo
+  //
   const aplicarOperaciones = () => {
     const gastos = calcularGastos();
     const ganancias = calcularGanancias();
@@ -90,7 +89,7 @@ function GastosGanancias() {
     return { ...gastos, total };
   };
 
-  // Función para calcular el total de ganancias
+  //Funcion que calcula los gastos y ganancias finales.
   const calcularGanancias = () => {
     const ingresosPrivados = parseFloat(estado.mensualidadNinosPrivados || 0);
     const ingresosRedCuido = parseFloat(estado.mensualidadNinosRedCuido || 0);
@@ -121,8 +120,6 @@ function GastosGanancias() {
     };
     try {
       const response = await postGastos(datos); // Envía los datos al backend
-      console.log("Datos enviados");
-      console.log("Respuesta del backend");
     } catch (error) {
       console.error("Error al enviar datos:", error);
     }
