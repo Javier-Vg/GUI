@@ -112,8 +112,6 @@ function ExpedienteAlumno() {
     let data = itemAssistence.filter((item) => {
     
       const [year, month, day] = item.dateToday.split("-");
-      
-      
 
       return month === mes && item.institution === institutionID;
     });
