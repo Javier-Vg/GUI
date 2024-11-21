@@ -4,22 +4,8 @@
     height: 100vh; /* Altura total de la vista */
 }
 
-.div-chatP-bubbles-container-students {
-    height: 15vh; /* Altura del contenedor de burbujas */
-    display: grid; /* Usa grid para centrar los elementos */
-    place-items: center; /* Centra los elementos dentro del grid */
-}
 
-.chatP-bubbles-container-students {
-    height: 90%;
-    width: 10%;
-    margin-top: 1em;
-    display: grid !important;
-    place-items: center;
-    border-left: solid 1px rgba(0, 0, 0, 0.263);
-    border-right: solid 1px rgba(0, 0, 0, 0.263);
-    border-bottom: solid 1px rgba(0, 0, 0, 0.263);
-}
+
 
 .chatP-container {
     height: 65vh; /* Altura del contenedor del chat */

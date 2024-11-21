@@ -122,7 +122,9 @@ function CreateStaff() {
         password: changePassword,
         authorization: isAuthorized // Añadir el estado de autorización
       };
+
       await postStaff(staff); // Envia los datos
+      
 
       
       setFormMessage("Personal creado exitosamente"); // Mostrar mensaje de éxito
