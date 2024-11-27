@@ -11,7 +11,7 @@ class InstitutionViewSet(viewsets.ModelViewSet):
     queryset = Institution.objects.all()
     serializer_class = Institutions_Serializer
     # permission_classes = [IsAuthenticated]
-    permission_classes = [IsAuthenticated]
+    permission_classes = [AllowAny]
 
     def create(self, request, *args, **kwargs):
         # Extraer la contraseña del request

@@ -58,7 +58,9 @@ const CreateContract = () => {
   };
 
   return (
+    <div className='container-contract'>
     <form onSubmit={handleSubmit} className="contract-form">
+      <h1>Crear Contracto</h1>
       <label className="form-label">
           Tipo de Contrato:
           <input
@@ -66,7 +68,9 @@ const CreateContract = () => {
               value={contractType}
               onChange={(e) => setContractType(e.target.value)}
               required
+              placeholder='semanal/quincelnal/anual'
               className="form-input"
+              
           />
       </label>
 
@@ -100,12 +104,14 @@ const CreateContract = () => {
               onChange={(e) => setSalary(e.target.value)}
               required
               className="form-input"
+              placeholder='1000'
           />
       </label>
 
       <button type="submit" className="submit-button">Crear Contrato</button>
       <h5>{message}</h5>
   </form>
+  </div>
 
   );
 };

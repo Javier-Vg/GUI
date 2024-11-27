@@ -45,6 +45,7 @@ services:
     volumes:
       - django_react_data:/data/db
       - ./dumps:/docker-entrypoint-initdb.d:ro
+    
 
 volumes:
   django_react_data:
