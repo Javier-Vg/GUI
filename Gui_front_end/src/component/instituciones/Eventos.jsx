@@ -71,42 +71,67 @@ function Eventos() {
   };
 
   return (
-    <div className='container-events-create'> {/* Contenedor del formulario */}
-        <form onSubmit={handleSubmit}> {/* Maneja el envío del formulario */}
+    <div className='container-events-create'>
+      {" "}
+      {/* Contenedor del formulario */}
+      <h2>Programar Eventos</h2>
+      <form onSubmit={handleSubmit}>
+        {" "}
+        {/* Maneja el envío del formulario */}
           <div>
-            <label className='label-event-create-name'>Event Name</label> {/* Etiqueta para el nombre del evento */}
-            <input className='type-text-event' /* Campo de entrada para el nombre del evento */
-              type="text"
-              value={eventName} // Valor del campo de entrada
-              onChange={handleEventNameChange} // Maneja cambios en el campo
-              required // Campo obligatorio
+          <label className='label-event-create-name'>Nombre del Evento</label>{" "}
+          {/* Etiqueta para el nombre del evento */}
+          <input
+            className='type-text-event'
+            type='text'
+            value={eventName}
+            onChange={handleEventNameChange}
+            required
+            placeholder='Ej: Reunión de padres de familia'
             />
           </div>
           <div>
-            <label className='label-event-create-date'>Date</label> {/* Etiqueta para la fecha */}
-            <input className='input-date-event' /* Campo de entrada para la fecha */
-              type="date"
-              value={date} // Valor del campo de entrada
-              onChange={handleDateChange} // Maneja cambios en el campo
-              required // Campo obligatorio
+          <label className='label-event-create-date'>Fecha</label>{" "}
+          {/* Etiqueta para la fecha */}
+          <input
+            className='input-date-event'
+            type='date'
+            value={date}
+            onChange={handleDateChange}
+            required
+            placeholder='DD/MM/AAAA'
             />
           </div>
           <div>
-            <label className='label-event-create-description'>Description</label> {/* Etiqueta para la descripción */}
-            <input className='type-text-event' /* Campo de entrada para la descripción */
-              type="text"
-              value={description} // Valor del campo de entrada
-              onChange={handleDescriptionChange} // Maneja cambios en el campo
-              required // Campo obligatorio
-              maxLength="500" // Limita la longitud máxima de entrada
+          <label className='label-event-create-description'>Descripción</label>{" "}
+          {/* Etiqueta para la descripción */}
+          <input
+            className='type-text-event'
+            type='text'
+            value={description}
+            onChange={handleDescriptionChange}
+            required
+            maxLength='500'
+            placeholder='Ej: Reunión para discutir el rendimiento académico del primer trimestre'
             />
           </div>
           {/* Se elimina el campo para mostrar la institución */}
-          <button className='button-event-create-create' type="submit" disabled={loading}> {/* Botón de envío */}
-            {loading ? 'Submitting...' : 'Create Event'} {/* Cambia el texto según el estado de carga */}
+        <div className='button-event-create-container'>
+          <button
+            className='button-event-create-create'
+            type='submit'
+            disabled={loading}
+          >
+            {" "}
+            {/* Botón de envío */}
+            {loading ? "Enviando..." : "Crear Evento"}{" "}
+            {/* Cambia el texto según el estado de carga */}
           </button>
-          {error && <p style={{ color: 'red' }}>{error}</p>} {/* Muestra mensaje de error si existe */}
-          {success && <p style={{ color: 'green' }}>{success}</p>} {/* Muestra mensaje de éxito si existe */}
+        </div>
+        {error && <p style={{ color: "red" }}>{error}</p>}{" "}
+        {/* Muestra mensaje de error si existe */}
+        {success && <p style={{ color: "green" }}>{success}</p>}{" "}
+        {/* Muestra mensaje de éxito si existe */}
         </form>
     </div>
   );
