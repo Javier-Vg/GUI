@@ -11,6 +11,7 @@ class GroupsViewSet(viewsets.ModelViewSet):
     permission_classes = [IsAuthenticated]
     
     def update(self, request, pk=None):
+        # Hace un update de los grades por medio de la pk/primary key
         try:
             institution = grades.objects.get(pk=pk)
         except grades.DoesNotExist:

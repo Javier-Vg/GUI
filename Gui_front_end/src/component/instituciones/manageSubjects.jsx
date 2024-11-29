@@ -1,26 +1,28 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import { toast } from 'react-toastify'; // Asegúrate de que tienes react-toastify instalado
 import { postSubjects } from '../../service/LoginGui';
 import { fetchSubjects } from '../../Redux/Slices/SliceSubjects';
 import Cookies from 'js-cookie';
 import { jwtDecode } from "jwt-decode";
 import { useDispatch, useSelector } from 'react-redux';
-// import '../../css/subjects.css';
+import MyModal from '../HookModal/hookModal';
+import '../../css/Institutions/manageSubjects.css';
 
 
 const ManageSubjects = () => {
 
+    const modalRef = useRef(null);
     const dispatch = useDispatch();
 
     const [subjectName, setSubjectName] = useState('');
     const [institution_id, setInstitutionId] = useState(null);
 
     const itemsSubject = useSelector((state) => state.subject.items);
-
-    const [IsOpen, setIsOpen] = useState(false);
     
     //Modal
-    const openModal = () => setIsOpen(true);
+    const openModal = () => {
+        modalRef.current.showModal(); // Llama a la función para abrir el modal
+    } 
 
     const closeModal = () => {
         setIsOpen(false);
@@ -40,10 +42,8 @@ const ManageSubjects = () => {
         // Desencriptar el token
         const decodedToken = jwtDecode(token);
 
-
         // Extraer el institution_id desde el token
         const institutionIdFromToken = decodedToken.info.institution;
-        console.log(institutionIdFromToken);
          
         setInstitutionId(institutionIdFromToken);
       } catch (error) {
@@ -57,7 +57,6 @@ const ManageSubjects = () => {
             name: subjectName,
             institution: institution_id // Usar el ID de la institución del localStorage
         };
-        console.log(subject);
         
         try {
             await postSubjects(subject);
@@ -76,6 +75,7 @@ const ManageSubjects = () => {
                 <h2>Registro de Materia</h2>
                 <label htmlFor='subjectName'>Nombre de la Materia:</label>
                 <input
+                    autoComplete='off'
                     type='text'
                     id='subjectName'
                     value={subjectName}
@@ -91,8 +91,9 @@ const ManageSubjects = () => {
                 <button onClick={openModal} className='btn-materias'>Ver materias registradas</button>
             </div>
 
-            {IsOpen && (
-                <div className="modal-overlay">
+            {/* Props de modal que toma de referencia el contenido que esta dentro de la etiqueta. */}
+            <MyModal ref={modalRef}>
+                
                   <div className="modal">
                     <h2>Total de materias registradas.</h2>
                     {itemsSubject.map((s, k) => (
@@ -100,12 +101,9 @@ const ManageSubjects = () => {
                             <h3>- {s.name}</h3>
                         </div>
                     ))}
-                  <button type="button" onClick={closeModal}>Cerrar</button>
                   </div>
-                </div>
-            )}
-                
-            
+             
+            </MyModal>
         </div>
     );
 };

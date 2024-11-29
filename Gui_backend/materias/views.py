@@ -33,7 +33,7 @@ class SubjectsViewSet(viewsets.ModelViewSet):
         serializer = self.get_serializer(subject)
         return Response(serializer.data, status=status.HTTP_200_OK)
 
-    #Institutions y GUi
+    #metodo update por medio de la pk
     def update(self, request, pk=None):
         try:
             subject = subjects.objects.get(pk=pk)
@@ -46,7 +46,7 @@ class SubjectsViewSet(viewsets.ModelViewSet):
             return Response(serializer.data, status=status.HTTP_200_OK)
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
-    #Institutions y GUi
+    #metodo destroy por medio de la pk
     def destroy(self, request, pk=None):
         try:
             subject = self.get_object()
@@ -54,76 +54,3 @@ class SubjectsViewSet(viewsets.ModelViewSet):
             return Response({"message": "Subject deleted successfully"}, status=status.HTTP_204_NO_CONTENT)
         except subjects.DoesNotExist:
             return Response({"error": "Subject not found"}, status=status.HTTP_404_NOT_FOUND)
-    # queryset = subjects.objects.all()
-    # serializer_class = Subjects_Serializer
-
-    # def create(self, request):
-    #     # Obtén el nombre enviado desde el frontend
-    #     name = request.data.get('name')
-
-    #     # Verifica si ya existe una asignatura con el mismo nombre
-    #     if subjects.objects.filter(name=name).exists():
-    #         # Si ya existe, devuelve una respuesta con estado "False"
-    #         return Response({"success": False, "message": "Subject with this name already exists"}, status=status.HTTP_400_BAD_REQUEST)
-
-    #     # Si no existe, procede a guardarlo
-    #     serializer = self.get_serializer(data=request.data)
-    #     if serializer.is_valid():
-    #         serializer.save()
-    #         return Response({"success": True, "data": serializer.data}, status=status.HTTP_201_CREATED)
-
-    #     # Si la validación del serializer falla, devuelve errores
-    #     return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
-
-    # def update(self, request, pk=None):
-    #     try:
-    #         institution = subjects.objects.get(pk=pk)
-    #     except subjects.DoesNotExist:
-    #         return Response({"error": "Institution not found"}, status=status.HTTP_404_NOT_FOUND)
-        
-    #     serializer = self.get_serializer(institution, data=request.data)
-    #     if serializer.is_valid():
-    #         serializer.save()
-    #         return Response(serializer.data, status=status.HTTP_200_OK)
-    #     return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
-
-    #Institutions y GUi
-    def destroy(self, request, pk=None):
-        try:
-            subject = self.get_object()
-            subject.delete()
-            return Response({"message": "Subject deleted successfully"}, status=status.HTTP_204_NO_CONTENT)
-        except subjects.DoesNotExist:
-            return Response({"error": "Subject not found"}, status=status.HTTP_404_NOT_FOUND)
-    # queryset = subjects.objects.all()
-    # serializer_class = Subjects_Serializer
-
-    # def create(self, request):
-    #     # Obtén el nombre enviado desde el frontend
-    #     name = request.data.get('name')
-
-    #     # Verifica si ya existe una asignatura con el mismo nombre
-    #     if subjects.objects.filter(name=name).exists():
-    #         # Si ya existe, devuelve una respuesta con estado "False"
-    #         return Response({"success": False, "message": "Subject with this name already exists"}, status=status.HTTP_400_BAD_REQUEST)
-
-    #     # Si no existe, procede a guardarlo
-    #     serializer = self.get_serializer(data=request.data)
-    #     if serializer.is_valid():
-    #         serializer.save()
-    #         return Response({"success": True, "data": serializer.data}, status=status.HTTP_201_CREATED)
-
-    #     # Si la validación del serializer falla, devuelve errores
-    #     return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
-
-    # def update(self, request, pk=None):
-    #     try:
-    #         institution = subjects.objects.get(pk=pk)
-    #     except subjects.DoesNotExist:
-    #         return Response({"error": "Institution not found"}, status=status.HTTP_404_NOT_FOUND)
-        
-    #     serializer = self.get_serializer(institution, data=request.data)
-    #     if serializer.is_valid():
-    #         serializer.save()
-    #         return Response(serializer.data, status=status.HTTP_200_OK)
-    #     return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)

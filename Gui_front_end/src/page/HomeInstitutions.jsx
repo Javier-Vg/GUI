@@ -1,5 +1,5 @@
 import React from 'react';
-import HomeInstitutionsForm from '../component/instituciones/HomeInstitutionsForm';
+import HomeInstitutionsForm from '../component/instituciones/HomeInstitutionsForm.jsx';
 
 function HomeInstitutions() {
   return (

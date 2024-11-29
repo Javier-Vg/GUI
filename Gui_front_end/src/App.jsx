@@ -1,16 +1,6 @@
-// import './App.css'
-// import Routing from './router/routing'
-// function App() {
-//   return (
-//     <>
-//       <Routing/>
-//     </>
-//   )
-// }
 
-// export default App
 import './App.css';
-import Routing from './router/routing';
+import Routing from './router/Routing.jsx';
 import React, { useEffect, useState } from 'react';
 
 function App() {

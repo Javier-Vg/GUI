@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { postGroups } from "../../service/LoginGui";
-// import "../../css/create_group.css";
+import "../../css/Institutions/CreateGroup.css";
 import { useDispatch, useSelector } from 'react-redux';
 import { fetchSubjects } from '../../Redux/Slices/SliceSubjects';
 import { fetchInstitution } from '../../Redux/Slices/SliceInstitution';
@@ -72,8 +72,8 @@ function CreateGroup() {
     setObjctChosen([...objctChosen, e.target.value]);
   };
  
- 
 const Post = () => {
+
   const group = {
     group_name: Name,
     educational_level: educationLevel,
@@ -165,7 +165,7 @@ const Post = () => {
                
                 <h2>Asignaturas que se impartiran:</h2>
 
-                {/* Mensaje si no se ha seleccionado ninguna materia válida */}
+                {/* Mensaje si no se ha seleccionado ninguna materia válida. */}
                 {objctChosen.length > 0 ? null : (
                   <p style={{ color: "red" }}>
                     Por favor seleccione una materia.

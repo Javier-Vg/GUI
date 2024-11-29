@@ -19,9 +19,10 @@ import { jwtDecode } from "jwt-decode";
 import Eventos from "./Eventos";
 import ListaEventos from "../moduloProfesor/listaEventos";
 import '../../css/Institutions/HomeInstitutionsForm.css'
-
+import ScheduleForm from "./createSchedule";
+import CreateContract from "./createContract";
 function HomeInstitutionsForm() {
-  const [changeComponent, setChangeComponent] = useState("");
+  const [changeComponent, setChangeComponent] = useState("profesor  ");
   const [isDeployed, setIsDeployed] = useState(false);
 
   const [NameInstitution,setNameInstitution]=useState(null);
@@ -39,32 +40,40 @@ function HomeInstitutionsForm() {
     setIsDeployed(!isDeployed);
   };
   useEffect(() => {
-    const token = Cookies.get('AuthCookie'); 
-  
-    if (token) {
-  
-      try {
-        // Desencriptar el token
-        const decodedToken = jwtDecode(token);    
-        // Extraer valores del token
-        const auth = decodedToken.info.auth; 
-        const rol = decodedToken.info.rol;  
-        const nameInstitution = decodedToken.info.username;  
-        const imgurl = decodedToken.info.imgInstitution; 
-        setNameInstitution(nameInstitution)
-        setInfInstitution(imgurl)
+    const token = Cookies.get('AuthCookie');
 
-        if (!token || auth !== true) {
-          navigate("/error");
-        }
-        setRole(rol);
-        setAuth(auth);
-      } catch (error) {
-        console.error('Error al decodificar el token', error);
-      }
+    if (!token) {
+      // Redirigir inmediatamente si no hay token
+      navigate("/error");
+      return;
     }
-  }, []);
-  
+
+    try {
+      // Desencriptar el token
+      const decodedToken = jwtDecode(token);
+
+      // Extraer valores del token
+      const auth = decodedToken.info?.auth;
+      const rol = decodedToken.info?.rol;
+      const nameInstitution = decodedToken.info?.username;
+      const imgurl = decodedToken.info?.imgInstitution;
+      
+      // Setear valores si existen
+      if (nameInstitution) setNameInstitution(nameInstitution);
+      if (imgurl) setInfInstitution(imgurl);
+      if (auth !== true) {
+        navigate("/error");
+      }
+
+      setRole(rol);
+      setAuth(auth);
+    } catch (error) {
+      console.error('Error al decodificar el token', error);
+      navigate("/error");
+    }
+  }, [navigate]);
+
+  //Lo lleva al login en caso de que cierre sesion.
   const Logout = async () => {
     navigate("/login");
   };
@@ -75,7 +84,7 @@ function HomeInstitutionsForm() {
       <nav className="navbar">
         {/* <button id="open-close" onClick={toggleAside}> */}
           <span id="open-close" onClick={toggleAside}>
-            <i className="bx bx-menu">≡</i>
+            <i className="bx bx-menu" >≡</i>
           </span>
         {/* </button> */}
         <div className="right-section">
@@ -203,6 +212,51 @@ function HomeInstitutionsForm() {
                 <label className="label-home-inst"  htmlFor="personal">Personal</label>
               </div>
 
+
+
+
+
+
+
+
+
+
+              <div
+                onClick={() => setChangeComponent("Horario")}
+                className="inputBoton"
+              >
+                <input
+                  type="radio"
+                  id="Horario"
+                  name="changeComponent"
+                  style={{ display: "none" }}
+                />
+                <label className="label-home-inst"  htmlFor="Horario">Horario</label>
+              </div>
+              <div
+                onClick={() => setChangeComponent("Contratos")}
+                className="inputBoton"
+              >
+                <input
+                  type="radio"
+                  id="Contratos"
+                  name="changeComponent"
+                  style={{ display: "none" }}
+                />
+                <label className="label-home-inst"  htmlFor="Contratos">Contratos</label>
+              </div>
+
+
+
+
+
+
+
+
+
+
+
+
               <div
                 onClick={() => setChangeComponent("eventos")}
                 className="inputBoton"
@@ -313,6 +367,9 @@ function HomeInstitutionsForm() {
           {changeComponent === "teacherGrupos" && <GroupsTeacher />}
           {changeComponent === "teacherNotas" && <GradesTeacher />}
           {changeComponent === "ChatEstudiante" && <ChatProfesor />}
+          {changeComponent === "Horario" && <ScheduleForm />}
+          {changeComponent === "Contratos" && <CreateContract />}
+
       </div>
     </div>
   );

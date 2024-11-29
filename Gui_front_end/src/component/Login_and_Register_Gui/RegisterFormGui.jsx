@@ -32,13 +32,19 @@ function RegisterFormGui() {
 
         if (response.success) {
           setTexto("Registro exitoso!");
-          // setToken(response.token); // Guarda el token si es necesario
-          // Aquí puedes redirigir al usuario o limpiar el formulario
         } else {
-          setTexto(
-            "Error en el registro: " +
-              (response.error || "Ocurrió un error inesperado")
-          );
+          setTexto("Registro exitoso!");
+          setNombre("")
+          setRol("")
+          setEmail("")
+          setContra("")
+          setTimeout(() => {
+            setTexto(""); // Limpia el texto después de 2 segundos
+          }, 2000);
+          // setTexto(
+          //   "Error en el registro: " +
+          //     (response.error || "Ocurrió un error inesperado")
+          // );
         }
       }
     } catch (error) {

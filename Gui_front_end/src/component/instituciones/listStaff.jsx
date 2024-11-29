@@ -29,7 +29,7 @@ function ListStaff() {
         // Desencriptar el token
         const decodedToken = jwtDecode(token);
         const institutionIdFromToken = decodedToken.info.institution;
-        
+
         setInstitutionId(institutionIdFromToken);
       } catch (error) {
         console.error("Error al decodificar el token", error);
@@ -37,7 +37,6 @@ function ListStaff() {
     }
     dispatch(fetchStaff());
   }, [dispatch]);
-
 
   useEffect(() => {
     const filteredStaff = itemsStaff.filter(
@@ -52,23 +51,27 @@ function ListStaff() {
     setStaff(filteredStaff);
   }, [itemsStaff, institution_id, filterPosition, searchTerm]);
 
+  //Abre el modal
   const openModal = (staffMember) => {
     setSelectedStaff(staffMember);
     setEditedStaff(staffMember);
     setModal(true);
     setEditMode(false);
   };
-
+  
+  //Cierra el modal 
   const closeModal = () => {
     setSelectedStaff(null);
     setModal(false);
     setEditMode(false);
   };
 
+  //Activa el modal de edicion.
   const handleEdit = () => {
     setEditMode(true);
   };
 
+  // Capta los cambios al editar.
   const handleChange = (e) => {
     if (e.target.name === "authorization") {
       setEditedStaff({ ...editedStaff, [e.target.name]: e.target.checked });

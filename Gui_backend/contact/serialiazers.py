@@ -6,3 +6,4 @@ class ContactSerializer(serializers.ModelSerializer):
     class Meta:
         model = Contact
         fields = ['name', 'email']
+        #pide esos datos

@@ -47,5 +47,3 @@ class GastoCreateView(viewsets.ModelViewSet):
             return Response({"message": "Gasto deleted successfully"}, status=status.HTTP_204_NO_CONTENT)
         except Gasto.DoesNotExist:
             return Response({"error": "Gasto not found"}, status=status.HTTP_404_NOT_FOUND)
-    # queryset = Gasto.objects.all()
-    # serializer_class = GastosSerializer

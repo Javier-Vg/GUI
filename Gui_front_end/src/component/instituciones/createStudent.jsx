@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { postStudents } from '../../service/LoginGui';
 import Cookies from 'js-cookie';
 import { jwtDecode } from "jwt-decode";
+import '../../css/Institutions/createStudent.css'
 const domain = window.location.hostname 
 
 function CreateStudent() {
@@ -36,16 +37,13 @@ function CreateStudent() {
         // Desencriptar el token
         const decodedToken = jwtDecode(token);  
         const institutionIdFromToken = decodedToken.info.institution;
-        console.log(institutionIdFromToken);
-        
-        // Guardar el ID en una variable local
         setInstitutionId(institutionIdFromToken);
       } catch (error) {
         console.error('Error al decodificar el token', error);
       }
     }
   }, []);
-  const handleInputChange = (e) => {
+  const handleInputChange = (e) => { //Capta los cambios de los inputs.
     const { name, value } = e.target;
     switch (name) {
       case 'nombre':
@@ -92,6 +90,7 @@ function CreateStudent() {
     }
   };
 
+  // Verifica si hay un archivo.
   const handleFileChange = (e) => {
     const file = e.target.files[0];
     if (file) {
@@ -99,6 +98,7 @@ function CreateStudent() {
     }
   };
 
+  // Funcion que valida los campos y luego los sube al backend.
   const handleSubmit = async () => {
     if (!nombre || !apellido || !identificacion || !fechaNacimiento || !grado || !estadoAcademico || !telefono || !email || !nameGuardian || !mensualidadDelEstudiante || !password) {
       alert("Por favor, completa todos los campos obligatorios.");
@@ -126,11 +126,9 @@ function CreateStudent() {
         throw new Error('Error al subir la imagen');
       }
       const imageUrl = data.image_url;
-      console.log(imageUrl);
-      
       // Aquí agregamos el institutionId al postStudents
       await postStudents(nombre, apellido, identificacion, fechaNacimiento, grado, estadoAcademico, telefono, email, imageUrl, alergias, guardianTelefono, nameGuardian, mensualidadDelEstudiante, password, institution_id); // Añadir institutionId
-      setFormMessage("Personal creado exitosamente"); // Mostrar mensaje de éxito
+      setFormMessage("Estudiante creado exitosamente"); // Mostrar mensaje de éxito
 
       // Restablecer campos
       setNombre('');
@@ -143,7 +141,7 @@ function CreateStudent() {
       setEmail('');
       setGuardianTelefono('');
       setNameGuardian('');
-      setImagen(null);
+      setImagen('');
       setAlergias('');
       setMensualidadDelEstudiante('');
       setPassword('');
@@ -155,30 +153,25 @@ function CreateStudent() {
 
   return (
     <div className='container-students'>
-    <br />
-    <br />
-    <br />
-    <br />
-    <br />
-    <br />
+      <br />
       <label>
         Nombre estudiante:
-        <input type="text" name="nombre" value={nombre} onChange={handleInputChange} />
+        <input type="text" autoComplete='off' name="nombre" value={nombre} onChange={handleInputChange} />
       </label>
       <br />
       <label>
         Apellido:
-        <input type="text" name="apellido" value={apellido} onChange={handleInputChange} />
+        <input type="text" autoComplete='off' name="apellido" value={apellido} onChange={handleInputChange} />
       </label>
       <br />
       <label>
         Número de Identificación:
-        <input type="text" name="identificacion" value={identificacion} onChange={handleInputChange} />
+        <input type="text" autoComplete='off' name="identificacion" value={identificacion} onChange={handleInputChange} />
       </label>
       <br />
       <label>
         Fecha de Nacimiento:
-        <input type="date" name="fechaNacimiento" value={fechaNacimiento} onChange={handleInputChange} />
+        <input type="date" autoComplete='off' name="fechaNacimiento" value={fechaNacimiento} onChange={handleInputChange} />
       </label>
       <br />
       <label>
@@ -205,43 +198,43 @@ function CreateStudent() {
       <br />
       <label>
         Teléfono:
-        <input type="text" name="telefono" value={telefono} onChange={handleInputChange} />
+        <input type="text" autoComplete='off' name="telefono" value={telefono} onChange={handleInputChange} />
       </label>
       <br />
       <label>
         Email:
-        <input type="email" name="email" value={email} onChange={handleInputChange} />
+        <input type="email"  autoComplete='off' name="email" value={email} onChange={handleInputChange} />
       </label>
       <br />
       <label>
         Contraseña:
-        <input type="password" name="password" value={password} onChange={handleInputChange} />
+        <input type="password"  autoComplete='off' name="password" value={password} onChange={handleInputChange} />
       </label>
       <br />
       <label>
         Nombre del Encargado:
-        <input type="text" name="nameGuardian" value={nameGuardian} onChange={handleInputChange} />
+        <input type="text" autoComplete='off' name="nameGuardian" value={nameGuardian} onChange={handleInputChange} />
       </label>
       <br />
       <label>
         Teléfono del Encargado (opcional):
-        <input type="text" name="guardianTelefono" value={guardianTelefono} onChange={handleInputChange} />
+        <input type="text" autoComplete='off' name="guardianTelefono" value={guardianTelefono} onChange={handleInputChange} />
       </label>
       <br />
       <label>
         Alergias:
-        <input type="text" name="alergias" value={alergias} onChange={handleInputChange} />
+        <input type="text"  autoComplete='off' name="alergias" value={alergias} onChange={handleInputChange} />
       </label>
       <br />
       <label>
         Imagen:
-        <input type="file" accept="image/*" onChange={handleFileChange} />
+        <input type="file" autoComplete='off' accept="image/*" onChange={handleFileChange} />
       </label>
       <br />
       <br />
       <label>
         Mensualidad del Estudiante:
-        <input type="text" name="mensualidadDelEstudiante" value={mensualidadDelEstudiante} onChange={handleInputChange} />
+        <input type="text" autoComplete='off' name="mensualidadDelEstudiante" value={mensualidadDelEstudiante} onChange={handleInputChange} />
       </label>
       <br />
       {formMessage && <div>{formMessage}</div>}

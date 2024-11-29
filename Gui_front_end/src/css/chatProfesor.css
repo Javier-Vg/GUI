@@ -1,352 +1,107 @@
-
-.div-profesor-messeges {
-     display: grid;
-    place-items: center;
-    background-color: rgb(255, 255, 255); 
-    
+.chatP-profesor-container {
+    display: grid; /* Usa grid para la estructura general */
+    grid-template-rows: auto 1fr; /* Dos filas: la primera automática y la segunda ocupando el espacio restante */
+    height: 100vh; /* Altura total de la vista */
 }
 
-.messages-container {
-    gap: 0.5rem;
-  
-} 
 
-.chat-container {
-    display: grid;
-    place-items: center; 
-    height:30rem;  
-    overflow-y: auto;
-    padding: 10px;       
-    border-radius: 8px;  
-    width: 60rem;
-    margin-top: 40px;
- 
-    background-color: rgb(255, 255, 255);
-    margin-top: -1rem;
-  }
-  .messages-container {
-    overflow-y: auto;
-    background-color: rgb(255, 255, 255);
-    scrollbar-width: none; /* Para Firefox */
-    display: flex;
-    flex-direction: column;
+
+
+.chatP-container {
+    height: 65vh; /* Altura del contenedor del chat */
+    display: flex; /* Usa flexbox para alinear los elementos */
+    flex-direction: column; /* Invertir la dirección para que comience desde abajo */
+    padding: 20px; /* Espacio interno para el contenedor del chat */
+    overflow-y: auto !important; /* Habilita el desplazamiento si hay muchos mensajes */
+}
+
+.messages-container-chatP {
+    padding-top: 1em;
+    padding-bottom: 1em;
+    border-top: 1px solid black;
+    display: flex; /* Usa flexbox para organizar los mensajes */
+    flex-direction: column; /* Alinea los mensajes en una columna */
+    margin-top: 20px; /* Espaciado superior */
+    flex-grow: 1; /* Permite que el contenedor de mensajes crezca */
+    overflow-y: auto; /* Habilita el desplazamiento si hay muchos mensajes */
+    width: 75%; /* Ancho del contenedor al 75% */
+    margin-left: auto; /* Centra el contenedor horizontalmente */
+    margin-right: auto; /* Centra el contenedor horizontalmente */
+    max-height: calc(100% - 20px); /* Asegura que el contenedor no exceda la altura del contenedor padre */
+}
+
+.message-chatP {
+    display: flex; /* Usa flexbox para los mensajes individuales */
+    align-items: center; /* Centra verticalmente los iconos y texto */
+    margin: 5px; /* Espaciado entre mensajes */
+    padding: 10px; /* Espaciado interno para los mensajes */
+    border-radius: 10px; /* Bordes redondeados */
+    max-width: 70%; /* Ancho máximo de los mensajes */
+}
+
+.sent-chatP {
+    background-color: #a3d8a8; /* Color de fondo para los mensajes enviados */
+    align-self: flex-end; /* Alinea a la derecha */
+    text-align: right; /* Alinea el texto a la derecha */
+}
+
+.received-chatP {
+    background-color: #f0f0f0; /* Color de fondo para los mensajes recibidos */
+    align-self: flex-start; /* Alinea a la izquierda */
+    text-align: left; /* Alinea el texto a la izquierda */
+}
+
+.message-chatP .chat-bubble-icon {
+    margin-right: 5px; /* Espacio entre el icono y el texto */
+}
+
+.send-message-container-chatP {
+    background-color: #1d318b; /* Color de fondo del contenedor */
+    height: 20vh; /* Altura fija del contenedor */
+    display: grid; /* Usar grid para la disposición */
     width: 100%;
-    height: 60vh;
-    max-height: 100%; 
-    padding: 10px;
-    margin-top: 5rem; /* Espacio alrededor de los mensajes */
-}
-.chat-container::-webkit-scrollbar {
-    display: none; /* Para Chrome, Safari y otros navegadores basados en WebKit */
+    grid-template-columns: 85% 15%; /* Espacio para el textarea y el botón */
+    align-items: center; /* Alinea verticalmente los elementos */
+    padding-left: 15%;
+    padding-bottom: 5em;
 }
 
-.chat-bubbles-container-staff{
-    display: grid;
-    grid-auto-flow: column; /* Coloca los elementos en una fila horizontal */
-    grid-auto-columns: min-content; /* Ajusta el tamaño de las columnas según el contenido */
-    place-items: center;
-    overflow-x: auto; /* Permite el desplazamiento horizontal */
-    scrollbar-width: none;
-    gap: 10px; /* Espacio entre elementos */
-    height: 19rem;
-    width: 40rem;
-}
-.chat-bubbles-container-students::-webkit-scrollbar {
-    display: none; /* Para Chrome, Safari y otros navegadores basados en WebKit */
-}
-.message-input{
-    width: 45rem;
-    height: 5rem;
-    border-radius: 8px;
-    border: 1px solid #ccc;
-    font-size: 2rem;
-    margin-right: 10rem;
-}
-.send-button-profesor{
-    margin-left: 47rem;
-    margin-top: -5rem;
-    width: 10rem;
-    height: 5rem;
-    padding: 8px 16px;
-    background-color: #1d318b;
-    color: white;
-    border: none;
-    border-radius: 6px;
-    cursor: pointer;
-    transition: background 0.3s ease;
-    
-
-}
-.message-profesor {
-    padding: 8px;
-    border-radius: 5px;
-    margin: 5px 0; 
-    word-wrap: break-word; 
-}
- .sent-profesor {
-    color: #1d318b;
-    border: 1px solid #1d318b;
-    display: flex;
-    align-items: center;
-    margin-left: auto; 
-    padding: 1REM;
-    font-size:1rem;
-    word-wrap: break-word; /* Hace que el texto largo se divida en líneas */
-    overflow-wrap: break-word;
-    flex-wrap: wrap; 
-}
-.received-profesor {
-    align-self: flex-start;
-    color: #1d318b;
-    border: 1px solid #1d318b;
-    display: flex;
-    align-items: center;
-    padding: 1rem;
-    font-size:1rem;
-    max-width: 100%; /* Ajusta el ancho máximo al 100% del contenedor padre */
-    word-wrap: break-word; /* Hace que el texto largo se divida en líneas */
-    overflow-wrap: break-word;
-    flex-wrap: wrap; 
-    
-}  
-
-
-.student-bubble {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    border-radius: 50%;
-    width: 200px; 
-    /* height: 20px;  */
-    text-align: center; 
-}  
-.student-photo {
-    width: 100px; /* Aumenta el tamaño de la imagen */
-    height: 100px;
-    border-radius: 50%;
-    margin-bottom: 5px;
-    object-fit: cover; 
-} 
-.nombre-estudiante {
-    margin-top: 0.5rem;
-    color: #1d318b;
-    font-size: 2rem;
+.div-message-input-chatP {
+    display: flex; /* Usa flexbox para alinear los elementos internos */
+    align-items: center; /* Centra verticalmente el textarea y el botón */
+    width: 100%; /* Asegúrate de que ocupe todo el espacio disponible */
+    background-color: transparent;
 }
 
-
-.div-profesor-messeges {
-    display: grid;
-    place-items: center;
-    background-color: rgb(255, 255, 255); 
+.message-input-chatP {
+    width: 100%; /* Ocupa todo el ancho del contenedor interno */
+    max-height: 80px; /* Altura máxima del textarea */
+    resize: none; /* Desactiva el redimensionamiento del textarea */
+    padding: 10px; /* Espacio interno para el texto */
+    border-radius: 5px; /* Bordes redondeados */
+    border: 1px solid #ccc; /* Borde del textarea */
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2); /* Sombra opcional */
+    background-color: white; /* Color de fondo del textarea */
+    margin-right: 1em; /* Espaciado a la derecha del textarea */
 }
 
-.messages-container {
-    gap: 0.5rem;
-} 
-
-.chat-container {
-    display: grid;
-    place-items: center; 
-    height: 30rem;  
-    overflow-y: auto;
-    padding: 10px;       
-    border-radius: 8px;  
-    width: 60rem;
-    margin-top: -1rem;
-    background-color: rgb(255, 255, 255);
-}
-.chat-container::-webkit-scrollbar {
-    display: none;
+.message-input-chatP:focus {
+    outline: none;
 }
 
-.messages-container {
-    overflow-y: auto;
-    background-color: rgb(255, 255, 255);
-    scrollbar-width: none;
-    display: flex;
-    flex-direction: column;
-    width: 100%;
-    height: 60vh;
-    max-height: 100%; 
-    padding: 10px;
-    margin-top: 5rem;
+.send-button-chatP {
+    color: white; /* Color del texto del botón */
+    border: none; /* Sin borde */
+    border-radius: 5px; /* Bordes redondeados */
+    padding: 10px 15px; /* Espaciado interno del botón */
+    cursor: pointer; /* Cambia el cursor al pasar sobre el botón */
+    transition: background-color 0.3s; /* Transición para el efecto hover */
 }
 
-.chat-bubbles-container-staff {
-    display: grid;
-    grid-auto-flow: column;
-    grid-auto-columns: min-content;
-    place-items: center;
-    overflow-x: auto;
-    scrollbar-width: none;
-    gap: 10px;
-    height: 19rem;
-    width: 40rem;
-}
-.chat-bubbles-container-students::-webkit-scrollbar {
-    display: none;
+.send-button-chatP:hover {
+    background-color: #45a049; /* Color del botón al pasar el mouse */
 }
 
-.message-input {
-    width: 45rem;
-    height: 5rem;
-    border-radius: 8px;
-    border: 1px solid #ccc;
-    font-size: 2rem;
-    margin-right: 10rem;
-}
-
-.send-button-profesor {
-    margin-left: 47rem;
-    margin-top: -5rem;
-    width: 10rem;
-    height: 5rem;
-    padding: 8px 16px;
-    background-color: #1d318b;
-    color: white;
-    border: none;
-    border-radius: 6px;
-    cursor: pointer;
-    transition: background 0.3s ease;
-}
-
-.message-profesor {
-    padding: 8px;
-    border-radius: 5px;
-    margin: 5px 0;
-    word-wrap: break-word;
-}
-
-.sent-profesor, .received-profesor {
-    color: #1d318b;
-    border: 1px solid #1d318b;
-    display: flex;
-    align-items: center;
-    padding: 1rem;
-    font-size: 1rem;
-    word-wrap: break-word;
-    overflow-wrap: break-word;
-    flex-wrap: wrap;
-}
-.sent-profesor {
-    margin-left: auto;
-}
-
-.student-bubble {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    border-radius: 50%;
-    width: 200px;
-    text-align: center;
-}
-.student-photo {
-    width: 100px;
-    height: 100px;
-    border-radius: 50%;
-    margin-bottom: 5px;
-    object-fit: cover;
-}
-.nombre-estudiante {
-    margin-top: 0.5rem;
-    color: #1d318b;
-    font-size: 2rem;
-}
-
-/* Ajustes responsivos para tablets y móviles */
-@media (max-width: 768px) {
-    .chat-container {
-        width: 100%;
-        height: auto;
-        margin-top: 1rem;
-        padding: 5px;
-    }
-    
-    .messages-container {
-        height: 50vh;
-        padding: 5px;
-        margin-top: 3rem;
-    }
-    
-    .chat-bubbles-container-staff, .chat-bubbles-container-students {
-        width: 100%;
-        height: auto;
-        gap: 5px;
-    }
-    
-    .message-input {
-        width: 100%;
-        margin-right: 0;
-        font-size: 1.6rem;
-    }
-    
-    .send-button-profesor {
-        margin-left: 0;
-        margin-top: 1rem;
-        width: 8rem;
-        height: 4rem;
-    }
-    
-    .sent-profesor, .received-profesor {
-        font-size: 1.2rem;
-        padding: 0.5rem;
-        max-width: 90%;
-    }
-    
-    .student-bubble {
-        width: 150px;
-    }
-    
-    .student-photo {
-        width: 80px;
-        height: 80px;
-    }
-    
-    .nombre-estudiante {
-        font-size: 1.6rem;
-    }
-}
-
-@media (max-width: 480px) {
-    .chat-container {
-        padding: 5px;
-    }
-    
-    .messages-container {
-        height: 40vh;
-        margin-top: 2rem;
-        padding: 5px;
-    }
-    
-    .chat-bubbles-container-staff, .chat-bubbles-container-students {
-        width: 100%;
-        gap: 5px;
-    }
-    
-    .message-input {
-        font-size: 1.4rem;
-        height: 4rem;
-    }
-    
-    .send-button-profesor {
-        width: 7rem;
-        height: 3.5rem;
-    }
-    
-    .sent-profesor, .received-profesor {
-        font-size: 1rem;
-    }
-    
-    .student-bubble {
-        width: 120px;
-    }
-    
-    .student-photo {
-        width: 60px;
-        height: 60px;
-    }
-    
-    .nombre-estudiante {
-        font-size: 1.4rem;
-    }
+.message-chatP .chat-bubble-icon {
+    margin-right: 5px; /* Espacio entre el icono y el texto */
 }
