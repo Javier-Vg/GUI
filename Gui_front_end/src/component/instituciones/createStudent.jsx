@@ -141,7 +141,7 @@ function CreateStudent() {
       setEmail('');
       setGuardianTelefono('');
       setNameGuardian('');
-      setImagen(null);
+      setImagen('');
       setAlergias('');
       setMensualidadDelEstudiante('');
       setPassword('');
