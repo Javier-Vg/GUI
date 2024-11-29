@@ -108,7 +108,7 @@ const CreateContract = () => {
           />
       </label>
 
-      <button type="submit" className="submit-button">Crear Contrato</button>
+      <button type="submit" className="submit-button-contract">Crear Contrato</button>
       <h5>{message}</h5>
   </form>
   </div>
@@ -117,3 +117,5 @@ const CreateContract = () => {
 };
 
 export default CreateContract;
+
+
