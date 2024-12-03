@@ -15,7 +15,7 @@ from rest_framework.exceptions import ValidationError
 class StaffViewSet(viewsets.ModelViewSet):
     queryset = staff.objects.all()
     serializer_class = Staff_Serializer
-    permission_classes = [IsAuthenticated]  
+    permission_classes = [AllowAny]  
     def create(self, request, *args, **kwargs):
     # Extraemos los datos de usuario desde el request
         position = request.data.get('position')
