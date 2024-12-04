@@ -119,12 +119,13 @@ const Post = () => {
   return (
     
     <div className="container-CreateGroup">
-      <h2>Creacion de grupos</h2>
+      <h2 className="h2GroupsJ">Creacion de grupos</h2>
       <br />
       <form action="" className="form1">
         <label>
           Nombre del grupo:
           <input
+          placeholder="Ingrese el nombre."
             required
             onChange={(e) => setName(e.target.value)}
             type="text"
@@ -132,8 +133,9 @@ const Post = () => {
         </label>
         <br />
         <label>
-          Nivel de educacion:
+          Nivel de educación:
           <input
+          placeholder="Ingrese el nivel de educación."
             required
             onChange={(e) => setEducationLevel(e.target.value)}
             type="text"
@@ -143,6 +145,7 @@ const Post = () => {
         <label>
           Capacidad maxima:
           <input
+            placeholder="Ingrese la capacidad maxima."
             required
             onChange={(e) => setCapacity(e.target.value)}
             type="number"
@@ -152,6 +155,7 @@ const Post = () => {
         <label>
           Numero de aula:
           <input
+            placeholder="Ingrese el numero de aula."
             required
             onChange={(e) => setClassroom(e.target.value)}
             type="text"
@@ -163,7 +167,7 @@ const Post = () => {
               <div>
                 <br />
                
-                <h2>Asignaturas que se impartiran:</h2>
+                <h2 className="asignacionP">Asignaturas que se impartiran:</h2>
 
                 {/* Mensaje si no se ha seleccionado ninguna materia válida. */}
                 {objctChosen.length > 0 ? null : (

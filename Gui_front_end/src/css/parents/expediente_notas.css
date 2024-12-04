@@ -657,3 +657,15 @@ body.dark .btn-grafic:hover {
 .fade-in {
   animation: fadeIn 0.5s ease-out;
 }
+
+
+
+
+.div-student-show{
+  height: 670px;
+}
+
+.span-alumno{
+  padding: 20px;
+}
+

@@ -47,7 +47,7 @@ function GradesTeacher() {
     // setSubjectsTeacher([]);//Se setean las materias
   }
 
-  //Modal registro calificaciones.
+  // Modal registro calificaciones.
   const openModalR = () => {
     setRenderSubjects(true)
     setIsOpenRegistro(true);
@@ -61,11 +61,10 @@ function GradesTeacher() {
     setIsOpenRegistro(false);
   }
 
+  
   const [isOpen, setIsOpen] = useState(false);
-
   //Crea el objeto con la vinculacion de la nota y asignaturas:
   const [ObjectGrades, setObjectGrades] = useState([]);
-
   let [estadoBusqueda, setEstadoBusqueda] = useState("");
 
   //Filtra por medio de las clases, ocultandolas segun sus caracteres o mostrandolas.
@@ -74,6 +73,11 @@ function GradesTeacher() {
     ? card.classList.remove("filtro")
     : card.classList.add("filtro")
   });
+
+  useEffect(() => {
+    console.log("ED");
+    
+}, [ObjectGrades]);
 
   useEffect(() => {
     const token = Cookies.get('AuthCookie');
@@ -130,9 +134,14 @@ function GradesTeacher() {
       period: Trimestre
     }
 
-    setRenderSubjects(json); //Recarga el registro
-    
-    postGrades(json);
+   // Post grades and then dispatch a reload
+    postGrades(json).then(() => {
+      dispatch(fetchGrades()); // Esto activará una recarga de calificaciones.
+      closeModal(); // Cierra el modal de registro de calificacion
+    }).catch((error) => {
+      console.error("Error posting grades:", error);
+    });
+
   };
 
   //Renderiza el trimestre

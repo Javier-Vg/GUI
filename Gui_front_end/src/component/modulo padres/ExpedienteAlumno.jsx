@@ -224,7 +224,7 @@ function ExpedienteAlumno() {
 
             <div>
               <BarChart
-                width={510}
+                width={670}
                 height={200}
                 data={graficRender}
                 margin={{ top: 20, right: 50, bottom: 5 }}
