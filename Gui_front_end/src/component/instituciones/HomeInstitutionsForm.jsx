@@ -21,6 +21,9 @@ import ListaEventos from "../moduloProfesor/listaEventos";
 import '../../css/Institutions/HomeInstitutionsForm.css'
 import ScheduleForm from "./createSchedule";
 import CreateContract from "./createContract";
+import PersonAddAlt1Icon from '@mui/icons-material/PersonAddAlt1';
+import EngineeringIcon from '@mui/icons-material/Engineering';
+import GroupAddIcon from '@mui/icons-material/GroupAdd';
 function HomeInstitutionsForm() {
   const [changeComponent, setChangeComponent] = useState("profesor  ");
   const [isDeployed, setIsDeployed] = useState(false);
@@ -148,29 +151,33 @@ function HomeInstitutionsForm() {
               </div>
             </>
           ) : (
-            <>
+            <> 
               <div
                 onClick={() => setChangeComponent("crear personal")}
                 className="inputBoton"
               >
-                <input
+               
+                <input 
                   type="radio"
                   id="crearPersonal"
                   name="changeComponent"
                   style={{ display: "none" }}
                 />
+               < EngineeringIcon />
                 <label className="label-home-inst"   htmlFor="crearPersonal">Crear Personal</label>
               </div>
               <div
                 onClick={() => setChangeComponent("crear estudiante")}
                 className="inputBoton"
               >
+                
                 <input
                   type="radio"
                   id="crearEstudiante"
                   name="changeComponent"
                   style={{ display: "none" }}
                 />
+                 <PersonAddAlt1Icon />
                 <label className="label-home-inst"  htmlFor="crearEstudiante">Crear Estudiante</label>
               </div>
               <div
@@ -183,6 +190,7 @@ function HomeInstitutionsForm() {
                   name="changeComponent"
                   style={{ display: "none" }}
                 />
+                < GroupAddIcon />
                 <label className="label-home-inst"  htmlFor="crearGrupo">Crear Grupo</label>
               </div>
               <div
@@ -215,12 +223,6 @@ function HomeInstitutionsForm() {
 
 
 
-
-
-
-
-
-
               <div
                 onClick={() => setChangeComponent("Horario")}
                 className="inputBoton"
@@ -245,13 +247,6 @@ function HomeInstitutionsForm() {
                 />
                 <label className="label-home-inst"  htmlFor="Contratos">Contratos</label>
               </div>
-
-
-
-
-
-
-
 
 
 

@@ -7,7 +7,7 @@ from rest_framework.permissions import IsAuthenticated, AllowAny
 class SubjectsViewSet(viewsets.ModelViewSet):
     queryset = subjects.objects.all()
     serializer_class = Subjects_Serializer
-    permission_classes = [IsAuthenticated]
+    permission_classes = [AllowAny]
     
     #Institutions
     def create(self, request):

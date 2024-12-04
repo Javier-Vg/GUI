@@ -7,7 +7,7 @@ from rest_framework.permissions import IsAuthenticated, AllowAny
 class GroupsViewSet(viewsets.ModelViewSet):
     queryset = group.objects.all()
     serializer_class = Groups_Serializer
-    permission_classes = [IsAuthenticated] # AllowAny para poder ingresar a la pagina de django, y IsAuthenticated para privatizarla
+    permission_classes = [AllowAny] # AllowAny para poder ingresar a la pagina de django, y IsAuthenticated para privatizarla
     
     def retrieve(self, request, pk=None):
         try:

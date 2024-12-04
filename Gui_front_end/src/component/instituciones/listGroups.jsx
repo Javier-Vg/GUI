@@ -228,7 +228,7 @@ function ListGroups() {
       </div>
 
       {seeMore && selectedGroup && (
-        <div className="modal">
+        <div className="modal-list-groups">
           <h2>Información del grupo</h2>
           <div className="group-info">
             <p>
@@ -251,16 +251,17 @@ function ListGroups() {
                 Ver todos los estudiantes
               </button>
             </p>
-            <p>
+            <p className="agregar-estudiantes-group">
               <strong>Agregar estudiantes:</strong>
               <button onClick={() => fetchStudents(selectedGroup.id)}>
                 Seleccionar Estudiantes
               </button>
             </p>
+            <h1 className="titulo-Materias" >Materias</h1>
             {Object.entries(
               selectedGroup.communication_of_subjects_and_teacher
             ).map(([subject, teacher], index) => (
-              <div key={index}>
+              <div className="info-materias" key={index}>
                 <p>Materia: {subject}</p>
                 <p>Profesor: {teacher}</p>
               </div>

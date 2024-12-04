@@ -210,11 +210,12 @@ function ListStudents() {
       </div>
 
       {seeMore && selectedStudent && (
-        <div className="modal">
+        <div className="modal-list-student">
           <h2>Información del Estudiante</h2>
           {/* dependiendo de su estado, muestra o edita la informacion del estudiante. */}
           {editMode ? (
-            <div>
+            <div >
+              <div className="edit-student-form">
               <label>Nombre:</label>
               <input
                 type="text"
@@ -306,7 +307,7 @@ function ListStudents() {
                 value={updatedStudent.type_of_student}
                 onChange={handleInputChange}
               />
-              <label>Grupo:</label>
+              <label  >Grupo:</label>
               <input
                 type="text"
                 name="group"
@@ -322,36 +323,42 @@ function ListStudents() {
                   alt="No found"
                 />
               )}
-              <button onClick={handleUpdate}>Actualizar Estudiante</button>
+              </div>
+              <button className="buton-actualizar-list-student" onClick={handleUpdate}>Actualizar Estudiante</button>
             </div>
           ) : (
-            <div>
-              <p>Nombre: {selectedStudent.username}</p>
-              <p>Apellido: {selectedStudent.last_name}</p>
-              <p>
+            
+            <div className="container-list-info-student"> 
+            <img src={selectedStudent.imagen_url} alt="" className="Student_Image-info"/>
+            <div className="div-info-student">
+              <p className="info-student">Nombre: {selectedStudent.username}</p>
+              <p className="info-student">Apellido: {selectedStudent.last_name}</p>
+              <p className="info-student">
                 Número de Identificación:{" "}
                 {selectedStudent.identification_number}
               </p>
-              <p>Fecha de Nacimiento: {selectedStudent.birthdate_date}</p>
-              <p>Grado: {selectedStudent.grade}</p>
-              <p>Estado Académico: {selectedStudent.academic_status}</p>
-              <p>
+              <p className="info-student">Fecha de Nacimiento: {selectedStudent.birthdate_date}</p>
+              <p className="info-student">Grado: {selectedStudent.grade}</p>
+              <p className="info-student">Estado Académico: {selectedStudent.academic_status}</p>
+              <p className="info-student">
                 Información de Alergias: {selectedStudent.allergy_information}
               </p>
-              <p>Contacto: {selectedStudent.contact_information}</p>
-              <p>Email: {selectedStudent.email}</p>
-              <p>Teléfono del Tutor: {selectedStudent.guardian_phone_number}</p>
-              <p>Nombre del Tutor: {selectedStudent.name_guardian}</p>
-              <p>
+              <p className="info-student">Contacto: {selectedStudent.contact_information}</p>
+              <p className="info-student">Email: {selectedStudent.email}</p>
+              <p className="info-student">Teléfono del Tutor: {selectedStudent.guardian_phone_number}</p>
+              <p className="info-student">Nombre del Tutor: {selectedStudent.name_guardian}</p>
+              <p className="info-student">
                 Pago Mensual del Estudiante:{" "}
                 {selectedStudent.monthly_payment_students}
               </p>
-              <p>Tipo de Estudiante: {selectedStudent.type_of_student}</p>
-              <p>Grupo: {selectedStudent.group}</p>
-              <button onClick={() => setEditMode(true)}>Editar</button>
+              <p className="info-student">Tipo de Estudiante: {selectedStudent.type_of_student}</p>
+              <p className="info-student">Grupo: {selectedStudent.group}</p>
+              <button className="buton-editar-list-student" onClick={() => setEditMode(true)}>Editar</button>
+              <button className="buton-cerrar-list-student" onClick={closeModal}>Cerrar</button>
+              </div>
             </div>
           )}
-          <button onClick={closeModal}>Cerrar</button>
+          
         </div>
       )}
     </div>
