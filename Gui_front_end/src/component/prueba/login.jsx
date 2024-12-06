@@ -85,9 +85,9 @@ function Login2() {
 
       <div className="container2-login-general">
         <form onSubmit={handleSubmit}>
-          <div className="img-logo-inicio">{responseMessage}</div>
-          <div className="container-inputs-general">
-           <div className="wave-group">
+          <div className='img-logo-inicio error-message'>{responseMessage}</div>
+          <div className='container-inputs-general'>
+            <div className='wave-group'>
               <input
                   autoComplete="off"
                   className="input-login-general"
@@ -152,8 +152,11 @@ function Login2() {
             <span className="bar"></span>
           </div>
           </div>
-          <div className="container-input-start">
-            <button class="animated-button">
+          <div className='container-input-start'>
+            <a className='forgot-pass' href=''>
+              Olvidó su contraseña?
+            </a>
+            <button class='animated-button'>
             <svg
               xmlns="http://www.w3.org/2000/svg"
               class="arr-2"
@@ -171,7 +174,6 @@ function Login2() {
               <path d="M16.1716 10.9999L10.8076 5.63589L12.2218 4.22168L20 11.9999L12.2218 19.778L10.8076 18.3638L16.1716 12.9999H4V10.9999H16.1716Z"></path>
             </svg>
             </button>
-            <a href="">Olvidó  su  contraseña?</a>
           </div>
         </form>
         <div className="container-derechos-general">
