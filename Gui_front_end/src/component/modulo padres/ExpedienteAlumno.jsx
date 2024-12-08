@@ -198,15 +198,17 @@ function ExpedienteAlumno() {
 
         <div className="fade-in">
           {/* <Mapa/> */}
+          
           <iframe
             className="iframe"
             style={{ border: 1 }}
-            src={`https://www.google.com/maps/embed/v1/place?key=${key}&q=${9.981642851164809},${-84.75704310364125}&zoom=17`}
+            src={`https://www.google.com/maps/embed/v1/place?key=${key}&q=${9.981642851164809},${-84.75704310364125}&zoom=16`}
             allowFullScreen
           />
         </div>
 
         <div className="fade-in">
+            <p>Filtrado de asistencias:</p>
           <div className="div-grafic">
             <div className="button-container-grafic">
               {buttons.map((button) => (
@@ -221,11 +223,15 @@ function ExpedienteAlumno() {
                 </button>
               ))}
             </div>
+          </div>
+        </div>
 
-            <div>
+        <div className="fade-in">
+        <h4 className="info-h3-child">Observe el registro de asistencias aqui:</h4>
+        <div>
               <BarChart
-                width={510}
-                height={200}
+                width={435}
+                height={270}
                 data={graficRender}
                 margin={{ top: 20, right: 50, bottom: 5 }}
               >
@@ -237,7 +243,6 @@ function ExpedienteAlumno() {
                 <Bar dataKey="count" fill="#48e" animationDuration={500} />
               </BarChart>
             </div>
-          </div>
         </div>
         <br />
     

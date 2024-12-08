@@ -33,21 +33,21 @@ function StudentsTeacher() {
     dispatch(fetchGroups());
   }, [dispatch]);
 
+  
 
   useEffect(() => {
     // Filtrar los estudiantes que no tienen la letra "F" en el nombre de usuario
     const filtro = StudentWithoutF.filter(student => 
         !student.username.toLowerCase().includes('f') &&
         student.username.toLowerCase().includes(searchTerm.toLowerCase())
-    );
+    );;
+    
     setStudent(filtro);
 }, [StudentWithoutF, searchTerm]);
   //Redux
   const itemsStudent = useSelector((state) => state.student.items);
   const itemsAssignmentG = useSelector((state) => state.groupAssignment.items);
   const itemsGroups = useSelector((state) => state.group.items);
-
-  
 
   useEffect(() => {
     setStudent([]); //Lo setea para que no lo integre 2 veces
@@ -75,14 +75,12 @@ function StudentsTeacher() {
                   const objetosFiltrados = studentsArray.filter(obj => {
                     if (usernamesUnicos.has(obj.username)) {
 
-                      
                       return false; // Omitir si ya existe
                     } else {
                       usernamesUnicos.add(obj.username); // Agregar al conjunto
                       return true; // Mantener si es único
                     }
                   });
-
                   
                   setStudentWithoutF(objetosFiltrados);
                   

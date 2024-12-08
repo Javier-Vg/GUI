@@ -2,12 +2,13 @@ import React, { useState, useEffect } from "react";
 import { getStaff, getMessages, sendMessage } from "../../service/LoginGui";
 import "../../css/Chat.css";
 import Cookies from "js-cookie";
-import { jwtDecode } from "jwt-decode";
+import {  jwtDecode } from "jwt-decode";
 import ChatBubbleIcon from "@mui/icons-material/ChatBubble";
 import SendIcon from "@mui/icons-material/Send";
 
+import { InputGroup, FormControl, Button } from "react-bootstrap";
+
 const Chat = () => {
-  //manejadores de estados
   const [selectedMember, setSelectedMember] = useState("");
   const [message, setMessage] = useState("");
   const [messages, setMessages] = useState([]);
@@ -15,6 +16,16 @@ const Chat = () => {
   const [storedStudent, setStudentID] = useState("");
   const [storedInstitutionId, setInstitutionId] = useState("");
   const [storedTeacherName, setNameTeacher] = useState("");
+
+  const handleKeyDown = (e) => {
+    // Verificar si se presionó Enter sin la tecla Shift
+    if (e.key === 'Enter' && !e.shiftKey) {
+      e.preventDefault(); // Prevenir un salto de línea por defecto
+      handleSendMessage(); // Llamar a tu función de enviar mensaje
+    }
+  };
+
+
 
   useEffect(() => {
     const token = Cookies.get("AuthCookie");
@@ -43,37 +54,33 @@ const Chat = () => {
             member.institution === storedInstitutionId &&
             member.position === "Teacher"
         );
-        console.log("Staff filtrado:");
         setStaff(filteredStaff);
       } catch (error) {
         console.error("Error al cargar el personal:", error);
       }
     };
 
-    fetchStaff();
-  }, [storedInstitutionId]);// Dependencia: se ejecuta cuando cambia `storedInstitutionId`
- // Carga los mensajes para el miembro del staff seleccionado
-  const fetchMessages = async (memberId) => {
-    try {
-      const allMessages = await getMessages();
-
-      setMessages(allMessages);
-    } catch (error) {
-      console.error("Error al cargar los mensajes:", error);
-    }
-  };
+    if (storedInstitutionId) fetchStaff();
+  }, [storedInstitutionId]);
 
   useEffect(() => {
+    const fetchMessages = async () => {
+      try {
+        const allMessages = await getMessages();
+        setMessages(allMessages);
+      } catch (error) {
+        console.error("Error al cargar los mensajes:", error);
+      }
+    };
+
     if (selectedMember) {
       fetchMessages();
     }
     const interval = setInterval(fetchMessages, 5000);
-
     return () => clearInterval(interval);
   }, [selectedMember]);
 
   const handleSendMessage = async () => {
-     // Comprueba si el mensaje, miembro seleccionado y estudiante están definidos
     if (message.trim() && selectedMember && storedStudent) {
       const newMessage = {
         message,
@@ -90,7 +97,7 @@ const Chat = () => {
           ...prevMessages,
           { ...savedMessage, transmitterName: storedTeacherName || "Profesor" },
         ]);
-        setMessage("");// Limpia el mensaje después de enviarlo
+        setMessage("");
       } catch (error) {
         console.error("No se pudo enviar el mensaje", error);
         alert("Error al enviar el mensaje. Intenta nuevamente.");
@@ -99,7 +106,7 @@ const Chat = () => {
       alert("Por favor, selecciona un miembro del staff y escribe un mensaje.");
     }
   };
-  // Filtrado de mensajes por miembro seleccionado, institución y estudiante
+
   const filteredMessages = selectedMember
     ? messages.filter(
         (msg) =>
@@ -108,97 +115,35 @@ const Chat = () => {
           msg.students === storedStudent
       )
     : [];
-  // Filtrado de mensajes por miembro seleccionado
+    
   return (
-    // <div className="chat-profesor-container">
-    //   {/* Lista de miembros del staff con imágenes */}
-
-    //   <div className="chat-bubbles-container-students">
-    //     {staff.map((member) => (
-    //       <div
-    //         key={member.id}
-    //         onClick={() => {
-    //           setSelectedMember(member.id);
-
-    //           fetchMessages();
-    //         }}
-    //       >
-    //         <div className="contendor-fotos">
-    //           <img
-    //             src={member.imagen_url}
-    //             alt={`${member.name} profile`}
-    //             className="staff-photo"
-    //           />
-    //           <p>{member.username}</p>
-    //         </div>
-    //       </div>
-    //     ))}
-    //   </div>
-
-    //   {/* Contenedor del chat */}
-    //   <div className="chat-container-staf">
-    //     {/* Mostrar los mensajes filtrados */}
-    //     <div className="messages-container-staff">
-    //       {filteredMessages.length > 0 ? (
-    //         filteredMessages.map((msg, index) => (
-    //           <div
-    //             key={index}
-    //             className={`message ${
-    //               msg.name === storedTeacherName
-    //                 ? "sent-estudiante"
-    //                 : "received-estudiante"
-    //             }`}
-    //           >
-    //             <ChatBubbleIcon />
-    //             <strong> {msg.name}:</strong> {msg.message}
-    //           </div>
-    //         ))
-    //       ) : (
-    //         <p>No hay mensajes en la conversación.</p>
-    //       )}
-    //     </div>
-
-    //     {/* Input para enviar un mensaje */}
-    //   </div>
-
-    //   <div>
-    //     <div className="send-message-container">
-    //       <div>
-    //         <textarea
-    //           value={message}
-    //           onChange={(e) => setMessage(e.target.value)}
-    //           placeholder="Escribe tu mensaje aquí"
-    //           className="message-input-chat"
-    //         />
-    //       </div>
-    //       <div>
-    //         <button onClick={handleSendMessage} className="send-button-student">
-    //           <SendIcon />
-    //         </button>
-    //       </div>
-    //     </div>
-    //   </div>
-    // </div>
     <div className="chat-profesor-container">
-      {/* Lista de miembros del staff con imágenes */}
+      {/* Lista de contactos */}
       <div className="div-chat-bubbles-container-students">
         {staff.map((member) => (
           <div
-            className="chat-bubbles-container-students" key={member.id}onClick={() => {  setSelectedMember(member.id); fetchMessages(); }} >
-            <div>
+            className={`chat-bubbles-container-students ${
+              selectedMember === member.id ? "active-contact" : ""
+            }`}
+            key={member.id}
+            onClick={() => setSelectedMember(member.id)}
+          >
+            <div className="divs-encap">
               <img
                 src={member.imagen_url}
                 alt={`${member.name} profile`}
                 className="staff-photo"
               />
             </div>
-            <div>
-              <p>{member.username}</p>
+            <div className="divs-encap">
+              <p className="p-chat">{member.username}</p>
             </div>
           </div>
         ))}
       </div>
+      
 
+      {/* Mensajes */}
       <div className="chat-container-staf">
         <div className="messages-container-staff">
           {filteredMessages.length > 0 ? (
@@ -216,22 +161,29 @@ const Chat = () => {
               </div>
             ))
           ) : (
-            <p>No hay mensajes en la conversación.</p>
+            <p className="p-chat">No hay mensajes en la conversación.</p>
           )}
         </div>
-      </div>
 
-      <div className="send-message-container">
-        <div className="div-message-input-chat">
-          <textarea
-            value={message}
-            onChange={(e) => setMessage(e.target.value)}
-            placeholder="Escribe tu mensaje aquí"
-            className="message-input-chat"
-          />
-          <button onClick={handleSendMessage} className="send-button-student">
-            <SendIcon />
-          </button>
+        <div className="send-message-container">
+          <div className="div-message-input-chat">
+            <textarea
+              value={message}
+              onChange={(e) => setMessage(e.target.value)}
+              placeholder="Escribe tu mensaje aquí"
+              className="message-input-chat"
+              onKeyDown={handleKeyDown} // Detecta Enter
+            />
+            <button
+              onClick={handleSendMessage}
+              className="send-button-student"
+            >
+              <SendIcon />
+            </button>
+
+
+      
+          </div>
         </div>
       </div>
     </div>

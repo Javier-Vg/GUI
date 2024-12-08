@@ -1,154 +1,153 @@
+
+/* Contenedor principal */
 .chat-profesor-container {
-    display: grid; /* Usa grid para la estructura general */
-    grid-template-rows: auto 1fr; /* Dos filas: la primera automática y la segunda ocupando el espacio restante */
-    height: 100vh; /* Altura total de la vista */
-}
+    display: flex;
+    flex-direction: row;
+    height: 100vh;
+    overflow: hidden;
+    padding-top: 70px;
+  }
+  
+  /* Lista de contactos */
+  .div-chat-bubbles-container-students {
+    width: 30%;
+    border-right: 1px solid #ddd;
+    overflow-y: auto;
+    background-color: #f1f1f1;
+  }
+  
+  .chat-bubbles-container-students {
+    padding: 10px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    border-bottom: 1px solid #ddd;
+  }
+  
+  .chat-bubbles-container-students img {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    margin-right: 10px;
+  }
+  
+  .chat-bubbles-container-students.active-contact {
+    background-color: #e0f7fa;
+  }
+  
+  /* Chat */
+  .chat-container-staf {
+    width: 70%;
+    display: flex;
+    flex-direction: column;
+    background-color: #fff;
+    overflow-y: auto;
+  }
+  
+  .messages-container-staff {
+    flex: 1;
+    padding: 10px;
+    overflow-y: auto;
+    background-color: #f8f9fa;
+  }
+  
+  .message {
+    margin: 10px 0;
+  }
+  
+  .sent-estudiante {
+    text-align: start;
+    font-size: 15px;
+    background-color: #d4edda;
+    padding: 10px;
+    border-radius: 10px;
+    width: 370px;
+    margin-right: 0;
+  }
+  
+  .received-estudiante {
+    text-align: start;
+    background-color: #f8d7da;
+    padding: 10px;
+    border-radius: 10px;
+    width: 370px;
+    font-size: 15px;
+    margin-left: auto;
+  }
+  
+  /* Input */
+  .send-message-container {
+    display: flex;
+    padding: 10px;
+    border-top: 1px solid #ddd;
+    width: 1140px;
+  }
+  
+  .message-input-chat {
+    flex: 1;
+    padding: 10px;
+    margin-right: 10px;
+    width: 220px;
+    position: absolute;
+  }
 
-.div-chat-bubbles-container-students {
-    height: 15vh; /* Altura del contenedor de burbujas */
-    display: grid; /* Usa grid para centrar los elementos */
-    place-items: center; /* Centra los elementos dentro del grid */
-    
-}
-.chat-bubbles-container-students{
-    height: 90%;
-    width: 10%;
-    margin-top: 1em;
-    display: grid !important;
-    place-items: center;
-    border-left: solid 1px rgba(0, 0, 0, 0.263);
-    border-right: solid 1px rgba(0, 0, 0, 0.263);
-    border-bottom: solid 1px rgba(0, 0, 0, 0.263);
+  /* Boton verde de enviar */
+  .send-button-student {
+    position: relative;
+    background-color: #25d366;
+    color: white;
+    border: none;
+    padding: 10px;
+    cursor: pointer;
+    margin-left: 220px;
+    height: 52px;
+    width: 50px;
 
-}
+  }
+  
+  
 
 
 
-.chat-container-staf {
-    height: 65vh; /* Altura del contenedor del chat */
-    display: flex; /* Usa flexbox para alinear los elementos */
-    flex-direction: column-reverse; /* Invertir la dirección para que comience desde abajo */
-    padding: 20px; /* Espacio interno para el contenedor del chat */
-    overflow-y: auto !important; /* Habilita el desplazamiento si hay muchos mensajes */
-}
-
-.messages-container-staff {
-    padding-top: 1em;
-    padding-bottom: 1em;
-    border-top: 1px solid black;
-    display: flex; /* Usa flexbox para organizar los mensajes */
-    flex-direction: column; /* Alinea los mensajes en una columna */
-    margin-top: 20px; /* Espaciado superior */
-    flex-grow: 1; /* Permite que el contenedor de mensajes crezca */
-    overflow-y: auto; /* Habilita el desplazamiento si hay muchos mensajes */
-    width: 75%; /* Ancho del contenedor al 75% */
-    margin-left: auto; /* Centra el contenedor horizontalmente */
-    margin-right: auto; /* Centra el contenedor horizontalmente */
-    max-height: calc(100% - 20px); /* Asegura que el contenedor no exceda la altura del contenedor padre */
-}
 
 
 
-.message {
-    display: flex; /* Usa flexbox para los mensajes individuales */
-    align-items: center; /* Centra verticalmente los iconos y texto */
-    margin: 5px; /* Espaciado entre mensajes */
-    padding: 10px; /* Espaciado interno para los mensajes */
-    border-radius: 10px; /* Bordes redondeados */
-    max-width: 70%; /* Ancho máximo de los mensajes */
-}
 
-.sent-estudiante {
-    background-color: #a3d8a8; /* Color de fondo para los mensajes enviados */
-    align-self: flex-end; /* Alinea a la derecha */
-    text-align: right; /* Alinea el texto a la derecha */
-}
-
-.received-estudiante {
-    background-color: #f0f0f0; /* Color de fondo para los mensajes recibidos */
-    align-self: flex-start; /* Alinea a la izquierda */
-    text-align: left; /* Alinea el texto a la izquierda */
-}
-
-/* Opcional: estilos para el icono del chat */
-.message .chat-bubble-icon {
-    margin-right: 5px; /* Espacio entre el icono y el texto */
-}
-
-.send-message-container {
-    background-color: #1d318b; /* Color de fondo del contenedor */
-    height: 20vh; /* Altura fija del contenedor */
-    display: grid; /* Usar grid para la disposición */
-    grid-template-columns: 85% 15%; /* Espacio para el textarea y el botón */
-    align-items: center; /* Alinea verticalmente los elementos */
-    padding-left: 15%;
-    padding-bottom: 5em;
-}
-
-.div-message-input-chat {
-    display: flex; /* Usa flexbox para alinear los elementos internos */
-    align-items: center; /* Centra verticalmente el textarea y el botón */
-    width: 100%; /* Asegúrate de que ocupe todo el espacio disponible */
-    background-color: transparent;
-}
-
-.message-input-chat {
-    width: 100%; /* Ocupa todo el ancho del contenedor interno */
-    max-height: 80px; /* Altura máxima del textarea */
-    resize: none; /* Desactiva el redimensionamiento del textarea */
-    padding: 10px; /* Espacio interno para el texto */
-    border-radius: 5px; /* Bordes redondeados */
-    border: 1px solid #ccc; /* Borde del textarea */
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2); /* Sombra opcional */
-    background-color: white; /* Color de fondo del textarea */
-    margin-right: 1em; /* Espaciado a la derecha del textarea */
-}
-.message-input-chat:focus{
-    outline: none;
-}
-
-.send-button-student {
-    background-color: #4caf50; /* Color de fondo del botón */
-    color: white; /* Color del texto del botón */
-    border: none; /* Sin borde */
-    border-radius: 5px; /* Bordes redondeados */
-    padding: 10px 15px; /* Espaciado interno del botón */
-    cursor: pointer; /* Cambia el cursor al pasar sobre el botón */
-    transition: background-color 0.3s; /* Transición para el efecto hover */
-}
-
-.send-button-student:hover {
-    background-color: #45a049; /* Color del botón al pasar el mouse */
-}
-
+/* Media query para pantallas medianas (tablets, landscape phones) */
 @media (max-width: 768px) {
-    .chat-profesor-container {
-        grid-template-rows: auto 1fr; /* Mantener la misma estructura */
-        height: auto; /* Permitir que la altura se ajuste */
-    }
 
-    .div-chat-bubbles-container-students {
-        height: 20vh; /* Aumentar la altura en pantallas más pequeñas */
-    }
+  .received-estudiante{
+    font-size: 12px;
+    width: 200px;
+  }
 
-    .chat-bubbles-container-students {
-        width: 80%; /* Aumentar el ancho del contenedor de burbujas */
-    }
+  .sent-estudiante{
+    font-size: 12px;
+    width: 200px;
+  }
 
-    .chat-container-staf {
-        height: 50vh; /* Reducir la altura del contenedor del chat */
-    }
+  .div-chat-bubbles-container-students {
+    width: 28%; /* Más compacto pero legible */
+  }
 
-    .messages-container-staff {
-        width: 90%; /* Aumentar el ancho del contenedor de mensajes */
-    }
+  .chat-container-staf {
+    flex: 1;
+  }
 
-    .send-message-container {
-        grid-template-columns: 75% 25%; /* Ajustar proporciones en pantallas más pequeñas */
-        padding-left: 10%; /* Reducir el padding */
-    }
+  .staff-photo {
+    width: 50px;
+    height: 50px;
+    object-fit: cover; /* Mantener proporción sin deformación */
+  }
 
-    .message-input-chat {
-        max-height: 60px; /* Reducir altura máxima del textarea */
-    }
+
+}
+
+
+/* Not working */
+@media (max-width: 380px) {
+  .send-button-student{
+    margin-left: 10;
+    
+  }
 }
